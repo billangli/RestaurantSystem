@@ -1,20 +1,26 @@
 package table;
 
 public class Table {
-    int tableNum;
-    Server server;
-    Order order;
-    public Table(int  tableNum, Server server){
+    private int tableNum;
+    private Server server;
+    private Order order;
+
+    public Table(int tableNum) {
         this.tableNum = tableNum;
-        this.server = server;
         order = new Order(this);
     }
-    public void order(Dish dish){
+
+    public void serve(Server server){
+        this.server = server;
+    }
+
+    public void order(Dish dish) {
         server.order(this, dish);
     }
-    public String bill(){
-        String bill = ""+tableNum;
+
+    public String bill() {
+        String bill = "" + tableNum;
         return bill + order.toString();
     }
-    
+
 }
