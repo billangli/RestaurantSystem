@@ -1,0 +1,6 @@
+# This files tells git to not add certain files to the repo
+# These files are configuration files for individual computers
+
+*.iml
+*.xml
+*.idea
