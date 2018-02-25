@@ -13,6 +13,10 @@ public class Order {
         dishes = new ArrayList<Dish>();
 
     }
+    public void addDish(Dish d){
+        dishes.add(d);
+    }
+
     public void sent(){
         sent = true;
     }
@@ -31,5 +35,9 @@ public class Order {
 
     public void recook(Dish d){
         d.recook();
+    }
+
+    public Table getTable() {
+        return table;
     }
 }
