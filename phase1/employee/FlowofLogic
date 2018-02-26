@@ -1,9 +1,0 @@
-- Customer orders food
-    - This input comes from event.txt.
-    - This is an input to the Server.
-- Server 'enters' menu items
-    ?- is customer order made by papers so that server should enter menu in the restaurant system?
-    - Enters ..
-        - Table number
-        - additions and subtractions from each menu item
-- Cook sees the order appear, and confirms that the order has been seen.

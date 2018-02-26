@@ -1,4 +1,0 @@
-1. Do we need Workers class?
-- I think the software we are trying to make is a restaurant software for customers to order food and manage number of
-ingredients.
-- So I don't think we need to know Workers class to know things like each of employee's name.
