@@ -1,3 +1,9 @@
 EmployeeManager
 =============================================
-void enterMenu(Order order, int tableNumber)
+Server
+
+void enterMenu(Order order, Table table)
+void deliverDishCompleted(Dish dish)
+void deliverDishFailed(Dish dish)
+void printBill(Table table)
+boolean checkIfPaid(Table table)
