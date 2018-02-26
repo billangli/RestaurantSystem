@@ -20,4 +20,12 @@ abstract class Event {
      * @return a String representing the output of processing this event
      */
     abstract public String process();
+
+    /**
+     * Parses a line (read from event.txt) into an event and returns it
+     *
+     * @param line is the line to be parsed
+     * @return the Event representation of the line
+     */
+    static Event parseEvent(String line) {}
 }
