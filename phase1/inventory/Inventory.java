@@ -20,9 +20,18 @@ public class Inventory {
     }
 
     public void alertLowIngredient() {
-        Iterator it = IngredientsInventory.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.entry())
+        Iterator iter = IngredientsInventory.keySet().iterator();
+
+
+        for (Map.Entry<String, Integer> entry : IngredientsInventory.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+
+//        while (iter.hasNext()) {
+//            Map.Entry pair = (Map.Entry) iter.next();
+//            if (pair.getValue() <= ThresholdInventory.get(pair)) {
+
+
         }
     }
 
