@@ -35,4 +35,11 @@ public class Dish {
         return name;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
+    public Table getTable() {
+        return table;
+    }
 }
