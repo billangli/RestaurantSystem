@@ -25,7 +25,7 @@ public class Table {
         cost += d.getCost();
     }
 
-    public void order(Order newOrder) {
+    public void addOrder(Order newOrder) {
         order.add(newOrder);
     }
 

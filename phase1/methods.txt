@@ -7,3 +7,8 @@ void deliverDishCompleted(Dish dish)
 void deliverDishFailed(Dish dish)
 void printBill(Table table)
 boolean checkIfPaid(Table table)
+
+
+TableManager
+============================================
+void takeSeat(Table table, Server server)
