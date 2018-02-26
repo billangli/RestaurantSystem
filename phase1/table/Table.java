@@ -1,26 +1,48 @@
 package table;
 
+import employee.Server;
+
+import java.util.ArrayList;
+
 public class Table {
     private int tableNum;
+    private int cost;
     private Server server;
-    private Order order;
+    private ArrayList<Order> order;
 
     public Table(int tableNum) {
         this.tableNum = tableNum;
-        order = new Order(this);
+        order = new ArrayList<Order>();
+        order.add(new Order(this));
+        cost = 0;
     }
 
     public void serve(Server server){
         this.server = server;
     }
 
-    public void order(Dish dish) {
-        server.order(this, dish);
+    public void addCost(Dish d){
+        cost += d.getCost();
     }
 
-    public String bill() {
+    public void order(Order newOrder) {
+        order.add(newOrder);
+    }
+
+    public String printBill() {
         String bill = "" + tableNum;
-        return bill + order.toString();
+        for(Order o: order){
+            bill += o.toString();
+        }
+        return bill;
+    }
+
+    public Server getServer(){
+        return server;
+    }
+
+    public int getTableNum(){
+        return tableNum;
     }
 
 }

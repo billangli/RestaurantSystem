@@ -40,4 +40,8 @@ public class Order {
     public Table getTable() {
         return table;
     }
+
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
 }
