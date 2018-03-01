@@ -1,3 +1,7 @@
 1.  For deliverOrder, are we able to say we delivered the entire order as a single event, or should we break individual dish in the order as separate deliverOrder?
 
 2. Inventory: Do we need to only worry about food ingredients?
+
+3. graphic, how many interface
+
+4.server owns tablet or table owns tablet
