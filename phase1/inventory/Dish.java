@@ -2,12 +2,15 @@ package inventory;
 
 
 import java.util.HashMap;
-        import table.Table;
+import java.util.Iterator;
+import java.util.Map;
+
+import table.Table;
 
 public class Dish {
     private String name;
-//    private HashMap<Ingredient, Integer> ingredients;
-    private HashMap<String, Integer> ingredientsInventory = new HashMap<>();
+
+    private HashMap<String, Integer> ingredientsRequired = new HashMap<>();
 
     private int cost;
 //    private int dishNumber;
@@ -16,17 +19,38 @@ public class Dish {
 
     public Dish(String name, int price, String[] ingredients, String[] Changable){
         this.name = name;
-        cost = price;
-        for(String in: ingredients){
-            String[] item = in.split(":");
-            ingredientsInventory.put(item[0],Integer.parseInt(item[1]));
+        this.cost = price;
+        for(String ingredient: ingredients){
+            String[] item = ingredient.split(":");
+            ingredientsRequired.put(item[0],Integer.parseInt(item[1]));
         }
 
         isReady = false;
     }
 
+    // NEED MODIFICATION
     public void adjustIngredient(String ingredientName, int amount){
-        ingredientsInventory.put(ingredientName,ingredientsInventory.get(ingredientName)+amount);
+        ingredientsRequired.put(ingredientName,ingredientsRequired.get(ingredientName)+amount);
+    }
+
+    public void updateIngredientsStock(HashMap<String, Object> ingredientsInventory) {
+        for (Ingredient ingredient : ingredientsRequired)
+
+
+        Iterator iter = ingredientsInventory.keySet().iterator();
+
+
+        for (String ingredient : ingredientsInventory.keySet()) {
+            if
+        }
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            if (value <= ThresholdInventory.get(key)) {
+                // create event to event.txt
+                // create text request
+
+            }
+
     }
 
 

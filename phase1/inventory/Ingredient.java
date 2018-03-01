@@ -12,6 +12,11 @@ public class Ingredient {
         this.thresholdQuanity = thresholdQuanity;
     }
 
+    public int getQuantity(){
+        return this.quantity;
+    }
+
+
     public boolean allowed(int n){
         if(n> thresholdQuanity[0] && n < thresholdQuanity[1]){
             return true;
