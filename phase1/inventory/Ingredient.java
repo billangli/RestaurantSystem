@@ -16,6 +16,14 @@ public class Ingredient {
         return this.quantity;
     }
 
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+
+
+    public String getName(){
+        return this.name;
+    }
 
     public boolean allowed(int n){
         if(n> thresholdQuanity[0] && n < thresholdQuanity[1]){
