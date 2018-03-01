@@ -8,24 +8,50 @@
 
 package event;
 
-import java.util.Date;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
-abstract class Event {
-    private Date timeCreated;
-    private String creator; // All eventCreators should have an id (e.g. Worker, Inventory)
+class Event {
+    private String manager;
+    private String instanceID;
+    private String method;
+    private ArrayList<String> parameters;
 
     /**
-     * Processes the event and makes changes to the RestaurantSystem by calling methods in other classes
-     *
-     * @return a String representing the output of processing this event
+     * Empty constructor TODO: Might want to remove this
      */
-    abstract public String process();
+    Event () {}
+
+//    /**
+//     * Processes the event and makes changes to the RestaurantSystem by calling methods in other classes
+//     *
+//     * @return a String representing the output of processing this event
+//     */
+//    abstract public String process();
 
     /**
      * Parses a line (read from event.txt) into an event and returns it
      *
      * @param line is the line to be parsed
-     * @return the Event representation of the line
      */
-    static Event parseEvent(String line) {}
+    void parseEvent(String line) {
+        StringTokenizer lineTokenizer = new StringTokenizer(line);
+        try {
+            // Parsing the text file according to our format TODO: Create a format in the README
+            this.manager = lineTokenizer.nextToken();
+            this.instanceID = lineTokenizer.nextToken();
+            this.method = lineTokenizer.nextToken();
+
+            // Creating an ArrayList of parameters from one token in the line
+            String allParameters = lineTokenizer.nextToken();
+            allParameters = allParameters.substring(0, allParameters.length() - 1);
+            StringTokenizer parameterTokenizer = new StringTokenizer(allParameters, ",");
+            while (parameterTokenizer.hasMoreTokens()) {
+                this.parameters.add(parameterTokenizer.nextToken());
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // TODO: Make my own exception
+        }
+    }
 }
