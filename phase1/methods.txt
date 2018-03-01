@@ -1,14 +1,31 @@
-EmployeeManager
 =============================================
-Server
+package employee
+=============================================
+class EmployeeManager
++ addEmployee(Employee employee): void
++ addCook(Cook cook): void
++ addServer(Server server): void
++ toString(): String
 
-void enterMenu(Order order, Table table)
-void deliverDishCompleted(Dish dish)
-void deliverDishFailed(Dish dish)
-void printBill(Table table)
-boolean checkIfPaid(Table table)
+class Employee
++ receiveItem(): void
++ getID(): int
++ toString(): String
+
+class Cook
++ orderReceived(Order order): void
++ dishReady(Dish dish): void
+
+class Server
++ takeSeat(Table table): void
++ enterMenu(Table table, Order order): void
++ deliverDishCompleted(Dish dish): void
++ deliverDishFailed(Dish dish): void
++ printBill(Table table): void
++ checkIfPaid(Table table): boolean
++ equals(Object object): boolean
 
 
 TableManager
 ============================================
-void takeSeat(Table table, Server server)
+// + takeSeat(Table table, Server server): void / This method is transferred to Server class.
