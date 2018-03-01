@@ -8,7 +8,9 @@
 
 package event;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -34,10 +36,13 @@ public class EventReader {
     /**
      * Creates Events from info in lines and adds the events to the eventQueue
      *
-     * @param lines is a list of lines (read from event.txt) that represent events
+     * @param lines      is a list of lines (read from event.txt) that represent events
      * @param eventQueue is the queue of events
      */
     private void addLinesToQueue(ArrayList<String> lines, Queue<Event> eventQueue) {
-
+        for (String line : lines) {
+            Event event = new Event(line);
+            eventQueue.add(event);
+        }
     }
 }

@@ -17,6 +17,16 @@ class Event {
     private String method;
     private ArrayList<String> parameters = new ArrayList<>();
 
+    /**
+     * Constructor that takes a line and uses the information in the line to create the event
+     * This uses the parseEvent method
+     *
+     * @param line is the line (in event.txt) that contains the information
+     */
+    Event(String line) {
+        this.parseEvent(line);
+    }
+
 //    /**
 //     * Processes the event and makes changes to the RestaurantSystem by calling methods in other classes
 //     *
@@ -29,9 +39,9 @@ class Event {
      *
      * @param line is the line to be parsed
      */
-    void parseEvent(String line) {
+    private void parseEvent(String line) {
         StringTokenizer lineTokenizer = new StringTokenizer(line);
-//        try {
+        try {
             // Parsing the text file according to our format TODO: Create a format in the README
             this.manager = lineTokenizer.nextToken();
             this.instanceID = lineTokenizer.nextToken();
@@ -44,15 +54,14 @@ class Event {
             while (parameterTokenizer.hasMoreTokens()) {
                 this.parameters.add(parameterTokenizer.nextToken());
             }
-//        } catch (Exception e) {
-//            e.printStackTrace(); // TODO: Make my own exception
-//        }
+        } catch (Exception e) {
+            e.printStackTrace(); // TODO: Make my own exception
+        }
     }
 
     // Test for Event
     public static void main(String[] args) {
-        Event event = new Event();
-        event.parseEvent("EmployeeManager 1 deliverOrderFailed (A13,B42,C23)");
+        Event event = new Event("EmployeeManager 1 deliverOrderFailed (A13,B42,C23)");
         System.out.println(event.manager);
         System.out.println(event.instanceID);
         System.out.println(event.method);
