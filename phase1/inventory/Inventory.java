@@ -26,6 +26,14 @@ public class Inventory {
         for (Map.Entry<String, Integer> entry : IngredientsInventory.entrySet()) {
             String key = entry.getKey();
             Integer value = entry.getValue();
+            if (value <= ThresholdInventory.get(key)) {
+                // create event to event.txt
+                // create text request
+
+            }
+
+
+
 
 //        while (iter.hasNext()) {
 //            Map.Entry pair = (Map.Entry) iter.next();

@@ -15,7 +15,7 @@ public class Menu {
     public void create()throws IOException{
         try (BufferedReader fileReader = new BufferedReader(new FileReader("menu.txt"))) {
 
-            // Print the lines from f prefaced with the line number,
+            // Print the lines from f prefaced wiZZth the line number,
             // starting at 1.
             String line = fileReader.readLine();
             while (line != null) {
