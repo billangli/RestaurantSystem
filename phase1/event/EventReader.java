@@ -15,8 +15,17 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 public class EventReader {
-    private static final String file = "event/event.txt";
+    private String file;
     private ArrayList<String> lines = new ArrayList<>();
+
+    /**
+     * Constructor for EventReader
+     *
+     * @param file is the file to be read from
+     */
+    EventReader(String file) {
+        this.file = file;
+    }
 
     /**
      * Reads the event.txt file and creates events and adds them to the queue
@@ -24,7 +33,7 @@ public class EventReader {
      * @param eventQueue is the queue that the events will be added to
      */
     void readFile(Queue<Event> eventQueue) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(new FileReader(this.file));
         String line;
         while ((line = br.readLine()) != null) {
             lines.add(line);
