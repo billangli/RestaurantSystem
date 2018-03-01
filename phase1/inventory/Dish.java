@@ -6,23 +6,30 @@ import java.util.HashMap;
 public class Dish {
     private String name;
 //    private HashMap<Ingredient, Integer> ingredients;
-    private HashMap<String, Integer> IngredientsInventory = new HashMap<>();
+    private HashMap<String, Integer> ingredientsInventory = new HashMap<>();
     private int cost;
 //    private int dishNumber;
     private boolean isReady;
     Table table;
 
-    public Dish(Table t, String name){
+    public Dish(String name, int price, String[] ingredients, String[] Changable){
         this.name = name;
-        table = t;
+        cost = price;
+        for(String in: ingredients){
+            String[] item = in.split(":");
+            ingredientsInventory.put(item[0],Integer.parseInt(item[1]));
+        }
+
         isReady = false;
-        ingredients = new HashMap<Ingredient, Integer>();
     }
 
-    public void adjustIngredient(Ingredient in, int amount){
-        ingredients.put(in,ingredients.get(in)+amount);
+    public void adjustIngredient(String in, int amount){
+        ingredientsInventory.put(in,ingredientsInventory.get(in)+amount);
     }
 
+    public void setTable(Table t){
+        table = t;
+    }
     public void ready(){
         isReady = true;
     }
