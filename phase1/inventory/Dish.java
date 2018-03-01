@@ -33,7 +33,7 @@ public class Dish {
 
     // NEED MODIFICATION
     public void adjustIngredient(String ingredientName, int amount){
-        if(ingredientsRequired.get(ingredientName).allowed(amount, inventory.get(ingredientName))){
+        if(ingredientsRequired.get(ingredientName).allowed(amount, inventory.getIngredient(ingredientName))){
             ingredientsRequired.get(ingredientName).adjust(amount);
         }
     }

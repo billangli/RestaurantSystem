@@ -5,23 +5,22 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Inventory {
-    private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();
-    private static HashMap<String, Ingredient> thresholdInventory = new HashMap<>();
+    private static HashMap<String, Ingredient> ingredientsInventory;
 
 
 
     // read off the menu and just set arbitrary value for each ingredient
-    public Inventory(Menu menu) {
-        for (Dish dish : menu.Dishes) {
-            ingredientsInventory.put(dish.getName(), 10000);
-
-        }
-
+    public Inventory() {
+        ingredientsInventory = new HashMap<>();
     }
 
 
     public Ingredient getIngredient(String ingredientName){
-        return ingredientsInventory.get(ingredientName);        
+        return ingredientsInventory.get(ingredientName);
+    }
+
+    public void add(Ingredient ingredient){
+        ingredientsInventory.put(ingredient.getName(),ingredient);
     }
 
 
