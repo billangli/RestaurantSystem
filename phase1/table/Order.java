@@ -1,5 +1,7 @@
 package table;
 
+import inventory.Dish;
+
 import java.util.ArrayList;
 
 public class Order {

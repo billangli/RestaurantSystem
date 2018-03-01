@@ -1,6 +1,7 @@
 package table;
 
 import employee.Server;
+import inventory.Dish;
 
 import java.util.ArrayList;
 
@@ -9,12 +10,13 @@ public class Table {
     private int cost;
     private Server server;
     private ArrayList<Order> order;
-
+    private boolean isPaid;
     public Table(int tableNum) {
         this.tableNum = tableNum;
         order = new ArrayList<Order>();
         order.add(new Order(this));
         cost = 0;
+        isPaid = false;
     }
 
     public void serve(Server server){
@@ -29,13 +31,6 @@ public class Table {
         order.add(newOrder);
     }
 
-    public String printBill() {
-        String bill = "" + tableNum;
-        for(Order o: order){
-            bill += o.toString();
-        }
-        return bill;
-    }
 
     public Server getServer(){
         return server;
@@ -45,4 +40,11 @@ public class Table {
         return tableNum;
     }
 
+    public ArrayList<Order> getOrder() {
+        return order;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
 }

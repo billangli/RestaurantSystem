@@ -46,4 +46,8 @@ public class Dish {
     public Table getTable() {
         return table;
     }
+
+    public String toString(){
+        return name +"    "+ cost;
+    }
 }
