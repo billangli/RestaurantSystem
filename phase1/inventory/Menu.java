@@ -3,9 +3,10 @@ package inventory;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Menu {
-    private ArrayList<Dish> dishes = new ArrayList<>();
+    private HashMap<String, Dish> dishes = new HashMap<>();
 
     public Menu()throws IOException{
         create();
@@ -23,11 +24,15 @@ public class Menu {
                 int price = Integer.parseInt(items[1]);
                 String[] ingredients = items[2].split(",");
                 String[] changable = items[3].split(",");
-                dishes.add(new Dish(name,price, ingredients, changable));
+                dishes.put(name, new Dish(name,price, ingredients, changable));
 
                 }
                 line = fileReader.readLine();
             }
+    }
+
+    public Dish getDish(String name){
+        return dishes.get(name);
     }
 
 
