@@ -9,20 +9,23 @@ import table.Table;
 
 public class Dish {
     private String name;
-
-    private HashMap<String, Integer> ingredientsRequired = new HashMap<>();
+    private Inventory inventory;
+    private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
 
     private int cost;
 //    private int dishNumber;
     private boolean isReady;
     Table table;
 
-    public Dish(String name, int price, String[] ingredients, String[] Changable){
+    public Dish(String name, int price, String[] ingredients, Inventory inventory){
         this.name = name;
         this.cost = price;
+        this.inventory = inventory;
         for(String ingredient: ingredients){
             String[] item = ingredient.split(":");
-            ingredientsRequired.put(item[0],Integer.parseInt(item[1]));
+            int[] limit = {Integer.parseInt(item[2]),Integer.parseInt(item[3])};
+            Ingredient in = new Ingredient(item[0],Integer.parseInt(item[1]),limit);
+            ingredientsRequired.put(item[0],in);
         }
 
         isReady = false;
@@ -30,7 +33,9 @@ public class Dish {
 
     // NEED MODIFICATION
     public void adjustIngredient(String ingredientName, int amount){
-        ingredientsRequired.put(ingredientName,ingredientsRequired.get(ingredientName)+amount);
+        if(ingredientsRequired.get(ingredientName).allowed(amount, inventory.get(ingredientName))){
+            ingredientsRequired.get(ingredientName).adjust(amount);
+        }
     }
 
     public void updateIngredientsStock(HashMap<String, Object> ingredientsInventory) {

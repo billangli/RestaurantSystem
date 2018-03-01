@@ -2,6 +2,7 @@ import employee.*;
 import event.EventManager;
 import inventory.Ingredient;
 import inventory.Inventory;
+import inventory.Menu;
 import table.TableManager;
 
 import java.io.*;
@@ -11,6 +12,7 @@ public class RestaurantSystem {
     public static Inventory inventory = new Inventory();
     public static TableManager tableManager;
     public static EventManager eventManager;
+    public static Menu menu;
 
     public static void start() throws IOException {
 
@@ -41,12 +43,13 @@ public class RestaurantSystem {
             while (line != null) {
                 String[] item = line.split("//s");
                 int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
-                Ingredient ind = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
-                inventory.add(ind);
+                Ingredient ingredient = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
+                inventory.add(ingredient);
                 line = fileReader.readLine();
             }
 
         }
+        menu = new Menu(inventory);
     }
 
     public static void main(String[] arg) throws IOException{
