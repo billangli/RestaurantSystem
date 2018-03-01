@@ -8,7 +8,6 @@
 
 package event;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -16,12 +15,17 @@ class Event {
     private String manager;
     private String instanceID;
     private String method;
-    private ArrayList<String> parameters;
+    private ArrayList<String> parameters = new ArrayList<>();
 
     /**
-     * Empty constructor TODO: Might want to remove this
+     * Constructor that takes a line and uses the information in the line to create the event
+     * This uses the parseEvent method
+     *
+     * @param line is the line (in event.txt) that contains the information
      */
-    Event () {}
+    Event(String line) {
+        this.parseEvent(line);
+    }
 
 //    /**
 //     * Processes the event and makes changes to the RestaurantSystem by calling methods in other classes
@@ -35,7 +39,7 @@ class Event {
      *
      * @param line is the line to be parsed
      */
-    void parseEvent(String line) {
+    private void parseEvent(String line) {
         StringTokenizer lineTokenizer = new StringTokenizer(line);
         try {
             // Parsing the text file according to our format TODO: Create a format in the README
@@ -45,13 +49,25 @@ class Event {
 
             // Creating an ArrayList of parameters from one token in the line
             String allParameters = lineTokenizer.nextToken();
-            allParameters = allParameters.substring(0, allParameters.length() - 1);
+            allParameters = allParameters.substring(1, allParameters.length() - 1);
             StringTokenizer parameterTokenizer = new StringTokenizer(allParameters, ",");
             while (parameterTokenizer.hasMoreTokens()) {
                 this.parameters.add(parameterTokenizer.nextToken());
             }
         } catch (Exception e) {
             e.printStackTrace(); // TODO: Make my own exception
+        }
+    }
+
+    // Test for Event
+    public static void main(String[] args) {
+        Event event = new Event("EmployeeManager 1 deliverOrderFailed (A13,B42,C23)");
+        System.out.println(event.manager);
+        System.out.println(event.instanceID);
+        System.out.println(event.method);
+        System.out.println("Parameters:");
+        for (int i = 0; i < event.parameters.size(); i++) {
+            System.out.println(event.parameters.get(i));
         }
     }
 }
