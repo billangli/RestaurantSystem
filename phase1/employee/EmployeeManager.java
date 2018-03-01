@@ -6,11 +6,17 @@ public class EmployeeManager {
   private ArrayList<Cook> cookList;
   private ArrayList<Server> serverList;
   private ArrayList<Receiver> receiverList;
+  private ArrayList<Employee> employees;
 
   public EmployeeManager() {
     cookList = new ArrayList<>();
     serverList = new ArrayList<>();
     receiverList = new ArrayList<>();
+    employees = new ArrayList<>();
+  }
+
+  public void add(Employee person){
+    employees.add(person);
   }
 
   public void addCook(String name, int id) {

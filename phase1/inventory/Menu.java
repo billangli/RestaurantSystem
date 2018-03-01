@@ -13,7 +13,7 @@ public class Menu {
     }
 
     public void create()throws IOException{
-        try (BufferedReader fileReader = new BufferedReader(new FileReader("music.txt"))) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("menu.txt"))) {
 
             // Print the lines from f prefaced with the line number,
             // starting at 1.
