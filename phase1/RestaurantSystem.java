@@ -40,11 +40,12 @@ public class RestaurantSystem {
             String line = fileReader.readLine();
             while (line != null) {
                 String[] item = line.split("//s");
-                Ingredient ind = new Ingredient(item[0], Integer.parseInt(item[1]), Integer.parseInt((item[2])));
+                int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
+                Ingredient ind = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
                 inventory.add(ind);
-
+                line = fileReader.readLine();
             }
-            line = fileReader.readLine();
+
         }
     }
 
