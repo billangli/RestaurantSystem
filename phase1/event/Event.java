@@ -27,13 +27,6 @@ class Event {
         this.parseEvent(line);
     }
 
-//    /**
-//     * Processes the event and makes changes to the RestaurantSystem by calling methods in other classes
-//     *
-//     * @return a String representing the output of processing this event
-//     */
-//    abstract public String process();
-
     /**
      * Parses a line (read from event.txt) into an event and returns it
      *
@@ -57,6 +50,42 @@ class Event {
         } catch (Exception e) {
             e.printStackTrace(); // TODO: Make my own exception
         }
+    }
+
+    /**
+     * Getter for the manager
+     *
+     * @return the manager
+     */
+    public String getManager() {
+        return manager;
+    }
+
+    /**
+     * Getter for instanceID
+     *
+     * @return the instanceID as an integer
+     */
+    public int getInstanceID() {
+        return Integer.parseInt(this.instanceID);
+    }
+
+    /**
+     * Getter for method
+     *
+     * @return the method
+     */
+    public String getMethod() {
+        return method;
+    }
+
+    /**
+     * Getter for the parameters
+     *
+     * @return the ArrayList parameters
+     */
+    public ArrayList<String> getParameters() {
+        return parameters;
     }
 
     // Test for Event
