@@ -6,6 +6,13 @@ public class Ingredient {
     private int[] thresholdQuantity;
 //    private boolean lowStock; //not needed
 
+    // Constructor for creating Ingredient receivedIngredient
+    public Ingredient(String name, int quantity) {
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+
     public Ingredient(String name, int quantity, int[] thresholdQuantity) {
         this.name = name;
         this.quantity = quantity;
