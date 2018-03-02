@@ -7,14 +7,18 @@ class EmployeeManager
 + addServer(Server server): void
 + toString(): String
 
+
 class Employee
 + receiveItem(): void
 + getID(): int
 + toString(): String
 
+
 class Cook
-+ orderReceived(Order order): void
++ setOrderQueue(OrderQueue): void
++ orderReceived(): void
 + dishReady(Dish dish): void
+
 
 class Server
 + takeSeat(Table table): void
@@ -23,9 +27,16 @@ class Server
 + deliverDishFailed(Dish dish): void
 + printBill(Table table): void
 + checkIfPaid(Table table): boolean
-+ equals(Object object): boolean
++ setOrderQueue(OrderQueue): void
 
+class OrderQueue
++ addOrderInQueue(Order order): void
++ dishCompleted(): void
++ dishDelivered(): void
++ emptyOrdersInQueue(): void
++ queueIsEmpty(): boolean
 
+============================================
 TableManager
 ============================================
 // + takeSeat(Table table, Server server): void / This method is transferred to Server class.
