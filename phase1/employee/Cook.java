@@ -1,19 +1,9 @@
 package employee;
 
-import inventory.Dish;
-
-public class Cook extends Employee {
-  private OrderQueue orderQueue;
+public class Cook extends ServiceEmployee {
 
   public Cook(int id) {
     super(id);
-    orderQueue = new OrderQueue();
-  }
-
-  // This method should be able to set same OrderQueue for all cooks and servers.
-  // This is a duplicate code in Cook and Server class.(Is it possible not to make it duplicated?)
-  public void setOrderQueue(OrderQueue orderQueue) {
-    this.orderQueue = orderQueue;
   }
 
   /** Cook confirms whether the order has been seen. */
@@ -21,7 +11,7 @@ public class Cook extends Employee {
     if (orderQueue.queueIsEmpty()) {
       System.out.println("No orders are in the queue.");
     } else {
-      orderQueue.emptyOrdersInQueue();
+      orderQueue.confirmOrdersInQueue();
       System.out.println("Confirmed that the order has been seen.");
     }
   }

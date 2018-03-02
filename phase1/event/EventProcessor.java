@@ -25,11 +25,41 @@ public class EventProcessor {
      */
     void process() {
         switch (this.event.getManager()) {
-            case "EmployeeManager": this.processEmployeeEvent();
+            case "EmployeeManager":
+                this.processEmployeeEvent();
                 break;
+            case "InventoryManager":
+                this.processInventoryEvent();
+                break;
+            case "TableManager":
+                this.processTableEvent();
+                break;
+            default:
+                System.out.println("This is an invalid Manager"); // TODO: Do it properly
         }
     }
 
     private void processEmployeeEvent() {
+        System.out.println("Process Employee Event");
+    }
+
+    private void processCookEvent() {
+
+    }
+
+    private void processManagerEvent() {
+
+    }
+
+    private void processServerEvent() {
+
+    }
+
+    private void processInventoryEvent() {
+
+    }
+
+    private void processTableEvent() {
+
     }
 }
