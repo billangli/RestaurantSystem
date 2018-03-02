@@ -4,14 +4,11 @@ import inventory.Inventory;
 
 public class Employee {
   private final int id;
-  private static Inventory inventory;
+  static Inventory inventory;
 
   public Employee(int id) {
     this.id = id;
-
   }
-
-
 
   public void receiveItem() {
     // TODO

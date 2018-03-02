@@ -6,4 +6,8 @@ class ServiceEmployee extends Employee {
   ServiceEmployee(int id) {
     super(id);
   }
+
+  public static OrderQueue getOrderQueue() {
+    return orderQueue;
+  }
 }
