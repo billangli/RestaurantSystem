@@ -21,7 +21,7 @@ public class RestaurantSystem {
 
     private static void start() throws IOException {
 
-        try (BufferedReader fileReader = new BufferedReader(new FileReader("starter.txt"))) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/starter.txt"))) {
 
             // Print the lines from f prefaced with the line number,
             // starting at 1.
