@@ -1,5 +1,6 @@
 import employee.Cook;
 import employee.EmployeeManager;
+import employee.Manager;
 import employee.Server;
 import event.EventManager;
 import inventory.Ingredient;
@@ -54,8 +55,11 @@ public class RestaurantSystem {
         }
 
         menu = new Menu(inventory);
+
+        // Bill Ang Li added this so it reads and processes events
         eventManager = new EventManager(employeeManager, inventory, tableManager);
         eventManager.readFile();
+        eventManager.processEvents();
     }
 
     public static void main(String[] arg) throws IOException {

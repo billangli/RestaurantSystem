@@ -39,4 +39,15 @@ public class EventManager {
         EventReader eventReader = new EventReader(FILE);
         eventReader.readFile(eventQueue);
     }
+
+    /**
+     * Processes the events from eventQueue as long as if there are more events
+     */
+    public void processEvents() {
+        while (!this.eventQueue.isEmpty()) {
+            Event event = this.eventQueue.remove();
+            EventProcessor eventProcessor = new EventProcessor(event);
+            eventProcessor.process();
+        }
+    }
 }
