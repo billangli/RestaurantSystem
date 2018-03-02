@@ -9,7 +9,7 @@ import table.Table;
 public class Dish {
     private String name;
     private Inventory inventory;
-    private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
+    private HashMap<String, Ingredient> ingredientsRequired = new HashMap<String, Ingredient>();
 
   private int cost;
   //    private int dishNumber;
@@ -37,23 +37,12 @@ public class Dish {
         }
     }
 
-    public void updateIngredientsStock(HashMap<String, Object> ingredientsInventory) {
-        for (Ingredient ingredient : ingredientsRequired)
-
-
-        Iterator iter = ingredientsInventory.keySet().iterator();
-
-
-        for (String ingredient : ingredientsInventory.keySet()) {
-            if
+    public void updateIngredientsStock() {
+        for (Map.Entry me : ingredientsRequired.entrySet()) {
+            Ingredient item = (Ingredient)(me.getValue());
+            String name = (String)(me.getKey());
+            inventory.getIngredient(name).adjust(item.getQuantity());
         }
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            if (value <= ThresholdInventory.get(key)) {
-                // create event to event.txt
-                // create text request
-
-            }
 
     }
 
@@ -86,7 +75,7 @@ public class Dish {
   }
 
   public String toString() {
-    return name + ", $" + cost;
+    return name + ",   $" + cost;
   }
 
   public void addCostToTable() {
