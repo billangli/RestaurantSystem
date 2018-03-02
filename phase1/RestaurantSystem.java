@@ -9,6 +9,7 @@ import inventory.Menu;
 import table.TableManager;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -50,6 +51,24 @@ public class RestaurantSystem {
                 Ingredient ingredient = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
                 inventory.add(ingredient);
                 line = fileReader.readLine();
+            }
+
+            try {
+                File file = new File("phase1/request.txt");
+                /*If file gets created then the createNewFile()
+                 * method would return true or if the file is
+                 * already present it would return false
+                 */
+                boolean fvar = file.createNewFile();
+                if (fvar){
+                    System.out.println("File has been created successfully");
+                }
+                else{
+                    System.out.println("File already present at the specified location");
+                }
+            } catch (IOException e) {
+                System.out.println("Exception Occurred:");
+                e.printStackTrace();
             }
 
         }
