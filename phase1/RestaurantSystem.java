@@ -24,19 +24,19 @@ public class RestaurantSystem {
             String TableNum = fileReader.readLine();
             tableManager = new TableManager(Integer.parseInt(TableNum));
             String serverNum = fileReader.readLine();
-            int id = 0;
+            int id = 1;
             for (int i = 0; i < Integer.parseInt(serverNum); i++){
-                employeeManager.add(new Server("try", id));
+                employeeManager.add(new Server(id));
                 id++;
             }
             String cookNum = fileReader.readLine();
             for (int i = 0; i < Integer.parseInt(cookNum); i++){
-                employeeManager.add(new Cook("try", id));
+                employeeManager.add(new Cook(id));
                 id++;
             }
             String managerNum = fileReader.readLine();
             for (int i = 0; i < Integer.parseInt(managerNum); i++){
-                employeeManager.add(new Manager("try", id));
+                employeeManager.add(new Manager(id));
                 id++;
             }
             String line = fileReader.readLine();
