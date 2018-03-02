@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class EventManager {
-    private static final String FILE = "event/event.txt";
+    private static final String FILE = "phase1/event/event.txt";
 
     private Queue<Event> eventQueue = new LinkedList<>();
     private EmployeeManager employeeManager;

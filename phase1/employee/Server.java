@@ -51,4 +51,8 @@ public class Server extends ServiceEmployee {
   public boolean checkIfPaid(Table table) {
     return table.getHasPaid();
   }
+
+  public String toString() {
+    return "Server, id:" + getId();
+  }
 }

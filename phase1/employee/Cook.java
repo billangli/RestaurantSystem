@@ -21,4 +21,8 @@ public class Cook extends ServiceEmployee {
     orderQueue.dishCompleted();
     System.out.println("Food is ready to be delivered.");
   }
+
+  public String toString(){
+    return "Cook, id:" + getId();
+  }
 }
