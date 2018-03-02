@@ -5,45 +5,44 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Inventory {
-    private static HashMap<String, Integer> IngredientsInventory = new HashMap<>();
-    private static HashMap<String, Integer> ThresholdInventory = new HashMap<>();
+    private static HashMap<String, Ingredient> ingredientsInventory;
 
 
 
     // read off the menu and just set arbitrary value for each ingredient
-    public Inventory(Menu menu) {
-        for (Dish dish : menu.Dishes) {
-            IngredientsInventory.put(dish.getName(), 10000);
-
-        }
-
-    }
-
-    public void alertLowIngredient() {
-        Iterator iter = IngredientsInventory.keySet().iterator();
-
-
-        for (Map.Entry<String, Integer> entry : IngredientsInventory.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            if (value <= ThresholdInventory.get(key)) {
-                // create event to event.txt
-                // create text request
-
-            }
-
-
-
-
-//        while (iter.hasNext()) {
-//            Map.Entry pair = (Map.Entry) iter.next();
-//            if (pair.getValue() <= ThresholdInventory.get(pair)) {
-
-
-        }
+    public Inventory() {
+        ingredientsInventory = new HashMap<>();
     }
 
 
+    public Ingredient getIngredient(String ingredientName){
+        return ingredientsInventory.get(ingredientName);
+    }
+
+    public void add(Ingredient ingredient){
+        ingredientsInventory.put(ingredient.getName(),ingredient);
+    }
+
+
+//    public void addQuantity(Ingredient receivedIngredient) {
+//        String ingredientName = dishIngredient.getName();
+//        int dishIngredientQuantity = dishIngredient.getQuantity();
+//        int ingredientStock = ingredientsInventory.get(ingredientName).getQuantity();
+//
+//        int updatedQuantity = ingredientStock + dishIngredientQuantity;
+//
+//        ingredientsInventory.get(ingredientName).setQuantity(updatedQuantity);
+//    }
+//
+//    public void reduceQuantity(Ingredient dishIngredient) {
+//        String ingredientName = dishIngredient.getName();
+//        int dishIngredientQuantity = dishIngredient.getQuantity();
+//        int ingredientStock = ingredientsInventory.get(ingredientName).getQuantity();
+//
+//        int updatedQuantity = ingredientStock - dishIngredientQuantity ;
+//
+//        ingredientsInventory.get(ingredientName).setQuantity(updatedQuantity);
+//    }
 
 
 }

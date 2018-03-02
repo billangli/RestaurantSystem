@@ -2,31 +2,60 @@ package inventory;
 
 
 import java.util.HashMap;
-        import table.Table;
+import java.util.Iterator;
+import java.util.Map;
+
+import table.Table;
 
 public class Dish {
     private String name;
-//    private HashMap<Ingredient, Integer> ingredients;
-    private HashMap<String, Integer> ingredientsInventory = new HashMap<>();
+    private Inventory inventory;
+    private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
 
     private int cost;
 //    private int dishNumber;
     private boolean isReady;
     Table table;
 
-    public Dish(String name, int price, String[] ingredients, String[] Changable){
+    public Dish(String name, int price, String[] ingredients, Inventory inventory){
         this.name = name;
-        cost = price;
-        for(String in: ingredients){
-            String[] item = in.split(":");
-            ingredientsInventory.put(item[0],Integer.parseInt(item[1]));
+        this.cost = price;
+        this.inventory = inventory;
+        for(String ingredient: ingredients){
+            String[] item = ingredient.split(":");
+            int[] limit = {Integer.parseInt(item[2]),Integer.parseInt(item[3])};
+            Ingredient in = new Ingredient(item[0],Integer.parseInt(item[1]),limit);
+            ingredientsRequired.put(item[0],in);
         }
 
         isReady = false;
     }
 
+    // NEED MODIFICATION
     public void adjustIngredient(String ingredientName, int amount){
-        ingredientsInventory.put(ingredientName,ingredientsInventory.get(ingredientName)+amount);
+        if(ingredientsRequired.get(ingredientName).allowed(amount, inventory.getIngredient(ingredientName))){
+            ingredientsRequired.get(ingredientName).adjust(amount);
+        }
+    }
+
+    public void updateIngredientsStock(HashMap<String, Object> ingredientsInventory) {
+        for (Ingredient ingredient : ingredientsRequired)
+
+
+        Iterator iter = ingredientsInventory.keySet().iterator();
+
+
+        for (String ingredient : ingredientsInventory.keySet()) {
+            if
+        }
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            if (value <= ThresholdInventory.get(key)) {
+                // create event to event.txt
+                // create text request
+
+            }
+
     }
 
 

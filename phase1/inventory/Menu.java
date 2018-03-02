@@ -7,8 +7,10 @@ import java.util.HashMap;
 
 public class Menu {
     private HashMap<String, Dish> dishes = new HashMap<>();
+    private Inventory inventory;
 
-    public Menu()throws IOException{
+    public Menu(Inventory inventory)throws IOException{
+        this.inventory = inventory;
         create();
     }
 
@@ -23,8 +25,7 @@ public class Menu {
                 String name = items[0];
                 int price = Integer.parseInt(items[1]);
                 String[] ingredients = items[2].split(",");
-                String[] changable = items[3].split(",");
-                dishes.put(name, new Dish(name,price, ingredients, changable));
+                dishes.put(name, new Dish(name,price, ingredients, inventory));
 
                 }
                 line = fileReader.readLine();
