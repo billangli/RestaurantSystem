@@ -12,7 +12,7 @@ public class TableManager {
     tables = new Table[numOfTables];
     // Note that table number starts from 1.
     for (int i = 1; i <= numOfTables; i++) {
-      tables[i] = new Table(i);
+      tables[i - 1] = new Table(i);
     }
   }
 
