@@ -10,8 +10,8 @@ public class Employee {
     this.id = id;
   }
 
-  public void receiveItem() {
-    // TODO
+  public void receiveIngredient(String receivedIngredientName, int quantity) {
+    inventory.modifyIngredientQuantity(receivedIngredientName, quantity);
   }
 
   public int getId() {

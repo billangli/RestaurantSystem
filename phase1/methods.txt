@@ -14,7 +14,7 @@ class EmployeeManager
 
 
 class Employee
-+ receiveItem(): void
++ receiveIngredient(String receivedIngredientName, int quantity): void
 + getID(): int
 + setInventory(Inventory inventory): void
 
