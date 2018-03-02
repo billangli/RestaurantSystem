@@ -40,7 +40,7 @@ public class EventProcessor {
     }
 
     private void processEmployeeEvent() {
-
+        System.out.println("Process Employee Event");
     }
 
     private void processCookEvent() {

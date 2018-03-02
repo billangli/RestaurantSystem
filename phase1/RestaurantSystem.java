@@ -1,5 +1,5 @@
-import employee.EmployeeManager;
 import employee.Cook;
+import employee.EmployeeManager;
 import employee.Server;
 import employee.Manager;
 import event.EventManager;
@@ -21,7 +21,7 @@ public class RestaurantSystem {
 
     private static void start() throws IOException {
 
-        try (BufferedReader fileReader = new BufferedReader(new FileReader("starter.txt"))) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/starter.txt"))) {
 
             // Print the lines from f prefaced with the line number,
             // starting at 1.
@@ -55,8 +55,11 @@ public class RestaurantSystem {
         }
 
         menu = new Menu(inventory);
+
+        // Bill Ang Li added this so it reads and processes events
         eventManager = new EventManager(employeeManager, inventory, tableManager);
         eventManager.readFile();
+        eventManager.processEvents();
     }
 
     public static void main(String[] arg) throws IOException {
