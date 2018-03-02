@@ -37,12 +37,19 @@ public class Dish {
         }
     }
 
-    public void updateIngredientsStock() {
-        for (Map.Entry me : ingredientsRequired.entrySet()) {
-            Ingredient item = (Ingredient)(me.getValue());
-            String name = (String)(me.getKey());
-            inventory.getIngredient(name).adjust(item.getQuantity());
+    public void updateIngredientsStock(int amount) {
+        for (String ingredientName : ingredientsRequired.keySet()) {
+            inventory.modifyIngredientQuantity(ingredientName, amount);
         }
+
+
+
+
+//        for (Map.Entry me : ingredientsRequired.entrySet()) {
+//            Ingredient item = (Ingredient)(me.getValue());
+//            String name = (String)(me.getKey());
+//            inventory.getIngredient(name).adjust(item.getQuantity());
+//        }
 
     }
 

@@ -19,6 +19,22 @@ public class Inventory {
         return ingredientsInventory.get(ingredientName);
     }
 
+    public void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
+        Ingredient stockIngredient = ingredientsInventory.get(ingredientName);
+        int newQuantity = stockIngredient.getQuantity() + quantityUnits;
+        stockIngredient.setQuantity(newQuantity);
+
+        if (stockIngredient.isLowStock()){
+            // create a request as text that is to be stored in requests.txt for the manager
+            // to cut and paste into n email
+            // Default amount to request is 20 units
+            // The manager can manually change that amount when creating the email
+        }
+
+    }
+
+
+    // would this method not also work for removing
     public void add(Ingredient ingredient){
         ingredientsInventory.put(ingredient.getName(),ingredient);
     }
