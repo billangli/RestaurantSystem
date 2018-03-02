@@ -6,10 +6,9 @@ import java.util.ArrayList;
 
 public class TableManager {
   private Table[] tables;
-  private final int numOfTables = 15; // Assume that this restaurant has 15 tables.
   private ArrayList<Server> servers = new ArrayList<>();
 
-  public TableManager() {
+  public TableManager(int numOfTables) {
     tables = new Table[numOfTables];
     // Note that table number starts from 1.
     for (int i = 1; i <= numOfTables; i++) {

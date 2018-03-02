@@ -16,7 +16,7 @@ public class Table {
     this.tableNum = tableNum;
     order = new ArrayList<Order>();
     cost = 0;
-    isPaid = false;
+    hasPaid = false;
   }
 
   public void serve(Server server) {
@@ -45,7 +45,7 @@ public class Table {
     return order;
   }
 
-  public boolean hasPaid() {
+  public boolean getHasPaid() {
     return hasPaid;
   }
 

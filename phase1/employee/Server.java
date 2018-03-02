@@ -4,18 +4,10 @@ import inventory.Dish;
 import table.Order;
 import table.Table;
 
-public class Server extends Employee {
-  private OrderQueue orderQueue;
+public class Server extends ServiceEmployee {
 
   public Server(int id) {
     super(id);
-    orderQueue = new OrderQueue();
-  }
-
-  // This method should be able to set same OrderQueue for all cooks and servers.
-  // This is a duplicate code in Cook and Server class.(Is it possible not to make it duplicated?)
-  public void setOrderQueue(OrderQueue orderQueue) {
-    this.orderQueue = orderQueue;
   }
 
   public void takeSeat(Table table) {
@@ -59,6 +51,6 @@ public class Server extends Employee {
   }
 
   public boolean checkIfPaid(Table table) {
-    return table.hasPaid();
+    return table.getHasPaid();
   }
 }
