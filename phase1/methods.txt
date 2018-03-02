@@ -4,22 +4,21 @@ In event.txt, Tables and Employees are stored by their id values (int)
 package employee
 =============================================
 class EmployeeManager
-+ addEmployee(Employee employee): void
-+ addCook(Cook cook): void
-+ addServer(Server server): void
++ add(Employee employee): void
 + toString(): String
++ getEmployeeById(int id): Employee
 
 
 class Employee
 + receiveItem(): void
 + getID(): int
-+ toString(): String
++ setInventory(Inventory inventory): void
 
 
 class Cook
-+ setOrderQueue(OrderQueue): void
 + orderReceived(): void
 + dishReady(Dish dish): void
++ toString(): String
 
 
 class Server
@@ -29,14 +28,19 @@ class Server
 + deliverDishFailed(Dish dish): void
 + printBill(Table table): void
 + checkIfPaid(Table table): boolean
-+ setOrderQueue(OrderQueue): void
++ toString(): String
+
+class Manager
++ checkInventory(): void
++ toString(): String
+
 
 class OrderQueue
 + addOrderInQueue(Order order): void
++ queueIsEmpty(): boolean
++ confirmOrdersInQueue(): void
 + dishCompleted(): void
 + dishDelivered(): void
-+ emptyOrdersInQueue(): void
-+ queueIsEmpty(): boolean
 
 ============================================
 TableManager
