@@ -8,6 +8,9 @@
 
 package event;
 
+import inventory.Dish;
+import table.Order;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -50,6 +53,33 @@ class Event {
         } catch (Exception e) {
             e.printStackTrace(); // TODO: Make my own exception
         }
+    }
+
+    /**
+     * Reads a str of text and returns the Order
+     *
+     * @param str is the string to read from
+     * @return the Order from that string
+     */
+    private static Order parseOrder(String str) {
+        StringTokenizer orderTokenizer = new StringTokenizer(str, "|");
+        Order order = new Order();
+        while (orderTokenizer.hasMoreTokens()) {
+            String dishString = orderTokenizer.nextToken();
+            Dish dish = parseDish(dishString);
+            order.addDish(dish);
+        }
+        return order;
+    }
+
+    /**
+     * Reads a str of text and returns the Dish
+     *
+     * @param str is the string to read from
+     * @return the Dish from that string
+     */
+    private static Dish parseDish(String str) {
+        Dish dish = new Dish();
     }
 
     /**

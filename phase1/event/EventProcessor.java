@@ -23,9 +23,9 @@ public class EventProcessor {
      * Constructor for EventProcessor
      *
      * @param event           is the event that this EventProcessor will process
-     * @param employeeManager
-     * @param inventory
-     * @param tableManager
+     * @param employeeManager is the class that controls employees
+     * @param inventory       is the class that controls inventory
+     * @param tableManager    is the class that controls tables
      */
     EventProcessor(Event event, EmployeeManager employeeManager, Inventory inventory, TableManager tableManager) {
         this.event = event;
