@@ -1,6 +1,5 @@
 package inventory;
 
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -12,10 +11,10 @@ public class Dish {
     private Inventory inventory;
     private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
 
-    private int cost;
-//    private int dishNumber;
-    private boolean isReady;
-    Table table;
+  private int cost;
+  //    private int dishNumber;
+  private boolean isReady;
+  Table table;
 
     public Dish(String name, int price, String[] ingredients, Inventory inventory){
         this.name = name;
@@ -28,8 +27,8 @@ public class Dish {
             ingredientsRequired.put(item[0],in);
         }
 
-        isReady = false;
-    }
+    isReady = false;
+  }
 
     // NEED MODIFICATION
     public void adjustIngredient(String ingredientName, int amount){
@@ -58,38 +57,43 @@ public class Dish {
 
     }
 
+  public void setTable(Table t) {
+    table = t;
+  }
 
+  public void ready() {
+    isReady = true;
+  }
 
-    public void setTable(Table t){
-        table = t;
-    }
+  public void recook() {
+    isReady = false;
+  }
 
-    public void ready(){
-        isReady = true;
-    }
+  public boolean isReady() {
+    return isReady;
+  }
 
-    public void recook(){
-        isReady = false;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public boolean isReady(){
-        return isReady;
-    }
+  public int getCost() {
+    return cost;
+  }
 
-    public String getName(){
-        return name;
-    }
+  public Table getTable() {
+    return table;
+  }
 
-    public int getCost() {
-        return cost;
-    }
+  public String toString() {
+    return name + ", $" + cost;
+  }
 
-    public Table getTable() {
-        return table;
-    }
+  public void addCostToTable() {
+    table.addCost(this);
+  }
 
-
-    public String toString(){
-        return name +"    "+ cost;
-    }
+  public void isCancelled(){
+    cost = 0;
+  }
 }
