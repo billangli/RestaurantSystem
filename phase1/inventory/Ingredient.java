@@ -3,13 +3,13 @@ package inventory;
 public class Ingredient {
     private String name;
     private int quantity;
-    private int[] thresholdQuanity;
+    private int[] thresholdQuantity;
 //    private boolean lowStock; //not needed
 
-    public Ingredient(String name, int quantity, int[] thresholdQuanity) {
+    public Ingredient(String name, int quantity, int[] thresholdQuantity) {
         this.name = name;
         this.quantity = quantity;
-        this.thresholdQuanity = thresholdQuanity;
+        this.thresholdQuantity = thresholdQuantity;
     }
 
     public int getQuantity(){
@@ -22,14 +22,14 @@ public class Ingredient {
     }
 
     public boolean allowed(int n, Ingredient in){
-        if(n> thresholdQuanity[0] && n < thresholdQuanity[1] && in.getQuantity() >= n){
+        if(n> thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n){
             return true;
         }
         return false;
     }
 
     public boolean isLowStock() {
-        if (this.quantity < this.thresholdQuanity[0]) {
+        if (this.quantity < this.thresholdQuantity[0]) {
             return true;
         } else {
             return false;
