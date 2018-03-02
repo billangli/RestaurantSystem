@@ -14,11 +14,4 @@ public class Employee {
   public int getId() {
     return id;
   }
-
-  @Override
-  public String toString() {
-    return "id: " + Integer.toString(id);
-    // TODO:
-    // Distinguish id between cook and server, and print whether this employee is cook or server.
-  }
 }

@@ -63,7 +63,8 @@ public class OrderQueue {
    * customers.
    */
   public void dishCompleted() {
-    DishesCompleted.add(DishesInProgress.remove());
+    Dish dish = DishesInProgress.remove();
+    DishesCompleted.add(dish);
   }
 
   /**
@@ -75,5 +76,6 @@ public class OrderQueue {
    */
   public Dish dishDelivered() {
     return DishesCompleted.remove();
+    // TODO: subtract the amount of ingredients used to cook the dish.
   }
 }
