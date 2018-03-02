@@ -17,4 +17,8 @@ public class Manager extends Employee {
   public void checkInventory() {
     // TODO: print out all inventory items and their quentities.
   }
+
+  public String toString() {
+    return "Manager, id:" + getId();
+  }
 }

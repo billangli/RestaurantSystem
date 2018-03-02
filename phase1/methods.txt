@@ -1,3 +1,5 @@
+In event.txt, Tables and Employees are stored by their id values (int)
+
 =============================================
 package employee
 =============================================

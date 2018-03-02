@@ -7,3 +7,5 @@
 4.server owns tablet or table owns tablet
 
 5. Should we use Google-java-format?
+
+6. Who should do the log?
