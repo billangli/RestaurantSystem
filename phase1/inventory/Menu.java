@@ -32,8 +32,10 @@ public class Menu {
             }
     }
 
-    public Dish getDish(String name){
-        return dishes.get(name);
+    public Dish makeDish(String name){
+        Dish temp = dishes.get(name);
+        Dish result = new Dish(temp);
+        return result;
     }
 
 
