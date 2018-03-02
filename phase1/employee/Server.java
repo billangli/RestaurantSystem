@@ -32,7 +32,6 @@ public class Server extends ServiceEmployee {
     Dish dish = orderQueue.dishDelivered();
     System.out.println("The dish, " + dish.getName() + "has been delivered successfully.");
     dish.addCostToTable();
-    // TODO: subtract corresponding ingredient
   }
 
   public void deliverOrderFailed() {
@@ -42,7 +41,6 @@ public class Server extends ServiceEmployee {
 
     // Sets price of the dish to zero, while remaining the dish in the table's order list.
     dish.isCancelled();
-    // TODO: subtract corresponding ingredient
   }
 
   /** Print bill. */

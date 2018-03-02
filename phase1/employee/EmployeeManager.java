@@ -14,7 +14,6 @@ public class EmployeeManager {
   }
 
   public String toString() {
-    // TODO:
     StringBuilder result = new StringBuilder("List of all employees: \n");
     result.append("==================================");
     for (Employee e : employeeList) {
@@ -23,5 +22,9 @@ public class EmployeeManager {
     result.append("==================================");
 
     return result.toString();
+  }
+
+  public Employee getEmployeeById(int id) {
+    return employeeList.get(id - 1);
   }
 }

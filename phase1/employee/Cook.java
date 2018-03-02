@@ -20,6 +20,5 @@ public class Cook extends ServiceEmployee {
   public void dishReady() {
     orderQueue.dishCompleted();
     System.out.println("Food is ready to be delivered.");
-    // TODO: subtract the amount of ingredients used to cook the dish.
   }
 }
