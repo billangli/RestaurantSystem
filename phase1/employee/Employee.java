@@ -1,19 +1,24 @@
 package employee;
 
 public class Employee {
-  private final String name;
   private final int id;
 
-  public Employee(String name, int id) {
-    this.name = name;
+  public Employee(int id) {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public void receiveItem() {
+    // TODO
   }
 
   public int getId() {
     return id;
+  }
+
+  @Override
+  public String toString() {
+    return "id: " + Integer.toString(id);
+    // TODO:
+    // Distinguish id between cook and server, and print whether this employee is cook or server.
   }
 }

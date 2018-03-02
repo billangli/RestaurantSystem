@@ -5,18 +5,16 @@ import java.util.ArrayList;
 public class EmployeeManager {
   private ArrayList<Cook> cookList;
   private ArrayList<Server> serverList;
-  private ArrayList<Receiver> receiverList;
-  private ArrayList<Employee> employees;
+  private ArrayList<Employee> employeeList;
 
   public EmployeeManager() {
     cookList = new ArrayList<>();
     serverList = new ArrayList<>();
-    receiverList = new ArrayList<>();
-    employees = new ArrayList<>();
+    employeeList = new ArrayList<>();
   }
 
-  public void add(Employee person){
-    employees.add(person);
+  public void addEmployee(Employee person) {
+    employeeList.add(person);
   }
 
   public void addCook(String name, int id) {
@@ -27,7 +25,15 @@ public class EmployeeManager {
     serverList.add(new Server(name, id));
   }
 
-  public void addReceiver(String name, int id) {
-    receiverList.add(new Receiver(name, id));
+  public String toString() {
+    // TODO:
+    StringBuilder result = new StringBuilder("List of all employees: \n");
+    result.append("==================================");
+    for (Employee e : employeeList) {
+      result.append(e.toString()).append("\n");
+    }
+    result.append("==================================");
+
+    return result.toString();
   }
 }

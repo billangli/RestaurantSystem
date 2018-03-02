@@ -1,53 +1,64 @@
 package employee;
 
-import table.Dish;
+import inventory.Dish;
 import table.Order;
 import table.Table;
-import java.util.ArrayList;
 
 public class Server extends Employee {
-  ArrayList<Dish> dishesToBeDelivered;
+  private OrderQueue orderQueue;
 
-  public Server(String name, int id) {
-    super(name, id);
+  public Server(int id) {
+    super(id);
+    orderQueue = new OrderQueue();
+  }
+
+  // This method should be able to set same OrderQueue for all cooks and servers.
+  // This is a duplicate code in Cook and Server class.(Is it possible not to make it duplicated?)
+  public void setOrderQueue(OrderQueue orderQueue) {
+    this.orderQueue = orderQueue;
+  }
+
+  public void takeSeat(Table table) {
+    table.serve(this);
   }
 
   /**
-   * Enters each dish that customer ordered. This method is responsible for
+   * Enters orders of customers on certain table. The order is then sent to cook.
    *
-   * <p>1. Entering dish(including addition and subtraction from each dish.
-   *
-   * <p>2. Sending list of dishes to the Cook.
+   * <p>Customers should take seat before ordering food.
    */
-  public void enterMenu(Order order) {
-    Cook.listOfOrdersToBeSeen.add(order);
+  public void enterMenu(Table table, Order order) {
+    // Add order to the table and relate all the dish to the table.
+    table.addOrder(order);
+
+    // Send order to cook
+    orderQueue.addOrderInQueue(order);
+    System.out.println("Orders are sent to cook.");
   }
 
-  public void deliverOrderCompleted() {
-    if (!dishesToBeDelivered.isEmpty()) {
-      Dish dish = dishesToBeDelivered.remove(0);
-      dish.getTable().totalCost += dish.getCost();
-    }
+  public void deliverDishCompleted() {
+    Dish dish = orderQueue.dishDelivered();
+    System.out.println("The dish, " + dish.getName() + "has been delivered successfully.");
+    dish.addCostToTable();
+    // TODO: subtract corresponding ingredient
   }
 
   public void deliverOrderFailed() {
-    if (!dishesToBeDelivered.isEmpty()) {
-      return;
-    }
+    Dish dish = orderQueue.dishDelivered();
+    System.out.println(
+        "The dish, " + dish.getName() + "has been delivered but put back upon customer's request.");
+
+    // Sets price of the dish to zero, while remaining the dish in the table's order list.
+    dish.isCancelled();
+    // TODO: subtract corresponding ingredient
   }
 
   /** Print bill. */
   public void printBill(Table table) {
-    ArrayList<Dish> dishes = table.getOrder().getDishes();
-    int costSum = 0;
-    for (Dish dish : dishes) {
-      System.out.println(dish.getName() + ": " + dish.getCost());
-      costSum += dish.getCost();
-    }
-    System.out.println("Total: " + costSum);
+    table.printBill();
   }
 
   public boolean checkIfPaid(Table table) {
-    return table.isPaid; // TODO: do we need isPaid variable in table?
+    return table.hasPaid();
   }
 }
