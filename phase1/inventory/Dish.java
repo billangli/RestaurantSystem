@@ -12,7 +12,6 @@ import table.Table;
 
 public class Dish {
     private String name;
-    private Inventory inventory;
     private HashMap<String, Ingredient> ingredientsRequired = new HashMap<String, Ingredient>();
 
   private int cost;
@@ -20,10 +19,9 @@ public class Dish {
   private boolean isReady;
   Table table;
 
-    public Dish(String name, int price, String[] ingredients, Inventory inventory){
+    public Dish(String name, int price, String[] ingredients){
         this.name = name;
         this.cost = price;
-        this.inventory = inventory;
         for(String ingredient: ingredients){
             String[] item = ingredient.split(":");
             int[] limit = {Integer.parseInt(item[2]),Integer.parseInt(item[3])};
@@ -38,21 +36,20 @@ public class Dish {
         this.name = d.getName();
         this.cost = d.getCost();
         this.ingredientsRequired = d.ingredientsRequired;
-        this.inventory = d.inventory;
         isReady = false;
   }
 
     // NEED MODIFICATION
     public void adjustIngredient(String ingredientName, int amount){
-        if(ingredientsRequired.get(ingredientName).allowed(amount, inventory.getIngredient(ingredientName))){
+        if(ingredientsRequired.get(ingredientName).allowed(amount, Inventory.getIngredient(ingredientName))){
             ingredientsRequired.get(ingredientName).adjust(amount);
         }
     }
 
     public void updateIngredientsStock(int amount) {
         for (String ingredientName : ingredientsRequired.keySet()) {
-            inventory.modifyIngredientQuantity(ingredientName, amount);
-            Ingredient in = inventory.getIngredient(ingredientName);
+            Inventory.modifyIngredientQuantity(ingredientName, amount);
+            Ingredient in = Inventory.getIngredient(ingredientName);
             if(in.isLowStock()){
                 BufferedWriter bw = null;
                 try {

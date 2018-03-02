@@ -70,7 +70,7 @@ public class RestaurantSystem {
 
         }
 
-    menu = new Menu(inventory);
+    menu.create();
     Employee.setInventory(inventory);
 
     // Bill Ang Li added this so it reads and processes events

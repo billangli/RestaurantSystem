@@ -5,21 +5,21 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Inventory {
-    private static HashMap<String, Ingredient> ingredientsInventory;
+    private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();;
 
 
 
     // read off the menu and just set arbitrary value for each ingredient
-    public Inventory() {
-        ingredientsInventory = new HashMap<>();
-    }
+//    public Inventory() {
+//        ingredientsInventory = new HashMap<>();
+//    }
 
 
-    public Ingredient getIngredient(String ingredientName){
+    public static Ingredient getIngredient(String ingredientName){
         return ingredientsInventory.get(ingredientName);
     }
 
-    public void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
+    public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
         Ingredient stockIngredient = ingredientsInventory.get(ingredientName);
         int newQuantity = stockIngredient.getQuantity() + quantityUnits;
         stockIngredient.setQuantity(newQuantity);
@@ -35,7 +35,7 @@ public class Inventory {
 
 
     // would this method not also work for removing
-    public void add(Ingredient ingredient){
+    public static void add(Ingredient ingredient){
         ingredientsInventory.put(ingredient.getName(),ingredient);
     }
 

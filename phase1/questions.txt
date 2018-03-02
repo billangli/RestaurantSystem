@@ -9,3 +9,7 @@
 5. Should we use Google-java-format?
 
 6. Who should do the log?
+
+7. does one receiver ceceive all stock?
+
+8. config, what txt do we have to worry about?
