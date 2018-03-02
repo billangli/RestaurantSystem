@@ -46,8 +46,7 @@ public class EventManager {
     public void processEvents() {
         while (!this.eventQueue.isEmpty()) {
             Event event = this.eventQueue.remove();
-            EventProcessor eventProcessor = new EventProcessor(event);
-            eventProcessor.process();
+            EventProcessor eventProcessor = new EventProcessor(event, this.employeeManager, this.inventory, this.tableManager);            eventProcessor.process();
         }
     }
 }
