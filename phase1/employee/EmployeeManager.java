@@ -3,17 +3,13 @@ package employee;
 import java.util.ArrayList;
 
 public class EmployeeManager {
-  private ArrayList<Employee> employeeList;
+  private static ArrayList<Employee> employeeList  = new ArrayList<>();
 
-  public EmployeeManager() {
-    employeeList = new ArrayList<>();
-  }
-
-  public void add(Employee employee) {
+  public static void add(Employee employee) {
     employeeList.add(employee);
   }
 
-  public String toString() {
+  public static String printAllEmployees() {
     StringBuilder result = new StringBuilder("List of all employees: \n");
     result.append("==================================");
     for (Employee e : employeeList) {
@@ -24,7 +20,7 @@ public class EmployeeManager {
     return result.toString();
   }
 
-  public Employee getEmployeeById(int id) {
+  public static Employee getEmployeeById(int id) {
     return employeeList.get(id - 1);
   }
 }

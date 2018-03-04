@@ -11,8 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class RestaurantSystem {
-  private static EmployeeManager employeeManager = new EmployeeManager();
-  private static Inventory inventory = new Inventory();
   private static EventManager eventManager;
 
   private static void start() throws IOException {
@@ -26,17 +24,17 @@ public class RestaurantSystem {
       String serverNum = fileReader.readLine();
       int id = 1;
       for (int i = 0; i < Integer.parseInt(serverNum); i++) {
-        employeeManager.add(new Server(id));
+        EmployeeManager.add(new Server(id));
         id++;
       }
       String cookNum = fileReader.readLine();
       for (int i = 0; i < Integer.parseInt(cookNum); i++) {
-        employeeManager.add(new Cook(id));
+        EmployeeManager.add(new Cook(id));
         id++;
       }
       String managerNum = fileReader.readLine();
       for (int i = 0; i < Integer.parseInt(managerNum); i++) {
-        employeeManager.add(new Manager(id));
+        EmployeeManager.add(new Manager(id));
         id++;
       }
       String line = fileReader.readLine();
@@ -67,10 +65,9 @@ public class RestaurantSystem {
     }
 
     Menu.create();
-    Employee.setInventory(inventory);
 
     // Bill Ang Li added this so it reads and processes events
-    eventManager = new EventManager(employeeManager);
+    eventManager = new EventManager();
     eventManager.readFile();
     eventManager.processEvents();
   }
