@@ -1,8 +1,6 @@
 package inventory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Inventory {
     private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();;
@@ -59,6 +57,24 @@ public class Inventory {
 //
 //        ingredientsInventory.get(ingredientName).setQuantity(updatedQuantity);
 //    }
+
+    public String toString(){
+        ArrayList<String> listOfKeys = new ArrayList<>();
+
+        for (String name : ingredientsInventory.keySet()) {
+            listOfKeys.add(name);
+        }
+
+        Collections.sort(listOfKeys, String.CASE_INSENSITIVE_ORDER);
+
+        String output = "List of ingredeints in stock: \n";
+        for (String ingredientName : listOfKeys) {
+            output += "ingredientName: " + ingredientsInventory.get(ingredientName) + "\n";
+        }
+
+        return output;
+
+    }
 
 
 }
