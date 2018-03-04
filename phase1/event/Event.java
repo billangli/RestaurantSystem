@@ -9,6 +9,7 @@
 package event;
 
 import inventory.Dish;
+import inventory.Menu;
 import table.Order;
 
 import java.util.ArrayList;
@@ -79,7 +80,33 @@ class Event {
      * @return the Dish from that string
      */
     private static Dish parseDish(String str) {
-        Dish dish = new Dish();
+        // Parsing the dish name and removing the dish name from str to make a string of ingredient adjustments
+        String dishName = str.substring(0, str.indexOf(":"));
+        String ingredientAdjustments = str.substring(str.indexOf(":") + 1);
+        Dish dish = Menu.makeDish(dishName);
+
+        // Making adjustments to the dish one ingredient at a time
+        StringTokenizer adjustmentTokenizer = new StringTokenizer(ingredientAdjustments, "_");
+        while (adjustmentTokenizer.hasMoreTokens()) {
+            String adjustment = adjustmentTokenizer.nextToken();
+
+            // Checking if add or subtract ingredient
+            if (adjustment.contains("+")) {
+                // Add more ingredients
+                String ingredientName = adjustment.substring(0, adjustment.indexOf("+"));
+                int amount = Integer.parseInt(adjustment.substring(adjustment.indexOf("+") + 1));
+                dish.adjustIngredient(ingredientName, amount);
+            } else if (adjustment.contains("-")) {
+                // Subtract ingredients
+                String ingredientName = adjustment.substring(0, adjustment.indexOf("-"));
+                int amount = Integer.parseInt(adjustment.substring(adjustment.indexOf("-") + 1));
+                dish.adjustIngredient(ingredientName, (-1) * amount);
+            } else {
+                System.out.println("Dish adjustment invalid");
+            }
+        }
+
+        return dish;
     }
 
     /**

@@ -2,6 +2,7 @@ package event;
 
 import employee.EmployeeManager;
 import inventory.Inventory;
+import inventory.Menu;
 import table.TableManager;
 
 import java.io.IOException;
@@ -15,19 +16,21 @@ public class EventManager {
     private EmployeeManager employeeManager;
     private Inventory inventory;
     private TableManager tableManager;
+    private Menu menu;
 
 
     /**
      * Constructor for EventManager
      *
      * @param employeeManager is the class to control employees
-     * @param inventory is the class to manage inventory
-     * @param tableManager is the class to manage tables
+     * @param inventory       is the class to manage inventory
+     * @param tableManager    is the class to manage tables
      */
-    public EventManager(EmployeeManager employeeManager, Inventory inventory, TableManager tableManager) {
+    public EventManager(EmployeeManager employeeManager, Inventory inventory, TableManager tableManager, Menu menu) {
         this.employeeManager = employeeManager;
         this.inventory = inventory;
         this.tableManager = tableManager;
+        this.menu = menu;
     }
 
     /**
@@ -46,7 +49,8 @@ public class EventManager {
     public void processEvents() {
         while (!this.eventQueue.isEmpty()) {
             Event event = this.eventQueue.remove();
-            EventProcessor eventProcessor = new EventProcessor(event, this.employeeManager, this.inventory, this.tableManager);            eventProcessor.process();
+            EventProcessor eventProcessor = new EventProcessor(event, this.employeeManager, this.inventory, this.tableManager);
+            eventProcessor.process();
         }
     }
 }

@@ -32,7 +32,7 @@ public class Menu {
             }
     }
 
-    public Dish makeDish(String name){
+    public static Dish makeDish(String name){
         Dish temp = dishes.get(name);
         Dish result = new Dish(temp);
         return result;
