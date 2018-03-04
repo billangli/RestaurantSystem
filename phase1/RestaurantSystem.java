@@ -43,7 +43,7 @@ public class RestaurantSystem {
       }
       String line = fileReader.readLine();
       while (line != null) {
-        String[] item = line.split("\\s+");
+        String[] item = line.split(",");
         int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
         Ingredient ingredient = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
         inventory.add(ingredient);
