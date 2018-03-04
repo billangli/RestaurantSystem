@@ -46,7 +46,7 @@ public class RestaurantSystem {
         String[] item = line.split(",");
         int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
         Ingredient ingredient = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
-        inventory.add(ingredient);
+        Inventory.add(ingredient);
         line = fileReader.readLine();
       }
 
@@ -68,7 +68,7 @@ public class RestaurantSystem {
       }
     }
 
-    menu.create();
+    Menu.create();
     Employee.setInventory(inventory);
 
     // Bill Ang Li added this so it reads and processes events

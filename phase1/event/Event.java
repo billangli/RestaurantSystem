@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 class Event {
-  private String manager;
-  private String instanceID;
+  private String employeeType;
+  private String employeeID;
   private String method;
   private ArrayList<String> parameters = new ArrayList<>();
 
@@ -40,8 +40,8 @@ class Event {
     StringTokenizer lineTokenizer = new StringTokenizer(line);
     try {
       // Parsing the text file according to our format TODO: Create a format in the README
-      this.manager = lineTokenizer.nextToken();
-      this.instanceID = lineTokenizer.nextToken();
+      this.employeeType = lineTokenizer.nextToken();
+      this.employeeID = lineTokenizer.nextToken();
       this.method = lineTokenizer.nextToken();
 
       // Creating an ArrayList of parameters from one token in the line
@@ -115,21 +115,21 @@ class Event {
   }
 
   /**
-   * Getter for the manager
+   * Getter for the employeeType
    *
-   * @return the manager
+   * @return the employeeType
    */
-  public String getManager() {
-    return manager;
+  public String getEmployeeType() {
+    return employeeType;
   }
 
   /**
-   * Getter for instanceID
+   * Getter for employeeID
    *
-   * @return the instanceID as an integer
+   * @return the employeeID as an integer
    */
-  public int getInstanceID() {
-    return Integer.parseInt(this.instanceID);
+  public int getEmployeeID() {
+    return Integer.parseInt(this.employeeID);
   }
 
   /**
@@ -153,8 +153,8 @@ class Event {
   // Test for Event
   public static void main(String[] args) {
     Event event = new Event("EmployeeManager 1 deliverOrderFailed (A13,B42,C23)");
-    System.out.println(event.manager);
-    System.out.println(event.instanceID);
+    System.out.println(event.employeeType);
+    System.out.println(event.employeeID);
     System.out.println(event.method);
     System.out.println("Parameters:");
     for (int i = 0; i < event.parameters.size(); i++) {

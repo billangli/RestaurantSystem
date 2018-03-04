@@ -39,39 +39,69 @@ public class EventProcessor {
     this.tableManager = tableManager;
   }
 
-  /** Find out which method to use based on the manager */
+//  /** Find out which method to use based on the manager */
+//  void process() {
+//    switch (this.event.getEmployeeType()) {
+//      case "EmployeeManager":
+//        this.processEmployeeEvent();
+//        break;
+//      case "InventoryManager":
+//        this.processInventoryEvent();
+//        break;
+//      case "TableManager":
+//        this.processTableEvent();
+//        break;
+//      default:
+//        System.out.println("This is an invalid Manager"); // TODO: Do it properly
+//    }
+//  }
+
+//  /**
+//   * Find out which type of Employee this employee is
+//   */
+//  private void processEmployeeEvent() {
+//    System.out.println("Processing Employee Event");
+//
+//    Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
+//
+//    if (employee instanceof Cook) {
+//      this.processCookEvent((Cook) employee);
+//    } else if (employee instanceof Manager) {
+//      this.processManagerEvent((Manager) employee);
+//    } else if (employee instanceof Server) {
+//      this.processServerEvent((Server) employee);
+//    } else {
+//      System.out.println("*** Invalid Employee Type ***");
+//    }
+//  }
+
+  /**
+   * Find which type of Employee to cast this employee to and call their methods
+   */
   void process() {
-    switch (this.event.getManager()) {
-      case "EmployeeManager":
-        this.processEmployeeEvent();
+    Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
+
+    switch (this.event.getEmployeeType()) {
+      case "Cook":
+        this.processCookEvent((Cook) employee);
         break;
-      case "InventoryManager":
-        this.processInventoryEvent();
+      case "Manager":
+        this.processManagerEvent((Manager) employee);
         break;
-      case "TableManager":
-        this.processTableEvent();
+      case "Server":
+        this.processServerEvent((Server) employee);
         break;
       default:
-        System.out.println("This is an invalid Manager"); // TODO: Do it properly
+        System.out.println("*** Invalid Employee Type ***");
+        break;
     }
   }
 
-  private void processEmployeeEvent() {
-    System.out.println("Processing Employee Event");
-
-    Employee employee = this.employeeManager.getEmployeeById(this.event.getInstanceID());
-
-    if (employee instanceof Cook) {
-      this.processCookEvent((Cook) employee);
-    } else if (employee instanceof Manager) {
-      this.processManagerEvent((Manager) employee);
-    } else if (employee instanceof Server) {
-      this.processServerEvent((Server) employee);
-    } else {
-      System.out.println("*** Invalid Employee Type ***");
-    }
-  }
-
+  /**
+   * Call cook's method based on this event's method in event.txt
+   *
+   * @param cook is the Cook whose method will be called
+   */
   private void processCookEvent(Cook cook) {
     switch (this.event.getMethod()) {
       case "orderReceived":
@@ -83,6 +113,11 @@ public class EventProcessor {
     }
   }
 
+  /**
+   * Call manager's method based on this event's method in event.txt
+   *
+   * @param manager is the Manager whose method will be called
+   */
   private void processManagerEvent(Manager manager) {
     switch (this.event.getMethod()) {
       default:
@@ -91,6 +126,11 @@ public class EventProcessor {
     }
   }
 
+  /**
+   * Call server's method based on this event's method in event.txt
+   *
+   * @param server is the Server whose method will be called
+   */
   private void processServerEvent(Server server) {
     switch (this.event.getMethod()) {
       case "takeSeat":
@@ -138,8 +178,14 @@ public class EventProcessor {
     }
   }
 
+  /**
+   * Process the inventory's event
+   */
   private void processInventoryEvent() {}
 
+  /**
+   * Process a table's event
+   */
   private void processTableEvent() {
     switch (this.event.getMethod()) {
       default:
