@@ -13,9 +13,7 @@ import java.io.IOException;
 public class RestaurantSystem {
   private static EmployeeManager employeeManager = new EmployeeManager();
   private static Inventory inventory = new Inventory();
-  private static TableManager tableManager;
   private static EventManager eventManager;
-  private static Menu menu;
 
   private static void start() throws IOException {
 
@@ -24,7 +22,7 @@ public class RestaurantSystem {
       // Print the lines from f prefaced with the line number,
       // starting at 1.
       String TableNum = fileReader.readLine();
-      tableManager = new TableManager(Integer.parseInt(TableNum));
+      TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
       int id = 1;
       for (int i = 0; i < Integer.parseInt(serverNum); i++) {
