@@ -5,10 +5,9 @@ import employee.Server;
 import java.util.ArrayList;
 
 public class TableManager {
-  private Table[] tables;
-  private ArrayList<Server> servers = new ArrayList<>();
+  private static Table[] tables;
 
-  public TableManager(int numOfTables) {
+  public static void tableSetUp(int numOfTables) {
     tables = new Table[numOfTables];
     // Note that table number starts from 1.
     for (int i = 1; i <= numOfTables; i++) {
@@ -16,13 +15,8 @@ public class TableManager {
     }
   }
 
-  public void registerServer(Server s) {
-    if (!servers.contains(s)) {
-      servers.add(s);
-    }
-  }
 
-  public Table getTable(int i) {
+  public static Table getTable(int i) {
     return tables[i];
   }
 }

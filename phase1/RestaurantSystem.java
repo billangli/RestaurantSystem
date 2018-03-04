@@ -13,9 +13,7 @@ import java.io.IOException;
 public class RestaurantSystem {
   private static EmployeeManager employeeManager = new EmployeeManager();
   private static Inventory inventory = new Inventory();
-  private static TableManager tableManager;
   private static EventManager eventManager;
-  private static Menu menu;
 
   private static void start() throws IOException {
 
@@ -24,7 +22,7 @@ public class RestaurantSystem {
       // Print the lines from f prefaced with the line number,
       // starting at 1.
       String TableNum = fileReader.readLine();
-      tableManager = new TableManager(Integer.parseInt(TableNum));
+      TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
       int id = 1;
       for (int i = 0; i < Integer.parseInt(serverNum); i++) {
@@ -43,10 +41,10 @@ public class RestaurantSystem {
       }
       String line = fileReader.readLine();
       while (line != null) {
-        String[] item = line.split("\\s+");
+        String[] item = line.split(",");
         int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
         Ingredient ingredient = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
-        inventory.add(ingredient);
+        Inventory.add(ingredient);
         line = fileReader.readLine();
       }
 
@@ -68,10 +66,11 @@ public class RestaurantSystem {
       }
     }
 
-    menu.create();
+    Menu.create();
+    Employee.setInventory(inventory);
 
     // Bill Ang Li added this so it reads and processes events
-    eventManager = new EventManager(employeeManager, inventory, tableManager);
+    eventManager = new EventManager(employeeManager);
     eventManager.readFile();
     eventManager.processEvents();
   }

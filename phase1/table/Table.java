@@ -50,7 +50,7 @@ public class Table {
   }
 
   public void printBill() {
-    System.out.println("List of dished ordered:");
+    System.out.println("table number"+ tableNum + "    \nList of dished ordered:");
     for (Order order : this.order) {
       System.out.println(order);
     }
