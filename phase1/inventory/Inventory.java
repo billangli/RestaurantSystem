@@ -61,27 +61,6 @@ public class Inventory {
         ingredientsInventory.put(ingredient.getName(),ingredient);
     }
 
-
-//    public void addQuantity(Ingredient receivedIngredient) {
-//        String ingredientName = dishIngredient.getName();
-//        int dishIngredientQuantity = dishIngredient.getQuantity();
-//        int ingredientStock = ingredientsInventory.get(ingredientName).getQuantity();
-//
-//        int updatedQuantity = ingredientStock + dishIngredientQuantity;
-//
-//        ingredientsInventory.get(ingredientName).setQuantity(updatedQuantity);
-//    }
-//
-//    public void reduceQuantity(Ingredient dishIngredient) {
-//        String ingredientName = dishIngredient.getName();
-//        int dishIngredientQuantity = dishIngredient.getQuantity();
-//        int ingredientStock = ingredientsInventory.get(ingredientName).getQuantity();
-//
-//        int updatedQuantity = ingredientStock - dishIngredientQuantity ;
-//
-//        ingredientsInventory.get(ingredientName).setQuantity(updatedQuantity);
-//    }
-
     public String toString(){
         ArrayList<String> listOfKeys = new ArrayList<>();
 
