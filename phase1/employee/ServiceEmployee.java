@@ -1,6 +1,7 @@
 package employee;
 
 import inventory.Dish;
+import inventory.Inventory;
 import table.Order;
 
 import java.util.LinkedList;
@@ -88,7 +89,9 @@ class OrderQueue {
    * @return dish that is being delivered.
    */
   public Dish dishDelivered() {
-    return DishesCompleted.remove();
-    // TODO: subtract the amount of ingredients used to cook the dish.
+    Dish dish = DishesCompleted.remove();
+
+    dish.updateIngredientsStock();
+    return dish;
   }
 }
