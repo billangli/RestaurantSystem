@@ -46,9 +46,9 @@ public class Dish {
      * Subtracts all the amounts of ingredients used in inventory to make this dish.
      */
   public void updateIngredientsStock() {
-    for (String ingredName : ingredientsRequired.keySet()) {
+    for (String ingredientName : ingredientsRequired.keySet()) {
       Inventory.modifyIngredientQuantity(
-          ingredName, -1 * ingredientsRequired.get(ingredName).getQuantity());
+          ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
     }
   }
 
