@@ -1,56 +1,51 @@
 package inventory;
 
 public class Ingredient {
-    private String name;
-    private int quantity;
-    private int[] thresholdQuantity;
-//    private boolean lowStock; //not needed
+  private String name;
+  private int quantity;
+  private int[] thresholdQuantity;
+  //    private boolean lowStock; //not needed
 
-    // Constructor for creating Ingredient receivedIngredient
-    public Ingredient(String name, int quantity) {
-        this.name = name;
-        this.quantity = quantity;
+  // Constructor for creating Ingredient receivedIngredient
+  public Ingredient(String name, int quantity) {
+    this.name = name;
+    this.quantity = quantity;
+  }
+
+  public Ingredient(String name, int quantity, int[] thresholdQuantity) {
+    this.name = name;
+    this.quantity = quantity;
+    this.thresholdQuantity = thresholdQuantity;
+  }
+
+  public int getQuantity() {
+    return this.quantity;
+  }
+
+  public void setQuantity(int quantityUnit) {
+    this.quantity = quantityUnit;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public boolean allowed(int n, Ingredient in) {
+    if (n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n) {
+      return true;
     }
+    return false;
+  }
 
-
-    public Ingredient(String name, int quantity, int[] thresholdQuantity) {
-        this.name = name;
-        this.quantity = quantity;
-        this.thresholdQuantity = thresholdQuantity;
+  public boolean isLowStock() {
+    if (this.quantity < this.thresholdQuantity[0]) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    public int getQuantity(){
-        return this.quantity;
-    }
-
-    public void setQuantity(int quantityUnit){
-        this.quantity = quantityUnit;
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public boolean allowed(int n, Ingredient in){
-        if(n> thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isLowStock() {
-        if (this.quantity < this.thresholdQuantity[0]) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    public void adjust(int n){
-        quantity += n;
-    }
-
-
-
+  public void adjust(int n) {
+    quantity += n;
+  }
 }
