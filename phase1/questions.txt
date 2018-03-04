@@ -13,3 +13,5 @@
 7. does one receiver ceceive all stock?
 
 8. config, what txt do we have to worry about?
+
+9. manually change? so it does not go through our code?

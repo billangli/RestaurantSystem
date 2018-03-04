@@ -24,9 +24,10 @@ public class Inventory {
     public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
         Ingredient stockIngredient = ingredientsInventory.get(ingredientName);
         int newQuantity = stockIngredient.getQuantity() + quantityUnits;
+        boolean isAlreadyLow = stockIngredient.isLowStock();
         stockIngredient.setQuantity(newQuantity);
 
-        if (stockIngredient.isLowStock()){
+        if (stockIngredient.isLowStock() && !isAlreadyLow){
             // create a request as text that is to be stored in requests.txt for the manager
             // to cut and paste into n email
             // Default amount to request is 20 units
