@@ -2,7 +2,7 @@
 Format in event.txt
 =============================================
 In event.txt, Tables and Employees are stored by their id values (int)
-Order (dishID:item+4_item-3_item-1)|(another dish)In event.txt, Tables and Employees are stored by their id values (int)
+Order (dishName:item+4_item-3_item-1)|(another dish)
 
 =============================================
 package employee

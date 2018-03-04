@@ -16,8 +16,6 @@ public class EventManager {
     private EmployeeManager employeeManager;
     private Inventory inventory;
     private TableManager tableManager;
-    private Menu menu;
-
 
     /**
      * Constructor for EventManager
@@ -26,11 +24,10 @@ public class EventManager {
      * @param inventory       is the class to manage inventory
      * @param tableManager    is the class to manage tables
      */
-    public EventManager(EmployeeManager employeeManager, Inventory inventory, TableManager tableManager, Menu menu) {
+    public EventManager(EmployeeManager employeeManager, Inventory inventory, TableManager tableManager) {
         this.employeeManager = employeeManager;
         this.inventory = inventory;
         this.tableManager = tableManager;
-        this.menu = menu;
     }
 
     /**

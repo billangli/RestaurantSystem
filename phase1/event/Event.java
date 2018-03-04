@@ -67,6 +67,7 @@ class Event {
         Order order = new Order();
         while (orderTokenizer.hasMoreTokens()) {
             String dishString = orderTokenizer.nextToken();
+            dishString = dishString.substring(1, dishString.length() - 1); // Get rid of the brackets
             Dish dish = parseDish(dishString);
             order.addDish(dish);
         }
@@ -81,7 +82,10 @@ class Event {
      */
     private static Dish parseDish(String str) {
         // Parsing the dish name and removing the dish name from str to make a string of ingredient adjustments
-        String dishName = str.substring(0, str.indexOf(":"));
+        String dishName = str;
+        if (str.contains(":")) {
+            dishName = str.substring(0, str.indexOf(":"));
+        }
         String ingredientAdjustments = str.substring(str.indexOf(":") + 1);
         Dish dish = Menu.makeDish(dishName);
 
