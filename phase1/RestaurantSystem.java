@@ -69,7 +69,6 @@ public class RestaurantSystem {
     }
 
     menu.create();
-    Employee.setInventory(inventory);
 
     // Bill Ang Li added this so it reads and processes events
     eventManager = new EventManager(employeeManager, inventory, tableManager);

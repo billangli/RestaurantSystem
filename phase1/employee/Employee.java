@@ -4,21 +4,16 @@ import inventory.Inventory;
 
 public class Employee {
   private final int id;
-  static Inventory inventory;
 
   public Employee(int id) {
     this.id = id;
   }
 
   public void receiveIngredient(String receivedIngredientName, int quantity) {
-    inventory.modifyIngredientQuantity(receivedIngredientName, quantity);
+    Inventory.modifyIngredientQuantity(receivedIngredientName, quantity);
   }
 
   public int getId() {
     return id;
-  }
-
-  public static void setInventory(Inventory inventory) {
-    Employee.inventory = inventory;
   }
 }
