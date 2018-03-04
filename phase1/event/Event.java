@@ -62,7 +62,7 @@ class Event {
      * @param str is the string to read from
      * @return the Order from that string
      */
-    private static Order parseOrder(String str) {
+    static Order parseOrder(String str) {
         StringTokenizer orderTokenizer = new StringTokenizer(str, "|");
         Order order = new Order();
         while (orderTokenizer.hasMoreTokens()) {

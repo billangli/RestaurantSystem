@@ -10,6 +10,7 @@ package event;
 
 import employee.*;
 import inventory.Inventory;
+import table.Order;
 import table.Table;
 import table.TableManager;
 
@@ -98,14 +99,18 @@ public class EventProcessor {
             }
             case "enterMenu": {
                 int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
-                Table table = tableManager.getTable(tableNumber); // TODO: Make dish format and finish this
+                Table table = tableManager.getTable(tableNumber);
+                Order order = Event.parseOrder(this.event.getParameters().get(1));
+                server.enterMenu(table, order);
                 break;
             }
             case "deliverDishCompleted": {
-                break; // TODO: Finish this
+                server.deliverDishCompleted(); // TODO: No need for dish?
+                break;
             }
             case "deliverDishFailed": {
-                break; // TODO: Finish this
+                server.deliverOrderFailed();
+                break;
             }
             case "printBill": {
                 int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
