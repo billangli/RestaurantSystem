@@ -1,5 +1,7 @@
 package employee;
 
+import inventory.Dish;
+
 public class Cook extends ServiceEmployee {
 
   public Cook(int id) {
@@ -17,12 +19,12 @@ public class Cook extends ServiceEmployee {
   }
 
   /** Cook confirms whether the food is ready to be delivered by the server. */
-  public void dishReady() {
-    orderQueue.dishCompleted();
-    System.out.println("Food is ready to be delivered.");
+  public void dishReady(int dishNumber) {
+    // the print log is in orderQueue.dishCompleted() method.
+    orderQueue.dishCompleted(dishNumber);
   }
 
-  public String toString(){
+  public String toString() {
     return "Cook, id:" + getId();
   }
 }

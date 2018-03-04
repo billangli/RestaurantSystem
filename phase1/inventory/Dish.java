@@ -7,7 +7,8 @@ import table.Table;
 public class Dish {
   private String name;
   private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
-
+  private int dishNumber;
+  private static int countDish = 0;
   private int cost;
   //    private int dishNumber;
   private boolean isReady;
@@ -16,6 +17,7 @@ public class Dish {
   public Dish(String name, int price, String[] ingredients) {
     this.name = name;
     this.cost = price;
+    this.dishNumber = ++countDish;
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -42,9 +44,7 @@ public class Dish {
     }
   }
 
-    /**
-     * Subtracts all the amounts of ingredients used in inventory to make this dish.
-     */
+  /** Subtracts all the amounts of ingredients used in inventory to make this dish. */
   public void updateIngredientsStock() {
     for (String ingredientName : ingredientsRequired.keySet()) {
       Inventory.modifyIngredientQuantity(
@@ -90,5 +90,9 @@ public class Dish {
 
   public void isCancelled() {
     cost = 0;
+  }
+
+  public int getDishNumber() {
+    return dishNumber;
   }
 }

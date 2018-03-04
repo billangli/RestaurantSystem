@@ -32,7 +32,7 @@ class OrderQueue {
   private Queue<Order> OrdersInQueue;
 
   // dishes that are seen by cook and are being cooked.
-  private Queue<Dish> DishesInProgress;
+  private LinkedList<Dish> DishesInProgress;
 
   // dishes that are cooked and waiting to be delivered.
   private Queue<Dish> DishesCompleted;
@@ -75,10 +75,34 @@ class OrderQueue {
   /**
    * This method is used by the cook to inform that a dish is cooked and waiting to be delivered to
    * customers.
+   *
+   * <p>Precondition: the dish that has 'dishNumber' is in the queue.
+   *
+   * @param dishNumber The dish number of dish that cook has finished cooking.
    */
-  public void dishCompleted() {
-    Dish dish = DishesInProgress.remove();
-    DishesCompleted.add(dish);
+  public void dishCompleted(int dishNumber) {
+    Dish dish = null;
+    for (int i = 0; i < DishesInProgress.size(); i++) {
+      if (DishesInProgress.get(i).getDishNumber() == dishNumber) {
+        dish = DishesInProgress.get(i);
+        DishesInProgress.remove(i);
+        break;
+      }
+    }
+
+    if (dish == null) {
+      System.err.print("Cook.dishCompleted(int dishNumber): Not a valid dish number.");
+      Exception e = new Exception();
+      e.printStackTrace(System.out);
+    } else {
+      DishesCompleted.add(dish);
+      System.out.println(
+          "Server id: "
+              + dish.getTable().getServer().getId()
+              + " | Dish number: "
+              + dishNumber
+              + " is ready to be delivered.");
+    }
   }
 
   /**

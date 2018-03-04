@@ -21,7 +21,7 @@ class Employee
 
 class Cook
 + orderReceived(): void
-+ dishReady(Dish dish): void
++ dishReady(int dishNumber): void
 + toString(): String
 
 
