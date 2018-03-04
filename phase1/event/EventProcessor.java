@@ -9,7 +9,6 @@ Marc. 1st, 2018
 package event;
 
 import employee.*;
-import inventory.Inventory;
 import table.Order;
 import table.Table;
 import table.TableManager;
@@ -17,67 +16,55 @@ import table.TableManager;
 public class EventProcessor {
   private Event event;
   private EmployeeManager employeeManager;
-  private Inventory inventory;
-  private TableManager tableManager;
 
   /**
    * Constructor for EventProcessor
    *
    * @param event is the event that this EventProcessor will process
    * @param employeeManager is the class that controls employees
-   * @param inventory is the class that controls inventory
-   * @param tableManager is the class that controls tables
    */
-  EventProcessor(
-      Event event,
-      EmployeeManager employeeManager,
-      Inventory inventory,
-      TableManager tableManager) {
+  EventProcessor(Event event, EmployeeManager employeeManager) {
     this.event = event;
     this.employeeManager = employeeManager;
-    this.inventory = inventory;
-    this.tableManager = tableManager;
   }
 
-//  /** Find out which method to use based on the manager */
-//  void process() {
-//    switch (this.event.getEmployeeType()) {
-//      case "EmployeeManager":
-//        this.processEmployeeEvent();
-//        break;
-//      case "InventoryManager":
-//        this.processInventoryEvent();
-//        break;
-//      case "TableManager":
-//        this.processTableEvent();
-//        break;
-//      default:
-//        System.out.println("This is an invalid Manager"); // TODO: Do it properly
-//    }
-//  }
+  //  /** Find out which method to use based on the manager */
+  //  void process() {
+  //    switch (this.event.getEmployeeType()) {
+  //      case "EmployeeManager":
+  //        this.processEmployeeEvent();
+  //        break;
+  //      case "InventoryManager":
+  //        this.processInventoryEvent();
+  //        break;
+  //      case "TableManager":
+  //        this.processTableEvent();
+  //        break;
+  //      default:
+  //        System.out.println("This is an invalid Manager"); // TODO: Do it properly
+  //    }
+  //  }
 
-//  /**
-//   * Find out which type of Employee this employee is
-//   */
-//  private void processEmployeeEvent() {
-//    System.out.println("Processing Employee Event");
-//
-//    Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
-//
-//    if (employee instanceof Cook) {
-//      this.processCookEvent((Cook) employee);
-//    } else if (employee instanceof Manager) {
-//      this.processManagerEvent((Manager) employee);
-//    } else if (employee instanceof Server) {
-//      this.processServerEvent((Server) employee);
-//    } else {
-//      System.out.println("*** Invalid Employee Type ***");
-//    }
-//  }
+  //  /**
+  //   * Find out which type of Employee this employee is
+  //   */
+  //  private void processEmployeeEvent() {
+  //    System.out.println("Processing Employee Event");
+  //
+  //    Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
+  //
+  //    if (employee instanceof Cook) {
+  //      this.processCookEvent((Cook) employee);
+  //    } else if (employee instanceof Manager) {
+  //      this.processManagerEvent((Manager) employee);
+  //    } else if (employee instanceof Server) {
+  //      this.processServerEvent((Server) employee);
+  //    } else {
+  //      System.out.println("*** Invalid Employee Type ***");
+  //    }
+  //  }
 
-  /**
-   * Find which type of Employee to cast this employee to and call their methods
-   */
+  /** Find which type of Employee to cast this employee to and call their methods */
   void process() {
     Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
 
@@ -136,14 +123,14 @@ public class EventProcessor {
       case "takeSeat":
         {
           int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
-          Table table = tableManager.getTable(tableNumber);
+          Table table = TableManager.getTable(tableNumber);
           server.takeSeat(table);
           break;
         }
       case "enterMenu":
         {
           int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
-          Table table = tableManager.getTable(tableNumber);
+          Table table = TableManager.getTable(tableNumber);
           Order order = Event.parseOrder(this.event.getParameters().get(1));
           server.enterMenu(table, order);
           break;
@@ -161,14 +148,14 @@ public class EventProcessor {
       case "printBill":
         {
           int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
-          Table table = tableManager.getTable(tableNumber);
+          Table table = TableManager.getTable(tableNumber);
           server.printBill(table);
           break;
         }
       case "checkIfPaid":
         {
           int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
-          Table table = tableManager.getTable(tableNumber);
+          Table table = TableManager.getTable(tableNumber);
           server.checkIfPaid(table);
           break;
         }
@@ -178,14 +165,10 @@ public class EventProcessor {
     }
   }
 
-  /**
-   * Process the inventory's event
-   */
+  /** Process the inventory's event */
   private void processInventoryEvent() {}
 
-  /**
-   * Process a table's event
-   */
+  /** Process a table's event */
   private void processTableEvent() {
     switch (this.event.getMethod()) {
       default:

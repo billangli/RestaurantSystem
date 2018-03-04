@@ -70,7 +70,7 @@ public class RestaurantSystem {
     Employee.setInventory(inventory);
 
     // Bill Ang Li added this so it reads and processes events
-    eventManager = new EventManager(employeeManager, inventory, tableManager);
+    eventManager = new EventManager(employeeManager);
     eventManager.readFile();
     eventManager.processEvents();
   }
