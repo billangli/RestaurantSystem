@@ -46,7 +46,7 @@ public class Inventory {
                 FileWriter fw = new FileWriter(file);
                 bw = new BufferedWriter(fw);
                 bw.write(mycontent);
-                System.out.println("File written Successfully");
+                System.out.println("request updated: " + ingredientName);
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
