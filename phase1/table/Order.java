@@ -24,9 +24,13 @@ public class Order {
 
   public String toString() {
     StringBuilder str = new StringBuilder();
-    for (Dish d : dishes) {
-      str.append(d.toString()).append("\n");
+
+    int i = 0;
+    for (; i < dishes.size() - 1; i++) {
+      str.append(dishes.get(i).toString()).append("\n");
     }
+    str.append(dishes.get(i));
+
     return str.toString();
   }
 

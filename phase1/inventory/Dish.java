@@ -79,7 +79,7 @@ public class Dish {
   }
 
   public String toString() {
-    return name + ",   $" + cost;
+    return name + ": $" + cost;
   }
 
   public void addCostToTable() {
