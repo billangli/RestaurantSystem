@@ -1,0 +1,56 @@
+@startuml
+class EmployeeManager{
+- {static} employeeList: ArrayList<Employee>
++ {static} add(Employee): void
++ {static} allEmployeesToString(): String
++ {static} getEmployeeById(int): Employee
+}
+class OrderQueue{
+- OrdersInQueue: Queue<Order>
+- DishesInProgress: LinkedList<Dish>
+- DishesCompleted: Queue<Dish>
++ OrderQueue()
++ addOrderInQueue(Order): void
++ confirmOrdersInQueue(): void
++ dishCompleted(): void
++ dishDelivered(): void
++ queueIsEmpty(): boolean
+}
+
+class Employee{
+- ID: int
++ Employee(int)
++ receiveIngredient(String , int): void
++ getID(): int
+}
+class ServiceEmployee {
+- {static} orderQueue: OrderQueue
+~ ServiceEmployee(int)
+}
+class Server{
++ Server(int)
++ takeSeat(Table): void
++ enterMenu(Table, Order): void
++ deliverCompleted(): void
++ deliverOrderFailed(): void
++ printBill(Table): void
++ checkIfPaid(Table): boolean
++ toString(): String
+}
+class Cook{
++ Cook(int)
++ orderReceived(): void
++ dishReady(int): void
++ toString(): String
+}
+class Manager{
++ Manager(int)
++ checkInventory(): void
++ toString(): String
+}
+
+Employee <|-- ServiceEmployee
+ServiceEmployee <|-- Cook
+ServiceEmployee <|-- Server
+Employee <|-- Manager
+@enduml
