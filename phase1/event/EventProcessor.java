@@ -120,14 +120,14 @@ public class EventProcessor {
     switch (this.event.getMethod()) {
       case "takeSeat":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
+          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.takeSeat(table);
           break;
         }
       case "enterMenu":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
+          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           Order order = Event.parseOrder(this.event.getParameters().get(1));
           server.enterMenu(table, order);
@@ -145,14 +145,14 @@ public class EventProcessor {
         }
       case "printBill":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
+          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.printBill(table);
           break;
         }
       case "checkIfPaid":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0));
+          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.checkIfPaid(table);
           break;

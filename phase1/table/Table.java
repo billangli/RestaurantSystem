@@ -33,10 +33,6 @@ public class Table {
     newOrder.setTableForDishes(this);
   }
 
-  public Server getServer() {
-    return server;
-  }
-
   public int getTableNum() {
     return tableNum;
   }
@@ -51,12 +47,16 @@ public class Table {
 
   public void printBill() {
     System.out.println("===== <BILL> =====");
-    System.out.println("Table number: "+ tableNum + "\nList of dishes ordered:");
+    System.out.println("Table number: " + tableNum + "\nList of dishes ordered:");
     for (Order order : this.order) {
       System.out.println(order);
     }
     System.out.println("------------------");
     System.out.println("Total: $" + cost);
     System.out.println("==================");
+  }
+
+  public int getServerId() {
+    return (server == null) ? -1 : server.getId();
   }
 }

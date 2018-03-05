@@ -84,7 +84,7 @@ class OrderQueue {
       DishesCompleted.add(dish);
       System.out.println(
           "Server id: "
-              + dish.getTable().getServer().getId()
+              + dish.getTable().getServerId()
               + " | Dish number: "
               + dishNumber
               + " is ready to be delivered.");
