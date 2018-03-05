@@ -23,9 +23,9 @@ public class Menu {
             while (line != null) {
                 String[] items = line.split(";");
                 String name = items[0];
-                int price = Integer.parseInt(items[1]);
+                double price = Integer.parseInt(items[1]);
                 String[] ingredients = items[2].split(",");
-                dishes.put(name, new Dish(name,price, ingredients));
+                dishes.put(name, new Dish(name, price, ingredients));
                 line = fileReader.readLine();
                 }
 
