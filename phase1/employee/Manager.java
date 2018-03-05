@@ -1,7 +1,6 @@
 package employee;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import inventory.Inventory;
 
 public class Manager extends Employee {
 
@@ -9,20 +8,23 @@ public class Manager extends Employee {
     super(id);
   }
 
+  /**
+   *
+   */
   public void checkInventory() {
-    // TODO: print out all inventory items and their quentities.
+    System.out.println(Inventory.inventoryToString());
   }
 
-  //not sure
-//  public void sendRequeset(){
-//    try{
-//      new FileWriter("phase1/request.txt").close();
-//    }
-//    catch (IOException ioe) {
-//      ioe.printStackTrace();
-//    }
+  // not sure
+  //  public void sendRequeset(){
+  //    try{
+  //      new FileWriter("phase1/request.txt").close();
+  //    }
+  //    catch (IOException ioe) {
+  //      ioe.printStackTrace();
+  //    }
 
-//  }
+  //  }
   public String toString() {
     return "Manager, id:" + getId();
   }
