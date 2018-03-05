@@ -9,11 +9,11 @@ public class Dish {
   private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
   private int dishNumber;
   private static int countDish = 0;
-  private double cost;
+  private float cost;
   private boolean isReady;
   Table table;
 
-  public Dish(String name, double price, String[] ingredients) {
+  public Dish(String name, float price, String[] ingredients) {
     this.name = name;
     this.cost = price;
     for (String ingredient : ingredients) {
@@ -70,7 +70,7 @@ public class Dish {
     return name;
   }
 
-  public double getCost() {
+  public float getCost() {
     return cost;
   }
 
@@ -79,7 +79,7 @@ public class Dish {
   }
 
   public String toString() {
-    return name + ": $" + cost;
+    return name + ": $" + String.format("%.2f", cost);
   }
 
   public void addCostToTable() {

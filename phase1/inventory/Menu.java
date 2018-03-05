@@ -23,7 +23,7 @@ public class Menu {
             while (line != null) {
                 String[] items = line.split(";");
                 String name = items[0];
-                double price = Integer.parseInt(items[1]);
+                float price = Integer.parseInt(items[1]);
                 String[] ingredients = items[2].split(",");
                 dishes.put(name, new Dish(name, price, ingredients));
                 line = fileReader.readLine();

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Table {
   private int tableNum;
-  private int cost;
+  private float cost;
   private Server server;
   private ArrayList<Order> order;
   private boolean hasPaid;
@@ -52,7 +52,7 @@ public class Table {
       System.out.println(order);
     }
     System.out.println("------------------");
-    System.out.println("Total: $" + cost);
+    System.out.format("Total: $%.2f \n", cost);
     System.out.println("==================");
   }
 
