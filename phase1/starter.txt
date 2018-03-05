@@ -10,3 +10,4 @@ veggie patty,10,5,30
 potato,20,5,40
 cheese,15,10,40
 chicken nugget,20,5,40
+bacon,15,5,40

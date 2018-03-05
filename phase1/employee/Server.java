@@ -31,14 +31,23 @@ public class Server extends ServiceEmployee {
 
   public void deliverDishCompleted() {
     Dish dish = orderQueue.dishDelivered();
-    System.out.println("The dish, " + dish.getName() + "has been delivered successfully.");
+    System.out.println(
+        "Dish #: "
+            + dish.getDishNumber()
+            + ", "
+            + dish.getName()
+            + " has been delivered successfully.");
     dish.addCostToTable();
   }
 
   public void deliverOrderFailed() {
     Dish dish = orderQueue.dishDelivered();
     System.out.println(
-        "The dish, " + dish.getName() + "has been delivered but put back upon customer's request.");
+        "Dish #: "
+            + dish.getDishNumber()
+            + ", "
+            + dish.getName()
+            + " has been delivered but put back upon customer's request.");
 
     // Sets price of the dish to zero, while remaining the dish in the table's order list.
     dish.isCancelled();

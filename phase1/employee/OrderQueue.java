@@ -96,7 +96,7 @@ class OrderQueue {
    *
    * <p>Note that the dish can also be put back by customer's request.
    *
-   * @return dish that is being delivered.
+   * @return dish that is being delivered, null if there is no dish to be delivered.
    */
   public Dish dishDelivered() {
     if (DishesCompleted.isEmpty()) {
