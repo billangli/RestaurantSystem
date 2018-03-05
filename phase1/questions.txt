@@ -19,3 +19,5 @@
 10. static TableManager, Inventory, Menu
 
 11. What happens if adjustments are invalid?
+
+12. What to do if event.txt has invalid input?

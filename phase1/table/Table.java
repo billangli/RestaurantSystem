@@ -45,6 +45,11 @@ public class Table {
     return hasPaid;
   }
 
+  /**
+   * print bill for this table in format of Table number
+   * and all dishes with its price
+   * and the total price
+   */
   public void printBill() {
     System.out.println("===== <BILL> =====");
     System.out.println("Table number: " + tableNum + "\nList of dishes ordered:");

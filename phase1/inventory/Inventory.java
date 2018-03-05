@@ -36,7 +36,7 @@ public class Inventory {
             try {
                 String mycontent = ingredientName+" 20";
                 //Specify the file name and path here
-                File file = new File("phase/request.txt");
+                File file = new File("phase1/request.txt");
 
                 /* This logic will make sure that the file
                  * gets created if it is not present at the
