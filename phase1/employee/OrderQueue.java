@@ -9,9 +9,6 @@ import java.util.Queue;
  * An OrderQueue class.
  *
  * <p>This class manages all the orders that are made from customers.
- *
- * <p>Important: All the cooks and servers should share one OrderQueue class. This should be
- * initialized first.
  */
 class OrderQueue {
   // orders that are sent from server to cook and are not yet seen by cook.
@@ -76,16 +73,16 @@ class OrderQueue {
       }
     }
 
+    Exception e = new Exception();
     if (dish == null) {
       System.err.print("OrderQueue.dishCompleted(int dishNumber): Not a valid dish number.");
-      Exception e = new Exception();
-      e.printStackTrace(System.out);
+      e.printStackTrace();
     } else {
       DishesCompleted.add(dish);
       int serverId = dish.getTable().getServerId();
       if (serverId == -1) {
         System.err.println("Not a valid server id.");
-
+        e.printStackTrace();
       } else {
         System.out.println(
             "Server id("

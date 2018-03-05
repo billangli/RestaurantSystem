@@ -1,9 +1,13 @@
 package employee;
 
-import inventory.Dish;
-
+/** A cook class. This class represents the cook. */
 public class Cook extends ServiceEmployee {
 
+  /**
+   * A constructor. Takes an int type parameter.
+   *
+   * @param id id of this employee.
+   */
   public Cook(int id) {
     super(id);
   }
@@ -25,6 +29,13 @@ public class Cook extends ServiceEmployee {
     orderQueue.dishCompleted(dishNumber);
   }
 
+  /**
+   * Returns a string representation of this employee.
+   *
+   * <p>The string representation consists of its employ type (= Cook) and its id.
+   *
+   * @return a string representation of this employee.
+   */
   public String toString() {
     return "Cook, id:" + getId();
   }
