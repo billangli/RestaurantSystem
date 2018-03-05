@@ -64,7 +64,7 @@ public class Inventory {
         ingredientsInventory.put(ingredient.getName(),ingredient);
     }
 
-    public String toString(){
+    public static String inventoryToString(){
         ArrayList<String> listOfKeys = new ArrayList<>();
 
         for (String name : ingredientsInventory.keySet()) {

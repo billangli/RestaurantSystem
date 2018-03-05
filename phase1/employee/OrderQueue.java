@@ -82,14 +82,20 @@ class OrderQueue {
       e.printStackTrace(System.out);
     } else {
       DishesCompleted.add(dish);
-      System.out.println(
-          "Server id("
-              + dish.getTable().getServerId()
-              + ") | "
-              + dish.getName()
-              + " (Dish #: "
-              + dishNumber
-              + ") is ready to be delivered.");
+      int serverId = dish.getTable().getServerId();
+      if (serverId == -1) {
+        System.err.println("Not a valid server id.");
+
+      } else {
+        System.out.println(
+            "Server id("
+                + serverId
+                + ") | "
+                + dish.getName()
+                + " (Dish #: "
+                + dishNumber
+                + ") is ready to be delivered.");
+      }
     }
   }
 
