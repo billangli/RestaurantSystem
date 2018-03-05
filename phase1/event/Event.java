@@ -39,7 +39,7 @@ class Event {
   private void parseEvent(String line) {
     StringTokenizer lineTokenizer = new StringTokenizer(line);
     try {
-      // Parsing the text file according to our format TODO: Create a format in the README
+      // Parsing the text file according to our format
       this.employeeType = lineTokenizer.nextToken();
       this.employeeID = lineTokenizer.nextToken();
       this.method = lineTokenizer.nextToken();
@@ -106,8 +106,6 @@ class Event {
         String ingredientName = adjustment.substring(0, adjustment.indexOf("-"));
         int amount = Integer.parseInt(adjustment.substring(adjustment.indexOf("-") + 1));
         dish.adjustIngredient(ingredientName, (-1) * amount);
-      } else {
-        System.out.println("Dish adjustment invalid");
       }
     }
 

@@ -17,3 +17,5 @@
 9. manually change? so it does not go through our code?
 
 10. static TableManager, Inventory, Menu
+
+11. What happens if adjustments are invalid?
