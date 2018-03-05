@@ -10,14 +10,12 @@ public class Dish {
   private int dishNumber;
   private static int countDish = 0;
   private int cost;
-  //    private int dishNumber;
   private boolean isReady;
   Table table;
 
   public Dish(String name, int price, String[] ingredients) {
     this.name = name;
     this.cost = price;
-    this.dishNumber = ++countDish;
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -94,5 +92,9 @@ public class Dish {
 
   public int getDishNumber() {
     return dishNumber;
+  }
+
+  public void assignDishNumber(){
+    dishNumber = ++Dish.countDish;
   }
 }

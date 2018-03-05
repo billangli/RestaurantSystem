@@ -21,6 +21,7 @@ public class Server extends ServiceEmployee {
    */
   public void enterMenu(Table table, Order order) {
     // Add order to the table and relate all the dish to the table.
+    order.assignDishNumber();
     table.addOrder(order);
 
     // Send order to cook

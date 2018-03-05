@@ -55,12 +55,18 @@ public class Order {
   public String dishesToString() {
     ArrayList<String> result = new ArrayList<>();
     for (Dish dish : dishes) {
-      result.add(dish.getName());
+      result.add(dish.getName() + "(Dish #: " + dish.getDishNumber() + ")");
     }
     return String.join("/", result);
   }
 
   public ArrayList<Dish> getDishes() {
     return dishes;
+  }
+
+  public void assignDishNumber() {
+    for (Dish d : dishes) {
+      d.assignDishNumber();
+    }
   }
 }
