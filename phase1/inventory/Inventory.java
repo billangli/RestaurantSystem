@@ -1,9 +1,6 @@
 package inventory;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Inventory {
@@ -33,7 +30,7 @@ public class Inventory {
             // Default amount to request is 20 units
             // The manager can manually change that amount when creating the email
             BufferedWriter bw = null;
-            try {
+            try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/request.txt"))){
                 String mycontent = ingredientName+" 20";
                 //Specify the file name and path here
                 File file = new File("phase1/request.txt");
@@ -41,12 +38,18 @@ public class Inventory {
                 /* This logic will make sure that the file
                  * gets created if it is not present at the
                  * specified location*/
-
-
                 FileWriter fw = new FileWriter(file);
                 bw = new BufferedWriter(fw);
+                String line = fileReader.readLine();
+                while (line != null) {
+                    bw.write(line);
+                    line = fileReader.readLine();
+                }
+
+
                 bw.write(mycontent);
                 System.out.println("request updated: " + ingredientName);
+                bw.close();
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();

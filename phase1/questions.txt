@@ -16,8 +16,10 @@
 
 9. manually change? so it does not go through our code?
 
-10. static TableManager, Inventory, Menu
+10. static TableManager, Inventory, Menu is good
 
 11. What happens if adjustments are invalid?
 
-12. What to do if event.txt has invalid input?
+12. What to do if event.txt has invalid input? (exceptions or output to console?)
+
+13.request restart?
