@@ -4,10 +4,10 @@ import inventory.Inventory;
 
 /** An Employee class. This is parent class of all employees(Server, Cook, Manager). */
 public class Employee {
-  private final int id;
+  private final int ID;
 
   public Employee(int id) {
-    this.id = id;
+    this.ID = id;
   }
 
   /**
@@ -28,6 +28,6 @@ public class Employee {
    * @return the id of this employee.
    */
   public int getId() {
-    return id;
+    return ID;
   }
 }
