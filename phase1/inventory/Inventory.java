@@ -75,7 +75,7 @@ public class Inventory {
 
         String output = "List of ingredients in stock: \n";
         for (String ingredientName : listOfKeys) {
-            output += "ingredientName: " + ingredientsInventory.get(ingredientName) + "\n";
+            output += ingredientName + ":"  + ingredientsInventory.get(ingredientName).getQuantity() + "\n";
         }
 
         return output;
