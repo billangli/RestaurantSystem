@@ -15,17 +15,14 @@ import table.TableManager;
 
 public class EventProcessor {
   private Event event;
-  private EmployeeManager employeeManager;
 
   /**
    * Constructor for EventProcessor
    *
    * @param event is the event that this EventProcessor will process
-   * @param employeeManager is the class that controls employees
    */
-  EventProcessor(Event event, EmployeeManager employeeManager) {
+  EventProcessor(Event event) {
     this.event = event;
-    this.employeeManager = employeeManager;
   }
 
   //  /** Find out which method to use based on the manager */
@@ -66,7 +63,7 @@ public class EventProcessor {
 
   /** Find which type of Employee to cast this employee to and call their methods */
   void process() {
-    Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
+    Employee employee = EmployeeManager.getEmployeeById(this.event.getEmployeeID());
 
     switch (this.event.getEmployeeType()) {
       case "Cook":
@@ -95,7 +92,8 @@ public class EventProcessor {
         cook.orderReceived();
         break;
       case "dishReady":
-        cook.dishReady();
+        int dishNumber = Integer.parseInt(this.event.getParameters().get(0));
+        cook.dishReady(dishNumber);
         break;
     }
   }
