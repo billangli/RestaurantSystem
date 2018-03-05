@@ -13,6 +13,14 @@ public class Dish {
   private boolean isReady;
   Table table;
 
+  /**
+     * Constructor that takes the name of the dish, price and the list of names of the ingredients;
+     * this constructor is used to create the dishes in the Menu
+     *
+     * @param name is the name of the Dish
+     * @param price is the price of the Dish in dollars
+     * @param ingredients is the list of names of the ingredients used for this dish
+     */
   public Dish(String name, float price, String[] ingredients) {
     this.name = name;
     this.cost = price;
@@ -26,6 +34,11 @@ public class Dish {
     isReady = false;
   }
 
+    /**
+     * A constructor that copies the dish from the menu to create a dish for Order
+     *
+     * @param d is the dish in the menu
+     */
   public Dish(Dish d) {
     this.name = d.getName();
     this.cost = d.getCost();
@@ -33,7 +46,13 @@ public class Dish {
     isReady = false;
   }
 
-  // NEED MODIFICATION
+    /**
+     *
+     *
+     * 
+     * @param ingredientName
+     * @param amount
+     */
   public void adjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired
         .get(ingredientName)
