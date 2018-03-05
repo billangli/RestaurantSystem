@@ -46,7 +46,7 @@ public class Inventory {
                 FileWriter fw = new FileWriter(file);
                 bw = new BufferedWriter(fw);
                 bw.write(mycontent);
-                System.out.println("File written Successfully");
+                System.out.println("request updated: " + ingredientName);
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -70,7 +70,7 @@ public class Inventory {
 
         Collections.sort(listOfKeys, String.CASE_INSENSITIVE_ORDER);
 
-        String output = "List of ingredeints in stock: \n";
+        String output = "List of ingredients in stock: \n";
         for (String ingredientName : listOfKeys) {
             output += "ingredientName: " + ingredientsInventory.get(ingredientName) + "\n";
         }
