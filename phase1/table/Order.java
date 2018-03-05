@@ -56,6 +56,10 @@ public class Order {
     }
   }
 
+
+  /**
+   * @return all dish name with its price
+   */
   public String dishesToString() {
     ArrayList<String> result = new ArrayList<>();
     for (Dish dish : dishes) {

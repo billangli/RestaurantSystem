@@ -105,6 +105,9 @@ public class EventProcessor {
    */
   private void processManagerEvent(Manager manager) {
     switch (this.event.getMethod()) {
+      case "checkInventory":
+        manager.checkInventory();
+        break;
       default:
         System.out.println("*** Manager has no " + this.event.getMethod() + " method ***");
         break;
