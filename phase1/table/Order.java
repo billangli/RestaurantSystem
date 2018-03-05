@@ -61,7 +61,7 @@ public class Order {
     for (Dish dish : dishes) {
       result.add(dish.getName() + "(Dish #: " + dish.getDishNumber() + ")");
     }
-    return String.join("/", result);
+    return String.join(", ", result);
   }
 
   public ArrayList<Dish> getDishes() {

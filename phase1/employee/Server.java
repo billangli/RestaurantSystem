@@ -32,11 +32,10 @@ public class Server extends ServiceEmployee {
   public void deliverDishCompleted() {
     Dish dish = orderQueue.dishDelivered();
     System.out.println(
-        "Dish #: "
+        dish.getName()
+            + " (Dish #: "
             + dish.getDishNumber()
-            + ", "
-            + dish.getName()
-            + " has been delivered successfully.");
+            + ") has been delivered successfully.");
     dish.addCostToTable();
   }
 

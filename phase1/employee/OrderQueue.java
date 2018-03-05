@@ -83,11 +83,13 @@ class OrderQueue {
     } else {
       DishesCompleted.add(dish);
       System.out.println(
-          "Server id: "
+          "Server id("
               + dish.getTable().getServerId()
-              + " | Dish number: "
+              + ") | "
+              + dish.getName()
+              + " (Dish #: "
               + dishNumber
-              + " is ready to be delivered.");
+              + ") is ready to be delivered.");
     }
   }
 
