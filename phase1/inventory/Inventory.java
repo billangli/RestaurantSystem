@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Inventory {
-    private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();;
+    private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();
 
 
 
@@ -29,10 +29,18 @@ public class Inventory {
             // to cut and paste into n email
             // Default amount to request is 20 units
             // The manager can manually change that amount when creating the email
-            BufferedWriter bw = null;
+            BufferedWriter bw;
             try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/request.txt"))){
                 String mycontent = ingredientName+" 20";
                 //Specify the file name and path here
+
+                String line = fileReader.readLine();
+                String outPut = "";
+                while (line != null) {
+                    outPut+= line + "\n";
+                    line = fileReader.readLine();
+                }
+
                 File file = new File("phase1/request.txt");
 
                 /* This logic will make sure that the file
@@ -40,14 +48,7 @@ public class Inventory {
                  * specified location*/
                 FileWriter fw = new FileWriter(file);
                 bw = new BufferedWriter(fw);
-                String line = fileReader.readLine();
-                while (line != null) {
-                    bw.write(line);
-                    line = fileReader.readLine();
-                }
-
-
-                bw.write(mycontent);
+                bw.write(outPut + mycontent);
                 System.out.println("request updated: " + ingredientName);
                 bw.close();
 

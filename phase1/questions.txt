@@ -22,4 +22,4 @@
 
 12. What to do if event.txt has invalid input? (exceptions or output to console?)
 
-13.request restart?
+13.request restart? do it saves?
