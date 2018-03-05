@@ -37,7 +37,7 @@ class Event {
    * @param line is the line to be parsed
    */
   private void parseEvent(String line) {
-    StringTokenizer lineTokenizer = new StringTokenizer(line);
+    StringTokenizer lineTokenizer = new StringTokenizer(line, ";");
     try {
       // Parsing the text file according to our format
       this.employeeType = lineTokenizer.nextToken();
