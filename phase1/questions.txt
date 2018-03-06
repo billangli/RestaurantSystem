@@ -23,3 +23,5 @@
 12. What to do if event.txt has invalid input? (exceptions or output to console?)
 
 13.request restart? do it saves?
+
+14. when dish is delivered, does it need to assign to a server

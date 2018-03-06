@@ -48,9 +48,6 @@ public class Order {
 
   public void setTable(Table table) {
     this.table = table;
-  }
-
-  public void setTableForDishes(Table table) {
     for (Dish dish : dishes) {
       dish.setTable(table);
     }
