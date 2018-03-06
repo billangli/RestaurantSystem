@@ -42,7 +42,7 @@ public class Server extends ServiceEmployee {
 
       // Send order to cook
       orderQueue.addOrderInQueue(order);
-      System.out.println("Orders are sent to cook.");
+      System.out.println("Server " + getId() + "Orders are sent to cook.");
     }
   }
 
@@ -50,6 +50,7 @@ public class Server extends ServiceEmployee {
   public void deliverDishCompleted() {
     Dish dish = orderQueue.dishDelivered();
     System.out.println(
+            "Server " + getId() + "    " +
         dish.getName()
             + " (Dish #: "
             + dish.getDishNumber()

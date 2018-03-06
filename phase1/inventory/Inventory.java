@@ -79,6 +79,7 @@ public class Inventory {
             System.out.printf("%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
 
         }
+        System.out.println("\n");
 
     }
 

@@ -57,7 +57,7 @@ public class Table {
     }
     System.out.println("------------------");
     System.out.format("Total: $%.2f \n", cost);
-    System.out.println("==================");
+    System.out.println("==================\n");
   }
 
   public int getServerId() {

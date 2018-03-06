@@ -50,7 +50,7 @@ class OrderQueue {
       Order order = OrdersInQueue.remove();
       System.out.println("--- Order confirm message ---");
       System.out.println("Order for table number: " + order.getTableNum());
-      System.out.println("List of Dishes: " + order.dishesToString());
+      System.out.println("List of Dishes: " + order.dishesToString() +"\n");
       DishesInProgress.addAll(order.getDishes());
     }
   }
