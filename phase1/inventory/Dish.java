@@ -47,9 +47,9 @@ public class Dish {
   }
 
     /**
+     * Adjust the ingredient in the dish that is to be added to the Order
      *
      *
-     * 
      * @param ingredientName
      * @param amount
      */
@@ -69,34 +69,66 @@ public class Dish {
     }
   }
 
+  /**
+   *
+   *
+   * @param t the table that this dish was ordered from will be delivered to
+   */
   public void setTable(Table t) {
     table = t;
   }
 
+  /**
+   *  Status of the dish describing whether it is cooked and ready to be delivered to the table
+   */
   public void ready() {
     isReady = true;
   }
 
+  /**
+   * Recook the dish
+   */
   public void recook() {
     isReady = false;
   }
 
+  /**
+   * Return whether dish is ready to be delivered
+   *
+   * @return
+   */
   public boolean isReady() {
     return isReady;
   }
 
+  /**
+   * Return name of the dish
+   * @return the name of the dish
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Return the cost of the dish
+   * @return the cost of the dish
+   */
   public float getCost() {
     return cost;
   }
 
+  /**
+   * Return the table that this dish was ordered from
+   * @return the table that this dish was ordered from
+   */
   public Table getTable() {
     return table;
   }
 
+  /**
+   * Return the name of the dish and its cost
+   * @return Return the name of the dish and its cost
+   */
   public String toString() {
     return name + ": $" + String.format("%.2f", cost);
   }
