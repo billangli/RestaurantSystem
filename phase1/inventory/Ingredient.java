@@ -74,7 +74,7 @@ public class Ingredient {
    *
    * @param n the suggested quantity for this Ingredient
    * @param in the Ingredient whose quantity we are trying to modify
-   * @return true iff the suggested quantity is acceptable for this Ingredient
+   * @return boolean statement
    */
   public boolean allowed(int n, Ingredient in) {
     if (n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n) {
@@ -87,7 +87,7 @@ public class Ingredient {
    * Returns true iff the quantity of this Ingredient below the lower threshold; this method is
    * reserved for Ingredient objects in the inventory of the restaurant.
    *
-   * @return
+   * @return boolean statement
    */
   public boolean isLowStock() {
     if (this.quantity < this.thresholdQuantity[0]) {
