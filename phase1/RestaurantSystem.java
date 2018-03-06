@@ -70,8 +70,6 @@ public class RestaurantSystem {
     }
 
     Menu.create();
-
-    // Bill Ang Li added this so it reads and processes events
     eventManager = new EventManager();
     eventManager.readFile();
     eventManager.processEvents();

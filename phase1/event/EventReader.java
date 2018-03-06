@@ -1,5 +1,5 @@
 /*
- EventReader.java
+ EventReader
  This is a helper class that reads the event.txt file
 
  Created by Bill Ang Li
