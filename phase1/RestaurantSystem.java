@@ -14,7 +14,36 @@ public class RestaurantSystem {
   private static EventManager eventManager;
 
   private static void start() throws IOException {
+    System.out.println("------initializing restaurant system------");
 
+    // check the existence of starter.txt and menu.txt
+    try {
+      File file = new File("phase1/starter.txt");
+      /*If file gets created then the createNewFile()
+       * method would return true or if the file is
+       * already present it would return false
+       */
+      boolean fvar = file.createNewFile();
+      if (fvar) {
+        System.out.println("starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
+      } else {
+        System.out.println("starter.txt already present at the specified location");
+      }
+
+      file = new File("phase1/menu.txt");
+      fvar = file.createNewFile();
+      if (fvar) {
+        System.out.println("menu.txt has been created successfully with no item");
+      } else {
+        System.out.println("menu.txt already present at the specified location");
+      }
+
+    } catch (IOException e) {
+      System.out.println("Exception Occurred:");
+      e.printStackTrace();
+    }
+
+    //read the starter.txt
     try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/starter.txt"))) {
 
       // Print the lines from f prefaced with the line number,
@@ -51,6 +80,8 @@ public class RestaurantSystem {
         line = fileReader.readLine();
       }
 
+
+      //creating request.txt
       try {
         File file = new File("phase1/request.txt");
         /*If file gets created then the createNewFile()
@@ -59,9 +90,9 @@ public class RestaurantSystem {
          */
         boolean fvar = file.createNewFile();
         if (fvar) {
-          System.out.println("File has been created successfully");
+          System.out.println("request.txt has been created successfully");
         } else {
-          System.out.println("File already present at the specified location");
+          System.out.println("request.txt already present at the specified location");
         }
       } catch (IOException e) {
         System.out.println("Exception Occurred:");
@@ -70,12 +101,14 @@ public class RestaurantSystem {
     }
 
     Menu.create();
-    eventManager = new EventManager();
-    eventManager.readFile();
-    eventManager.processEvents();
+    System.out.println("---------initialization over---------\n\n");
   }
 
   public static void main(String[] arg) throws IOException {
     start();
+    // Bill Ang Li added this so it reads and processes events
+    eventManager = new EventManager();
+    eventManager.readFile();
+    eventManager.processEvents();
   }
 }

@@ -1,7 +1,7 @@
 Manager;6;checkInventory;()
 Server;1;takeSeat;(1)
 Server;1;enterMenu;(1,(hamburger)|(hamburger:lettuce+2_tomato-1))
-Server;1;enterMenu;(1,(livin' large chicken nuggets))
+Server;1;enterMenu;(1,(chicken nuggets(L)))
 Cook;3;orderReceived;()
 Cook;3;dishReady;(1)
 Server;2;takeSeat;(7)

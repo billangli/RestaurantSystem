@@ -16,7 +16,7 @@ public class Manager extends Employee {
 
   /** Prints out the amount of all ingredients left in inventory. */
   public void checkInventory() {
-    System.out.println(Inventory.inventoryToString());
+    Inventory.inventoryToString();
   }
 
   /**

@@ -141,7 +141,7 @@ public class Dish {
    * @return Return the name of the dish and its cost
    */
   public String toString() {
-    return name + ": $" + String.format("%.2f", cost);
+    return String.format("%-20s", name) + ": $" + String.format("%.2f", cost);
   }
 
   /**

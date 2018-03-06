@@ -65,7 +65,7 @@ public class Inventory {
         ingredientsInventory.put(ingredient.getName(),ingredient);
     }
 
-    public static String inventoryToString(){
+    public static void inventoryToString(){
         ArrayList<String> listOfKeys = new ArrayList<>();
 
         for (String name : ingredientsInventory.keySet()) {
@@ -74,12 +74,11 @@ public class Inventory {
 
         Collections.sort(listOfKeys, String.CASE_INSENSITIVE_ORDER);
 
-        String output = "List of ingredients in stock: \n";
+        System.out.println("List of ingredients in stock: ");
         for (String ingredientName : listOfKeys) {
-            output += ingredientName + ":"  + ingredientsInventory.get(ingredientName).getQuantity() + "\n";
-        }
+            System.out.printf("%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
 
-        return output;
+        }
 
     }
 
