@@ -132,13 +132,6 @@ public class EventProcessor {
           server.printBill(table);
           break;
         }
-      case "checkIfPaid":
-        {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
-          Table table = TableManager.getTable(tableNumber);
-          server.checkIfPaid(table);
-          break;
-        }
       default:
         System.out.println("*** Server has no " + this.methodName + " method ***");
         break;

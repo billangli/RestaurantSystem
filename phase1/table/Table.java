@@ -10,14 +10,19 @@ public class Table {
   private float cost;
   private Server server;
   private ArrayList<Order> order;
-  private boolean hasPaid;
 
   public Table(int tableNum) {
     this.tableNum = tableNum;
     order = new ArrayList<Order>();
     cost = 0;
-    hasPaid = false;
   }
+
+  public void clear(){
+    server = null;
+    cost = 0;
+    order = new ArrayList<>();
+  }
+
 
   public void serve(Server server) {
     this.server = server;
@@ -40,9 +45,6 @@ public class Table {
     return order;
   }
 
-  public boolean getHasPaid() {
-    return hasPaid;
-  }
 
   /**
    * print bill for this table in format of Table number

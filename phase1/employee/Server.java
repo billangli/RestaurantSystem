@@ -42,7 +42,7 @@ public class Server extends ServiceEmployee {
 
       // Send order to cook
       orderQueue.addOrderInQueue(order);
-      System.out.println("Server " + getId() + "Orders are sent to cook.");
+      System.out.println("Server " + getId() + " Orders are sent to cook.");
     }
   }
 
@@ -89,8 +89,10 @@ public class Server extends ServiceEmployee {
    * @param table The table which we are curious to check.
    * @return true if the <code>table</code> has paid their bill, otherwise return false.
    */
-  public boolean checkIfPaid(Table table) {
-    return table.getHasPaid();
+
+
+  public void clearTable(Table table){
+    table.clear();
   }
 
   /**
