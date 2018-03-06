@@ -19,7 +19,8 @@ class Event {
   private String employeeType;
   private String employeeID;
   private String method;
-  private ArrayList<String> parameters = new ArrayList<>();
+  private ArrayList<String> parameters = new ArrayList<>(); // TODO: Make EventProcessor in here
+  private EventProcessor eventProcessor;
 
   /**
    * Constructor that takes a line and uses the information in the line to create the event This
@@ -29,6 +30,7 @@ class Event {
    */
   Event(String line) {
     this.parseEvent(line);
+    this.eventProcessor = new EventProcessor(this);
   }
 
   /**
@@ -110,6 +112,11 @@ class Event {
     }
 
     return dish;
+  }
+
+  /** Tells the EventProcessor to process the event */
+  void process() {
+    this.eventProcessor.process();
   }
 
   /**
