@@ -1,27 +1,45 @@
 1.  For deliverOrder, are we able to say we delivered the entire order as a single event, or should we break individual dish in the order as separate deliverOrder?
+On the GUI; there may be a submit button, we may be submitting the entire order at once.. then one line in event txt
+Flexible; ask ourselvevs what s most useful for the features later
 
-2. Inventory: Do we need to only worry about food ingredients?
+2. Inventory: Do we need to only worry about food ingredients? YES
 
-3. graphic, how many interface
+3. graphic, how many interface (DK: I think it depends)
 
-4.server owns tablet or table owns tablet
+4.server owns tablet or table owns tablet (DK: probably server?)
 
 5. Should we use Google-java-format?
 
-6. Who should do the log?
+6. Who should do the log? Assume invalid input? ANSWER: Try to handle as many invalid input;
+if it s beyond boundary, then write it and explain it in readme...
+EXAMPLE: someone trying to deliver that hasn't been made yet; then don't make it crash
+WELCOME to use the exceptions; something went wrong and the program can't fix it.
 
-7. does one receiver ceceive all stock?
+7. does one receiver ceceive all stock? NO
 
 8. config, what txt do we have to worry about?
+a)  Config files: files you need to start the program; different from programs you need to RUN the program.
+b) if txt is not there, create an empty file so the program is able to run
+c) Find a way to check that the file is there
 
-9. manually change? so it does not go through our code?
+
+9. manually change? so it does not go through our code? Jerry received the answer
 
 10. static TableManager, Inventory, Menu is good
 
-11. What happens if adjustments are invalid?
+11. What happens if adjustments are invalid? Solved? return error? or silent fail
 
-12. What to do if event.txt has invalid input? (exceptions or output to console?)
+12. What to do if event.txt has invalid input? (exceptions or output to console?) Refer to #6
 
-13.request restart? do it saves?
+13. request restart? do it saves? Refer to #8
 
-14. when dish is delivered, does it need to assign to a server
+14. when dish is delivered, does it need to assign to a server: our design choice
+
+15. Dish is cooked, customer doesn't want it, but not enough ingredient left to recook
+The customer would have to order a dish that can actually be cooked(i.e.) OR the customer leaves
+
+
+i. the manager can.. modify the order? (jerery)
+
+ii. something tht says the manager did it.. or see it
+avoid
