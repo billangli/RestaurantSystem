@@ -42,7 +42,7 @@ The customer would have to order a dish that can actually be cooked(i.e.) OR the
 
 Phase2: want to have logger; optional for phase1 (print will suffice)
 
-17. Javadoc for private methodss as well!
+17. Javadoc for private methods as well!
 
 
 

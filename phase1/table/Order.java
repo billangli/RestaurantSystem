@@ -46,10 +46,10 @@ public class Order {
     return table.getTableNum();
   }
 
-  public void setTable(Table table) {
+  public void assignDishToTable(Table table) {
     this.table = table;
     for (Dish dish : dishes) {
-      dish.setTable(table);
+      dish.assignDishToTable(table);
     }
   }
 

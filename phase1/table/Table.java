@@ -29,7 +29,7 @@ public class Table {
 
   public void addOrder(Order newOrder) {
     order.add(newOrder);
-    newOrder.setTable(this);
+    newOrder.assignDishToTable(this);
   }
 
   public int getTableNum() {

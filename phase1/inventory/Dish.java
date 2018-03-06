@@ -70,11 +70,11 @@ public class Dish {
   }
 
   /**
+   * Assign this dish to the table t
    *
-   *
-   * @param t the table that this dish was ordered from will be delivered to
+   * @param t the table that this dish was ordered from 
    */
-  public void setTable(Table t) {
+  public void assignDishToTable(Table t) {
     table = t;
   }
 
