@@ -4,6 +4,17 @@ import java.util.HashMap;
 
 import table.Table;
 
+/**
+ * The Dish class represents the dish that the restaurant offers in its menu, and also the dish
+ * that the customer orders, which may be different from the default dish listed in the menu if adjustments
+ * are made in certain ingredients. There may be multiple Dish classes with the same name, but every dish is assigned
+ * a unique dishNumber.
+ *
+ *
+ * The class includes methods for adjusting the ingredients in the Dish, updating the ingredients in the Restaurant
+ * inventory, assigning the Dish to a Table that ordered it, and creating a string with the name of its dish and its
+ * cost. 
+ */
 public class Dish {
   private String name;
   private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
