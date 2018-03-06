@@ -133,18 +133,32 @@ public class Dish {
     return name + ": $" + String.format("%.2f", cost);
   }
 
+  /**
+   * Add the cost of this dish to the table that ordered this dish
+   */
+
   public void addCostToTable() {
     table.addCost(this);
   }
 
+  /**
+   * Modify the cost of this dish to 0;
+   */
   public void isCancelled() {
     cost = 0;
   }
 
+  /**
+   * Return the unique number that identifies this particular dish
+   * @return Return the number that identifies this particular dish
+   */
   public int getDishNumber() {
     return dishNumber;
   }
 
+  /**
+   * Assign a unique number that identifies this dish
+   */
   public void assignDishNumber(){
     dishNumber = ++Dish.countDish;
   }
