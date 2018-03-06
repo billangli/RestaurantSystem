@@ -52,8 +52,7 @@ public class EventProcessor {
         this.processServerEvent((Server) employee);
         break;
       default:
-        System.out.println(
-            "*** " + this.employeeType + " is an invalid Employee type ***");
+        System.out.println("*** " + this.employeeType + " is an invalid Employee type ***");
         break;
     }
   }
@@ -130,6 +129,13 @@ public class EventProcessor {
           int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.printBill(table);
+          break;
+        }
+      case "clearTable":
+        {
+          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+          Table table = TableManager.getTable(tableNumber);
+          server.clearTable(table);
           break;
         }
       default:
