@@ -72,7 +72,7 @@ public class Dish {
   /**
    * Assign this dish to the table t
    *
-   * @param t the table that this dish was ordered from 
+   * @param t the table that this dish was ordered from
    */
   public void assignDishToTable(Table t) {
     table = t;
