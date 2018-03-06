@@ -13,7 +13,7 @@ import table.Table;
  *
  * The class includes methods for adjusting the ingredients in the Dish, updating the ingredients in the Restaurant
  * inventory, assigning the Dish to a Table that ordered it, and creating a string with the name of its dish and its
- * cost. 
+ * cost.
  */
 public class Dish {
   private String name;
