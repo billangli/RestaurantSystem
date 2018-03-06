@@ -1,9 +1,9 @@
 /*
-Event Processor
+EventProcessor
 This takes and event and calls the appropriate method with the parameters
 
 Created by Bill Ang Li
-Marc. 1st, 2018
+Mar. 1st, 2018
 */
 
 package event;
@@ -13,59 +13,35 @@ import table.Order;
 import table.Table;
 import table.TableManager;
 
+import java.util.ArrayList;
+
 public class EventProcessor {
-  private Event event;
+  private String employeeType;
+  private int employeeID;
+  private String methodName;
+  private ArrayList<String> parameters;
 
   /**
    * Constructor for EventProcessor
    *
-   * @param event is the event that this EventProcessor will process
+   * @param employeeType is the type of employee to call the method from
+   * @param employeeID is the employee's id
+   * @param methodName is the method name to call
+   * @param parameters are parameters for the method to call
    */
-  EventProcessor(Event event) {
-    this.event = event;
+  EventProcessor(
+      String employeeType, int employeeID, String methodName, ArrayList<String> parameters) {
+    this.employeeType = employeeType;
+    this.employeeID = employeeID;
+    this.methodName = methodName;
+    this.parameters = parameters;
   }
-
-  //  /** Find out which method to use based on the manager */
-  //  void process() {
-  //    switch (this.event.getEmployeeType()) {
-  //      case "EmployeeManager":
-  //        this.processEmployeeEvent();
-  //        break;
-  //      case "InventoryManager":
-  //        this.processInventoryEvent();
-  //        break;
-  //      case "TableManager":
-  //        this.processTableEvent();
-  //        break;
-  //      default:
-  //        System.out.println("This is an invalid Manager"); // TODO: Do it properly
-  //    }
-  //  }
-
-  //  /**
-  //   * Find out which type of Employee this employee is
-  //   */
-  //  private void processEmployeeEvent() {
-  //    System.out.println("Processing Employee Event");
-  //
-  //    Employee employee = this.employeeManager.getEmployeeById(this.event.getEmployeeID());
-  //
-  //    if (employee instanceof Cook) {
-  //      this.processCookEvent((Cook) employee);
-  //    } else if (employee instanceof Manager) {
-  //      this.processManagerEvent((Manager) employee);
-  //    } else if (employee instanceof Server) {
-  //      this.processServerEvent((Server) employee);
-  //    } else {
-  //      System.out.println("*** Invalid Employee Type ***");
-  //    }
-  //  }
 
   /** Find which type of Employee to cast this employee to and call their methods */
   void process() {
-    Employee employee = EmployeeManager.getEmployeeById(this.event.getEmployeeID());
+    Employee employee = EmployeeManager.getEmployeeById(this.employeeID);
 
-    switch (this.event.getEmployeeType()) {
+    switch (this.employeeType) {
       case "Cook":
         this.processCookEvent((Cook) employee);
         break;
@@ -76,7 +52,8 @@ public class EventProcessor {
         this.processServerEvent((Server) employee);
         break;
       default:
-        System.out.println("*** Invalid Employee Type ***");
+        System.out.println(
+            "*** " + this.employeeType + " is an invalid Employee type ***");
         break;
     }
   }
@@ -87,14 +64,16 @@ public class EventProcessor {
    * @param cook is the Cook whose method will be called
    */
   private void processCookEvent(Cook cook) {
-    switch (this.event.getMethod()) {
+    switch (this.methodName) {
       case "orderReceived":
         cook.orderReceived();
         break;
       case "dishReady":
-        int dishNumber = Integer.parseInt(this.event.getParameters().get(0));
+        int dishNumber = Integer.parseInt(this.parameters.get(0));
         cook.dishReady(dishNumber);
         break;
+      default:
+        System.out.println("*** Cook has no \" + this.event.getMethodName() + \" method ***");
     }
   }
 
@@ -104,12 +83,12 @@ public class EventProcessor {
    * @param manager is the Manager whose method will be called
    */
   private void processManagerEvent(Manager manager) {
-    switch (this.event.getMethod()) {
+    switch (this.methodName) {
       case "checkInventory":
         manager.checkInventory();
         break;
       default:
-        System.out.println("*** Manager has no " + this.event.getMethod() + " method ***");
+        System.out.println("*** Manager has no " + this.methodName + " method ***");
         break;
     }
   }
@@ -120,19 +99,19 @@ public class EventProcessor {
    * @param server is the Server whose method will be called
    */
   private void processServerEvent(Server server) {
-    switch (this.event.getMethod()) {
+    switch (this.methodName) {
       case "takeSeat":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
+          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.takeSeat(table);
           break;
         }
       case "enterMenu":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
+          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
-          Order order = Event.parseOrder(this.event.getParameters().get(1));
+          Order order = Event.parseOrder(this.parameters.get(1));
           server.enterMenu(table, order);
           break;
         }
@@ -148,20 +127,20 @@ public class EventProcessor {
         }
       case "printBill":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
+          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.printBill(table);
           break;
         }
       case "checkIfPaid":
         {
-          int tableNumber = Integer.parseInt(this.event.getParameters().get(0)) - 1;
+          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.checkIfPaid(table);
           break;
         }
       default:
-        System.out.println("*** Server has no " + this.event.getMethod() + " method ***");
+        System.out.println("*** Server has no " + this.methodName + " method ***");
         break;
     }
   }

@@ -17,20 +17,21 @@ import java.util.StringTokenizer;
 
 class Event {
   private String employeeType;
-  private String employeeID;
-  private String method;
-  private ArrayList<String> parameters = new ArrayList<>(); // TODO: Make EventProcessor in here
+  private int employeeID;
+  private String methodName;
+  private ArrayList<String> parameters = new ArrayList<>();
   private EventProcessor eventProcessor;
 
   /**
    * Constructor that takes a line and uses the information in the line to create the event This
-   * uses the parseEvent method
+   * uses the parseEvent methodName
    *
    * @param line is the line (in event.txt) that contains the information
    */
   Event(String line) {
     this.parseEvent(line);
-    this.eventProcessor = new EventProcessor(this);
+    this.eventProcessor =
+        new EventProcessor(this.employeeType, this.employeeID, this.methodName, this.parameters);
   }
 
   /**
@@ -43,8 +44,8 @@ class Event {
     try {
       // Parsing the text file according to our format
       this.employeeType = lineTokenizer.nextToken();
-      this.employeeID = lineTokenizer.nextToken();
-      this.method = lineTokenizer.nextToken();
+      this.employeeID = Integer.parseInt(lineTokenizer.nextToken());
+      this.methodName = lineTokenizer.nextToken();
 
       // Creating an ArrayList of parameters from one token in the line
       String allParameters = lineTokenizer.nextToken();
@@ -117,53 +118,5 @@ class Event {
   /** Tells the EventProcessor to process the event */
   void process() {
     this.eventProcessor.process();
-  }
-
-  /**
-   * Getter for the employeeType
-   *
-   * @return the employeeType
-   */
-  public String getEmployeeType() {
-    return employeeType;
-  }
-
-  /**
-   * Getter for employeeID
-   *
-   * @return the employeeID as an integer
-   */
-  public int getEmployeeID() {
-    return Integer.parseInt(this.employeeID);
-  }
-
-  /**
-   * Getter for method
-   *
-   * @return the method
-   */
-  public String getMethod() {
-    return method;
-  }
-
-  /**
-   * Getter for the parameters
-   *
-   * @return the ArrayList parameters
-   */
-  public ArrayList<String> getParameters() {
-    return parameters;
-  }
-
-  // Test for Event
-  public static void main(String[] args) {
-    Event event = new Event("EmployeeManager 1 deliverOrderFailed (A13,B42,C23)");
-    System.out.println(event.employeeType);
-    System.out.println(event.employeeID);
-    System.out.println(event.method);
-    System.out.println("Parameters:");
-    for (int i = 0; i < event.parameters.size(); i++) {
-      System.out.println(event.parameters.get(i));
-    }
   }
 }
