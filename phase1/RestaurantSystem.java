@@ -106,7 +106,6 @@ public class RestaurantSystem {
 
   public static void main(String[] arg) throws IOException {
     start();
-    // Bill Ang Li added this so it reads and processes events
     eventManager = new EventManager();
     eventManager.readFile();
     eventManager.processEvents();

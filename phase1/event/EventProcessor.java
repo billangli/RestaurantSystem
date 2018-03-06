@@ -122,7 +122,7 @@ public class EventProcessor {
         }
       case "deliverDishFailed":
         {
-          server.deliverOrderFailed();
+          server.deliverOrderFailed(); // TODO: Why is the name different?
           break;
         }
       case "printBill":
