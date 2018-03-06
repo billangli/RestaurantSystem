@@ -38,8 +38,22 @@ c) Find a way to check that the file is there
 15. Dish is cooked, customer doesn't want it, but not enough ingredient left to recook
 The customer would have to order a dish that can actually be cooked(i.e.) OR the customer leaves
 
+16. Clear table? When customer leaves, we have to refresh the table..
 
-i. the manager can.. modify the order? (jerery)
+Phase2: want to have logger; optional for phase1 (print will suffice)
+
+17. Javadoc for private methodss as well!
+
+
+
+REQUEST: decide if you want the request to remain till the restock, or remove it once the restock order is made
+
+manager can change the request.txt manually on console? not necessary :)
+
+
+i. the manager can.. modify the order? (jerry)
 
 ii. something tht says the manager did it.. or see it
 avoid
+
+
