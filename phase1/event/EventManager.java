@@ -1,3 +1,11 @@
+/*
+ EventManager
+ This class manages all the functionalities of events
+
+ Created by Bill Ang Li
+ Feb. 22nd, 2018
+ */
+
 package event;
 
 import java.io.IOException;
@@ -26,8 +34,7 @@ public class EventManager {
   public void processEvents() {
     while (!this.eventQueue.isEmpty()) {
       Event event = this.eventQueue.remove();
-      EventProcessor eventProcessor = new EventProcessor(event);
-      eventProcessor.process();
+      event.process();
     }
   }
 }

@@ -165,15 +165,4 @@ public class EventProcessor {
         break;
     }
   }
-
-  /** Process the inventory's event */
-  private void processInventoryEvent() {}
-
-  /** Process a table's event */
-  private void processTableEvent() {
-    switch (this.event.getMethod()) {
-      default:
-        System.out.println("*** Table has no methods currently ***");
-    }
-  }
 }

@@ -15,10 +15,10 @@ if it s beyond boundary, then write it and explain it in readme...
 EXAMPLE: someone trying to deliver that hasn't been made yet; then don't make it crash
 WELCOME to use the exceptions; something went wrong and the program can't fix it.
 
-7. does one receiver ceceive all stock? NO
+7. does one receiver receive all stock? NO
 
 8. config, what txt do we have to worry about?
-a)  Config files: files you need to start the program; different from programs you need to RUN the program.
+a) Config files: files you need to start the program; different from programs you need to RUN the program.
 b) if txt is not there, create an empty file so the program is able to run
 c) Find a way to check that the file is there
 
@@ -42,7 +42,7 @@ The customer would have to order a dish that can actually be cooked(i.e.) OR the
 
 Phase2: want to have logger; optional for phase1 (print will suffice)
 
-17. Javadoc for private methodss as well!
+17. Javadoc for private methods as well!
 
 
 
