@@ -8,8 +8,12 @@ import table.TableManager;
 import java.io.*;
 
 public class RestaurantSystem {
-  private static EventManager eventManager;
 
+  /**
+   * Read and parse the config files for employees, tables, menu and inventory
+   *
+   * @throws IOException for reading files
+   */
   private static void start() throws IOException {
     System.out.println("------initializing restaurant system------");
 
@@ -108,7 +112,7 @@ public class RestaurantSystem {
 
   public static void main(String[] arg) throws IOException {
     start();
-    eventManager = new EventManager();
+    EventManager eventManager = new EventManager();
     eventManager.readFile();
     eventManager.processEvents();
   }

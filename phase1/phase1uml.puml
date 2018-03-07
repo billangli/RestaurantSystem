@@ -92,6 +92,8 @@ class EventReader{
 }
 
 Event <|-- ProcessableEvent
+EventManager *-- EventReader
+EventManager *-- Event
 
 
 class Dish{
@@ -117,5 +119,9 @@ class Dish{
 }
 
 class RestaurantSystem{
+- {static} start(): void
++ {static} main(): void
 }
+
+RestaurantSystem *-- EventManager
 @enduml

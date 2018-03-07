@@ -28,7 +28,6 @@ class ProcessableEvent extends Event {
   @Override
   void process() {
     Employee employee = EmployeeManager.getEmployeeById(this.employeeID);
-    // TODO: Redo uml file
 
     switch (this.employeeType) {
       case "Cook":

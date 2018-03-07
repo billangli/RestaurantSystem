@@ -38,21 +38,18 @@ abstract class Event {
    */
   private void parseEvent(String line) {
     StringTokenizer lineTokenizer = new StringTokenizer(line, ";");
-    try {
-      // Parsing the text file according to our format
-      this.employeeType = lineTokenizer.nextToken();
-      this.employeeID = Integer.parseInt(lineTokenizer.nextToken());
-      this.methodName = lineTokenizer.nextToken();
 
-      // Creating an ArrayList of parameters from one token in the line
-      String allParameters = lineTokenizer.nextToken();
-      allParameters = allParameters.substring(1, allParameters.length() - 1);
-      StringTokenizer parameterTokenizer = new StringTokenizer(allParameters, ",");
-      while (parameterTokenizer.hasMoreTokens()) {
-        this.parameters.add(parameterTokenizer.nextToken());
-      }
-    } catch (Exception e) {
-      e.printStackTrace(); // TODO: Make my own exception
+    // Parsing the text file according to our format
+    this.employeeType = lineTokenizer.nextToken();
+    this.employeeID = Integer.parseInt(lineTokenizer.nextToken());
+    this.methodName = lineTokenizer.nextToken();
+
+    // Creating an ArrayList of parameters from one token in the line
+    String allParameters = lineTokenizer.nextToken();
+    allParameters = allParameters.substring(1, allParameters.length() - 1);
+    StringTokenizer parameterTokenizer = new StringTokenizer(allParameters, ",");
+    while (parameterTokenizer.hasMoreTokens()) {
+      this.parameters.add(parameterTokenizer.nextToken());
     }
   }
 
