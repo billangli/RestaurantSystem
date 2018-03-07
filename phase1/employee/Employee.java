@@ -20,6 +20,7 @@ public class Employee {
    */
   public void receiveIngredient(String receivedIngredientName, int quantity) {
     Inventory.modifyIngredientQuantity(receivedIngredientName, quantity);
+    System.out.println("Employee "+ ID + "received " + receivedIngredientName + " by this amount" + quantity);
   }
 
   /**

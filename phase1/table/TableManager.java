@@ -1,12 +1,15 @@
 package table;
 
-import employee.Server;
-
-import java.util.ArrayList;
-
+/**
+ * the manager that manage all the tables
+ */
 public class TableManager {
   private static Table[] tables;
 
+  /**
+   * set up the manager with numOfTables tables
+   * @param numOfTables the number of tables
+   */
   public static void tableSetUp(int numOfTables) {
     tables = new Table[numOfTables];
     // Note that table number starts from 1.
@@ -15,7 +18,11 @@ public class TableManager {
     }
   }
 
-
+  /**
+   *
+   * @param i the id of a table
+   * @return the table with the id i
+   */
   public static Table getTable(int i) {
     return tables[i];
   }

@@ -4,24 +4,33 @@ import inventory.Dish;
 
 import java.util.ArrayList;
 
+/**
+ * order that is made by customer
+ * store dishes and the table that is belongs to
+ */
 public class Order {
   private ArrayList<Dish> dishes;
-  private boolean sent;
   private Table table;
 
+    /**
+     * initialize the order with an empty arrayList of Dish
+     */
   public Order() {
-    sent = false;
     dishes = new ArrayList<>();
   }
 
+    /**
+     * add this dish to dishes
+     * @param d a dish
+     */
   public void addDish(Dish d) {
     dishes.add(d);
   }
 
-  public void sent() {
-    sent = true;
-  }
-
+    /**
+     *
+     * @return all dish in the order
+     */
   public String toString() {
     StringBuilder str = new StringBuilder();
 
@@ -34,18 +43,20 @@ public class Order {
     return str.toString();
   }
 
-  public boolean isSent() {
-    return sent;
-  }
-
-  public void recook(Dish d) {
-    d.recook();
-  }
-
+    /**
+     *
+     * @return the table number
+     */
   public int getTableNum() {
     return table.getTableNum();
   }
 
+
+    /**
+     * assign the order to this table
+     * and assign all dishes in order to this table
+     * @param table the table that made the order
+     */
   public void assignDishToTable(Table table) {
     this.table = table;
     for (Dish dish : dishes) {
@@ -65,10 +76,17 @@ public class Order {
     return String.join(", ", result);
   }
 
+    /**
+     *
+     * @return dishes in an arraylist
+     */
   public ArrayList<Dish> getDishes() {
     return dishes;
   }
 
+    /**
+     * give an id to each dish in this order
+     */
   public void assignDishNumber() {
     for (Dish d : dishes) {
       d.assignDishNumber();
