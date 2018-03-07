@@ -91,6 +91,30 @@ class EventReader{
 - addLinesToQueue(lines: ArrayList<String>, eventQueue: Queue<Event>): void
 }
 
+
+class Dish{
+- name: String
+- ingredientsRequired: HashMap<String, Ingredient>
+- dishNumber: int
+- countDish: int
+- cost: float
+- isReady; boolean
+- table: Table
++ adjustIngredient
++ updateIngredientsStock
++ assignDishToTable
++ getName
++ getCost
++ getTable
++ toString
++ addCostToTable
++ isCancelled
++ getDishNumber
++ assignDishNumber
+
+
+
+
 Event <|-- ProcessableEvent
 
 class RestaurantSystem{

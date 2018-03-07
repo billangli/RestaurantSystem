@@ -22,12 +22,11 @@ public class Menu {
     /**
      * Create this menu using the provided phase1/menu.txt file
      *
-     * @throws IOException
      */
     public static void create()throws IOException{
         try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/menu.txt"))) {
 
-            // Print the lines from f prefaced wiZZth the line number,
+            // Print the lines from f prefaced with the line number,
             // starting at 1.
             String line = fileReader.readLine();
             while (line != null) {
@@ -42,10 +41,15 @@ public class Menu {
             }
     }
 
+    /**
+     * Returns a copy of the Dish dish
+     *
+     * @param name the name of the Dish dish
+     * @return the copy of the Dish dish
+     */
     public static Dish makeDish(String name){
         Dish temp = dishes.get(name);
-        Dish result = new Dish(temp);
-        return result;
+        return new Dish(temp);
     }
 
 
