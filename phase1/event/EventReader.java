@@ -50,7 +50,7 @@ public class EventReader {
    */
   private void addLinesToQueue(ArrayList<String> lines, Queue<Event> eventQueue) {
     for (String line : lines) {
-      Event event = new Event(line);
+      Event event = new ProcessableEvent(line);
       eventQueue.add(event);
     }
   }

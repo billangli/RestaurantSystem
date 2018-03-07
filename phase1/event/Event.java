@@ -15,12 +15,11 @@ import table.Order;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-class Event {
-  private String employeeType;
-  private int employeeID;
-  private String methodName;
-  private ArrayList<String> parameters = new ArrayList<>();
-  private EventProcessor eventProcessor;
+abstract class Event {
+  String employeeType;
+  int employeeID;
+  String methodName;
+  ArrayList<String> parameters = new ArrayList<>();
 
   /**
    * Constructor that takes a line and uses the information in the line to create the event This
@@ -30,8 +29,6 @@ class Event {
    */
   Event(String line) {
     this.parseEvent(line);
-    this.eventProcessor =
-        new EventProcessor(this.employeeType, this.employeeID, this.methodName, this.parameters);
   }
 
   /**
@@ -115,8 +112,6 @@ class Event {
     return dish;
   }
 
-  /** Tells the EventProcessor to process the event */
-  void process() {
-    this.eventProcessor.process();
-  }
+  /** Tells the ProcessableEvent to process the event */
+  abstract void process();
 }

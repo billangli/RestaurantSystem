@@ -13,33 +13,25 @@ import table.Order;
 import table.Table;
 import table.TableManager;
 
-import java.util.ArrayList;
-
-public class EventProcessor {
-  private String employeeType;
-  private int employeeID;
-  private String methodName;
-  private ArrayList<String> parameters;
+class ProcessableEvent extends Event {
 
   /**
-   * Constructor for EventProcessor
+   * Constructor for ProcessableEvent
    *
-   * @param employeeType is the type of employee to call the method from
-   * @param employeeID is the employee's id
-   * @param methodName is the method name to call
-   * @param parameters are parameters for the method to call
+   * @param line is the line of text containing the information to be parsed
    */
-  EventProcessor(
-      String employeeType, int employeeID, String methodName, ArrayList<String> parameters) {
-    this.employeeType = employeeType;
-    this.employeeID = employeeID;
-    this.methodName = methodName;
-    this.parameters = parameters;
+  ProcessableEvent(String line) {
+    super(line);
   }
 
   /** Find which type of Employee to cast this employee to and call their methods */
+  @Override
   void process() {
     Employee employee = EmployeeManager.getEmployeeById(this.employeeID);
+    // TODO: Receive and
+    // TODO: ID invalid
+    // TODO: dish not valid
+    // TODO: Redo uml file
 
     switch (this.employeeType) {
       case "Cook":
@@ -100,46 +92,46 @@ public class EventProcessor {
   private void processServerEvent(Server server) {
     switch (this.methodName) {
       case "takeSeat":
-        {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
-          Table table = TableManager.getTable(tableNumber);
-          server.takeSeat(table);
-          break;
-        }
+      {
+        int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+        Table table = TableManager.getTable(tableNumber);
+        server.takeSeat(table);
+        break;
+      }
       case "enterMenu":
-        {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
-          Table table = TableManager.getTable(tableNumber);
-          Order order = Event.parseOrder(this.parameters.get(1));
-          server.enterMenu(table, order);
-          break;
-        }
+      {
+        int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+        Table table = TableManager.getTable(tableNumber);
+        Order order = Event.parseOrder(this.parameters.get(1));
+        server.enterMenu(table, order);
+        break;
+      }
       case "deliverDishCompleted":
-        {
-          int dishNumber = Integer.parseInt(this.parameters.get(0));
-          server.deliverDishCompleted(dishNumber); // TODO: No need for dish?
-          break;
-        }
+      {
+        int dishNumber = Integer.parseInt(this.parameters.get(0));
+        server.deliverDishCompleted(dishNumber); // TODO: No need for dish?
+        break;
+      }
       case "deliverDishFailed":
-        {
-          int dishNumber = Integer.parseInt(this.parameters.get(0));
-          server.deliverDishFailed(dishNumber); // TODO: Why is the name different?
-          break;
-        }
+      {
+        int dishNumber = Integer.parseInt(this.parameters.get(0));
+        server.deliverDishFailed(dishNumber); // TODO: Why is the name different?
+        break;
+      }
       case "printBill":
-        {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
-          Table table = TableManager.getTable(tableNumber);
-          server.printBill(table);
-          break;
-        }
+      {
+        int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+        Table table = TableManager.getTable(tableNumber);
+        server.printBill(table);
+        break;
+      }
       case "clearTable":
-        {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
-          Table table = TableManager.getTable(tableNumber);
-          server.clearTable(table);
-          break;
-        }
+      {
+        int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+        Table table = TableManager.getTable(tableNumber);
+        server.clearTable(table);
+        break;
+      }
       default:
         System.out.println("*** Server has no " + this.methodName + " method ***");
         break;
