@@ -28,19 +28,32 @@ class ProcessableEvent extends Event {
   @Override
   void process() {
     Employee employee = EmployeeManager.getEmployeeById(this.employeeID);
-    // TODO: ID invalid
-    // TODO: dish not valid
     // TODO: Redo uml file
 
     switch (this.employeeType) {
       case "Cook":
-        this.processCookEvent((Cook) employee);
+        if (employee instanceof Cook) {
+          this.processCookEvent((Cook) employee);
+        } else {
+          System.out.println(
+              "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
+        }
         break;
       case "Manager":
-        this.processManagerEvent((Manager) employee);
+        if (employee instanceof Manager) {
+          this.processManagerEvent((Manager) employee);
+        } else {
+          System.out.println(
+              "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
+        }
         break;
       case "Server":
-        this.processServerEvent((Server) employee);
+        if (employee instanceof Server) {
+          this.processServerEvent((Server) employee);
+        } else {
+          System.out.println(
+              "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
+        }
         break;
       default:
         System.out.println("*** " + this.employeeType + " is an invalid Employee type ***");
