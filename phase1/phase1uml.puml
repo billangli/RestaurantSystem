@@ -118,6 +118,20 @@ class Dish{
 + assignDishNumber()
 }
 
+
+class Ingredient{
+- name: String
+- quantity: int
+- thresholdQuantity: int[]
++ Ingredient(name: String, quantity: int)
++ Ingredient(name: String, quantity: int, thresholdQuantity: int[])
++ getQuantity()
++ setQuantity()
++ getName()
++ allowed()
++ isLowStock()
+}
+
 class RestaurantSystem{
 - {static} start(): void
 + {static} main(): void
