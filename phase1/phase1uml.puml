@@ -55,17 +55,16 @@ ServiceEmployee <|-- Server
 Employee <|-- Manager
 
 
-class Event{
-- employeeType: String
-- employeeID: int
-- methodName: String
-- parameters: ArrayList<String>
-- eventProcessor: EventProcessor
+abstract class Event{
+~ employeeType: String
+~ employeeID: int
+~ methodName: String
+~ parameters: ArrayList<String>
 ~ Event(line: String)
 - parseEvent(line: String): void
 ~ {static} parseOrder(str: String): Order
 - {static} parseDish(str: String): Dish
-~ process(): void
+~ {abstract} process(): void
 }
 
 class EventManager{
@@ -76,12 +75,8 @@ class EventManager{
 + processEvents(): void
 }
 
-class EventProcessor{
-- employeeType: String
-- employeeID: int
-- methodName: String
-- parameters: ArrayList<String>
-~ EventProcessor(employeeType: String, employeeID: int, methodName: String, parameters: ArrayList<String>)
+class ProcessableEvent{
+~ ProcessableEvent(line: String)
 ~ process(): void
 - processCookEvent(cook: Cook): void
 - processManagerEvent(manager: Manager): void
@@ -95,6 +90,8 @@ class EventReader{
 ~ readFile(eventQueue: Queue<Event>): void
 - addLinesToQueue(lines: ArrayList<String>, eventQueue: Queue<Event>): void
 }
+
+Event <|-- ProcessableEvent
 
 class RestaurantSystem{
 }
