@@ -5,6 +5,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The class represents the menu of this restaurant. It stores all the dishes offered by the restaurant.
+ *
+ */
+
 public class Menu {
     private static HashMap<String, Dish> dishes = new HashMap<>();
 //    private static Inventory inventory;
@@ -14,6 +19,11 @@ public class Menu {
 //        create();
 //    }
 
+    /**
+     * Create this menu using the provided phase1/menu.txt file
+     *
+     * @throws IOException
+     */
     public static void create()throws IOException{
         try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/menu.txt"))) {
 
