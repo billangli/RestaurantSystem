@@ -53,7 +53,7 @@ Employee <|-- ServiceEmployee
 ServiceEmployee <|-- Cook
 ServiceEmployee <|-- Server
 Employee <|-- Manager
-ServiceEmployee --> OrderQueue : associates
+ServiceEmployee *-- OrderQueue
 EmployeeManager --> Employee : associates
 Server <--> Table : associates
 
