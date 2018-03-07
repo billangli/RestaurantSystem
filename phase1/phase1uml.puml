@@ -53,4 +53,49 @@ Employee <|-- ServiceEmployee
 ServiceEmployee <|-- Cook
 ServiceEmployee <|-- Server
 Employee <|-- Manager
+
+
+class Event{
+- employeeType: String
+- employeeID: int
+- methodName: String
+- parameters: ArrayList<String>
+- eventProcessor: EventProcessor
+~ Event(line: String)
+- parseEvent(line: String): void
+~ {static} parseOrder(str: String): Order
+- {static} parseDish(str: String): Dish
+~ process(): void
+}
+
+class EventManager{
+- {static} FILE: String = "phase1/event/event.txt"
+- eventQueue: Queue<Event>
++ EventManager()
++ readFile(): void
++ processEvents(): void
+}
+
+class EventProcessor{
+- employeeType: String
+- employeeID: int
+- methodName: String
+- parameters: ArrayList<String>
+~ EventProcessor(employeeType: String, employeeID: int, methodName: String, parameters: ArrayList<String>)
+~ process(): void
+- processCookEvent(cook: Cook): void
+- processManagerEvent(manager: Manager): void
+- processServerEvent(server: Server): void
+}
+
+class EventReader{
+- file: String
+- lines: ArrayList<String>
+~ EventReader(file: String)
+~ readFile(eventQueue: Queue<Event>): void
+- addLinesToQueue(lines: ArrayList<String>, eventQueue: Queue<Event>): void
+}
+
+class RestaurantSystem{
+}
 @enduml
