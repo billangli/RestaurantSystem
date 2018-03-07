@@ -117,11 +117,13 @@ public class EventProcessor {
       case "deliverDishCompleted":
         {
           server.deliverDishCompleted(); // TODO: No need for dish?
+            //TODO: from Justin : this method now has a parameter <int dishNumber>
           break;
         }
       case "deliverDishFailed":
         {
-          server.deliverOrderFailed(); // TODO: Why is the name different?
+          server.deliverDishFailed(); // TODO: Why is the name different?
+            //TODO: from Justin : this method now has a parameter <int dishNumber>
           break;
         }
       case "printBill":
