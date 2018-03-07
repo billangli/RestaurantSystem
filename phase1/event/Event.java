@@ -112,8 +112,6 @@ abstract class Event {
     return dish;
   }
 
-  /** Tells the EventProcessor to process the event */
-  void process() {
-    ((EventProcessor) this).process();
-  }
+  /** Tells the ProcessableEvent to process the event */
+  abstract void process();
 }

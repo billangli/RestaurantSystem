@@ -13,14 +13,14 @@ import table.Order;
 import table.Table;
 import table.TableManager;
 
-class EventProcessor extends Event {
+class ProcessableEvent extends Event {
 
   /**
-   * Constructor for EventProcessor
+   * Constructor for ProcessableEvent
    *
    * @param line is the line of text containing the information to be parsed
    */
-  EventProcessor(String line) {
+  ProcessableEvent(String line) {
     super(line);
   }
 
@@ -108,12 +108,14 @@ class EventProcessor extends Event {
       }
       case "deliverDishCompleted":
       {
-        server.deliverDishCompleted(); // TODO: No need for dish?
+        int dishNumber = Integer.parseInt(this.parameters.get(0));
+        server.deliverDishCompleted(dishNumber); // TODO: No need for dish?
         break;
       }
       case "deliverDishFailed":
       {
-        server.deliverOrderFailed(); // TODO: Why is the name different?
+        int dishNumber = Integer.parseInt(this.parameters.get(0));
+        server.deliverDishFailed(dishNumber); // TODO: Why is the name different?
         break;
       }
       case "printBill":
