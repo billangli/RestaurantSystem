@@ -1,10 +1,10 @@
 /*
- EventManager
- This class manages all the functionalities of events
+EventManager
+This class manages all the functionalities of events
 
- Created by Bill Ang Li
- Feb. 22nd, 2018
- */
+Created by Bill Ang Li
+Feb. 22nd, 2018
+*/
 
 package event;
 
