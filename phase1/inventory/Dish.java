@@ -20,7 +20,6 @@ public class Dish {
   private int dishNumber;
   private static int countDish = 0;
   private float cost;
-  private boolean isReady;
   Table table;
 
   /**
@@ -41,7 +40,6 @@ public class Dish {
       ingredientsRequired.put(item[0], in);
     }
 
-    isReady = false;
   }
 
   /**
@@ -53,7 +51,6 @@ public class Dish {
     this.name = d.getName();
     this.cost = d.getCost();
     this.ingredientsRequired = d.ingredientsRequired;
-    isReady = false;
   }
 
   /**
@@ -88,30 +85,7 @@ public class Dish {
     table = t;
   }
 
-  /** Status of the dish describing whether it is cooked and ready to be delivered to the table */
-  public void ready() {
-    isReady = true;
-  }
 
-  /** Recook the dish */
-  public void recook() {
-    isReady = false;
-  }
-
-  /**
-   * Return whether dish is ready to be delivered
-   *
-   * @return
-   */
-  public boolean isReady() {
-    return isReady;
-  }
-
-  /**
-   * Return name of the dish
-   *
-   * @return the name of the dish
-   */
   public String getName() {
     return name;
   }
