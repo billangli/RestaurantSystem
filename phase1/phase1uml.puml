@@ -1,50 +1,50 @@
 @startuml
 class EmployeeManager{
 - {static} employeeList: ArrayList<Employee>
-+ {static} add(Employee): void
++ {static} add(employee: Employee): void
 + {static} allEmployeesToString(): String
-+ {static} getEmployeeById(int): Employee
++ {static} getEmployeeById(id: int): Employee
 }
 class OrderQueue{
 - OrdersInQueue: Queue<Order>
 - DishesInProgress: LinkedList<Dish>
-- DishesCompleted: Queue<Dish>
+- DishesCompleted: LinkedList<Dish>
 + OrderQueue()
-+ addOrderInQueue(Order): void
++ addOrderInQueue(order: Order): void
 + confirmOrdersInQueue(): void
-+ dishCompleted(int): void
-+ dishDelivered(int): void
++ dishCompleted(dishNumber: int): void
++ dishDelivered(dishNumber: int): void
 + queueIsEmpty(): boolean
 }
 
 class Employee{
 - ID: int
-+ Employee(int)
-+ receiveIngredient(String , int): void
++ Employee(id: int)
++ receiveIngredient(receivedIngredientName: String,quantity: int): void
 + getID(): int
 }
 class ServiceEmployee {
 - {static} orderQueue: OrderQueue
-~ ServiceEmployee(int)
+~ ServiceEmployee(id: int)
 }
 class Server{
-+ Server(int)
-+ takeSeat(Table): void
-+ enterMenu(Table, Order): void
-+ deliverDishCompleted(int): void
-+ deliverDishFailed(int): void
-+ printBill(Table): void
-+ clearTable(Table): void
++ Server(id: int)
++ takeSeat(table: Table): void
++ enterMenu(table: Table, order: Order): void
++ deliverDishCompleted(dishNumber: int): void
++ deliverDishFailed(dishNumber: int): void
++ printBill(table: Table): void
++ clearTable(table: Table): void
 + toString(): String
 }
 class Cook{
-+ Cook(int)
++ Cook(id: int)
 + orderReceived(): void
-+ dishReady(int): void
++ dishReady(dishNumber: int): void
 + toString(): String
 }
 class Manager{
-+ Manager(int)
++ Manager(id: int)
 + checkInventory(): void
 + toString(): String
 }
@@ -53,7 +53,98 @@ Employee <|-- ServiceEmployee
 ServiceEmployee <|-- Cook
 ServiceEmployee <|-- Server
 Employee <|-- Manager
+ServiceEmployee --> OrderQueue : associates
+EmployeeManager --> Employee : associates
+Server <--> Table : associates
 
+class TableManager{
+- {static} tables: Table[]
++ {static} tableSetUp(numOfTables: int): void
++ {static} getTable(i: int): Table
+}
+TableManager --> Table : associates
+
+class Table{
+- tableNum: int
+- cost: float
+- server: Server
+- order: ArrayList<Order>
++ Table(tableNum: int): void
++ clear(): void
++ serve(server: Server): void
++ addCost(d: Dish): void
++ addOrder(newOrder: Order): void
++ getTableNum(): int
++ getOrder(): ArrayList<Order>
++ printBill(): void
++ getServerId(): int
+}
+
+class Order{
+- dishes: ArrayList<Dish>
+- table: Table
++ Order(): void
++ addDish(d: Dish): void
++ toString(): String
++ getTableNum(): int
++ assignDishToTable(table: Table): void
++ dishesToString(): String
++ getDishes(): ArrayList<Dish>
+}
+Order --> Dish : associates
+Order --> Table : associates
+
+class Ingredient{
+- name: String
+- quantity: int
+- thresholdQuantity: int[]
++ Ingredient(name: String, quantity: int, thresholdQuantity: int[])
++ getQuantity(): int
++ setQuantity(quantityUnit: int): void
++ getName(): String
++ allowed(n: int, in: Ingredient): boolean
++ isLowStock(): boolean
+}
+
+class Dish{
+- name: String
+- ingredientsRequired: HashMap<String, Ingredient>
+- dishNumber: int
+- countDish: int
+- cost: float
+- table: Table
++ Dish(dishName: String, dishPrice: float, ingredients: String[])
++ Dish(dish: Dish)
++ adjustIngredient(ingredientName: String, amount: int)
++ updateIngredientsStock()
++ assignDishToTable(t: Table)
++ getName()
++ getCost()
++ getTable()
++ toString()
++ addCostToTable()
++ isCancelled()
++ getDishNumber()
++ assignDishNumber()
+}
+Dish <--> Table : associates
+Dish --> Ingredient : associates
+
+class Inventory{
+- {static} ingredientsInventory: HashMap<String, Ingredient>
++ {static} getIngredient(ingredientName: String): Ingredient
++ {static} modifyIngredientQuantity(ingredientName: String, quantityUnits: int ): void
++ {static} add(ingredient: Ingredient) : void
++ {static} inventoryToString() : void
+}
+Inventory --> Ingredient: associates
+
+class Menu {
+- {static} dishes: HashMap<String, Dish>
++ {static} create() : void
++ {static} makeDish(name: String): Dish
+}
+Menu --> Dish : associates
 
 abstract class Event{
 ~ employeeType: String
@@ -95,42 +186,6 @@ Event <|-- ProcessableEvent
 EventManager *-- EventReader
 EventManager *-- Event
 
-
-class Dish{
-- name: String
-- ingredientsRequired: HashMap<String, Ingredient>
-- dishNumber: int
-- countDish: int
-- cost: float
-- table: Table
-+ Dish(dishName: String, dishPrice: float, ingredients: String[])
-+ Dish(dish: Dish)
-+ adjustIngredient()
-+ updateIngredientsStock()
-+ assignDishToTable()
-+ getName()
-+ getCost()
-+ getTable()
-+ toString()
-+ addCostToTable()
-+ isCancelled()
-+ getDishNumber()
-+ assignDishNumber()
-}
-
-
-class Ingredient{
-- name: String
-- quantity: int
-- thresholdQuantity: int[]
-+ Ingredient(name: String, quantity: int)
-+ Ingredient(name: String, quantity: int, thresholdQuantity: int[])
-+ getQuantity()
-+ setQuantity()
-+ getName()
-+ allowed()
-+ isLowStock()
-}
 
 class RestaurantSystem{
 - {static} start(): void
