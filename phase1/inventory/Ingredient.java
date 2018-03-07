@@ -23,7 +23,12 @@ public class Ingredient {
   private int[] thresholdQuantity;
   //    private boolean lowStock; //not needed
 
-  /** Constructor for creating Ingredient that was received by the receiver from reStock order */
+  /**
+   * Constructor for creating Ingredient that was received by the receiver from reStock order
+   *
+   * @param name the name of this Ingredient
+   * @param quantity the quantity of this Ingredient
+   */
   public Ingredient(String name, int quantity) {
     this.name = name;
     this.quantity = quantity;
@@ -32,6 +37,10 @@ public class Ingredient {
   /**
    * Constructor for creating Ingredient in the inventory, or the Ingredient in the Dish, including
    * both the default dish from the menu and customizable dish made to order for the customer
+   *
+   * @param name the name of this Ingredient
+   * @param quantity the quantity of this Ingredient
+   * @param thresholdQuantity the lower and upper threshold for the Ingredient
    */
   public Ingredient(String name, int quantity, int[] thresholdQuantity) {
     this.name = name;
