@@ -5,10 +5,7 @@ import inventory.Inventory;
 import inventory.Menu;
 import table.TableManager;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class RestaurantSystem {
   private static EventManager eventManager;
@@ -25,7 +22,12 @@ public class RestaurantSystem {
        */
       boolean fvar = file.createNewFile();
       if (fvar) {
+        BufferedWriter bw;
         System.out.println("starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+        bw.write("10\n1\n1\n1\n");
+        bw.close();
       } else {
         System.out.println("starter.txt already present at the specified location");
       }

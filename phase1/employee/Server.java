@@ -47,11 +47,13 @@ public class Server extends ServiceEmployee {
   }
 
   /** Successfully delivers dish to the table. */
-  public void deliverDishCompleted() {
-    Dish dish = orderQueue.dishDelivered();
+  public void deliverDishCompleted(int dishNumber) {
+    Dish dish = orderQueue.dishDelivered(dishNumber);
     System.out.println(
-            "Server " + getId() + "    " +
-        dish.getName()
+        "Server "
+            + getId()
+            + "    "
+            + dish.getName()
             + " (Dish #: "
             + dish.getDishNumber()
             + ") has been delivered successfully.");
@@ -61,8 +63,8 @@ public class Server extends ServiceEmployee {
   }
 
   /** Delivers dish to the table, but the customer requests to put the dish back. */
-  public void deliverOrderFailed() {
-    Dish dish = orderQueue.dishDelivered();
+  public void deliverDishFailed(int dishNumber) {
+    Dish dish = orderQueue.dishDelivered(dishNumber);
     System.out.println(
         "Dish #: "
             + dish.getDishNumber()
@@ -84,14 +86,14 @@ public class Server extends ServiceEmployee {
   }
 
   /**
-   * Return true if the <code>table</code> has paid their bill, otherwise return false.
+   * After customers leave, this method resets the table.
    *
-   * @param table The table which we are curious to check.
-   * @return true if the <code>table</code> has paid their bill, otherwise return false.
+   * <p>This method removes - the server who was in change of the table - all the orders that the
+   * customers in <code>table</code> ordered.
+   *
+   * @param table
    */
-
-
-  public void clearTable(Table table){
+  public void clearTable(Table table) {
     table.clear();
   }
 

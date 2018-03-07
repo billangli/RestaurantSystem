@@ -18,7 +18,7 @@ class OrderQueue {
   private LinkedList<Dish> DishesInProgress;
 
   // dishes that are cooked and waiting to be delivered.
-  private Queue<Dish> DishesCompleted;
+  private LinkedList<Dish> DishesCompleted;
 
   public OrderQueue() {
     OrdersInQueue = new LinkedList<>();
@@ -50,7 +50,7 @@ class OrderQueue {
       Order order = OrdersInQueue.remove();
       System.out.println("--- Order confirm message ---");
       System.out.println("Order for table number: " + order.getTableNum());
-      System.out.println("List of Dishes: " + order.dishesToString() +"\n");
+      System.out.println("List of Dishes: " + order.dishesToString() + "\n");
       DishesInProgress.addAll(order.getDishes());
     }
   }
@@ -103,15 +103,22 @@ class OrderQueue {
    *
    * @return dish that is being delivered, null if there is no dish to be delivered.
    */
-  public Dish dishDelivered() {
-    if (DishesCompleted.isEmpty()) {
-      System.err.println("There is no dish to be delivered.");
-      return null;
-    } else {
-      Dish dish = DishesCompleted.remove();
-
-      dish.updateIngredientsStock();
-      return dish;
+  public Dish dishDelivered(int dishNumber) {
+    Dish dish = null;
+    for (int i = 0; i < DishesCompleted.size(); i++) {
+      if (DishesCompleted.get(i).getDishNumber() == dishNumber) {
+        dish = DishesCompleted.get(i);
+        DishesCompleted.remove(i);
+        break;
+      }
     }
+
+    if (dish == null) {
+      System.err.println("OrderQueue.dishDelivered(int dishNumber): Not a valid dish number.");
+      (new Exception()).printStackTrace();
+    } else {
+      dish.updateIngredientsStock();
+    }
+    return dish;
   }
 }

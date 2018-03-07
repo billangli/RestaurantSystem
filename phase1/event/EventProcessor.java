@@ -116,12 +116,14 @@ public class EventProcessor {
         }
       case "deliverDishCompleted":
         {
-          server.deliverDishCompleted(); // TODO: No need for dish?
+          int dishNumber = Integer.parseInt(this.parameters.get(0));
+          server.deliverDishCompleted(dishNumber); // TODO: No need for dish?
           break;
         }
       case "deliverDishFailed":
         {
-          server.deliverOrderFailed(); // TODO: Why is the name different?
+          int dishNumber = Integer.parseInt(this.parameters.get(0));
+          server.deliverDishFailed(dishNumber); // TODO: Why is the name different?
           break;
         }
       case "printBill":

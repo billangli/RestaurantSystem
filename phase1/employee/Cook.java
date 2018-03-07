@@ -12,13 +12,18 @@ public class Cook extends ServiceEmployee {
     super(id);
   }
 
-  /** Cook confirms whether the order has been seen. */
+  /**
+   * Cook confirms whether the order has been seen.
+   *
+   * <p>If there are multiple orders in the queue, to be seen by the cook, when any cook confirms
+   * that he/she has seen the order, ALL the orders in queue are confirmed that they are seen.
+   */
   public void orderReceived() {
     if (orderQueue.queueIsEmpty()) {
       System.out.println("No orders are in the queue.");
     } else {
       orderQueue.confirmOrdersInQueue();
-      System.out.println("Cook " + getId() + "     confirmed that the order has been seen.");
+      System.out.println("Cook " + getId() + "     confirmed that all orders have been seen.");
     }
   }
 
