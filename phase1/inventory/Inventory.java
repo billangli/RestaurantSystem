@@ -3,6 +3,14 @@ package inventory;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Inventory class represents the inventory of ingredients in the Restaurant.
+ *
+ * <p>Inventory methods include, but are not limited to, modifying quantity of each ingredient in
+ * the inventory, adding Ingredient to the inventory, and creating a String that lists each
+ * ingredient in the inventory and its stock.
+ */
+
 public class Inventory {
     private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();
 
