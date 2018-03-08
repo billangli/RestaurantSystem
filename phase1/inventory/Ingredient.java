@@ -17,10 +17,9 @@ package inventory;
  * quantity requested by a customer to modify the Dish is acceptable as per the limit set for this
  * ingredient used for this Dish.
  */
-public class Ingredient {
+public abstract class Ingredient {
   private String name;
   private int quantity;
-  private int[] thresholdQuantity;
 
   /**
    * Constructor for creating Ingredient that was received by the receiver from reStock order
@@ -31,20 +30,6 @@ public class Ingredient {
   public Ingredient(String name, int quantity) {
     this.name = name;
     this.quantity = quantity;
-  }
-
-  /**
-   * Constructor for creating Ingredient in the inventory, or the Ingredient in the Dish, including
-   * both the default dish from the menu and customizable dish made to order for the customer
-   *
-   * @param name the name of this Ingredient
-   * @param quantity the quantity of this Ingredient
-   * @param thresholdQuantity the lower and upper threshold for the Ingredient
-   */
-  public Ingredient(String name, int quantity, int[] thresholdQuantity) {
-    this.name = name;
-    this.quantity = quantity;
-    this.thresholdQuantity = thresholdQuantity;
   }
 
   /**
@@ -72,29 +57,5 @@ public class Ingredient {
    */
   public String getName() {
     return this.name;
-  }
-
-  /**
-   * Returns true iff the given suggested new quantity for this Ingredient is within the acceptable
-   * range according to its lower and upper threshold; this method is reserved for the Ingredient
-   * objects in Dish objects that are made to order (not the Dish objects in the menu, which need
-   * not customization)
-   *
-   * @param n the suggested quantity for this Ingredient
-   * @param in the Ingredient whose quantity we are trying to modify
-   * @return boolean statement
-   */
-  public boolean allowed(int n, Ingredient in) {
-    return n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n + quantity;
-  }
-
-  /**
-   * Returns true iff the quantity of this Ingredient below the lower threshold; this method is
-   * reserved for Ingredient objects in the inventory of the restaurant.
-   *
-   * @return boolean statement
-   */
-  public boolean isLowStock() {
-    return this.quantity < this.thresholdQuantity[0];
   }
 }

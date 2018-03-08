@@ -2,6 +2,7 @@ import employee.*;
 import event.EventManager;
 import inventory.Ingredient;
 import inventory.Inventory;
+import inventory.InventoryIngredient;
 import inventory.Menu;
 import table.TableManager;
 
@@ -27,7 +28,8 @@ public class RestaurantSystem {
       boolean fvar = file.createNewFile();
       if (fvar) {
         BufferedWriter bw;
-        System.out.println("starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
+        System.out.println(
+                "starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
         bw.write("10\n1\n1\n1\n");
@@ -49,7 +51,7 @@ public class RestaurantSystem {
       e.printStackTrace();
     }
 
-    //read the starter.txt
+    // read the starter.txt
     try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/starter.txt"))) {
 
       // Print the lines from f prefaced with the line number,
@@ -80,14 +82,16 @@ public class RestaurantSystem {
       String line = fileReader.readLine();
       while (line != null) {
         String[] item = line.split(",");
-        int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
-        Ingredient ingredient = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
-        Inventory.add(ingredient);
+        int lowerThreshold = Integer.parseInt(item[2]);
+        int upperThreshold = Integer.parseInt(item[3]);
+        InventoryIngredient inventoryIngredient =
+                new InventoryIngredient(
+                        item[0], Integer.parseInt(item[1]), lowerThreshold, upperThreshold);
+        Inventory.add(inventoryIngredient);
         line = fileReader.readLine();
       }
 
-
-      //creating request.txt
+      // creating request.txt
       try {
         File file = new File("phase1/request.txt");
         /*If file gets created then the createNewFile()
