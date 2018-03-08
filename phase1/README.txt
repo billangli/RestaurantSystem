@@ -10,7 +10,7 @@ menu.txt
 ===========================================
 -this file is used to initialize the menu
 - please enter dish in this format:
-dishName;cost;firstIngredient:defaultAmount:allowedSubtractionAmount:allowedAdditionAmount,second Ingredient...
+dishName;cost;firstIngredient:defaultAmount:minAmount:maxAmount,second Ingredient...
 - no space in between, except dishName and ingredientName.
 - dishName, cost, and ingredient are separated by semicolon
 - ingredient, default, allowed subtraction, and allowed addition are separated by colon
