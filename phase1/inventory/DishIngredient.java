@@ -26,7 +26,7 @@ public class DishIngredient extends Ingredient {
     }
 
     /**
-     * returns true iff the given suggested new quantity for this Ingredient is within the acceptable
+     * Returns true iff the given suggested new quantity for this Ingredient is within the acceptable
      * range according to its lower and upper threshold; this method is reserved for the Ingredient
      * objects in Dish objects that are made to order (not the Dish objects in the menu, which need
      * not customization)
