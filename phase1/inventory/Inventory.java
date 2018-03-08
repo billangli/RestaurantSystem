@@ -43,7 +43,7 @@ public class Inventory {
       // The manager can manually change that amount when creating the email
       BufferedWriter bw;
       try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/request.txt"))) {
-        String mycontent = ingredientName + " 20";
+        String myContent = ingredientName + " 20";
         // Specify the file name and path here
 
         String line = fileReader.readLine();
@@ -60,7 +60,7 @@ public class Inventory {
          * specified location*/
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
-        bw.write(outPut + mycontent);
+        bw.write(outPut + myContent);
         System.out.println("request updated: " + ingredientName);
         bw.close();
 
@@ -81,18 +81,15 @@ public class Inventory {
 
   /** Returns the String of list of ingredients and its stock */
   public static void inventoryToString() {
-    ArrayList<String> listOfKeys = new ArrayList<>();
 
-    for (String name : ingredientsInventory.keySet()) {
-      listOfKeys.add(name);
-    }
+    ArrayList<String> listOfKeys = new ArrayList<>(ingredientsInventory.keySet());
 
-    Collections.sort(listOfKeys, String.CASE_INSENSITIVE_ORDER);
+    listOfKeys.sort(String.CASE_INSENSITIVE_ORDER);
 
     System.out.println("List of ingredients in stock: ");
     for (String ingredientName : listOfKeys) {
       System.out.printf(
-              "%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
+          "%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
     }
     System.out.println("\n");
   }
