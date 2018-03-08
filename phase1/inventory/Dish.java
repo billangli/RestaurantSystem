@@ -85,6 +85,21 @@ public class Dish {
     table = t;
   }
 
+    /**
+     * check if there is enough ingredient to cook this dish
+     * @return if there is enough ingredient in inventory
+     */
+  public boolean ableToCook(){
+      for (String ingredientName : ingredientsRequired.keySet()) {
+          int inventoryQuantity = Inventory.getIngredient(ingredientName).getQuantity();
+          int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
+          if(inventoryQuantity< dishQuantity){
+              return false;
+          }
+      }
+      return true;
+  }
+
   /**
    *
    * @return the name of the dish

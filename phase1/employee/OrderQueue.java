@@ -83,7 +83,13 @@ class OrderQueue {
       if (serverId == -1) {
         System.err.println("Not a valid server id.");
         e.printStackTrace();
-      } else {
+      }
+      else if(!dish.ableToCook()){
+          System.out.println("not enough ingredients to cook "+ dish.getName()
+                  + " (Dish #: "
+                  + dishNumber);
+      } else{
+        dish.updateIngredientsStock();
         System.out.println(
             "Server id("
                 + serverId
@@ -116,8 +122,6 @@ class OrderQueue {
     if (dish == null) {
       System.err.println("OrderQueue.dishDelivered(int dishNumber): Not a valid dish number.");
       (new Exception()).printStackTrace();
-    } else {
-      dish.updateIngredientsStock();
     }
     return dish;
   }
