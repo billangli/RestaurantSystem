@@ -17,7 +17,7 @@ public abstract class Ingredient {
   }
 
   /**
-   * returns the quantity of this Ingredient.
+   * Returns the quantity of this Ingredient.
    *
    * @return the quantity of this Ingredient.
    */
@@ -26,7 +26,7 @@ public abstract class Ingredient {
   }
 
   /**
-   * sets the quantity of this Ingredient.
+   * Sets the quantity of this Ingredient.
    *
    * @param quantityUnit the quantity that must be set for this Ingredient
    */
@@ -35,7 +35,7 @@ public abstract class Ingredient {
   }
 
   /**
-   * returns the name of this Ingredient
+   * Returns the name of this Ingredient
    *
    * @return the name of this Ingredient
    */
