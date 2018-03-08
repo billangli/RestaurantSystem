@@ -24,7 +24,7 @@ public class Server extends ServiceEmployee {
    */
   public void takeSeat(Table table) {
     table.serve(this);
-    System.out.println("customer take seat at table " + table.getTableNum());
+    System.out.println("Customers take seat at table " + table.getTableNum());
   }
 
   /**
