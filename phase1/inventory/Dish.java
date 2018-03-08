@@ -23,7 +23,7 @@ public class Dish {
   private Table table;
 
   /**
-   * constructor that takes the name of the dish, price and the list of names of the ingredients;
+   * Constructor that takes the name of the dish, price and the list of names of the ingredients;
    * this constructor is used to create the dishes in the Menu
    *
    * @param dishName is the name of the Dish
@@ -43,7 +43,7 @@ public class Dish {
   }
 
   /**
-   * a constructor that copies the dish from the menu to create a dish for Order
+   * A constructor that copies the dish from the menu to create a dish for Order
    *
    * @param d is the dish in the menu
    */
@@ -54,7 +54,7 @@ public class Dish {
   }
 
   /**
-   * adjusts the ingredient in the dish that is to be added or subtracted to the Order
+   * Adjusts the ingredient in the dish that is to be added or subtracted to the Order
    *
    * @param ingredientName name of this Ingredient
    * @param amount the amount of ingredient being added to the Order
@@ -67,7 +67,7 @@ public class Dish {
     }
   }
 
-  /** subtracts all the amounts of ingredients used in inventory to make this dish. */
+  /** Subtracts all the amounts of ingredients used in inventory to make this dish. */
   public void updateIngredientsStock() {
     for (String ingredientName : ingredientsRequired.keySet()) {
       Inventory.modifyIngredientQuantity(
@@ -76,7 +76,7 @@ public class Dish {
   }
 
   /**
-   * assign this dish to the table t
+   * Assigns this dish to the table t
    *
    * @param t the table that this dish was ordered from
    */
@@ -85,7 +85,7 @@ public class Dish {
   }
 
     /**
-     * checks if there is enough ingredient to cook this dish
+     * Checks if there is enough ingredient to cook this dish
      * @return if there is enough ingredient in inventory
      */
   public boolean ableToCook(){
@@ -100,7 +100,7 @@ public class Dish {
   }
 
   /**
-   *  returns the name of this Dish
+   * Returns the name of this Dish
    *
    * @return the name of this dish
    */
@@ -109,7 +109,7 @@ public class Dish {
   }
 
   /**
-   * returns the cost of the dish
+   * Returns the cost of the dish
    *
    * @return the cost of the dish
    */
@@ -118,7 +118,7 @@ public class Dish {
   }
 
   /**
-   * returns the table that this dish was ordered from
+   * Returns the table that this dish was ordered from
    *
    * @return the table that this dish was ordered from
    */
@@ -127,7 +127,7 @@ public class Dish {
   }
 
   /**
-   * returns the name of the dish and its cost
+   * Returns the name of the dish and its cost
    *
    * @return the name of the dish and its cost
    */
@@ -135,18 +135,18 @@ public class Dish {
     return String.format("%-20s", name) + ": $" + String.format("%.2f", cost);
   }
 
-  /** adds the cost of this dish to the table that ordered this dish */
+  /** Adds the cost of this dish to the table that ordered this dish */
   public void addCostToTable() {
     table.addCost(this);
   }
 
-  /** Modify the cost of this dish to 0; */
+  /** Modifies the cost of this dish to 0; */
   public void isCancelled() {
     cost = 0;
   }
 
   /**
-   * returns the unique number that identifies this particular dish
+   * Returns the unique number that identifies this particular dish
    *
    * @return Return the number that identifies this particular dish
    */
@@ -154,7 +154,7 @@ public class Dish {
     return dishNumber;
   }
 
-  /** assigns a unique number that identifies this dish */
+  /** Assigns a unique number that identifies this dish */
   public void assignDishNumber() {
     dishNumber = ++Dish.countDish;
   }
