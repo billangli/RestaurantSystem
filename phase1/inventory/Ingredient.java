@@ -47,7 +47,7 @@ public abstract class Ingredient {
    * @param quantityUnit the quantity that must be set for this Ingredient
    */
   public void setQuantity(int quantityUnit) {
-    this.quantity = quantityUnit;
+    this.quantity += quantityUnit;
   }
 
   /**

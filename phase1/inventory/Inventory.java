@@ -32,9 +32,8 @@ public class Inventory {
    */
   public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
-    int newQuantity = stockIngredient.getQuantity() + quantityUnits;
     boolean isAlreadyLow = stockIngredient.isLowStock();
-    stockIngredient.setQuantity(newQuantity);
+    stockIngredient.setQuantity(quantityUnits);
 
     if (stockIngredient.isLowStock() && !isAlreadyLow) {
       // create a request as text that is to be stored in requests.txt for the manager

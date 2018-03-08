@@ -34,7 +34,7 @@ class ProcessableEvent extends Event {
         if (employee instanceof Cook) {
           this.processCookEvent((Cook) employee);
         } else {
-          System.out.println(
+          System.err.println(
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
@@ -42,7 +42,7 @@ class ProcessableEvent extends Event {
         if (employee instanceof Manager) {
           this.processManagerEvent((Manager) employee);
         } else {
-          System.out.println(
+          System.err.println(
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
@@ -50,12 +50,12 @@ class ProcessableEvent extends Event {
         if (employee instanceof Server) {
           this.processServerEvent((Server) employee);
         } else {
-          System.out.println(
+          System.err.println(
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
       default:
-        System.out.println("*** " + this.employeeType + " is an invalid Employee type ***");
+        System.err.println("*** " + this.employeeType + " is an invalid Employee type ***");
         break;
     }
   }
@@ -83,7 +83,7 @@ class ProcessableEvent extends Event {
           cook.receiveIngredient(ingredientName, quantity);
         }
       default:
-        System.out.println("*** Cook has no \" + this.event.getMethodName() + \" method ***");
+        System.err.println("*** Cook has no \" + this.event.getMethodName() + \" method ***");
     }
   }
 
@@ -104,7 +104,7 @@ class ProcessableEvent extends Event {
           manager.receiveIngredient(ingredientName, quantity);
         }
       default:
-        System.out.println("*** Manager has no " + this.methodName + " method ***");
+        System.err.println("*** Manager has no " + this.methodName + " method ***");
         break;
     }
   }
@@ -164,7 +164,7 @@ class ProcessableEvent extends Event {
           server.receiveIngredient(ingredientName, quantity);
         }
       default:
-        System.out.println("*** Server has no " + this.methodName + " method ***");
+        System.err.println("*** Server has no " + this.methodName + " method ***");
         break;
     }
   }
