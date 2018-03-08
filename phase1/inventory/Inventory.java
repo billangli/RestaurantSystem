@@ -19,7 +19,7 @@ public class Inventory {
    * @param ingredientName the name of the Ingredient ingredient
    * @return the Ingredient ingredient that has the matching ingredientName
    */
-  public static Ingredient getIngredient(String ingredientName) {
+  public static InventoryIngredient getIngredient(String ingredientName) {
     return ingredientsInventory.get(ingredientName);
   }
 

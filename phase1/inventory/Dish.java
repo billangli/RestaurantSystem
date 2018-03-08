@@ -16,7 +16,7 @@ import table.Table;
  */
 public class Dish {
   private String name;
-  private HashMap<String, Ingredient> ingredientsRequired = new HashMap<>();
+  private HashMap<String, DishIngredient> ingredientsRequired = new HashMap<>();
   private int dishNumber;
   private static int countDish = 0;
   private float cost;
@@ -36,7 +36,7 @@ public class Dish {
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
-      Ingredient in = new Ingredient(item[0], Integer.parseInt(item[1]), limit);
+      DishIngredient in = new DishIngredient(item[0], Integer.parseInt(item[1]), limit[0],limit[1]);
       ingredientsRequired.put(item[0], in);
     }
 

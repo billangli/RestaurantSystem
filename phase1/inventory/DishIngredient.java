@@ -33,7 +33,7 @@ public class DishIngredient extends Ingredient {
      * @param in the Ingredient whose quantity we are trying to modify
      * @return boolean statement
      */
-    public boolean allowed(int n, Ingredient in) {
+    public boolean allowed(int n, InventoryIngredient in) {
         return n > minimumQuantity && n < maximumQuantity && in.getQuantity() >= n;
     }
 
