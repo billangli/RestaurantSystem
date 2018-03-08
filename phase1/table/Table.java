@@ -5,7 +5,11 @@ import inventory.Dish;
 
 import java.util.ArrayList;
 
-/** represent each table in the restaurant. store the customer's orders and number number */
+/**
+ * Table class represents each table in the restaurant.
+ *
+ * <p>Table class methods include storing the customer's orders, adding orders, adding cost of the order.
+ */
 public class Table {
   private int tableNum;
   private float cost;
@@ -13,7 +17,7 @@ public class Table {
   private ArrayList<Order> order;
 
   /**
-   * initialize the table with its number and cost of 0
+   * initializes the table with its number and cost of 0
    *
    * @param tableNum the table number
    */
@@ -23,7 +27,7 @@ public class Table {
     cost = 0;
   }
 
-  /** clear the table for new customer no server and empty order */
+  /** clears the table for new customer no server and empty order */
   public void clear() {
     server = null;
     cost = 0;
@@ -32,7 +36,7 @@ public class Table {
   }
 
   /**
-   * this server serves this table
+   * serves this table
    *
    * @param server the server that serving this table
    */
@@ -41,7 +45,7 @@ public class Table {
   }
 
   /**
-   * add the dish price into table's price
+   * adds the dish price to table's price
    *
    * @param d a dish object
    */
@@ -50,7 +54,7 @@ public class Table {
   }
 
   /**
-   * add this order to this table also add table to this order
+   * adds this order to this table also add table to this order
    *
    * @param newOrder the order that made by the customer
    */
@@ -60,7 +64,7 @@ public class Table {
   }
 
   /**
-   * return the table number
+   * returns the table number
    *
    * @return table number
    */
@@ -69,7 +73,7 @@ public class Table {
   }
 
   /**
-   * print bill for this table in format of Table number and all dishes with its price and the total
+   * prints bill for this table in format of Table number and all dishes with its price and the total
    * price
    */
   public void printBill() {
@@ -84,7 +88,7 @@ public class Table {
   }
 
   /**
-   * return the server id if the server is not null
+   * returns the server id if the server is not null
    *
    * @return the server id, -1 if no server
    */
