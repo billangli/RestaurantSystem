@@ -10,7 +10,7 @@ menu.txt
 ===========================================
 -this file is used to initialize the menu
 - please enter dish in this format:
-dishName;cost;firstIndregient:defaultAmount:allowedSubtractionAmount:allowedAdditionAmount,second Ingredient...
+dishName;cost;firstIngredient:defaultAmount:allowedSubtractionAmount:allowedAdditionAmount,second Ingredient...
 - no space in between, except dishName and ingredientName.
 - dishName, cost, and ingredient are separated by semicolon
 - ingredient, default, allowed subtraction, and allowed addition are separated by colon
@@ -62,7 +62,7 @@ Cook;employeeID;receiveIngredient;(ingredientName,quantity)
 
 Manager
 -----------------
-Manager;employeeID; checkInventory;()
+Manager;employeeID;checkInventory;()
     print out inventory to console
 
 Manager;employeeID;receiveIngredient;(ingredientName,quantity)
@@ -70,7 +70,7 @@ Manager;employeeID;receiveIngredient;(ingredientName,quantity)
 
 Server
 -----------------
-Server;employeeID; takeseat;(tableNumber)
+Server;employeeID;takeSeat;(tableNumber)
     customers take seat at Table i, with this server
 
 Server;employeeID;enterMenu;(tableNumber,order)
