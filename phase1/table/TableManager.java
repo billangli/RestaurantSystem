@@ -1,13 +1,15 @@
 package table;
 
 /**
- * the manager that manage all the tables
+ * Table manager manages all the tables.
+ *
+ * Table manager methods include setting up the table, and returning a table by its id.
  */
 public class TableManager {
   private static Table[] tables;
 
   /**
-   * set up the manager with numOfTables tables
+   * sets up the manager with numOfTables tables
    * @param numOfTables the number of tables
    */
   public static void tableSetUp(int numOfTables) {
@@ -19,7 +21,7 @@ public class TableManager {
   }
 
   /**
-   *return the table with id i
+   *returns the table with id i
    * @param i the id of a table
    * @return the table with the id i
    */
