@@ -10,6 +10,9 @@ public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
 
   /**
+   *
+   * Constructor for InventoryIngredient that takes in the name, quantity and lower threshold for the ingredient
+   *
    * @param name the name of this InventoryIngredient
    * @param quantity the quantity of this InventoryIngredient in stock
    * @param lowerThreshold the lowerThreshold of this InventoryIngredient; if the quantity of this
@@ -21,7 +24,7 @@ public class InventoryIngredient extends Ingredient {
   }
 
   /**
-   * returns true iff the quantity of this InventoryIngredient is below the lower threshold
+   * Returns true iff the quantity of this InventoryIngredient is below the lower threshold
    *
    * @return boolean statement
    */

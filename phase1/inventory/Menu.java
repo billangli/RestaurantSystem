@@ -16,7 +16,7 @@ public class Menu {
   //        create();
   //    }
 
-  /** creates a menu using the provided phase1/menu.txt file */
+  /** Creates a menu using the provided phase1/menu.txt file */
   public static void create() throws IOException {
     try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/menu.txt"))) {
 
@@ -35,7 +35,7 @@ public class Menu {
   }
 
   /**
-   * returns a copy of the Dish dish
+   * Returns a copy of the Dish dish
    *
    * @param name the name of the Dish dish
    * @return the copy of the Dish dish

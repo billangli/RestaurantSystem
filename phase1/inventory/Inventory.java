@@ -14,7 +14,7 @@ public class Inventory {
   private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
 
   /**
-   * returns the Ingredient ingredient stored in the inventory
+   * Returns the Ingredient ingredient stored in the inventory
    *
    * @param ingredientName the name of the Ingredient ingredient
    * @return the Ingredient ingredient that has the matching ingredientName
@@ -24,7 +24,7 @@ public class Inventory {
   }
 
   /**
-   * modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
+   * Modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
    *
    * @param ingredientName the name of the Ingredient to be added or subtracted
@@ -70,7 +70,7 @@ public class Inventory {
   }
 
   /**
-   * adds the InventoryIngredient ingredient to the inventory
+   * Adds the InventoryIngredient ingredient to the inventory
    *
    * @param ingredient The InventoryIngredient ingredient to be added to the inventory
    */
@@ -78,7 +78,7 @@ public class Inventory {
     ingredientsInventory.put(ingredient.getName(), ingredient);
   }
 
-  /** returns the String of list of ingredients and its stock */
+  /** Returns the String of list of ingredients and its stock */
   public static void inventoryToString() {
 
     ArrayList<String> listOfKeys = new ArrayList<>(ingredientsInventory.keySet());
