@@ -54,7 +54,7 @@ public class Server extends ServiceEmployee {
       System.err.println("the dish " +dishNumber + " does not exist");
     }
     if(dish.getTable().getServerId() == -1){
-      System.err.println("the table is empty, the dish "+ dishNumber + " will not be delivered");
+      System.out.println("the table is empty, the dish "+ dishNumber + " will not be delivered");
     }
     else{
       System.out.println(
