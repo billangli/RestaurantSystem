@@ -73,22 +73,21 @@ class OrderQueue {
       }
     }
 
-    Exception e = new Exception();
     if (dish == null) {
-      System.err.print("OrderQueue.dishCompleted(int dishNumber): Not a valid dish number.");
-      e.printStackTrace();
-    } else {
+      System.err.println( "Not a valid dish number.");
+    }
+    else {
       DishesCompleted.add(dish);
       int serverId = dish.getTable().getServerId();
       if (serverId == -1) {
         System.err.println("Not a valid server id.");
-        e.printStackTrace();
       }
       else if(!dish.ableToCook()){
           System.out.println("not enough ingredients to cook "+ dish.getName()
                   + " (Dish #: "
                   + dishNumber);
-      } else{
+      }
+      else{
         dish.updateIngredientsStock();
         System.out.println(
             "Server id("
@@ -120,8 +119,8 @@ class OrderQueue {
     }
 
     if (dish == null) {
-      System.err.println("OrderQueue.dishDelivered(int dishNumber): Not a valid dish number.");
-      (new Exception()).printStackTrace();
+      System.err.println("Not a valid dish number.");
+      //(new Exception()).printStackTrace();
     }
     return dish;
   }

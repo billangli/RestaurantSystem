@@ -24,6 +24,7 @@ public class Server extends ServiceEmployee {
    */
   public void takeSeat(Table table) {
     table.serve(this);
+    System.out.println("customer take seat at table " + table.getTableNum());
   }
 
   /**
@@ -49,17 +50,22 @@ public class Server extends ServiceEmployee {
   /** Successfully delivers dish to the table. */
   public void deliverDishCompleted(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
-    System.out.println(
-        "Server "
-            + getId()
-            + "    "
-            + dish.getName()
-            + " (Dish #: "
-            + dish.getDishNumber()
-            + ") has been delivered successfully.");
+    if (dish == null){
+      System.out.println("the dish " +dishNumber + " does not exist");
+    }
+    else{
+      System.out.println(
+              "Server "
+                      + getId()
+                      + "    "
+                      + dish.getName()
+                      + " (Dish #: "
+                      + dish.getDishNumber()
+                      + ") has been delivered successfully.");
 
-    // This is when the price of the dish gets added to the table.
-    dish.addCostToTable();
+      // This is when the price of the dish gets added to the table.
+      dish.addCostToTable();
+    }
   }
 
   /** Delivers dish to the table, but the customer requests to put the dish back. */
