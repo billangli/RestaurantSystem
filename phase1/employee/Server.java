@@ -36,7 +36,7 @@ public class Server extends ServiceEmployee {
     // Add order to the table and relate all the dish to the table.
     if (table.getServerId() == -1) {
       System.err.println("Server hasn't been set up for table " + table.getTableNum());
-      (new Exception()).printStackTrace();
+     // (new Exception()).printStackTrace();
     } else {
       order.assignDishNumber();
       table.addOrder(order);
@@ -51,7 +51,10 @@ public class Server extends ServiceEmployee {
   public void deliverDishCompleted(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
     if (dish == null){
-      System.out.println("the dish " +dishNumber + " does not exist");
+      System.err.println("the dish " +dishNumber + " does not exist");
+    }
+    if(dish.getTable().getServerId() == -1){
+      System.err.println("the table is empty, the dish "+ dishNumber + " will not be delivered");
     }
     else{
       System.out.println(
