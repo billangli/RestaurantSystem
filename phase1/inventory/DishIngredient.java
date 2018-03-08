@@ -11,6 +11,8 @@ public class DishIngredient extends Ingredient {
     private int maximumQuantity;
 
     /**
+     * Constructor for DishIngredient that takes in the name, quantity, minimum and maximum quantity of this
+     * ingredient
      *
      * @param name the name of this DishIngredient
      * @param quantity the quantity of this DishIngredient
@@ -24,7 +26,7 @@ public class DishIngredient extends Ingredient {
     }
 
     /**
-     * Returns true iff the given suggested new quantity for this Ingredient is within the acceptable
+     * returns true iff the given suggested new quantity for this Ingredient is within the acceptable
      * range according to its lower and upper threshold; this method is reserved for the Ingredient
      * objects in Dish objects that are made to order (not the Dish objects in the menu, which need
      * not customization)
