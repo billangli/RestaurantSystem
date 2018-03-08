@@ -104,6 +104,10 @@ public class RestaurantSystem {
           System.out.println("request.txt has been created successfully");
         } else {
           System.out.println("request.txt already present at the specified location");
+          // Clearing the file
+          PrintWriter output = new PrintWriter(file);
+          output.print("");
+          output.close();
         }
       } catch (IOException e) {
         System.out.println("Exception Occurred:");

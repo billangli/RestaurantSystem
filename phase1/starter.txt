@@ -4,7 +4,7 @@
 4
 tomato,12,10
 bun,10,5
-lettuce,30,5
+lettuce,6,5
 patty,15,5
 veggie patty,10,5
 potato,20,5

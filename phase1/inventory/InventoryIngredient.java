@@ -29,6 +29,6 @@ public class InventoryIngredient extends Ingredient {
    * @return boolean statement
    */
   public boolean isLowStock() {
-    return this.lowerThreshold < this.getQuantity();
+    return this.lowerThreshold > this.getQuantity();
   }
 }
