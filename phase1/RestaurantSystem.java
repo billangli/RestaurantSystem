@@ -1,6 +1,8 @@
-import employee.*;
+import employee.Cook;
+import employee.EmployeeManager;
+import employee.Manager;
+import employee.Server;
 import event.EventManager;
-import inventory.Ingredient;
 import inventory.Inventory;
 import inventory.InventoryIngredient;
 import inventory.Menu;
@@ -29,7 +31,7 @@ public class RestaurantSystem {
       if (fvar) {
         BufferedWriter bw;
         System.out.println(
-                "starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
+            "starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
         bw.write("10\n1\n1\n1\n");
@@ -85,8 +87,8 @@ public class RestaurantSystem {
         int lowerThreshold = Integer.parseInt(item[2]);
         int upperThreshold = Integer.parseInt(item[3]);
         InventoryIngredient inventoryIngredient =
-                new InventoryIngredient(
-                        item[0], Integer.parseInt(item[1]), lowerThreshold, upperThreshold);
+            new InventoryIngredient(
+                item[0], Integer.parseInt(item[1]), lowerThreshold, upperThreshold);
         Inventory.add(inventoryIngredient);
         line = fileReader.readLine();
       }

@@ -198,5 +198,11 @@ class RestaurantSystem{
 + {static} main(): void
 }
 
+RestaurantSystem --> TableManager
+RestaurantSystem --> EmployeeManager
+RestaurantSystem --> InventoryIngredient
+RestaurantSystem --> Inventory
+RestaurantSystem --> Menu
+
 RestaurantSystem *-- EventManager
 @enduml
