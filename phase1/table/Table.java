@@ -36,6 +36,7 @@ public class Table {
     server = null;
     cost = 0;
     order = new ArrayList<>();
+    System.out.println(tableNum + " has been cleared");
   }
 
   /**

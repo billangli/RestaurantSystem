@@ -62,7 +62,7 @@ public class Dish {
   public void adjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired
         .get(ingredientName)
-        .allowed(amount, Inventory.getIngredient(ingredientName))) {
+        .allowed(amount)) {
       amount = amount + ingredientsRequired.get(ingredientName).getQuantity();
       ingredientsRequired.get(ingredientName).setQuantity(amount);
     }
