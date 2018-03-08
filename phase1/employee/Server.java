@@ -58,6 +58,7 @@ public class Server extends ServiceEmployee {
       System.out.println("the table is empty, the dish "+ dishNumber + " will not be delivered");
     }
     else{
+      dish.sent();
       System.out.println(
               "Server "
                       + getId()

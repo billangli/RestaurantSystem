@@ -1,11 +1,3 @@
-/*
- EventReader
- This is a helper class that reads the event.txt file
-
- Created by Bill Ang Li
- Feb. 25th, 2018
-*/
-
 package event;
 
 import java.io.BufferedReader;
@@ -14,6 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Queue;
 
+/**
+ * EventReader - This is a helper class that reads the event.txt file
+ *
+ * <p>Created by Ang Li on Feb. 25th, 2018
+ */
 public class EventReader {
   private String file;
   private ArrayList<String> lines = new ArrayList<>();

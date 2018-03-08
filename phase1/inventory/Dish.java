@@ -21,6 +21,7 @@ public class Dish {
   private static int countDish = 0;
   private float cost;
   private Table table;
+  private boolean isSent;
 
   /**
    * Constructor that takes the name of the dish, price and the list of names of the ingredients;
@@ -33,6 +34,7 @@ public class Dish {
   public Dish(String dishName, float dishPrice, String[] ingredients) {
     this.name = dishName;
     this.cost = dishPrice;
+    isSent = false;
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -50,6 +52,7 @@ public class Dish {
   public Dish(Dish d) {
     this.name = d.getName();
     this.cost = d.getCost();
+    isSent = false;
     this.ingredientsRequired = d.ingredientsRequired;
   }
 
@@ -132,7 +135,8 @@ public class Dish {
    * @return the name of the dish and its cost
    */
   public String toString() {
-    return String.format("%-20s", name) + ": $" + String.format("%.2f", cost);
+    float currentCost = isSent? cost:0;
+    return String.format("%-20s", name) + ": $" + String.format("%.2f", currentCost);
   }
 
   /** Adds the cost of this dish to the table that ordered this dish */
@@ -157,5 +161,13 @@ public class Dish {
   /** Assigns a unique number that identifies this dish */
   public void assignDishNumber() {
     dishNumber = ++Dish.countDish;
+  }
+
+
+  /**
+   * the dish is send
+   */
+  public void sent(){
+    isSent = true;
   }
 }

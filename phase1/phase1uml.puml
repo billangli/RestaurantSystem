@@ -109,6 +109,7 @@ abstract class Dish{
 - name: String
 - ingredientsRequired: HashMap<String, DishIngredient>
 - dishNumber: int
+- isSent: boolean
 - {static} countDish: int
 - cost: float
 - table: Table
@@ -125,6 +126,7 @@ abstract class Dish{
 + isCancelled(): void
 + getDishNumber(): int
 + assignDishNumber(): void
++ sent(): void
 }
 
 Dish <--> Table : associates
