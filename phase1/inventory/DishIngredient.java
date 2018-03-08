@@ -30,7 +30,6 @@ public class DishIngredient extends Ingredient {
      * not customization)
      *
      * @param n the suggested quantity for this Ingredient
-     * @param in the Ingredient whose quantity we are trying to modify
      * @return boolean statement
      */
     public boolean allowed(int n) {
