@@ -186,6 +186,12 @@ Event <|-- ProcessableEvent
 EventManager *-- EventReader
 EventManager *-- Event
 
+Event --> Dish
+Event --> Order
+ProcessableEvent --> Employee
+ProcessableEvent --> Table
+ProcessableEvent --> Order
+
 
 class RestaurantSystem{
 - {static} start(): void
