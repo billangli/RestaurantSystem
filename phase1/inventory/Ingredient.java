@@ -26,11 +26,11 @@ public abstract class Ingredient {
   }
 
   /**
-   * Sets the quantity of this Ingredient.
+   * Adds the quantity of this Ingredient.
    *
-   * @param quantityUnit the quantity that must be set for this Ingredient
+   * @param quantityUnit the quantity of the ingredient that must be added for this Ingredient
    */
-  public void setQuantity(int quantityUnit) {
+  public void addQuantity(int quantityUnit) {
     this.quantity += quantityUnit;
   }
 
