@@ -67,6 +67,9 @@ public class Dish {
         .allowed(amount)) {
       ingredientsRequired.get(ingredientName).setQuantity(amount);
     }
+    else{
+      System.err.println(ingredientName + "adjuestment is not valid for Dish "+ dishNumber);
+    }
   }
 
   /** Subtracts all the amounts of ingredients used in inventory to make this dish. */
