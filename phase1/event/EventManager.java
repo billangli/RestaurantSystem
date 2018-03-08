@@ -1,17 +1,14 @@
-/*
-EventManager
-This class manages all the functionalities of events
-
-Created by Bill Ang Li
-Feb. 22nd, 2018
-*/
-
 package event;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * EventManager - This class manages all the functionality of events
+ *
+ * <p>Created by Ang Li on Feb. 22nd, 2018
+ */
 public class EventManager {
   private static final String FILE = "phase1/event/event.txt";
 

@@ -1,11 +1,3 @@
-/*
-EventProcessor
-This takes and event and calls the appropriate method with the parameters
-
-Created by Bill Ang Li
-Mar. 1st, 2018
-*/
-
 package event;
 
 import employee.*;
@@ -13,6 +5,11 @@ import table.Order;
 import table.Table;
 import table.TableManager;
 
+/**
+ * EventProcessor - This takes and event and calls the appropriate method with the parameters
+ *
+ * <p>Created by Ang Li on Mar. 1st, 2018
+ */
 class ProcessableEvent extends Event {
 
   /**

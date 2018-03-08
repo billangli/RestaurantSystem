@@ -1,11 +1,3 @@
-/*
- Event.java
- An abstract class to represent an event
-
- Created by Bill Ang Li
- Feb. 22nd, 2018
-*/
-
 package event;
 
 import inventory.Dish;
@@ -15,6 +7,11 @@ import table.Order;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/**
+ * Event.java - An abstract class to represent an event
+ *
+ * <p>Created by Bill Ang Li on Feb. 22nd, 2018
+ */
 abstract class Event {
   String employeeType;
   int employeeID;
