@@ -11,7 +11,7 @@ import java.util.*;
  * ingredient in the inventory and its stock.
  */
 public class Inventory {
-  private static HashMap<String, Ingredient> ingredientsInventory = new HashMap<>();
+  private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
 
   /**
    * Returns the Ingredient ingredient stored in the inventory
@@ -31,7 +31,7 @@ public class Inventory {
    * @param quantityUnits quantity of the Ingredient to be added or subtracted
    */
   public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
-    Ingredient stockIngredient = ingredientsInventory.get(ingredientName);
+    InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     int newQuantity = stockIngredient.getQuantity() + quantityUnits;
     boolean isAlreadyLow = stockIngredient.isLowStock();
     stockIngredient.setQuantity(newQuantity);
@@ -71,11 +71,11 @@ public class Inventory {
   }
 
   /**
-   * Add the Ingredient ingredient to the inventory
+   * Add the InventoryIngredient ingredient to the inventory
    *
-   * @param ingredient The Ingredient ingredient to be added to the inventory
+   * @param ingredient The InventoryIngredient ingredient to be added to the inventory
    */
-  public static void add(Ingredient ingredient) {
+  public static void add(InventoryIngredient ingredient) {
     ingredientsInventory.put(ingredient.getName(), ingredient);
   }
 
@@ -92,7 +92,7 @@ public class Inventory {
     System.out.println("List of ingredients in stock: ");
     for (String ingredientName : listOfKeys) {
       System.out.printf(
-          "%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
+              "%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
     }
     System.out.println("\n");
   }
