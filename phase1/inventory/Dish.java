@@ -38,10 +38,10 @@ public class Dish {
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
-      DishIngredient in = new DishIngredient(item[0], Integer.parseInt(item[1]), limit[0],limit[1]);
+      DishIngredient in =
+          new DishIngredient(item[0], Integer.parseInt(item[1]), limit[0], limit[1]);
       ingredientsRequired.put(item[0], in);
     }
-
   }
 
   /**
@@ -62,13 +62,10 @@ public class Dish {
    * @param amount the amount of ingredient being added to the Order
    */
   public void adjustIngredient(String ingredientName, int amount) {
-    if (ingredientsRequired
-        .get(ingredientName)
-        .allowed(amount)) {
+    if (ingredientsRequired.get(ingredientName).allowed(amount)) {
       ingredientsRequired.get(ingredientName).addQuantity(amount);
-    }
-    else{
-      System.err.println(ingredientName + " adjustment is not valid for Dish "+ dishNumber);
+    } else {
+      System.err.println(ingredientName + " adjustment is not valid for Dish " + dishNumber);
     }
   }
 
@@ -89,19 +86,20 @@ public class Dish {
     table = t;
   }
 
-    /**
-     * Checks if there is enough ingredient to cook this dish
-     * @return if there is enough ingredient in inventory
-     */
-  public boolean ableToCook(){
-      for (String ingredientName : ingredientsRequired.keySet()) {
-          int inventoryQuantity = Inventory.getIngredient(ingredientName).getQuantity();
-          int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
-          if(inventoryQuantity< dishQuantity){
-              return false;
-          }
+  /**
+   * Checks if there is enough ingredient to cook this dish
+   *
+   * @return if there is enough ingredient in inventory
+   */
+  public boolean ableToCook() {
+    for (String ingredientName : ingredientsRequired.keySet()) {
+      int inventoryQuantity = Inventory.getIngredient(ingredientName).getQuantity();
+      int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
+      if (inventoryQuantity < dishQuantity) {
+        return false;
       }
-      return true;
+    }
+    return true;
   }
 
   /**
@@ -137,7 +135,7 @@ public class Dish {
    * @return the name of the dish and its cost
    */
   public String toString() {
-    float currentCost = isSent? cost:0;
+    float currentCost = isSent ? cost : 0;
     return String.format("%-20s", name) + ": $" + String.format("%.2f", currentCost);
   }
 
@@ -165,11 +163,8 @@ public class Dish {
     dishNumber = ++Dish.countDish;
   }
 
-
-  /**
-   * the dish is send
-   */
-  public void sent(){
+  /** Acknowledges the dish is sent(=delivered) to its table. */
+  public void sent() {
     isSent = true;
   }
 }
