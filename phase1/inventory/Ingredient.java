@@ -21,7 +21,6 @@ public class Ingredient {
   private String name;
   private int quantity;
   private int[] thresholdQuantity;
-  //    private boolean lowStock; //not needed
 
   /**
    * Constructor for creating Ingredient that was received by the receiver from reStock order
@@ -86,10 +85,7 @@ public class Ingredient {
    * @return boolean statement
    */
   public boolean allowed(int n, Ingredient in) {
-    if (n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n) {
-      return true;
-    }
-    return false;
+    return n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n;
   }
 
   /**
@@ -99,10 +95,6 @@ public class Ingredient {
    * @return boolean statement
    */
   public boolean isLowStock() {
-    if (this.quantity < this.thresholdQuantity[0]) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.quantity < this.thresholdQuantity[0];
   }
 }
