@@ -5,32 +5,33 @@ import inventory.Dish;
 import java.util.ArrayList;
 
 /**
- * order that is made by customer
- * store dishes and the table that is belongs to
+ * Order class represents orders made by the customers sitting on a table.
+ *
+ * <p>Order class methods include assigning a Dish to a Table,
  */
 public class Order {
   private ArrayList<Dish> dishes;
   private Table table;
 
-    /**
-     * initialize the order with an empty arrayList of Dish
-     */
+  /** Constructor for the order with an empty ArrayList of Dishes */
   public Order() {
     dishes = new ArrayList<>();
   }
 
-    /**
-     * add this dish to dishes
-     * @param d a dish
-     */
+  /**
+   * adds this dish to this Order
+   *
+   * @param d a dish
+   */
   public void addDish(Dish d) {
     dishes.add(d);
   }
 
-    /**
-     * return all dish in the order
-     * @return all dish in the order
-     */
+  /**
+   * returns all dishes in this order
+   *
+   * @return all dishes in this order
+   */
   public String toString() {
     StringBuilder str = new StringBuilder();
 
@@ -43,20 +44,20 @@ public class Order {
     return str.toString();
   }
 
-    /**
-     *return the table number that the order is belong to
-     * @return the table number
-     */
+  /**
+   * returns the table number that the order is belong to
+   *
+   * @return the table number
+   */
   public int getTableNum() {
     return table.getTableNum();
   }
 
-
-    /**
-     * assign the order to this table
-     * and assign all dishes in order to this table
-     * @param table the table that made the order
-     */
+  /**
+   * assigns the order to this table and assigns all dishes in order to this table
+   *
+   * @param table the table that made the order
+   */
   public void assignDishToTable(Table table) {
     this.table = table;
     for (Dish dish : dishes) {
@@ -64,9 +65,9 @@ public class Order {
     }
   }
 
-
   /**
-   * return all dishes with name and price
+   * returns the name and price of all the dishes in this order
+   *
    * @return all dish name with its price
    */
   public String dishesToString() {
@@ -77,17 +78,16 @@ public class Order {
     return String.join(", ", result);
   }
 
-    /**
-     *return an arrayList of dishes
-     * @return dishes in an arraylist
-     */
+  /**
+   * returns an ArrayList of dishes
+   *
+   * @return dishes in an ArrayList
+   */
   public ArrayList<Dish> getDishes() {
     return dishes;
   }
 
-    /**
-     * give an id to each dish in this order
-     */
+  /** returns an id of each dish in this order */
   public void assignDishNumber() {
     for (Dish d : dishes) {
       d.assignDishNumber();
