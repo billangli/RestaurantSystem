@@ -85,7 +85,7 @@ public class Ingredient {
    * @return boolean statement
    */
   public boolean allowed(int n, Ingredient in) {
-    return n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n;
+    return n > thresholdQuantity[0] && n < thresholdQuantity[1] && in.getQuantity() >= n + quantity;
   }
 
   /**
