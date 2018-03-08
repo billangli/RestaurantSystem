@@ -65,7 +65,7 @@ public class Dish {
     if (ingredientsRequired
         .get(ingredientName)
         .allowed(amount)) {
-      ingredientsRequired.get(ingredientName).setQuantity(amount);
+      ingredientsRequired.get(ingredientName).addQuantity(amount);
     }
     else{
       System.err.println(ingredientName + " adjustment is not valid for Dish "+ dishNumber);

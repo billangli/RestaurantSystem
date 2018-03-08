@@ -99,7 +99,7 @@ class Ingredient{
 - thresholdQuantity: int[]
 + Ingredient(name: String, quantity: int, thresholdQuantity: int[])
 + getQuantity(): int
-+ setQuantity(quantityUnit: int): void
++ addQuantity(quantityUnit: int): void
 + getName(): String
 + allowed(n: int, in: Ingredient): boolean
 + isLowStock(): boolean
