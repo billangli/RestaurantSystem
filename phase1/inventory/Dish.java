@@ -52,7 +52,6 @@ public class Dish {
   public Dish(Dish d) {
     this.name = d.getName();
     this.cost = d.getCost();
-    isSent = false;
     this.ingredientsRequired = d.ingredientsRequired;
   }
 
