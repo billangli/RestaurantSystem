@@ -21,9 +21,10 @@ public class Dish {
   private static int countDish = 0;
   private float cost;
   private Table table;
+  private boolean isSent;
 
   /**
-   * constructor that takes the name of the dish, price and the list of names of the ingredients;
+   * Constructor that takes the name of the dish, price and the list of names of the ingredients;
    * this constructor is used to create the dishes in the Menu
    *
    * @param dishName is the name of the Dish
@@ -33,6 +34,7 @@ public class Dish {
   public Dish(String dishName, float dishPrice, String[] ingredients) {
     this.name = dishName;
     this.cost = dishPrice;
+    isSent = false;
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -43,40 +45,41 @@ public class Dish {
   }
 
   /**
-   * a constructor that copies the dish from the menu to create a dish for Order
+   * A constructor that copies the dish from the menu to create a dish for Order
    *
    * @param d is the dish in the menu
    */
   public Dish(Dish d) {
     this.name = d.getName();
     this.cost = d.getCost();
+    isSent = false;
     this.ingredientsRequired = d.ingredientsRequired;
   }
 
   /**
-   * adjusts the ingredient in the dish that is to be added or subtracted to the Order
+   * Adjust the ingredient in the dish that is to be added or subtracted to the Order
    *
    * @param ingredientName name of this Ingredient
    * @param amount the amount of ingredient being added to the Order
    */
   public void adjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired
-        .get(ingredientName)
-        .allowed(amount)) {
+            .get(ingredientName)
+            .allowed(amount)) {
       ingredientsRequired.get(ingredientName).setQuantity(amount);
     }
   }
 
-  /** subtracts all the amounts of ingredients used in inventory to make this dish. */
+  /** Subtracts all the amounts of ingredients used in inventory to make this dish. */
   public void updateIngredientsStock() {
     for (String ingredientName : ingredientsRequired.keySet()) {
       Inventory.modifyIngredientQuantity(
-          ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
+              ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
     }
   }
 
   /**
-   * assign this dish to the table t
+   * Assign this dish to the table t
    *
    * @param t the table that this dish was ordered from
    */
@@ -84,32 +87,31 @@ public class Dish {
     table = t;
   }
 
-    /**
-     * checks if there is enough ingredient to cook this dish
-     * @return if there is enough ingredient in inventory
-     */
+  /**
+   * check if there is enough ingredient to cook this dish
+   * @return if there is enough ingredient in inventory
+   */
   public boolean ableToCook(){
-      for (String ingredientName : ingredientsRequired.keySet()) {
-          int inventoryQuantity = Inventory.getIngredient(ingredientName).getQuantity();
-          int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
-          if(inventoryQuantity< dishQuantity){
-              return false;
-          }
+    for (String ingredientName : ingredientsRequired.keySet()) {
+      int inventoryQuantity = Inventory.getIngredient(ingredientName).getQuantity();
+      int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
+      if(inventoryQuantity< dishQuantity){
+        return false;
       }
-      return true;
+    }
+    return true;
   }
 
   /**
-   *  returns the name of this Dish
    *
-   * @return the name of this dish
+   * @return the name of the dish
    */
   public String getName() {
     return name;
   }
 
   /**
-   * returns the cost of the dish
+   * Return the cost of the dish
    *
    * @return the cost of the dish
    */
@@ -118,7 +120,7 @@ public class Dish {
   }
 
   /**
-   * returns the table that this dish was ordered from
+   * Return the table that this dish was ordered from
    *
    * @return the table that this dish was ordered from
    */
@@ -127,15 +129,16 @@ public class Dish {
   }
 
   /**
-   * returns the name of the dish and its cost
+   * Return the name of the dish and its cost
    *
-   * @return the name of the dish and its cost
+   * @return Return the name of the dish and its cost
    */
   public String toString() {
-    return String.format("%-20s", name) + ": $" + String.format("%.2f", cost);
+    float currentCost = isSent? cost:0;
+    return String.format("%-20s", name) + ": $" + String.format("%.2f", currentCost);
   }
 
-  /** adds the cost of this dish to the table that ordered this dish */
+  /** Add the cost of this dish to the table that ordered this dish */
   public void addCostToTable() {
     table.addCost(this);
   }
@@ -146,7 +149,7 @@ public class Dish {
   }
 
   /**
-   * returns the unique number that identifies this particular dish
+   * Return the unique number that identifies this particular dish
    *
    * @return Return the number that identifies this particular dish
    */
@@ -154,8 +157,16 @@ public class Dish {
     return dishNumber;
   }
 
-  /** assigns a unique number that identifies this dish */
+  /** Assign a unique number that identifies this dish */
   public void assignDishNumber() {
     dishNumber = ++Dish.countDish;
+  }
+
+
+  /**
+   * the dish is send
+   */
+  public void sent(){
+    isSent = true;
   }
 }
