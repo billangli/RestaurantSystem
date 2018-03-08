@@ -75,7 +75,6 @@ class Table{
 + addCost(d: Dish): void
 + addOrder(newOrder: Order): void
 + getTableNum(): int
-+ getOrder(): ArrayList<Order>
 + printBill(): void
 + getServerId(): int
 }
