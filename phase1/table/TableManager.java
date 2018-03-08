@@ -21,7 +21,7 @@ public class TableManager {
   }
 
   /**
-   *returns the table with id i
+   * returns the table with id i
    * @param i the id of a table
    * @return the table with the id i
    */
