@@ -68,7 +68,7 @@ public class Dish {
       ingredientsRequired.get(ingredientName).setQuantity(amount);
     }
     else{
-      System.err.println(ingredientName + "adjuestment is not valid for Dish "+ dishNumber);
+      System.err.println(ingredientName + " adjuestment is not valid for Dish "+ dishNumber);
     }
   }
 
