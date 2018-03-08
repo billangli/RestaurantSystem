@@ -20,6 +20,9 @@ class OrderQueue {
   // dishes that are cooked and waiting to be delivered.
   private LinkedList<Dish> DishesCompleted;
 
+  /**
+   * create a new OrderQueue
+   */
   public OrderQueue() {
     OrdersInQueue = new LinkedList<>();
     DishesInProgress = new LinkedList<>();

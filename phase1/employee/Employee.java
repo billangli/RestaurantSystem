@@ -6,6 +6,10 @@ import inventory.Inventory;
 public class Employee {
   private final int ID;
 
+  /**
+   * a employee with id
+   * @param id the id of the employee
+   */
   public Employee(int id) {
     this.ID = id;
   }
