@@ -106,32 +106,51 @@ class Ingredient{
 + isLowStock(): boolean
 }
 
-class Dish{
+abstract class Dish{
 - name: String
-- ingredientsRequired: HashMap<String, Ingredient>
+- ingredientsRequired: HashMap<String, DishIngredient>
 - dishNumber: int
-- countDish: int
+- {static} countDish: int
 - cost: float
 - table: Table
-+ Dish(dishName: String, dishPrice: float, ingredients: String[])
-+ Dish(dish: Dish)
-+ adjustIngredient(ingredientName: String, amount: int)
-+ updateIngredientsStock()
-+ assignDishToTable(t: Table)
-+ getName()
-+ getCost()
-+ getTable()
-+ toString()
-+ addCostToTable()
-+ isCancelled()
-+ getDishNumber()
-+ assignDishNumber()
++ Dish(dishName: String, dishPrice: float, ingredients: String[]): void
++ Dish(dish: Dish): void
++ adjustIngredient(ingredientName: String, amount: int): void
++ updateIngredientsStock(): void
++ assignDishToTable(t: Table): void
++ getName(): String
++ getCost(): float
++ getTable(): Table
++ toString(): String
++ addCostToTable(): void
++ isCancelled(): void
++ getDishNumber(): int
++ assignDishNumber(): void
 }
+
 Dish <--> Table : associates
-Dish --> Ingredient : associates
+Dish --> DishIngredient : associates
+
+class DishIngredient {
+- minimumQuantity: int
+- maximumQuantity: int
+~ DishIngredient(name: String, quantity: int, minimumQuantity: int, maximumQuantity: int): void
++ allowed(n: int, in: InventoryIngredient): boolean
+}
+
+DishIngredient --|> Ingredient
+
+class InventoryIngredient {
+- lowerThreshold: int
+- upperThreshold: int
++ InventoryIngredient(name: String, quantity: int, lowerThreshold: int, upperThreshold: int): void
++ isLowStock(): boolean
+}
+
+InventoryIngredient --|> Ingredient
 
 class Inventory{
-- {static} ingredientsInventory: HashMap<String, Ingredient>
+- {static} ingredientsInventory: HashMap<String, InventoryIngredient>
 + {static} getIngredient(ingredientName: String): Ingredient
 + {static} modifyIngredientQuantity(ingredientName: String, quantityUnits: int ): void
 + {static} add(ingredient: Ingredient) : void
