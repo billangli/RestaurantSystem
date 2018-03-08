@@ -20,19 +20,19 @@ public class Dish {
   private int dishNumber;
   private static int countDish = 0;
   private float cost;
-  Table table;
+  private Table table;
 
   /**
    * Constructor that takes the name of the dish, price and the list of names of the ingredients;
    * this constructor is used to create the dishes in the Menu
    *
-   * @param name is the name of the Dish
-   * @param price is the price of the Dish in dollars
+   * @param dishName is the name of the Dish
+   * @param dishPrice is the price of the Dish in dollars
    * @param ingredients is the list of names of the ingredients used for this dish
    */
-  public Dish(String name, float price, String[] ingredients) {
-    this.name = name;
-    this.cost = price;
+  public Dish(String dishName, float dishPrice, String[] ingredients) {
+    this.name = dishName;
+    this.cost = dishPrice;
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -54,10 +54,10 @@ public class Dish {
   }
 
   /**
-   * Adjust the ingredient in the dish that is to be added to the Order
+   * Adjust the ingredient in the dish that is to be added or subtracted to the Order
    *
-   * @param ingredientName
-   * @param amount
+   * @param ingredientName name of this Ingredient
+   * @param amount the amount of ingredient being added to the Order
    */
   public void adjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired
