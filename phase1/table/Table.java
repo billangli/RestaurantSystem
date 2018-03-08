@@ -5,7 +5,11 @@ import inventory.Dish;
 
 import java.util.ArrayList;
 
-/** represent each table in the restaurant. store the customer's orders and number number */
+/**
+ * Table class represents each table in the restaurant.
+ *
+ * <p>Table class methods include storing the customer's orders, adding orders, adding cost of the order.
+ */
 public class Table {
   private int tableNum;
   private float cost;
