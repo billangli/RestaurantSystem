@@ -81,9 +81,11 @@ class ProcessableEvent extends Event {
           String ingredientName = this.parameters.get(0);
           int quantity = Integer.parseInt(this.parameters.get(1));
           cook.receiveIngredient(ingredientName, quantity);
+          break;
         }
       default:
-        System.err.println("*** Cook has no \" + this.event.getMethodName() + \" method ***");
+        System.err.println("*** Cook has no " + this.methodName + " method ***");
+        break;
     }
   }
 
@@ -102,6 +104,7 @@ class ProcessableEvent extends Event {
           String ingredientName = this.parameters.get(0);
           int quantity = Integer.parseInt(this.parameters.get(1));
           manager.receiveIngredient(ingredientName, quantity);
+          break;
         }
       default:
         System.err.println("*** Manager has no " + this.methodName + " method ***");
@@ -162,6 +165,7 @@ class ProcessableEvent extends Event {
           String ingredientName = this.parameters.get(0);
           int quantity = Integer.parseInt(this.parameters.get(1));
           server.receiveIngredient(ingredientName, quantity);
+          break;
         }
       default:
         System.err.println("*** Server has no " + this.methodName + " method ***");
