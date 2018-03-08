@@ -66,7 +66,7 @@ public class Table {
   }
 
   /**
-   *
+   *return the table number
    * @return table number
    */
   public int getTableNum() {
@@ -74,7 +74,7 @@ public class Table {
   }
 
   /**
-   *
+   *return an arraylist of orders
    * @return orders in arraylist
    */
   public ArrayList<Order> getOrder() {

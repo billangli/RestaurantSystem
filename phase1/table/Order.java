@@ -28,7 +28,7 @@ public class Order {
   }
 
     /**
-     *
+     * return all dish in the order
      * @return all dish in the order
      */
   public String toString() {
@@ -44,7 +44,7 @@ public class Order {
   }
 
     /**
-     *
+     *return the table number that the order is belong to
      * @return the table number
      */
   public int getTableNum() {
@@ -66,6 +66,7 @@ public class Order {
 
 
   /**
+   * return all dishes with name and price
    * @return all dish name with its price
    */
   public String dishesToString() {
@@ -77,7 +78,7 @@ public class Order {
   }
 
     /**
-     *
+     *return an arrayList of dishes
      * @return dishes in an arraylist
      */
   public ArrayList<Dish> getDishes() {

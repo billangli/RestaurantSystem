@@ -85,7 +85,10 @@ public class Dish {
     table = t;
   }
 
-
+  /**
+   *
+   * @return the name of the dish
+   */
   public String getName() {
     return name;
   }
