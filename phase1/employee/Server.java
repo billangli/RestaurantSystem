@@ -52,8 +52,9 @@ public class Server extends ServiceEmployee {
     Dish dish = orderQueue.dishDelivered(dishNumber);
     if (dish == null){
       System.err.println("the dish " +dishNumber + " does not exist");
-    }
-    if(dish.getTable().getServerId() == -1){
+    } else if (dish.getTable() == null) {
+      System.out.println("there is no table assigned to this dish " + dishNumber + ".");
+    } else if(dish.getTable().getServerId() == -1){
       System.out.println("the table is empty, the dish "+ dishNumber + " will not be delivered");
     }
     else{
@@ -100,7 +101,7 @@ public class Server extends ServiceEmployee {
    * <p>This method removes - the server who was in change of the table - all the orders that the
    * customers in <code>table</code> ordered.
    *
-   * @param table
+   * @param table the Table that this Server is in charge of
    */
   public void clearTable(Table table) {
     table.clear();
