@@ -14,7 +14,7 @@ public class Inventory {
   private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
 
   /**
-   * Returns the Ingredient ingredient stored in the inventory
+   * returns the Ingredient ingredient stored in the inventory
    *
    * @param ingredientName the name of the Ingredient ingredient
    * @return the Ingredient ingredient that has the matching ingredientName
@@ -24,7 +24,7 @@ public class Inventory {
   }
 
   /**
-   * Modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
+   * modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
    *
    * @param ingredientName the name of the Ingredient to be added or subtracted
@@ -46,9 +46,9 @@ public class Inventory {
         // Specify the file name and path here
 
         String line = fileReader.readLine();
-        String outPut = "";
+        StringBuilder outPut = new StringBuilder();
         while (line != null) {
-          outPut += line + "\n";
+          outPut.append(line).append("\n");
           line = fileReader.readLine();
         }
 
@@ -70,7 +70,7 @@ public class Inventory {
   }
 
   /**
-   * Add the InventoryIngredient ingredient to the inventory
+   * adds the InventoryIngredient ingredient to the inventory
    *
    * @param ingredient The InventoryIngredient ingredient to be added to the inventory
    */
@@ -78,7 +78,7 @@ public class Inventory {
     ingredientsInventory.put(ingredient.getName(), ingredient);
   }
 
-  /** Returns the String of list of ingredients and its stock */
+  /** returns the String of list of ingredients and its stock */
   public static void inventoryToString() {
 
     ArrayList<String> listOfKeys = new ArrayList<>(ingredientsInventory.keySet());
