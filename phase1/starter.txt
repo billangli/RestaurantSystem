@@ -2,12 +2,12 @@
 2
 3
 4
-tomato,12,10,40
-bun,10,5,40
-lettuce,30,5,50
-patty,15,5,40
-veggie patty,10,5,30
-potato,20,5,40
-cheese,15,10,40
-chicken nugget,20,5,40
-bacon,15,5,40
+tomato,12,10
+bun,10,5
+lettuce,30,5
+patty,15,5
+veggie patty,10,5
+potato,20,5
+cheese,15,10
+chicken nugget,20,5
+bacon,15,5

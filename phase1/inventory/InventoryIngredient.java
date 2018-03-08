@@ -9,7 +9,6 @@ package inventory;
  */
 public class InventoryIngredient extends Ingredient{
     private int lowerThreshold;
-    private int upperThreshold;
 
     /**
      *
@@ -18,12 +17,10 @@ public class InventoryIngredient extends Ingredient{
      * @param quantity the quantity of this InventoryIngredient in stock
      * @param lowerThreshold the lowerThreshold of this InventoryIngredient; if the quantity of this Ingredient goes
      *                       below this lowerThreshold, then a restock order will be made
-     * @param upperThreshold the upperThreshold of this InventoryIngredient
      */
-    public InventoryIngredient(String name, int quantity, int lowerThreshold, int upperThreshold) {
+    public InventoryIngredient(String name, int quantity, int lowerThreshold) {
         super(name, quantity);
         this.lowerThreshold = lowerThreshold;
-        this.upperThreshold = upperThreshold;
     }
 
     /**

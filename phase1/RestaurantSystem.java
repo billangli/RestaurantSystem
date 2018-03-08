@@ -84,11 +84,10 @@ public class RestaurantSystem {
       String line = fileReader.readLine();
       while (line != null) {
         String[] item = line.split(",");
-        int lowerThreshold = Integer.parseInt(item[2]);
-        int upperThreshold = Integer.parseInt(item[3]);
+        int threshold = Integer.parseInt(item[2]);
         InventoryIngredient inventoryIngredient =
             new InventoryIngredient(
-                item[0], Integer.parseInt(item[1]), lowerThreshold, upperThreshold);
+                item[0], Integer.parseInt(item[1]), threshold);
         Inventory.add(inventoryIngredient);
         line = fileReader.readLine();
       }
