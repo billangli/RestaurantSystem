@@ -1,0 +1,52 @@
+=============================================
+Format in event.txt
+=============================================
+In event.txt, Tables and Employees are stored by their id values (int)
+Order (dishName:item+4_item-3_item-1)|(another dish)
+
+=============================================
+package employee
+=============================================
+class EmployeeManager
++ add(Employee employee): void
++ toString(): String
++ getEmployeeById(int id): Employee
+
+
+class Employee
++ receiveIngredient(String receivedIngredientName, int quantity): void
++ getID(): int
++ setInventory(Inventory inventory): void
+
+
+class Cook
++ orderReceived(): void
++ dishReady(int dishNumber): void
++ toString(): String
+
+
+class Server
++ takeSeat(Table table): void
++ enterMenu(Table table, Order order): void
++ deliverDishCompleted(Dish dish): void
++ deliverDishFailed(Dish dish): void
++ printBill(Table table): void
++ checkIfPaid(Table table): boolean
++ toString(): String
+
+class Manager
++ checkInventory(): void
++ toString(): String
+
+
+class OrderQueue
++ addOrderInQueue(Order order): void
++ queueIsEmpty(): boolean
++ confirmOrdersInQueue(): void
++ dishCompleted(): void
++ dishDelivered(): void
+
+============================================
+TableManager
+============================================
+// + takeSeat(Table table, Server server): void / This method is transferred to Server class.
