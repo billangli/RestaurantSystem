@@ -6,11 +6,19 @@ import event.EventManager;
 import inventory.Inventory;
 import inventory.InventoryIngredient;
 import inventory.Menu;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import table.TableManager;
 
 import java.io.*;
 
-public class RestaurantSystem {
+public class RestaurantSystem extends Application{
+
+    @Override
+    public void start(Stage stage) {
+        new StartStage();
+
+    }
 
     /**
      * Read and parse the config files for employees, tables, menu and inventory
@@ -119,10 +127,11 @@ public class RestaurantSystem {
         System.out.println("---------initialization over---------\n\n");
     }
 
-    public static void main(String[] arg) throws IOException {
-        start();
-        EventManager eventManager = new EventManager();
-        eventManager.readFile();
-        eventManager.processEvents();
+    public static void main(String[] args) throws IOException {
+//        start();
+//        EventManager eventManager = new EventManager();
+//        eventManager.readFile();
+//        eventManager.processEvents();
+        Application.launch(args);
     }
 }
