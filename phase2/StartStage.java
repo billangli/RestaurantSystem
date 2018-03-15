@@ -1,5 +1,7 @@
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -47,6 +49,22 @@ public class StartStage extends Stage{
                 BackgroundSize.DEFAULT);
         vbox.setBackground(new Background(myBI));
 
+        button.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                if ((userTextField.getText() != null && !userTextField.getText().isEmpty())) {
+                    int id = Integer.parseInt(userTextField.getText());
+                    //TODO how to link this id to employee id?
+                    new ServerStage();
+                    button.setText("Success");
+                    hide();
+                } else {
+                    button.setText("again");
+                    userTextField.clear();
+                }
+            }
+        });
 
         this.setScene(scene);
         this.show();

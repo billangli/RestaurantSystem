@@ -1,0 +1,5 @@
+internet connection
+fix phase 1 code design
+connect phase 1 code with GUI
+build the GUI
+logger
