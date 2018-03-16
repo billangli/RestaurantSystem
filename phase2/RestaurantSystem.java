@@ -12,15 +12,10 @@ import javafx.stage.Stage;
 import table.TableManager;
 
 import java.io.*;
-import GUI.StartStage;
 
-public class RestaurantSystem extends Application{
 
-    @Override
-    public void start(Stage stage) {
-        new StartStage();
+public class RestaurantSystem{
 
-    }
 
     /**
      * Read and parse the config files for employees, tables, menu and inventory

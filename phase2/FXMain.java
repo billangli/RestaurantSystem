@@ -1,3 +1,5 @@
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,13 +23,23 @@ public class FXMain extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    GridPane root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-    scene1 = new Scene(root, WIDTH, HEIGHT);
+    FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/GUI/Start.fxml"));
+    GridPane startScene = startLoader.load();
+    scene1 = new Scene(startScene, WIDTH, HEIGHT);
     BackgroundImage myBI= new BackgroundImage(new Image("hp.jpg",600,600,false,true),
             BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
 
-    root.setBackground(new Background(myBI));
+    Parent serverScene = FXMLLoader.load(getClass().getResource("/GUI/Server.fxml"));
+    scene2 = new Scene(serverScene, WIDTH, HEIGHT);
+
+    //injecting second scene into the controller of the first scene
+    StartSceneController firstPaneController = startLoader.getController();
+    firstPaneController.setServerScene(scene2);
+
+
+
+    startScene.setBackground(new Background(myBI));
     primaryStage.setTitle(TITLE);
     primaryStage.setScene(scene1);
     primaryStage.show();
