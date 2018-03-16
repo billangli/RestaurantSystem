@@ -1,3 +1,4 @@
+
 import employee.Cook;
 import employee.EmployeeManager;
 import employee.Manager;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import table.TableManager;
 
 import java.io.*;
+import GUI.StartStage;
 
 public class RestaurantSystem extends Application{
 
