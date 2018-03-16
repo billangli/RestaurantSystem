@@ -1,5 +1,6 @@
+package GUI;
 
-
+import GUI.StartSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
