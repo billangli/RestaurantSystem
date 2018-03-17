@@ -1,15 +1,13 @@
-import employee.Cook;
-import employee.EmployeeManager;
-import employee.Manager;
-import employee.Server;
-import event.EventManager;
-import inventory.Inventory;
-import inventory.InventoryIngredient;
-import inventory.Menu;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import logger.RestaurantLogger;
-import table.TableManager;
+import backend.employee.Cook;
+import backend.employee.EmployeeManager;
+import backend.employee.Manager;
+import backend.employee.Server;
+import backend.event.EventManager;
+import backend.inventory.Inventory;
+import backend.inventory.InventoryIngredient;
+import backend.inventory.Menu;
+import backend.logger.RestaurantLogger;
+import backend.table.TableManager;
 
 import java.io.*;
 import java.util.logging.Logger;
@@ -18,7 +16,7 @@ public class RestaurantSystem {
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
-   * Read and parse the config files for employees, tables, menu and inventory
+   * Read and parse the config files for employees, tables, menu and backend.inventory
    *
    * @throws IOException for reading files
    */
@@ -37,7 +35,7 @@ public class RestaurantSystem {
         BufferedWriter bw;
 
         logger.config(
-            "starter.txt has been created successfully with default 10 table, 1 server, 1 cook, and 1 manager");
+            "starter.txt has been created successfully with default 10 backend.table, 1 server, 1 cook, and 1 manager");
 
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
@@ -71,7 +69,7 @@ public class RestaurantSystem {
       TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
 
-      // There are three types of employees(Server/Cook/Manager). The id of each employee starts
+      // There are three types of employees(Server/Cook/Manager). The id of each backend.employee starts
       // from 1 and increments by 1, starting from server, cook then manager.
       // For example, if we have 3 servers, 2 cook, 1 manager in this restaurant system, then the id
       // of these employees are: server(1), server(2), server(3), cook(4), cook(5), manager(6).*/

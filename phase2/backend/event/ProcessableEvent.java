@@ -4,6 +4,8 @@ import backend.employee.*;
 import backend.table.Order;
 import backend.table.Table;
 import backend.table.TableManager;
+import backend.logger.RestaurantLogger;
+import java.util.logging.Logger;
 
 /**
  * EventProcessor - This takes and backend.event and calls the appropriate method with the parameters
@@ -12,6 +14,7 @@ import backend.table.TableManager;
  */
 class ProcessableEvent extends Event {
 
+  private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   /**
    * Constructor for ProcessableEvent
    *
@@ -31,7 +34,7 @@ class ProcessableEvent extends Event {
         if (employee instanceof Cook) {
           this.processCookEvent((Cook) employee);
         } else {
-          System.err.println(
+          logger.warning(
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
@@ -39,7 +42,7 @@ class ProcessableEvent extends Event {
         if (employee instanceof Manager) {
           this.processManagerEvent((Manager) employee);
         } else {
-          System.err.println(
+          logger.warning(
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
@@ -47,12 +50,12 @@ class ProcessableEvent extends Event {
         if (employee instanceof Server) {
           this.processServerEvent((Server) employee);
         } else {
-          System.err.println(
+          logger.warning(
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
       default:
-        System.err.println("*** " + this.employeeType + " is an invalid Employee type ***");
+        logger.warning("*** " + this.employeeType + " is an invalid Employee type ***");
         break;
     }
   }
@@ -81,7 +84,7 @@ class ProcessableEvent extends Event {
           break;
         }
       default:
-        System.err.println("*** Cook has no " + this.methodName + " method ***");
+        logger.warning("*** Cook has no " + this.methodName + " method ***");
         break;
     }
   }
@@ -104,7 +107,7 @@ class ProcessableEvent extends Event {
           break;
         }
       default:
-        System.err.println("*** Manager has no " + this.methodName + " method ***");
+        logger.warning("*** Manager has no " + this.methodName + " method ***");
         break;
     }
   }
@@ -165,7 +168,7 @@ class ProcessableEvent extends Event {
           break;
         }
       default:
-        System.err.println("*** Server has no " + this.methodName + " method ***");
+        logger.warning("*** Server has no " + this.methodName + " method ***");
         break;
     }
   }

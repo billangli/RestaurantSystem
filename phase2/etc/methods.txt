@@ -1,14 +1,14 @@
 =============================================
-Format in event.txt
+Format in backend.event.txt
 =============================================
-In event.txt, Tables and Employees are stored by their id values (int)
+In backend.event.txt, Tables and Employees are stored by their id values (int)
 Order (dishName:item+4_item-3_item-1)|(another dish)
 
 =============================================
-package employee
+package backend.employee
 =============================================
 class EmployeeManager
-+ add(Employee employee): void
++ add(Employee backend.employee): void
 + toString(): String
 + getEmployeeById(int id): Employee
 
@@ -16,7 +16,7 @@ class EmployeeManager
 class Employee
 + receiveIngredient(String receivedIngredientName, int quantity): void
 + getID(): int
-+ setInventory(Inventory inventory): void
++ setInventory(Inventory backend.inventory): void
 
 
 class Cook
@@ -26,12 +26,12 @@ class Cook
 
 
 class Server
-+ takeSeat(Table table): void
-+ enterMenu(Table table, Order order): void
++ takeSeat(Table backend.table): void
++ enterMenu(Table backend.table, Order order): void
 + deliverDishCompleted(Dish dish): void
 + deliverDishFailed(Dish dish): void
-+ printBill(Table table): void
-+ checkIfPaid(Table table): boolean
++ printBill(Table backend.table): void
++ checkIfPaid(Table backend.table): boolean
 + toString(): String
 
 class Manager
@@ -49,7 +49,7 @@ class OrderQueue
 ============================================
 TableManager
 ============================================
-// + takeSeat(Table table, Server server): void / This method is transferred to Server class.
+// + takeSeat(Table backend.table, Server server): void / This method is transferred to Server class.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

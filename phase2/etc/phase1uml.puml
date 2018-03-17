@@ -1,7 +1,7 @@
 @startuml
 class EmployeeManager{
 - {static} employeeList: ArrayList<Employee>
-+ {static} add(employee: Employee): void
++ {static} add(backend.employee: Employee): void
 + {static} allEmployeesToString(): String
 + {static} getEmployeeById(id: int): Employee
 }
@@ -29,12 +29,12 @@ class ServiceEmployee {
 }
 class Server{
 + Server(id: int)
-+ takeSeat(table: Table): void
-+ enterMenu(table: Table, order: Order): void
++ takeSeat(backend.table: Table): void
++ enterMenu(backend.table: Table, order: Order): void
 + deliverDishCompleted(dishNumber: int): void
 + deliverDishFailed(dishNumber: int): void
-+ printBill(table: Table): void
-+ clearTable(table: Table): void
++ printBill(backend.table: Table): void
++ clearTable(backend.table: Table): void
 + toString(): String
 }
 class Cook{
@@ -81,12 +81,12 @@ class Table{
 
 class Order{
 - dishes: ArrayList<Dish>
-- table: Table
+- backend.table: Table
 + Order(): void
 + addDish(d: Dish): void
 + toString(): String
 + getTableNum(): int
-+ assignDishToTable(table: Table): void
++ assignDishToTable(backend.table: Table): void
 + dishesToString(): String
 + getDishes(): ArrayList<Dish>
 }
@@ -112,7 +112,7 @@ abstract class Dish{
 - isSent: boolean
 - {static} countDish: int
 - cost: float
-- table: Table
+- backend.table: Table
 + Dish(dishName: String, dishPrice: float, ingredients: String[]): void
 + Dish(dish: Dish): void
 + adjustIngredient(ingredientName: String, amount: int): void
@@ -179,7 +179,7 @@ abstract class Event{
 }
 
 class EventManager{
-- {static} FILE: String = "phase1/event/event.txt"
+- {static} FILE: String = "phase1/backend.event/backend.event.txt"
 - eventQueue: Queue<Event>
 + EventManager()
 + readFile(): void

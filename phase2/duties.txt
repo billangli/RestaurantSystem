@@ -1,5 +1,5 @@
 internet connection
 fix phase 1 code design
-connect phase 1 code with GUI
-build the GUI
-logger
+connect phase 1 code with frontend.GUI
+build the frontend.GUI
+backend.logger

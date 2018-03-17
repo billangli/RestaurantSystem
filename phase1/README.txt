@@ -20,21 +20,21 @@ dishName;cost;firstIngredient:defaultAmount:minAmount:maxAmount,second Ingredien
 
 starter.txt
 ===========================================
-- this file is used to initialize the program with the number of employees, table, and number of ingredients
+- this file is used to initialize the program with the number of employees, backend.table, and number of ingredients
 - please only enter one integer in the first 4 lines:
     1st number represents the amount of Tables
     2nd number represents the number of Servers
     3rd number represents the number of Cooks
     4th number represents the number of Managers
-- each line after fourth line are inventory stock, represented in this format:
+- each line after fourth line are backend.inventory stock, represented in this format:
     ingredientName,currentAmount,lowerThreshold
 - no space after the comma
 - all amount are integers
-- when the ingredients are below the lowerThreshold, the program will write to request.txt requesting for more inventory
+- when the ingredients are below the lowerThreshold, the program will write to request.txt requesting for more backend.inventory
 - this file will be recreated as an empty file by the program when deleted
 
 
-event.txt
+backend.event.txt
 ===========================================
 - Dish is in the following format:
     no adjustments: dishName
@@ -58,15 +58,15 @@ Cook;employeeID;orderReady;(dishNumber)
     confirms that a dish with dishNumber has been cooked (each dish cooked has an unique dishNumber starting from 1 like McDonalds)
 
 Cook;employeeID;receiveIngredient;(ingredientName,quantity)
-    receive the ingredientName with the specified quantity and updates the inventory, we cannot do anything if it is not int our inventory
+    receive the ingredientName with the specified quantity and updates the backend.inventory, we cannot do anything if it is not int our backend.inventory
 
 Manager
 -----------------
 Manager;employeeID;checkInventory;()
-    print out inventory to console
+    print out backend.inventory to console
 
 Manager;employeeID;receiveIngredient;(ingredientName,quantity)
-    receive the ingredientName with the specified quantity and updates the inventory, we cannot do anything if it is not int our inventory
+    receive the ingredientName with the specified quantity and updates the backend.inventory, we cannot do anything if it is not int our backend.inventory
 
 Server
 -----------------
@@ -74,7 +74,7 @@ Server;employeeID;takeSeat;(tableNumber)
     customers take seat at Table i, with this server
 
 Server;employeeID;enterMenu;(tableNumber,order)
-    enters the order for cook to confirm for table at tableNumber
+    enters the order for cook to confirm for backend.table at tableNumber
 
 Server;employeeID;deliverDishCompleted;(dishNumber)
     this server successfully delivered the dish with the dishNumber
@@ -83,12 +83,12 @@ Server;employeeID;deliverDishFailed;(dishNumber)
     the current dish this server delivered to the customer has failed, the customer no longer wants it
 
 Server;employeeID;printBill;(tableNumber)
-    this server print a bill to console for table with tableNumber
+    this server print a bill to console for backend.table with tableNumber
 
 Server;employeeID;clearTable;(tableNumber)
-    this server clear the table with tableNumber, which means current Table clears all its data (not more Order, Server and cost = 0)
+    this server clear the backend.table with tableNumber, which means current Table clears all its data (not more Order, Server and cost = 0)
 
-- event.txt some invalid input if the employeeID, methodNames are not entered correctly, also if the dishNumber, tableNumber are invalid, it will be addressed, but this will not happen in phase 2 because we will only give the user valid input in the GUI to enter into the system
+- backend.event.txt some invalid input if the employeeID, methodNames are not entered correctly, also if the dishNumber, tableNumber are invalid, it will be addressed, but this will not happen in phase 2 because we will only give the user valid input in the frontend.GUI to enter into the system
 
 
 request.txt
@@ -105,10 +105,10 @@ request.txt
 
 Corner Cases
 ===========================================
-1. server delivers dish before the dish is made - This exception will not occur in phase 2 because we will make the Server select the delivered dish from the GUI, which only gives valid options (i.e. cooked dishes) so that the program will not have NullPointerException
-2. invalid employeeID - Warns the user of this error in input and does not call the method to run. This should not exist in phase 2 as input will not be in the form of event.txt, but specified input according to the GUI
-3. note: Our plan for phase 2 is to have the Manager enter the menu and ingredients with GUI, so all the exceptions caused by parsing the the input from event.txt should not happen.
-4. we will implement save data (e.g. inventory) to offline text files in phase 2, since by then the user will be able to close the program properly
+1. server delivers dish before the dish is made - This exception will not occur in phase 2 because we will make the Server select the delivered dish from the frontend.GUI, which only gives valid options (i.e. cooked dishes) so that the program will not have NullPointerException
+2. invalid employeeID - Warns the user of this error in input and does not call the method to run. This should not exist in phase 2 as input will not be in the form of backend.event.txt, but specified input according to the frontend.GUI
+3. note: Our plan for phase 2 is to have the Manager enter the menu and ingredients with frontend.GUI, so all the exceptions caused by parsing the the input from backend.event.txt should not happen.
+4. we will implement save data (e.g. backend.inventory) to offline text files in phase 2, since by then the user will be able to close the program properly
 
 UML Format
 ===========================================

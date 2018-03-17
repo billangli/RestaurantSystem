@@ -44,4 +44,8 @@ public class Menu {
     Dish temp = dishes.get(name);
     return new Dish(temp);
   }
+
+  public static HashMap<String, Dish> getDishes() {
+    return dishes;
+  }
 }

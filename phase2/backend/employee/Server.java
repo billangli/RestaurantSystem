@@ -24,7 +24,7 @@ public class Server extends ServiceEmployee {
    */
   public void takeSeat(Table table) {
     table.serve(this);
-    System.out.println("Customers take seat at backend.table " + table.getTableNum());
+    logger.info("Customers take seat at backend.table " + table.getTableNum());
   }
 
   /**
@@ -35,38 +35,30 @@ public class Server extends ServiceEmployee {
   public void enterMenu(Table table, Order order) {
     // Add order to the backend.table and relate all the dish to the backend.table.
     if (table.getServerId() == -1) {
-      System.err.println("Server hasn't been set up for backend.table " + table.getTableNum());
-     // (new Exception()).printStackTrace();
+      logger.warning("Server hasn't been set up for backend.table " + table.getTableNum());
     } else {
       order.assignDishNumber();
       table.addOrder(order);
 
       // Send order to cook
       orderQueue.addOrderInQueue(order);
-      System.out.println("Server " + getId() + " Orders are sent to cook.");
+      logger.info("Server " + getId() + ": Orders are sent to cook.");
     }
   }
 
   /** Successfully delivers dish to the backend.table. */
   public void deliverDishCompleted(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
-    if (dish == null){
-      System.err.println("the dish " +dishNumber + " does not exist");
-    } else if (dish.getTable() == null) {
-      System.out.println("there is no backend.table assigned to this dish " + dishNumber + ".");
-    } else if(dish.getTable().getServerId() == -1){
-      System.out.println("the backend.table is empty, the dish "+ dishNumber + " will not be delivered");
-    }
-    else{
+    if (dish != null) {
       dish.sent();
-      System.out.println(
-              "Server "
-                      + getId()
-                      + "    "
-                      + dish.getName()
-                      + " (Dish #: "
-                      + dish.getDishNumber()
-                      + ") has been delivered successfully.");
+      logger.info(
+          "Server "
+              + getId()
+              + "    "
+              + dish.getName()
+              + " (Dish #: "
+              + dish.getDishNumber()
+              + ") has been delivered successfully.");
 
       // This is when the price of the dish gets added to the backend.table.
       dish.addCostToTable();
@@ -76,15 +68,17 @@ public class Server extends ServiceEmployee {
   /** Delivers dish to the backend.table, but the customer requests to put the dish back. */
   public void deliverDishFailed(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
-    System.out.println(
-        "Dish #: "
-            + dish.getDishNumber()
-            + ", "
-            + dish.getName()
-            + " has been delivered but put back upon customer's request.");
+    if (dish != null) {
+      logger.info(
+          "Dish #: "
+              + dish.getDishNumber()
+              + ", "
+              + dish.getName()
+              + " has been delivered but put back upon customer's request.");
 
-    // Sets price of the dish to zero, while remaining the dish in the backend.table's order list.
-    dish.isCancelled();
+      // Sets price of the dish to zero, while remaining the dish in the backend.table's order list.
+      dish.isCancelled();
+    }
   }
 
   /**
@@ -106,6 +100,7 @@ public class Server extends ServiceEmployee {
    */
   public void clearTable(Table table) {
     table.clear();
+    logger.info("backend/table " + table.getTableNum() + " has been cleared");
   }
 
   /**
