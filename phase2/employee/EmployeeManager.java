@@ -1,11 +1,15 @@
 package employee;
 
 import java.util.ArrayList;
+import logger.RestaurantLogger;
+import java.util.logging.Logger;
 
 /** An EmployeeManager class. This class manages all the employees working in the restaurant. */
 public class EmployeeManager {
   // ArrayList of all employees.
   private static ArrayList<Employee> employeeList = new ArrayList<>();
+
+  private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * An instance of employee is added to employee manager.
@@ -40,8 +44,7 @@ public class EmployeeManager {
    */
   public static Employee getEmployeeById(int id) {
     if (id < 1 || id > employeeList.size()) {
-      System.err.println("Not a valid employee id.");
-      (new Exception()).printStackTrace();
+      logger.warning("Not a valid employee id.");
       return null;
     } else {
       return employeeList.get(id - 1);

@@ -1,8 +1,9 @@
 package inventory;
 
 import java.util.HashMap;
-
 import table.Table;
+import java.util.logging.Logger;
+import logger.RestaurantLogger;
 
 /**
  * The Dish class represents the dish that the restaurant offers in its menu, and also the dish that
@@ -22,6 +23,7 @@ public class Dish {
   private float cost;
   private Table table;
   private boolean isSent;
+  private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * Constructor that takes the name of the dish, price and the list of names of the ingredients;
@@ -65,7 +67,8 @@ public class Dish {
     if (ingredientsRequired.get(ingredientName).allowed(amount)) {
       ingredientsRequired.get(ingredientName).addQuantity(amount);
     } else {
-      System.err.println("Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
+      logger.warning(
+          "Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
     }
   }
 

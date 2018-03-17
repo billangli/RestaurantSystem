@@ -8,7 +8,8 @@ import java.util.ArrayList;
 /**
  * Table class represents each table in the restaurant.
  *
- * <p>Table class methods include storing the customer's orders, adding orders, adding cost of the order.
+ * <p>Table class methods include storing the customer's orders, adding orders, adding cost of the
+ * order.
  */
 public class Table {
   private int tableNum;
@@ -32,7 +33,6 @@ public class Table {
     server = null;
     cost = 0;
     order = new ArrayList<>();
-    System.out.println("table " + tableNum + " has been cleared");
   }
 
   /**
@@ -73,10 +73,12 @@ public class Table {
   }
 
   /**
-   * prints bill for this table in format of Table number and all dishes with its price and the total
-   * price
+   * prints bill for this table in format of Table number and all dishes with its price and the
+   * total price
    */
   public void printBill() {
+    // TODO: Phase 1, Bill class. Bill should be printed on GUI as text (maybe this method should
+    // return bill in string type.)
     System.out.println("===== <BILL> =====");
     System.out.println("Table number: " + tableNum + "\nList of dishes ordered:");
     for (Order order : this.order) {

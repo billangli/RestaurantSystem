@@ -1,13 +1,17 @@
 package employee;
 
 import inventory.Inventory;
+import logger.RestaurantLogger;
+import java.util.logging.Logger;
 
 /** An Employee class. This is parent class of all employees(Server, Cook, Manager). */
 public class Employee {
   private final int ID;
+  static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * a employee with id
+   *
    * @param id the id of the employee
    */
   public Employee(int id) {
@@ -24,7 +28,8 @@ public class Employee {
    */
   public void receiveIngredient(String receivedIngredientName, int quantity) {
     Inventory.getIngredient(receivedIngredientName).addQuantity(quantity);
-    System.out.println("Employee "+ ID + " received " + receivedIngredientName + " by this amount " + quantity);
+    logger.info(
+        "Employee " + ID + " received " + receivedIngredientName + " by this amount " + quantity);
   }
 
   /**

@@ -19,19 +19,14 @@ public class Cook extends ServiceEmployee {
    * that he/she has seen the order, ALL the orders in queue are confirmed that they are seen.
    */
   public void orderReceived() {
-    if (orderQueue.queueIsEmpty()) {
-      System.out.println("No orders are in the queue.");
-    } else {
-      orderQueue.confirmOrdersInQueue();
-      System.out.println("Cook " + getId() + "     confirmed that all orders have been seen.");
-    }
+    // logging is done in orderQueue.confirmFirstOrderInQueue() method.
+    orderQueue.confirmFirstOrderInQueue(getId());
   }
 
   /** Cook confirms whether the food is ready to be delivered by the server. */
   public void dishReady(int dishNumber) {
-    System.out.print("Cook " + getId() + "     calling ");
-    // the print log is in orderQueue.dishCompleted() method.
-    orderQueue.dishCompleted(dishNumber);
+    // the log is in orderQueue.dishCompleted() method.
+    orderQueue.dishCompleted(dishNumber, getId());
   }
 
   /**

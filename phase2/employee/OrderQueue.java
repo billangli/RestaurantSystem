@@ -4,6 +4,8 @@ import inventory.Dish;
 import table.Order;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.logging.Logger;
+import logger.RestaurantLogger;
 
 /**
  * An OrderQueue class.
@@ -19,6 +21,8 @@ class OrderQueue {
 
   // dishes that are cooked and waiting to be delivered.
   private LinkedList<Dish> DishesCompleted;
+
+  private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   public OrderQueue() {
     OrdersInQueue = new LinkedList<>();
@@ -41,16 +45,28 @@ class OrderQueue {
    * @return true if there is no order that should be seen by the cook, otherwise return false.
    */
   public boolean queueIsEmpty() {
+    // TODO: This method is not used anymore(It was used in Cook.orderReceived()). Delete before
+    // submission.
     return OrdersInQueue.isEmpty();
   }
 
-  /** This method is used by the cook to confirm that all the orders in queue are seen. */
-  public void confirmOrdersInQueue() {
-    while (!OrdersInQueue.isEmpty()) {
+  /**
+   * This method is used by the cook to confirm that all the orders in queue are seen.
+   *
+   * @param cookId Id of cook who confirms the order.
+   */
+  public void confirmFirstOrderInQueue(int cookId) {
+    if (OrdersInQueue.isEmpty()) {
+      logger.info("There are no orders in the queue to be cooked.");
+    } else {
       Order order = OrdersInQueue.remove();
-      System.out.println("--- Order confirm message ---");
-      System.out.println("Order for table number: " + order.getTableNum());
-      System.out.println("List of Dishes: " + order.dishesToString() + "\n");
+      logger.info(
+          "Cook "
+              + cookId
+              + " confirmed order for table number: "
+              + order.getTableNum()
+              + ", list of dishes: "
+              + order.dishesToString());
       DishesInProgress.addAll(order.getDishes());
     }
   }
@@ -62,8 +78,9 @@ class OrderQueue {
    * <p>Precondition: the dish that has 'dishNumber' is in the queue.
    *
    * @param dishNumber The dish number of dish that cook has finished cooking.
+   * @param cookId Id of cook who completes the dish.
    */
-  public void dishCompleted(int dishNumber) {
+  public void dishCompleted(int dishNumber, int cookId) {
     Dish dish = null;
     for (int i = 0; i < DishesInProgress.size(); i++) {
       if (DishesInProgress.get(i).getDishNumber() == dishNumber) {
@@ -74,23 +91,22 @@ class OrderQueue {
     }
 
     if (dish == null) {
-      System.err.println( "Not a valid dish number.");
-    }
-    else {
+      logger.warning("Not a valid dish number.");
+    } else {
       int serverId = dish.getTable().getServerId();
       if (serverId == -1) {
-        System.err.println("Not a valid server id.");
-      }
-      else if(!dish.ableToCook()){
-          System.err.println("not enough ingredients to cook "+ dish.getName()
-                  + " (Dish #: "
-                  + dishNumber+")");
-      }
-      else{
+        logger.warning("Not a valid server id.");
+      } else if (!dish.ableToCook()) {
+        logger.warning(
+            "not enough ingredients to cook " + dish.getName() + " (Dish #: " + dishNumber + ")");
+      } else {
         DishesCompleted.add(dish);
         dish.updateIngredientsStock();
-        System.out.println(
-            "Server id("
+        logger.info(
+            "Cook "
+                + cookId
+                + "     calling "
+                + "Server id("
                 + serverId
                 + ") | "
                 + dish.getName()
@@ -119,9 +135,13 @@ class OrderQueue {
     }
 
     if (dish == null) {
-      System.err.println("Not a valid dish number to be delivered");
-      //(new Exception()).printStackTrace();
+      logger.warning("the dish " + dishNumber + " does not exist");
+    } else if (dish.getTable() == null) {
+      logger.warning("there is no table assigned to this dish " + dishNumber + ".");
+    } else if (dish.getTable().getServerId() == -1) {
+      logger.warning("the table is empty, the dish " + dishNumber + " will not be delivered");
     }
+
     return dish;
   }
 }

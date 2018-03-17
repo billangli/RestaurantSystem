@@ -2,6 +2,8 @@ package inventory;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Logger;
+import logger.RestaurantLogger;
 
 /**
  * Inventory class represents the inventory of ingredients in the Restaurant.
@@ -12,6 +14,7 @@ import java.util.*;
  */
 public class Inventory {
   private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
+  private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * Returns the Ingredient ingredient stored in the inventory
@@ -60,7 +63,7 @@ public class Inventory {
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
         bw.write(outPut + myContent);
-        System.out.println("request updated: " + ingredientName);
+        logger.info("Request updated: " + ingredientName);
         bw.close();
 
       } catch (IOException ioe) {
@@ -85,11 +88,12 @@ public class Inventory {
 
     listOfKeys.sort(String.CASE_INSENSITIVE_ORDER);
 
-    System.out.println("List of ingredients in stock: ");
+    StringBuilder logString = new StringBuilder("List of ingredients in stock: \n");
     for (String ingredientName : listOfKeys) {
-      System.out.printf(
-          "%-17s %d%n", ingredientName, ingredientsInventory.get(ingredientName).getQuantity());
+      logString.append(String.format(
+              "%-17s %d%n",
+              ingredientName, ingredientsInventory.get(ingredientName).getQuantity()));
     }
-    System.out.println("\n");
+    logger.info(logString.toString());
   }
 }
