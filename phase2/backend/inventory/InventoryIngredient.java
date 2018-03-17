@@ -8,10 +8,11 @@ package backend.inventory;
  */
 public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
+  private int mirrorQuantity;
 
   /**
-   *
-   * Constructor for InventoryIngredient that takes in the name, quantity and lower threshold for the ingredient
+   * Constructor for InventoryIngredient that takes in the name, quantity and lower threshold for
+   * the ingredient
    *
    * @param name the name of this InventoryIngredient
    * @param quantity the quantity of this InventoryIngredient in stock
@@ -21,6 +22,7 @@ public class InventoryIngredient extends Ingredient {
   public InventoryIngredient(String name, int quantity, int lowerThreshold) {
     super(name, quantity);
     this.lowerThreshold = lowerThreshold;
+    this.mirrorQuantity = quantity;
   }
 
   /**
@@ -31,4 +33,6 @@ public class InventoryIngredient extends Ingredient {
   public boolean isLowStock() {
     return this.lowerThreshold > this.getQuantity();
   }
+
+  s
 }
