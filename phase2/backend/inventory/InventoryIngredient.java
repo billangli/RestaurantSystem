@@ -34,5 +34,5 @@ public class InventoryIngredient extends Ingredient {
     return this.lowerThreshold > this.getQuantity();
   }
 
-  s
+  
 }
