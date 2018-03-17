@@ -56,4 +56,7 @@ i. the manager can.. modify the order? (jerry)
 ii. something tht says the manager did it.. or see it
 avoid
 
+-----------------------------------------------------------------------------------
+1. use factory design to set up scene
+
 
