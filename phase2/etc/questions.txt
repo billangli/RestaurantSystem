@@ -59,4 +59,6 @@ avoid
 -----------------------------------------------------------------------------------
 1. use factory design to set up scene
 
+2. is web server observer design pattern
+
 
