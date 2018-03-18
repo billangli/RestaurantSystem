@@ -9,8 +9,8 @@ import backend.logger.RestaurantLogger;
  * Inventory class represents the backend.inventory of ingredients in the Restaurant.
  *
  * <p>Inventory methods include, but are not limited to, modifying quantity of each ingredient in
- * the backend.inventory, adding Ingredient to the backend.inventory, and creating a String that lists each
- * ingredient in the backend.inventory and its stock.
+ * the backend.inventory, adding Ingredient to the backend.inventory, and creating a String that
+ * lists each ingredient in the backend.inventory and its stock.
  */
 public class Inventory {
   private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
@@ -35,17 +35,23 @@ public class Inventory {
    */
   public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
+    boolean isAlreadyLow = stockIngredient.getIsUnderThreshold();
     stockIngredient.modifyQuantity(quantityUnits);
+    boolean isCurrentlyLow = stockIngredient.getIsUnderThreshold();
 
-    createRequest(ingredientName, stockIngredient.isLowStock());
+    createRequest(ingredientName, isAlreadyLow, isCurrentlyLow);
   }
 
   /**
    * @param ingredientName the name of the Ingredient to be added or subtracted
-   * @param bool1 whether the InventoryIngredient is low in stock
+   * @param isAlreadyLow whether the quantity of InventoryIngredient was below its lowerThreshold
+   *     before modifying the quantity
+   * @param isCurrentlyLow whether the quantity of InventoryIngredient was below its lowerThreshold
+   *     after modifying the quantity
    */
-  private static void createRequest(String ingredientName, boolean bool1) {
-    if (bool1) {
+  private static void createRequest(
+      String ingredientName, boolean isAlreadyLow, boolean isCurrentlyLow) {
+    if (!isAlreadyLow && !isCurrentlyLow) {
       // create a request as text that is to be stored in requests.txt for the manager
       // to cut and paste into n email
       // Default amount to request is 20 units
@@ -97,7 +103,8 @@ public class Inventory {
 
     StringBuilder logString = new StringBuilder("List of ingredients in stock: \n");
     for (String ingredientName : listOfKeys) {
-      logString.append(String.format(
+      logString.append(
+          String.format(
               "%-17s %d%n",
               ingredientName, ingredientsInventory.get(ingredientName).getQuantity()));
     }

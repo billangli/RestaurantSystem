@@ -9,6 +9,8 @@ package backend.inventory;
 public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
   private int mirrorQuantity;
+  private boolean isUnderThreshold;
+
 
   /**
    * Constructor for InventoryIngredient that takes in the name, quantity and lower threshold for
@@ -23,6 +25,7 @@ public class InventoryIngredient extends Ingredient {
     super(name, quantity);
     this.lowerThreshold = lowerThreshold;
     this.mirrorQuantity = quantity;
+    this.isUnderThreshold = quantity < lowerThreshold;
   }
 
   /**
@@ -34,5 +37,28 @@ public class InventoryIngredient extends Ingredient {
     return this.lowerThreshold > this.getQuantity();
   }
 
-  
+  @Override
+  public void modifyQuantity(int quantityUnit) {
+    boolean bool1 = this.isUnderThreshold;
+    super.modifyQuantity(quantityUnit);
+
+    if ((this.getQuantity() < lowerThreshold) && (!bool1)) {
+      modifyIsUnderThreshold(true);
+    } else if (((this.getQuantity() >lowerThreshold) && (bool1))) {
+      modifyIsUnderThreshold(false);
+    }
+
+
+
+
+  }
+
+  public void modifyIsUnderThreshold(boolean bool) {
+    this.isUnderThreshold = bool;
+  }
+
+  public boolean getIsUnderThreshold() {
+    return this.isUnderThreshold;
+  }
+
 }
