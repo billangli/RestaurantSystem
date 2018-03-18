@@ -19,7 +19,7 @@ public class StartSceneController{
 
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
         actiontarget.setText("Sign in button pressed");
-        //TODO link phase 1 id to here
+        //TODO IDidenify(int i)
         System.out.println(tf.getText());
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();

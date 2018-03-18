@@ -6,11 +6,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:controller="frontend.GUI.ServerController"
+<GridPane fx:id="tableView" fx:controller="frontend.GUI.ServerController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
     <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-    <Button text="Order" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#order"/>
-    <Button text="Print Bill" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#bill"/>
-    <Button text="Deliver" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#deliver"/>
+    <Button text="take seat" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#takeSeat"/>
+    <Button text="Order" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#order"/>
+    <Button text="Print Bill" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#bill"/>
+    <Button text="Deliver" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#deliver"/>
+    <Button text="clear table" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#clear"/>
 
 </GridPane>

@@ -58,3 +58,10 @@ TableManager
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 phase 2:
 1. requestMenu(): request a HashMap of dishes in Menu
+2. IDidenify(int i): ask for the employee type of i
+3. addTable(int i): this server take charge of table i
+4. clearTable(int i): the table is clear
+5. order(Dish): order dish
+6.updateMenu: every time a dish is order, keep some ingredient on hold ,also add a dish to the order
+7.sendOrder(all dish): send the Order to Cook
+8.requestbill(int i): table i request a bill

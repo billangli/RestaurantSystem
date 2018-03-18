@@ -182,4 +182,8 @@ public class Dish {
   public void sent() {
     isSent = true;
   }
+  
+  public HashMap<String, DishIngredient> getIngredientsRequired() {
+    return ingredientsRequired;
+  }
 }
