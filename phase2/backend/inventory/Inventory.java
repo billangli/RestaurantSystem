@@ -35,7 +35,7 @@ public class Inventory {
    */
   public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
-    stockIngredient.addQuantity(quantityUnits);
+    stockIngredient.modifyQuantity(quantityUnits);
 
     createRequest(ingredientName, stockIngredient.isLowStock());
   }

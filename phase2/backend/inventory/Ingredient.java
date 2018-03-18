@@ -30,7 +30,7 @@ public abstract class Ingredient {
    *
    * @param quantityUnit the quantity of the ingredient that must be added for this Ingredient
    */
-  public void addQuantity(int quantityUnit) {
+  public void modifyQuantity(int quantityUnit) {
     this.quantity += quantityUnit;
   }
 
