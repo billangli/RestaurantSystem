@@ -80,6 +80,18 @@ public class Dish {
     }
   }
 
+  public boolean updateProjectedIngredientsStock() {
+    for (String ingredientName : ingredientsRequired.keySet()) {
+
+      Inventory.modifyIngredientMirrorQuantity(
+              ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
+      if (Inventory.getIngredient(ingredientName).getWouldBeUnderThreshold()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /**
    * Assigns this dish to the backend.table t
    *

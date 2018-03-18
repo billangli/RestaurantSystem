@@ -10,6 +10,7 @@ public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
   private int mirrorQuantity;
   private boolean isUnderThreshold;
+  private boolean wouldBeUnderThreshold;
 
 
   /**
@@ -47,18 +48,31 @@ public class InventoryIngredient extends Ingredient {
     } else if (((this.getQuantity() >lowerThreshold) && (bool1))) {
       modifyIsUnderThreshold(false);
     }
-
-
-
-
   }
 
-  public void modifyIsUnderThreshold(boolean bool) {
+  public void modifyMirrorQuantity(int quantityUnit) {
+      boolean bool1 = this.wouldBeUnderThreshold;
+      super.modifyQuantity(quantityUnit);
+
+      if ((this.mirrorQuantity < lowerThreshold) && (!bool1)) {
+          modifyIsUnderThreshold(true);
+      } else if ((this.mirrorQuantity > lowerThreshold) && (bool1)) {
+          modifyIsUnderThreshold(false);
+      }
+  }
+
+  private void modifyIsUnderThreshold(boolean bool) {
     this.isUnderThreshold = bool;
   }
 
   public boolean getIsUnderThreshold() {
     return this.isUnderThreshold;
   }
+
+  public boolean getWouldBeUnderThreshold() {
+    return this.wouldBeUnderThreshold;
+  }
+
+
 
 }

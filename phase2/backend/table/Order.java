@@ -24,7 +24,12 @@ public class Order {
    * @param d a dish
    */
   public void addDish(Dish d) {
-    dishes.add(d);
+    if (d.updateProjectedIngredientsStock()) {
+      dishes.add(d);
+    } else {
+      //RAISE ERROR? MAYBE CONVERT THIS TRY INSTEAD?
+    }
+
   }
 
   /**

@@ -26,7 +26,14 @@ public class Inventory {
     return ingredientsInventory.get(ingredientName);
   }
 
-  /**
+  public static void modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
+      InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
+      stockIngredient.modifyMirrorQuantity(quantityUnits);
+  }
+
+
+
+    /**
    * Modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
    *
