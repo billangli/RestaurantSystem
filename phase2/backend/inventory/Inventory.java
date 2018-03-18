@@ -35,10 +35,17 @@ public class Inventory {
    */
   public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
-    boolean isAlreadyLow = stockIngredient.isLowStock();
     stockIngredient.addQuantity(quantityUnits);
 
-    if (stockIngredient.isLowStock() && !isAlreadyLow) {
+    createRequest(ingredientName, stockIngredient.isLowStock());
+  }
+
+  /**
+   * @param ingredientName the name of the Ingredient to be added or subtracted
+   * @param bool1 whether the InventoryIngredient is low in stock
+   */
+  private static void createRequest(String ingredientName, boolean bool1) {
+    if (bool1) {
       // create a request as text that is to be stored in requests.txt for the manager
       // to cut and paste into n email
       // Default amount to request is 20 units
