@@ -27,6 +27,7 @@ public class InventoryIngredient extends Ingredient {
     this.lowerThreshold = lowerThreshold;
     this.mirrorQuantity = quantity;
     this.isUnderThreshold = quantity < lowerThreshold;
+    this.wouldBeUnderThreshold = this.isUnderThreshold;
 
   }
 
