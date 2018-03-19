@@ -10,7 +10,7 @@ import java.util.Queue;
  * <p>Created by Ang Li on Feb. 22nd, 2018
  */
 public class EventManager {
-  private static final String FILE = "phase2/backend.event/backend.event.txt";
+  private static final String FILE = "phase2/backend/event/event.txt";
 
   private Queue<Event> eventQueue = new LinkedList<>();
 
