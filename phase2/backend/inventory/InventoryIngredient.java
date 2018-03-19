@@ -74,9 +74,9 @@ public class InventoryIngredient extends Ingredient {
       super.modifyQuantity(quantityUnit);
 
       if ((this.mirrorQuantity < lowerThreshold) && (!bool1)) {
-          modifyIsUnderThreshold(true);
+          modifyWouldBeUnderThreshold(true);
       } else if ((this.mirrorQuantity > lowerThreshold) && (bool1)) {
-          modifyIsUnderThreshold(false);
+          modifyWouldBeUnderThreshold(false);
       }
   }
 
