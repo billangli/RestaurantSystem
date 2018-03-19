@@ -41,8 +41,8 @@ public class Menu {
    * @return the copy of the Dish dish
    */
   public static Dish makeDish(String name) {
-    Dish temp = dishes.get(name);
-    return new Dish(temp);
+    Dish dish = dishes.get(name);
+    return new Dish(dish);
   }
 
   public static HashMap<String, Dish> getDishes() {

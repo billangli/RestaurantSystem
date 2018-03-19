@@ -47,14 +47,21 @@ public class Dish {
   }
 
   /**
-   * A constructor that copies the dish from the menu to create a dish for Order
+   * A constructor that copies the dish from the menu to create a dish for Order. <code>menuDish
+   * </code> should not be mutated.
    *
-   * @param d is the dish in the menu
+   * @param menuDish is the dish in the menu
    */
-  public Dish(Dish d) {
-    this.name = d.getName();
-    this.cost = d.getCost();
-    this.ingredientsRequired = d.ingredientsRequired;
+  public Dish(Dish menuDish) {
+    this.name = menuDish.getName();
+    this.cost = menuDish.getCost();
+    this.ingredientsRequired = new HashMap<>();
+    // Deep Copy
+    for (String dishName : menuDish.getIngredientsRequired().keySet()) {
+      DishIngredient dishIngredient =
+          new DishIngredient(menuDish.getIngredientsRequired().get(dishName));
+      this.ingredientsRequired.put(dishName, dishIngredient);
+    }
   }
 
   /**
@@ -150,7 +157,7 @@ public class Dish {
    * @return the name of the dish and its cost
    */
   public String toString() {
-//    float currentCost = isSent ? cost : 0;
+    //    float currentCost = isSent ? cost : 0;
     return String.format("%-20s: $%.2f", name, cost);
   }
 
