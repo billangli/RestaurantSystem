@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class FXMain extends Application {
   Stage stage;
-  Scene mainScene, serverScene, menuScene, cookScene;
+  Scene mainScene, serverScene, menuScene, cookScene, managerScene;
   final String TITLE = "Welcome to Four Guys restaurant system";
   public final int WIDTH = 600;
   public final int HEIGHT = 600;
@@ -52,9 +52,14 @@ public class FXMain extends Application {
     Parent cook = cookLoader.load();
     cookScene = new Scene(cook, WIDTH, HEIGHT);
 
+    //load cook interface
+    FXMLLoader managerLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Manager.fxml"));
+    Parent manager = managerLoader.load();
+    managerScene = new Scene(manager, WIDTH, HEIGHT);
+
     //injecting server,cook scene into the controller of the start scene
     StartSceneController startController = startLoader.getController();
-    startController.setServerScene(serverScene,cookScene);
+    startController.setServerScene(serverScene,cookScene, managerScene);
 
     //injecting menu scene into the controller of the server scene
     ServerController serverPaneController = serverLoader.getController();

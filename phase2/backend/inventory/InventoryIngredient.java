@@ -71,7 +71,7 @@ public class InventoryIngredient extends Ingredient {
    */
   public void modifyMirrorQuantity(int quantityUnit) {
       boolean bool1 = this.wouldBeUnderThreshold;
-      super.modifyQuantity(quantityUnit);
+      this.mirrorQuantity += quantityUnit;
 
       if ((this.mirrorQuantity < lowerThreshold) && (!bool1)) {
           modifyWouldBeUnderThreshold(true);
