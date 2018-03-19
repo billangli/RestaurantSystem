@@ -27,6 +27,8 @@ public class InventoryIngredient extends Ingredient {
     this.lowerThreshold = lowerThreshold;
     this.mirrorQuantity = quantity;
     this.isUnderThreshold = quantity < lowerThreshold;
+    this.wouldBeUnderThreshold = this.isUnderThreshold;
+
   }
 
   /**
@@ -38,6 +40,15 @@ public class InventoryIngredient extends Ingredient {
     return this.lowerThreshold > this.getQuantity();
   }
 
+  /**
+   *
+   * Modifies the quantity of this InventoryIngredient. If the quantityUnit is positive, increase the quantity of this
+   * InventoryIngredient by the quantity. If the quantityUnit is negative, then decrease the quantity of this
+   * InventoryIngredient by the quantity. If the quantity goes below or above the the lower threshold, then
+   * the IsUnderThreshold will be turned into True or False, respectively.
+   *
+   * @param quantityUnit the quantity of the ingredient that must be added or removed
+   */
   @Override
   public void modifyQuantity(int quantityUnit) {
     boolean bool1 = this.isUnderThreshold;
@@ -45,30 +56,64 @@ public class InventoryIngredient extends Ingredient {
 
     if ((this.getQuantity() < lowerThreshold) && (!bool1)) {
       modifyIsUnderThreshold(true);
-    } else if (((this.getQuantity() >lowerThreshold) && (bool1))) {
+    } else if (((this.getQuantity() > lowerThreshold) && (bool1))) {
       modifyIsUnderThreshold(false);
     }
   }
 
+  /**
+   *  Modifies the quantity of this InventoryIngredient. If the quantityUnit is positive, increase the quantity of this
+   * InventoryIngredient by the quantity. If the quantityUnit is negative, then decrease the quantity of this
+   * InventoryIngredient by the quantity. If the quantity goes below or above the the lower threshold, then
+   * the IsUnderThreshold will be turned into True or False, respectively.
+   *
+   * @param quantityUnit the quantity
+   */
   public void modifyMirrorQuantity(int quantityUnit) {
       boolean bool1 = this.wouldBeUnderThreshold;
       super.modifyQuantity(quantityUnit);
 
       if ((this.mirrorQuantity < lowerThreshold) && (!bool1)) {
-          modifyIsUnderThreshold(true);
+          modifyWouldBeUnderThreshold(true);
       } else if ((this.mirrorQuantity > lowerThreshold) && (bool1)) {
-          modifyIsUnderThreshold(false);
+          modifyWouldBeUnderThreshold(false);
       }
   }
 
+  /**
+   *
+   * Modifies the IsUnderThreshold variable of this InventoryIngredient to bool
+   *
+   * @param bool whether the isUnderThreshold must be converted into True or False
+   */
   private void modifyIsUnderThreshold(boolean bool) {
     this.isUnderThreshold = bool;
   }
 
+  /**
+   *
+   * Modifies the WouldBeUnderThreshold variable of this InventoryIngredient to bool
+   *
+   * @param bool whether the WouldBeUnderThreshold must be converted into True or False
+   */
+  private void modifyWouldBeUnderThreshold(boolean bool) {
+    this.wouldBeUnderThreshold = bool;
+  }
+
+  /**
+   * Returns the IsUnderThreshold of this InventoryIngredient
+   *
+   * @return the IsUnderThreshold of this InventoryIngredient
+   */
   public boolean getIsUnderThreshold() {
     return this.isUnderThreshold;
   }
 
+  /**
+   * Returns the WouldBeUnderThreshold of this InventoryIngredient
+   *
+   * @return the WouldBeUnderThreshold of this InventoryIngredient
+   */
   public boolean getWouldBeUnderThreshold() {
     return this.wouldBeUnderThreshold;
   }

@@ -27,13 +27,11 @@ public class Inventory {
   }
 
   public static void modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
-      InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
-      stockIngredient.modifyMirrorQuantity(quantityUnits);
+    InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
+    stockIngredient.modifyMirrorQuantity(quantityUnits);
   }
 
-
-
-    /**
+  /**
    * Modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
    *
@@ -45,50 +43,49 @@ public class Inventory {
     boolean isAlreadyLow = stockIngredient.getIsUnderThreshold();
     stockIngredient.modifyQuantity(quantityUnits);
     boolean isCurrentlyLow = stockIngredient.getIsUnderThreshold();
-
-    createRequest(ingredientName, isAlreadyLow, isCurrentlyLow);
+    // if this InventoryIngredient was not already below the threshold, then
+    // execute createRequest
+    if (!isAlreadyLow && !isCurrentlyLow) {
+      createRequest(ingredientName);
+    }
   }
 
   /**
-   * @param ingredientName the name of the Ingredient to be added or subtracted
-   * @param isAlreadyLow whether the quantity of InventoryIngredient was below its lowerThreshold
-   *     before modifying the quantity
-   * @param isCurrentlyLow whether the quantity of InventoryIngredient was below its lowerThreshold
-   *     after modifying the quantity
+   * Create a text request to restock the Inventory Ingredient that has the same name as ingredientName
+   *
+   * @param ingredientName the name of the InventoryIngredient that needs to be requested for
+   *     restock
    */
-  private static void createRequest(
-      String ingredientName, boolean isAlreadyLow, boolean isCurrentlyLow) {
-    if (!isAlreadyLow && !isCurrentlyLow) {
-      // create a request as text that is to be stored in requests.txt for the manager
-      // to cut and paste into n email
-      // Default amount to request is 20 units
-      // The manager can manually change that amount when creating the email
-      BufferedWriter bw;
-      try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/request.txt"))) {
-        String myContent = ingredientName + " 20";
-        // Specify the file name and path here
+  private static void createRequest(String ingredientName) {
+    // create a request as text that is to be stored in requests.txt for the manager
+    // to cut and paste into n email
+    // Default amount to request is 20 units
+    // The manager can manually change that amount when creating the email
+    BufferedWriter bw;
+    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/request.txt"))) {
+      String myContent = ingredientName + " 20";
+      // Specify the file name and path here
 
-        String line = fileReader.readLine();
-        StringBuilder outPut = new StringBuilder();
-        while (line != null) {
-          outPut.append(line).append("\n");
-          line = fileReader.readLine();
-        }
-
-        File file = new File("phase1/request.txt");
-
-        /* This logic will make sure that the file
-         * gets created if it is not present at the
-         * specified location*/
-        FileWriter fw = new FileWriter(file);
-        bw = new BufferedWriter(fw);
-        bw.write(outPut + myContent);
-        logger.info("Request updated: " + ingredientName);
-        bw.close();
-
-      } catch (IOException ioe) {
-        ioe.printStackTrace();
+      String line = fileReader.readLine();
+      StringBuilder outPut = new StringBuilder();
+      while (line != null) {
+        outPut.append(line).append("\n");
+        line = fileReader.readLine();
       }
+
+      File file = new File("phase1/request.txt");
+
+      /* This logic will make sure that the file
+       * gets created if it is not present at the
+       * specified location*/
+      FileWriter fw = new FileWriter(file);
+      bw = new BufferedWriter(fw);
+      bw.write(outPut + myContent);
+      logger.info("Request updated: " + ingredientName);
+      bw.close();
+
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
     }
   }
 
