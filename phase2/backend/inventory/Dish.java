@@ -47,7 +47,7 @@ public class Dish {
   }
 
   /**
-   * A constructor that copies the dish from the menu to create a dish for Order. <code>menuDish
+   * A constructor that deep-copies the dish from the menu to create a dish for Order. <code>menuDish
    * </code> should not be mutated.
    *
    * @param menuDish is the dish in the menu
