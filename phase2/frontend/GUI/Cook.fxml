@@ -6,12 +6,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="tableView" xmlns="http://javafx.com/javafx"
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="frontend.GUI.CookController"
-            alignment="center" hgap="10" vgap="10"
             prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <GridPane fx:id="tableView"
+                  alignment="center" hgap="10" vgap="10"
+                  prefHeight="300.0" prefWidth="300.0">
+        </GridPane>
+    </center>
+    <right>
+
+        <HBox fx:id="personal"
+              alignment="CENTER"
+        >
+            <BorderPane.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </BorderPane.margin>
+
+        </HBox>
+    </right>
 
 
+</BorderPane>
 
-</GridPane>
+

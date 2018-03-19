@@ -10,12 +10,13 @@ import javafx.stage.Stage;
 
 public class StartSceneController{
     @FXML private TextField tf;
-    private Scene serverScene, cookScene;
+    private Scene serverScene, cookScene, managerScene;
     @FXML private Text actiontarget;
 
-    public void setServerScene(Scene scene1, Scene scene2) {
+    public void setServerScene(Scene scene1, Scene scene2, Scene scene3) {
         serverScene = scene1;
         cookScene = scene2;
+        managerScene = scene3;
     }
 
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
@@ -24,7 +25,7 @@ public class StartSceneController{
         System.out.println(tf.getText());
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        primaryStage.setScene(cookScene);
+        primaryStage.setScene(managerScene);
     }
 
 
