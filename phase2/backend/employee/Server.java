@@ -17,10 +17,11 @@ public class Server extends ServiceEmployee {
   }
 
   /**
-   * Sets this server to serve the <code>backend.table</code>. This server is responsible for the customers
-   * on that <code>backend.table</code>.
+   * Sets this server to serve the <code>backend.table</code>. This server is responsible for the
+   * customers on that <code>backend.table</code>.
    *
-   * @param table A backend.table where customers sat down, and where this server is now responsible for.
+   * @param table A backend.table where customers sat down, and where this server is now responsible
+   *     for.
    */
   public void takeSeat(Table table) {
     table.serve(this);
@@ -50,7 +51,6 @@ public class Server extends ServiceEmployee {
   public void deliverDishCompleted(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
     if (dish != null) {
-      dish.sent();
       logger.info(
           "Server "
               + getId()
@@ -93,8 +93,8 @@ public class Server extends ServiceEmployee {
   /**
    * After customers leave, this method resets the backend.table.
    *
-   * <p>This method removes - the server who was in change of the backend.table - all the orders that the
-   * customers in <code>backend.table</code> ordered.
+   * <p>This method removes - the server who was in change of the backend.table - all the orders
+   * that the customers in <code>backend.table</code> ordered.
    *
    * @param table the Table that this Server is in charge of
    */

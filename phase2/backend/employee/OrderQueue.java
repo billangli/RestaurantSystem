@@ -141,8 +141,9 @@ class OrderQueue {
     } else if (dish.getTable().getServerId() == -1) {
       logger.warning(
           "the backend.table is empty, the dish " + dishNumber + " will not be delivered");
+    } else {
+      dish.sent();
     }
-
     return dish;
   }
 }

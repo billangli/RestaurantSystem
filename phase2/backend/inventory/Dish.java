@@ -12,8 +12,8 @@ import backend.logger.RestaurantLogger;
  * name, but every dish is assigned a unique dishNumber.
  *
  * <p>The class includes methods for adjusting the ingredients in the Dish, updating the ingredients
- * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating a string
- * with the name of its dish and its cost.
+ * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating
+ * a string with the name of its dish and its cost.
  */
 public class Dish {
   private String name;
@@ -84,7 +84,7 @@ public class Dish {
     for (String ingredientName : ingredientsRequired.keySet()) {
 
       Inventory.modifyIngredientMirrorQuantity(
-              ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
+          ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
       if (Inventory.getIngredient(ingredientName).getWouldBeUnderThreshold()) {
         return false;
       }
@@ -150,8 +150,8 @@ public class Dish {
    * @return the name of the dish and its cost
    */
   public String toString() {
-    float currentCost = isSent ? cost : 0;
-    return String.format("%-20s", name) + ": $" + String.format("%.2f", currentCost);
+//    float currentCost = isSent ? cost : 0;
+    return String.format("%-20s: $%.2f", name, cost);
   }
 
   /** Adds the cost of this dish to the backend.table that ordered this dish */
@@ -181,6 +181,10 @@ public class Dish {
   /** Acknowledges the dish is sent(=delivered) to its backend.table. */
   public void sent() {
     isSent = true;
+  }
+
+  public boolean isSent() {
+    return isSent;
   }
 
   public HashMap<String, DishIngredient> getIngredientsRequired() {

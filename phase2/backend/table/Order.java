@@ -27,9 +27,8 @@ public class Order {
     if (d.updateProjectedIngredientsStock()) {
       dishes.add(d);
     } else {
-      //RAISE ERROR? MAYBE CONVERT THIS TRY INSTEAD?
+      // TODO: RAISE ERROR? MAYBE CONVERT THIS TRY INSTEAD?
     }
-
   }
 
   /**
@@ -38,15 +37,16 @@ public class Order {
    * @return all dishes in this order
    */
   public String toString() {
-    StringBuilder str = new StringBuilder();
+    ArrayList<String> result = new ArrayList<>();
 
     int i = 0;
-    for (; i < dishes.size() - 1; i++) {
-      str.append(dishes.get(i).toString()).append("\n");
+    for (; i < dishes.size(); i++) {
+      if (dishes.get(i).isSent()) {
+        result.add(dishes.get(i).toString());
+      }
     }
-    str.append(dishes.get(i));
 
-    return str.toString();
+    return String.join("\n", result);
   }
 
   /**
