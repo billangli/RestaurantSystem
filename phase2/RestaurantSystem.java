@@ -25,7 +25,7 @@ public class RestaurantSystem {
 
     // check the existence of starter.txt and menu.txt
     try {
-      File file = new File("phase1/starter.txt");
+      File file = new File("phase2/starter.txt");
       /*If file gets created then the createNewFile()
        * method would return true or if the file is
        * already present it would return false
@@ -45,7 +45,7 @@ public class RestaurantSystem {
         logger.config("starter.txt already present at the specified location");
       }
 
-      file = new File("phase1/menu.txt");
+      file = new File("phase2/menu.txt");
       fvar = file.createNewFile();
       if (fvar) {
         logger.config("menu.txt has been created successfully with no item");
@@ -61,7 +61,7 @@ public class RestaurantSystem {
     }
 
     // read the starter.txt
-    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/starter.txt"))) {
+    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/starter.txt"))) {
 
       // Print the lines from f prefaced with the line number,
       // starting at 1.
@@ -69,7 +69,8 @@ public class RestaurantSystem {
       TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
 
-      // There are three types of employees(Server/Cook/Manager). The id of each backend.employee starts
+      // There are three types of employees(Server/Cook/Manager). The id of each backend.employee
+      // starts
       // from 1 and increments by 1, starting from server, cook then manager.
       // For example, if we have 3 servers, 2 cook, 1 manager in this restaurant system, then the id
       // of these employees are: server(1), server(2), server(3), cook(4), cook(5), manager(6).*/
@@ -127,13 +128,13 @@ public class RestaurantSystem {
   }
 
   public static void main(String[] args) throws IOException {
-      RestaurantLogger.init();
-      start();
-      EventManager eventManager = new EventManager();
-      eventManager.readFile();
-      eventManager.processEvents();
+    RestaurantLogger.init();
+    start();
+    EventManager eventManager = new EventManager();
+    eventManager.readFile();
+    eventManager.processEvents();
 
-      // Initializing Logger.
+    // Initializing Logger.
 
     //        Application.launch(args);
   }
