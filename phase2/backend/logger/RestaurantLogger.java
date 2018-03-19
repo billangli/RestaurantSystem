@@ -30,8 +30,8 @@ public class RestaurantLogger {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    System.setOut(outPS); // redirect System.out
-    System.setErr(outPS); // redirect System.err
+//    System.setOut(outPS); // redirect System.out
+//    System.setErr(outPS); // redirect System.err
   }
 
   //TODO: Delete before finalizing.
