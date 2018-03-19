@@ -41,6 +41,7 @@ public class DishIngredient extends Ingredient {
    * @return boolean statement
    */
   public boolean allowed(int n) {
-    return n >= minimumQuantity && n <= maximumQuantity;
+    return (n >= minimumQuantity && n <= maximumQuantity)
+        || (n <= -minimumQuantity && n >= -maximumQuantity);
   }
 }
