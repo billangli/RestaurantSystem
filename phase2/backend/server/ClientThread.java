@@ -1,5 +1,11 @@
 package backend.server;
 
-public class ClientThread {
+import java.net.Socket;
 
+class ClientThread {
+  private Socket socket;
+
+  ClientThread(Socket socketBuff) {
+    this.socket = socket;
+  }
 }
