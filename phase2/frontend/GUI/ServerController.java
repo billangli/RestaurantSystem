@@ -1,5 +1,7 @@
 package frontend.GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,6 +35,15 @@ public class ServerController  implements Initializable {
     protected void takeSeat(ActionEvent event) {
         //TODO link to server's takeseat method addTable()
         TextField tableNum = new TextField();
+        tableNum.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tableNum.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         tableView.add(tableNum,0,5);
 
         //submit the order
@@ -54,6 +65,15 @@ public class ServerController  implements Initializable {
     @FXML protected void bill(ActionEvent event) {
         //TODO print bill base on the table number requestbill()
         TextField tableNum = new TextField();
+        tableNum.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tableNum.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         tableView.add(tableNum,0,5);
 
         //submit the order
@@ -75,6 +95,15 @@ public class ServerController  implements Initializable {
         //TODO method clear()
 
         TextField tableNum = new TextField();
+        tableNum.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tableNum.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         tableView.add(tableNum,0,5);
 
         //submit the order

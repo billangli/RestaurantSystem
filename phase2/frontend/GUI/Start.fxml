@@ -16,6 +16,9 @@
     <Label text="User Name:"
            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
+    <TextField fx:id="tf"
+            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
     <Label text="Password:"
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 

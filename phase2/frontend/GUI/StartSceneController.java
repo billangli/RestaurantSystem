@@ -38,17 +38,15 @@ public class StartSceneController{
     }
 
     public void start(){
-        TextField text = new TextField();
-        text.textProperty().addListener(new ChangeListener<String>() {
+        tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                                 String newValue) {
                 if (!newValue.matches("\\d*")) {
-                    text.setText(newValue.replaceAll("[^\\d]", ""));
+                    tf.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
         });
-        tableView.add(text,1,1);
     }
 
 
