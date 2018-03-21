@@ -38,6 +38,10 @@ public class FXMain extends Application {
             BackgroundSize.DEFAULT);
     startScene.setBackground(new Background(mainImage));
 
+    StartSceneController paneController = startLoader.getController();
+    paneController.start();
+
+
     primaryStage.setTitle(TITLE);
     primaryStage.setScene(mainScene);
     primaryStage.show();
