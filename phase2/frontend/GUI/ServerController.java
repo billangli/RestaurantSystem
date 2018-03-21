@@ -21,7 +21,7 @@ public class ServerController  implements Initializable {
     @FXML
     GridPane tableView = new GridPane();
 
-    public void setMyId(int id){
+    public void setmyId(int id){
         myId = id;
     }
 

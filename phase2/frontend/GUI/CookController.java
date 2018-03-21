@@ -14,6 +14,11 @@ public class CookController {
     @FXML
     HBox personal = new HBox();
 
+    private int myId;
+    public void setmyId(int id){
+        myId = id;
+    }
+
     public void initialize(){
         for(int i = 0; i < 6; i++){
             Label item = new Label("nothing");

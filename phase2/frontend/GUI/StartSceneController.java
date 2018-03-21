@@ -22,7 +22,8 @@ public class StartSceneController{
         //TODO IDidenify(int i)
         //client.send(new ProcessableEvent());
         System.out.println(tf.getText());
-        scene = factory.createScene("server");
+        int id = Integer.parseInt(tf.getText());
+        scene = factory.createScene("server", id);
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(scene);
