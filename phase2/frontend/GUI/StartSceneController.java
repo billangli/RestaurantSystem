@@ -8,24 +8,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class StartSceneController{
     @FXML private TextField tf;
-    private Scene serverScene, cookScene, managerScene;
+    private Scene scene;
     @FXML private Text actiontarget;
 
-    public void setServerScene(Scene scene1, Scene scene2, Scene scene3) {
-        serverScene = scene1;
-        cookScene = scene2;
-        managerScene = scene3;
-    }
 
-    @FXML protected void handleSubmitButtonAction(ActionEvent event) {
+    @FXML protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
+        SceneFactory factory  = new SceneFactory();
         actiontarget.setText("Sign in button pressed");
         //TODO IDidenify(int i)
+        //client.send(new ProcessableEvent());
         System.out.println(tf.getText());
+        scene = factory.createScene("server");
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        primaryStage.setScene(managerScene);
+        primaryStage.setScene(scene);
     }
 
 

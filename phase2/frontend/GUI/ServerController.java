@@ -17,8 +17,13 @@ import java.util.ResourceBundle;
 
 public class ServerController  implements Initializable {
     private Scene menuScene;
+    private int myId;
     @FXML
     GridPane tableView = new GridPane();
+
+    public void setMyId(int id){
+        myId = id;
+    }
 
     public void setMenuScene(Scene scene) {
         menuScene = scene;
@@ -68,17 +73,19 @@ public class ServerController  implements Initializable {
     @FXML
     protected void clear(ActionEvent event) {
         //TODO method clear()
+
         TextField tableNum = new TextField();
         tableView.add(tableNum,0,5);
 
         //submit the order
         Button submit = new Button("clear this table");
-//        submit.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override public void handle(ActionEvent e) {
-//                Stage primaryStage = (Stage)((Node)e.getSource()).getScene().getWindow();
-//                primaryStage.setScene(serverScene);
-//            }
-//        });
+        submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println(tableNum.getText());
+                int tableNumber = Integer.parseInt(tableNum.getText());
+//               client.send("Server;"+myId+";clear;("+tableNum+")");
+            }
+        });
         tableView.add(submit,1,5);
     }
 

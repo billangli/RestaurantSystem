@@ -19,6 +19,7 @@ public class FXMain extends Application {
   final String TITLE = "Welcome to Four Guys restaurant system";
   public final int WIDTH = 600;
   public final int HEIGHT = 600;
+  //public static Client client = New Client()
 
   public static void main(String[] args)  throws IOException {
 
@@ -36,41 +37,6 @@ public class FXMain extends Application {
             BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     startScene.setBackground(new Background(mainImage));
-
-    //load server interface
-    FXMLLoader serverLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Server.fxml"));
-    Parent server = serverLoader.load();
-    serverScene = new Scene(server, WIDTH, HEIGHT);
-
-    //load menu interface
-    FXMLLoader menuLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/MenuFx.fxml"));
-    Parent menu = menuLoader.load();
-    menuScene = new Scene(menu, WIDTH, HEIGHT);
-
-    //load cook interface
-    FXMLLoader cookLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Cook.fxml"));
-    Parent cook = cookLoader.load();
-    cookScene = new Scene(cook, WIDTH, HEIGHT);
-
-    //load cook interface
-    FXMLLoader managerLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Manager.fxml"));
-    Parent manager = managerLoader.load();
-    managerScene = new Scene(manager, WIDTH, HEIGHT);
-
-    //injecting server,cook scene into the controller of the start scene
-    StartSceneController startController = startLoader.getController();
-    startController.setServerScene(serverScene,cookScene, managerScene);
-
-    //injecting menu scene into the controller of the server scene
-    ServerController serverPaneController = serverLoader.getController();
-    serverPaneController.setMenuScene(menuScene);
-
-    //injecting menu scene into the controller of the server scene
-    MenuController menuPaneController = menuLoader.getController();
-    menuPaneController.setServerScene(serverScene);
-
-
-
 
     primaryStage.setTitle(TITLE);
     primaryStage.setScene(mainScene);
