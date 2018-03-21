@@ -4,7 +4,7 @@ import backend.inventory.Dish;
 import backend.table.Order;
 import backend.table.Table;
 
-/** A Server class. This class represents a server. */
+/** A ComputerServer class. This class represents a server. */
 public class Server extends ServiceEmployee {
 
   /**
@@ -36,14 +36,14 @@ public class Server extends ServiceEmployee {
   public void enterMenu(Table table, Order order) {
     // Add order to the backend.table and relate all the dish to the backend.table.
     if (table.getServerId() == -1) {
-      logger.warning("Server hasn't been set up for backend.table " + table.getTableNum());
+      logger.warning("ComputerServer hasn't been set up for backend.table " + table.getTableNum());
     } else {
       order.assignDishNumber();
       table.addOrder(order);
 
       // Send order to cook
       orderQueue.addOrderInQueue(order);
-      logger.info("Server " + getId() + ": Orders are sent to cook.");
+      logger.info("ComputerServer " + getId() + ": Orders are sent to cook.");
     }
   }
 
@@ -52,7 +52,7 @@ public class Server extends ServiceEmployee {
     Dish dish = orderQueue.dishDelivered(dishNumber);
     if (dish != null) {
       logger.info(
-          "Server "
+          "ComputerServer "
               + getId()
               + "    "
               + dish.getName()
@@ -96,7 +96,7 @@ public class Server extends ServiceEmployee {
    * <p>This method removes - the server who was in change of the backend.table - all the orders
    * that the customers in <code>backend.table</code> ordered.
    *
-   * @param table the Table that this Server is in charge of
+   * @param table the Table that this ComputerServer is in charge of
    */
   public void clearTable(Table table) {
     table.clear();
@@ -106,11 +106,11 @@ public class Server extends ServiceEmployee {
   /**
    * Returns a string representation of this backend.employee.
    *
-   * <p>The string representation consists of its employ type (= Server) and its id.
+   * <p>The string representation consists of its employ type (= ComputerServer) and its id.
    *
    * @return a string representation of this backend.employee.
    */
   public String toString() {
-    return "Server, id:" + getId();
+    return "ComputerServer, id:" + getId();
   }
 }

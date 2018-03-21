@@ -24,7 +24,7 @@ public class Client implements Runnable {
   }
 
   /**
-   * Connect this Client to the Server
+   * Connect this Client to the ComputerServer
    */
   private boolean connect() throws IOException {
     this.socket = new Socket(this.ip, this.port);
@@ -61,6 +61,9 @@ public class Client implements Runnable {
   // TODO: Remove this after testing
   public static void main(String[] args) throws IOException {
     Client client = new Client("127.0.0.1", 6000);
-    client.send("Hello from the client");
+    client.send("Manager;6;checkInventory;()");
+    client.send("Server;1;takeSeat;(1)");
+    client.send("Server;1;enterMenu;(1,(hamburger)|(hamburger:lettuce+2_tomato-1))");
+    client.send("Server;1;enterMenu;(1,(chicken nuggets(L)))");
   }
 }

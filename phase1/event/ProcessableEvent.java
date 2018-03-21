@@ -43,7 +43,7 @@ class ProcessableEvent extends Event {
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
-      case "Server":
+      case "ComputerServer":
         if (employee instanceof Server) {
           this.processServerEvent((Server) employee);
         } else {
@@ -112,7 +112,7 @@ class ProcessableEvent extends Event {
   /**
    * Call server's method based on this backend.event's method in backend.event.txt
    *
-   * @param server is the Server whose method will be called
+   * @param server is the ComputerServer whose method will be called
    */
   private void processServerEvent(Server server) {
     switch (this.methodName) {
@@ -165,7 +165,7 @@ class ProcessableEvent extends Event {
           break;
         }
       default:
-        System.err.println("*** Server has no " + this.methodName + " method ***");
+        System.err.println("*** ComputerServer has no " + this.methodName + " method ***");
         break;
     }
   }

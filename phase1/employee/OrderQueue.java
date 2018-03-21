@@ -90,7 +90,7 @@ class OrderQueue {
         DishesCompleted.add(dish);
         dish.updateIngredientsStock();
         System.out.println(
-            "Server id("
+            "ComputerServer id("
                 + serverId
                 + ") | "
                 + dish.getName()

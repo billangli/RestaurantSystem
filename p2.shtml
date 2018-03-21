@@ -31,9 +31,9 @@
 	    Further Details
 	</h2>
 	<p>Your finished product should not print anything to standard output anymore.</p> 
-	<p>Your project should run on the teach.cs server from a cloned copy of your repository. No extra downloading or installation of software should be required of the graders to operate your code.</p>
+	<p>Your project should run on the teach.cs computerServer from a cloned copy of your repository. No extra downloading or installation of software should be required of the graders to operate your code.</p>
 	<p>Also, your code should check for invalid input so that it handles as much misuse as possible.</p> 
-	<p>Your program should check that all orders are handled properly by the employees of the restaurant. For example, it should not allow the server to order a dish that requires ingredients of which there are not enough. If a chef forgets order #1, they will not be allowed to prepare order #2 until they complete, acknowledge, or cancel order #1, or any other actions you think should be allowed to resolve order #1. A server should not be allowed to place another order, if they have not yet delivered an order that is ready for delivery. The manager should be able to request a list of all orders that are in the system, but have not been delivered yet. Also, there should be a record of all payments made to the restaurant on a given day.</p>
+	<p>Your program should check that all orders are handled properly by the employees of the restaurant. For example, it should not allow the computerServer to order a dish that requires ingredients of which there are not enough. If a chef forgets order #1, they will not be allowed to prepare order #2 until they complete, acknowledge, or cancel order #1, or any other actions you think should be allowed to resolve order #1. A computerServer should not be allowed to place another order, if they have not yet delivered an order that is ready for delivery. The manager should be able to request a list of all orders that are in the system, but have not been delivered yet. Also, there should be a record of all payments made to the restaurant on a given day.</p>
 	<p>It should be possible to print a receipt for an entire backend.table or for each person's order on separate bills. Tax should automatically be added (13% of the total) and a 15% gratuity (tip) on all tables with 8 people or more.</p>
 
 	<h2>
@@ -47,7 +47,7 @@
 	<h2>What To Submit</h2>
 	<p><ul><li>Your code.</li>
 	<li><code>uml.pdf</code></li>
-	<li>any external libraries that your program needs, but are not installed on the teach.cs server</li>
+	<li>any external libraries that your program needs, but are not installed on the teach.cs computerServer</li>
 <li><code>duties.txt</code></li>
 	<li>You can submit <code>log.txt</code>, but it is not mandatory because you can let your code create a new one at the presentation. You will show us before and after execution so that we can see that your code worked.</li>
 	<li><code>events.txt</code>, but only if your program still uses it to process receiving events</li>

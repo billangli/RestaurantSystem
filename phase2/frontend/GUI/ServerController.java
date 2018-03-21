@@ -112,7 +112,7 @@ public class ServerController  implements Initializable {
             @Override public void handle(ActionEvent e) {
                 System.out.println(tableNum.getText());
                 int tableNumber = Integer.parseInt(tableNum.getText());
-//               client.send("Server;"+myId+";clear;("+tableNum+")");
+//               client.send("ComputerServer;"+myId+";clear;("+tableNum+")");
             }
         });
         tableView.add(submit,1,5);

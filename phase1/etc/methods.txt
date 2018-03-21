@@ -49,4 +49,4 @@ class OrderQueue
 ============================================
 TableManager
 ============================================
-// + takeSeat(Table backend.table, Server server): void / This method is transferred to Server class.
+// + takeSeat(Table backend.table, Server computerServer): void / This method is transferred to Server class.

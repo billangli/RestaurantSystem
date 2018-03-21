@@ -67,11 +67,11 @@ TableManager --> Table : associates
 class Table{
 - tableNum: int
 - cost: float
-- server: Server
+- computerServer: Server
 - order: ArrayList<Order>
 + Table(tableNum: int): void
 + clear(): void
-+ serve(server: Server): void
++ serve(computerServer: Server): void
 + addCost(d: Dish): void
 + addOrder(newOrder: Order): void
 + getTableNum(): int
@@ -191,7 +191,7 @@ class ProcessableEvent{
 ~ process(): void
 - processCookEvent(cook: Cook): void
 - processManagerEvent(manager: Manager): void
-- processServerEvent(server: Server): void
+- processServerEvent(computerServer: Server): void
 }
 
 class EventReader{

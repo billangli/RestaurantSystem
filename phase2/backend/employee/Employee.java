@@ -4,7 +4,7 @@ import backend.inventory.Inventory;
 import backend.logger.RestaurantLogger;
 import java.util.logging.Logger;
 
-/** An Employee class. This is parent class of all employees(Server, Cook, Manager). */
+/** An Employee class. This is parent class of all employees(ComputerServer, Cook, Manager). */
 public class Employee {
   private final int ID;
   static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());

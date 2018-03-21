@@ -106,7 +106,7 @@ class OrderQueue {
             "Cook "
                 + cookId
                 + "     calling "
-                + "Server id("
+                + "ComputerServer id("
                 + serverId
                 + ") | "
                 + dish.getName()

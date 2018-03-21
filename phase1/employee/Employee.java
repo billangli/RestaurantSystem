@@ -2,7 +2,7 @@ package backend.employee;
 
 import backend.inventory.Inventory;
 
-/** An Employee class. This is parent class of all employees(Server, Cook, Manager). */
+/** An Employee class. This is parent class of all employees(ComputerServer, Cook, Manager). */
 public class Employee {
   private final int ID;
 

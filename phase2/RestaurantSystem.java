@@ -7,6 +7,7 @@ import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
 import backend.logger.RestaurantLogger;
+import backend.server.ComputerServer;
 import backend.table.TableManager;
 
 import java.io.*;
@@ -69,7 +70,7 @@ public class RestaurantSystem {
       TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
 
-      // There are three types of employees(Server/Cook/Manager). The id of each backend.employee
+      // There are three types of employees(ComputerServer/Cook/Manager). The id of each backend.employee
       // starts
       // from 1 and increments by 1, starting from server, cook then manager.
       // For example, if we have 3 servers, 2 cook, 1 manager in this restaurant system, then the id
@@ -130,9 +131,10 @@ public class RestaurantSystem {
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
     start();
-    EventManager eventManager = new EventManager();
-    eventManager.readFile();
-    eventManager.processEvents();
+    EventManager.setRunning(true);
+    Thread eventThread = new Thread(new EventManager());
+    eventThread.start();
+    ComputerServer server = new ComputerServer(6000);
 
     // Initializing Logger.
 

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * <p>Created by Ang Li on Mar. 1st, 2018
  */
-class ProcessableEvent extends Event {
+public class ProcessableEvent extends Event {
 
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   /**
@@ -20,13 +20,14 @@ class ProcessableEvent extends Event {
    *
    * @param line is the line of text containing the information to be parsed
    */
-  ProcessableEvent(String line) {
+  public ProcessableEvent(String line) {
     super(line);
   }
 
   /** Find which type of Employee to cast this backend.employee to and call their methods */
   @Override
   void process() {
+    System.out.println("An event is being processed"); // TODO: remove this
     Employee employee = EmployeeManager.getEmployeeById(this.employeeID);
 
     switch (this.employeeType) {
@@ -46,7 +47,7 @@ class ProcessableEvent extends Event {
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
-      case "Server":
+      case "ComputerServer":
         if (employee instanceof Server) {
           this.processServerEvent((Server) employee);
         } else {
@@ -115,7 +116,7 @@ class ProcessableEvent extends Event {
   /**
    * Call server's method based on this backend.event's method in backend.event.txt
    *
-   * @param server is the Server whose method will be called
+   * @param server is the ComputerServer whose method will be called
    */
   private void processServerEvent(Server server) {
     switch (this.methodName) {
@@ -168,7 +169,7 @@ class ProcessableEvent extends Event {
           break;
         }
       default:
-        logger.warning("*** Server has no " + this.methodName + " method ***");
+        logger.warning("*** ComputerServer has no " + this.methodName + " method ***");
         break;
     }
   }

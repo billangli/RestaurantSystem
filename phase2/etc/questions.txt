@@ -6,7 +6,7 @@ Flexible; ask ourselvevs what s most useful for the features later
 
 3. graphic, how many interface (DK: I think it depends)
 
-4.server owns tablet or backend.table owns tablet (DK: probably server?)
+4.computerServer owns tablet or backend.table owns tablet (DK: probably computerServer?)
 
 5. Should we use Google-java-format?
 
@@ -33,7 +33,7 @@ c) Find a way to check that the file is there
 
 13. request restart? do it saves? Refer to #8
 
-14. when dish is delivered, does it need to assign to a server: our design choice
+14. when dish is delivered, does it need to assign to a computerServer: our design choice
 
 15. Dish is cooked, customer doesn't want it, but not enough ingredient left to recook
 The customer would have to order a dish that can actually be cooked(i.e.) OR the customer leaves
@@ -59,6 +59,6 @@ avoid
 -----------------------------------------------------------------------------------
 1. use factory design to set up scene
 
-2. is web server observer design pattern
+2. is web computerServer observer design pattern
 
 

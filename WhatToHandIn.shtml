@@ -5,7 +5,7 @@
 
 <li>A file called <b><code>README.txt</code></b> that contains instructions about how to run your program. The TA will use this to run and mark your code.</li><br>
 
-<li>A file called <b><code>events.txt</code></b> that simulates all input (examples: server enters order, cook confirms receipt of order, cook confirms that order has been prepared, etc.)</li><br>
+<li>A file called <b><code>events.txt</code></b> that simulates all input (examples: computerServer enters order, cook confirms receipt of order, cook confirms that order has been prepared, etc.)</li><br>
 
 <li>Any configuration files that are needed to start your program. They will contain any information that your program needs in order to run. These files are optional.</li><br>
 

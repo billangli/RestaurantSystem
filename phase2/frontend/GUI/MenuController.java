@@ -39,7 +39,7 @@ public class MenuController{
     public void initialize() throws IOException{
 
         //set up dishes
-        HashMap<String, Dish> dishes = Menu.getDishes(); //TODO should get menu from web Server requestMenu()
+        HashMap<String, Dish> dishes = Menu.getDishes(); //TODO should get menu from web ComputerServer requestMenu()
         int i = 0;
         for(String di: dishes.keySet()){
             Button item = new Button(di);

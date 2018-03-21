@@ -62,7 +62,7 @@ public class RestaurantSystem {
       TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
 
-      // There are three types of employees(Server/Cook/Manager). The id of each backend.employee starts
+      // There are three types of employees(ComputerServer/Cook/Manager). The id of each backend.employee starts
       // from 1 and increments by 1, starting from server, cook then manager.
       // For example, if we have 3 servers, 2 cook, 1 manager in this restaurant system, then the id
       // of these employees are: server(1), server(2), server(3), cook(4), cook(5), manager(6).*/

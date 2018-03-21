@@ -1,6 +1,6 @@
 package backend.server;
 
-import javafx.beans.InvalidationListener;
+import backend.event.EventManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,23 +8,27 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-public class Server {
+public class ComputerServer {
   private Socket socket;
   private ServerSocket serverSocket;
   private ArrayList<ClientThread> clients;
   private ClientThread clientThread;
+  private EventManager eventManager;
 
   private int port;
   private boolean isRunning;
 
-  private Server(int port) {
+  public ComputerServer(int port) {
     this.port = port;
+    this.eventManager = eventManager;
+
     this.isRunning = true;
     this.clients = new ArrayList<>();
 
     this.run();
   }
 
+  // Accept new clients
   private void run() {
     System.out.println("Waiting for client connection...");
     try {
@@ -55,9 +59,5 @@ public class Server {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  public static void main(String[] args) {
-    Server server = new Server(6000);
   }
 }
