@@ -57,6 +57,8 @@ TableManager
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 phase 2:
+
+client -> server
 1. requestMenu(): request a HashMap of dishes in Menu
 2. IDidenify(int i): ask for the employee type of i
 3. addTable(int i): this server take charge of table i
