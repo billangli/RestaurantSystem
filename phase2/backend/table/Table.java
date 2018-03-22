@@ -100,4 +100,8 @@ public class Table {
   public int getServerId() {
     return (server == null) ? -1 : server.getId();
   }
+
+  public int getNumOfCustomer() {
+    return numOfCustomer;
+  }
 }
