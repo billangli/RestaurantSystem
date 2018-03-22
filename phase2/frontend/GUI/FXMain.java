@@ -1,6 +1,7 @@
 package frontend.GUI;
 
 import backend.inventory.Menu;
+import frontend.client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +20,8 @@ public class FXMain extends Application {
   final String TITLE = "Welcome to Four Guys restaurant system";
   public final int WIDTH = 600;
   public final int HEIGHT = 600;
+  public Client client = Client.getInstance();
+
   //public static Client client = New Client()
 
   public static void main(String[] args)  throws IOException {

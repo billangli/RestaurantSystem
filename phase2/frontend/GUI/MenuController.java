@@ -2,6 +2,7 @@ package frontend.GUI;
 
 import backend.inventory.Dish;
 import backend.inventory.Menu;
+import frontend.client.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,8 +29,13 @@ public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
     int numoforder = 0;
+    volatile HashMap<String, Dish> dishes = Menu.getDishes();//client.requestMenu(); //TODO should get menu from web ComputerServer requestMenu()
 
+    Client client = Client.getInstance();
     private Scene serverScene;
+
+    public void updateMenu(){}
+
 
     public void setServerScene(Scene scene) {
         serverScene = scene;
@@ -39,7 +45,6 @@ public class MenuController{
     public void initialize() throws IOException{
 
         //set up dishes
-        HashMap<String, Dish> dishes = Menu.getDishes(); //TODO should get menu from web ComputerServer requestMenu()
         int i = 0;
         for(String di: dishes.keySet()){
             Button item = new Button(di);
@@ -48,6 +53,7 @@ public class MenuController{
                 //order a dish
                 //TODO update inventory and order updateMenu()
                 @Override public void handle(ActionEvent e) {
+                    item.setDisable(true);
                    Button ordered = new Button(di);
                    ordered.setId(""+numoforder);
 

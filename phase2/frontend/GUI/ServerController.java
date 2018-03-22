@@ -5,15 +5,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,7 +36,7 @@ public class ServerController  implements Initializable {
     }
 
     @FXML
-    protected void takeSeat(ActionEvent event) {
+    protected void takeSeat() {
         //TODO link to server's takeseat method addTable()
         TextField tableNum = new TextField();
         tableNum.textProperty().addListener(new ChangeListener<String>() {
@@ -58,11 +62,27 @@ public class ServerController  implements Initializable {
     }
 
     @FXML
-    protected void order(ActionEvent event) {
-        Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        primaryStage.setScene(menuScene);
+    protected void order() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/frontend/GUI/MenuFx.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        window.setTitle("Welcome!");
+        window.setScene(new Scene(root, 600, 600));
+        window.setMinWidth(300);
+        window.setMinHeight(200);
+        window.showAndWait();
+
+        //Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //primaryStage.setScene(menuScene);
     }
-    @FXML protected void bill(ActionEvent event) {
+    @FXML
+    protected void bill() {
         //TODO print bill base on the table number requestbill()
         TextField tableNum = new TextField();
         tableNum.textProperty().addListener(new ChangeListener<String>() {
@@ -91,7 +111,7 @@ public class ServerController  implements Initializable {
     }
 
     @FXML
-    protected void clear(ActionEvent event) {
+    protected void clear() {
         //TODO method clear()
 
         TextField tableNum = new TextField();

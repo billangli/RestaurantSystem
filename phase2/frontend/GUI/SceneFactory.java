@@ -27,7 +27,7 @@ public class SceneFactory {
         }
         else if(type.equals("server")){
             //load server interface
-            FXMLLoader serverLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Server.fxml"));
+            FXMLLoader serverLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/ServerStage.fxml"));
             Parent server = serverLoader.load();
             scene = new Scene(server, WIDTH, HEIGHT);
 

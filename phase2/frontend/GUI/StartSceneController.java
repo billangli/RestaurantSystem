@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import frontend.client.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 public class StartSceneController{
     @FXML private TextField tf;
     private Scene scene;
+    public Client client = Client.getInstance();
     @FXML private Text actiontarget;
 
     @FXML
@@ -28,9 +30,9 @@ public class StartSceneController{
         SceneFactory factory  = new SceneFactory();
         actiontarget.setText("Sign in button pressed");
         //TODO IDidenify(int i)
-        //client.send(new ProcessableEvent());
         System.out.println(tf.getText());
         int id = Integer.parseInt(tf.getText());
+        //String type = client.logIn(Integer.toString(id));
         scene = factory.createScene("server", id);
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
