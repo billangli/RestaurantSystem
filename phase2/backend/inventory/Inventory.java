@@ -31,6 +31,16 @@ public class Inventory {
     stockIngredient.modifyMirrorQuantity(quantityUnits);
   }
 
+  public static boolean isInventoryIngredientEnough(String ingredientName, int quantityUnits) {
+    InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
+    if (stockIngredient.getMirrorQuantity() > quantityUnits) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
   /**
    * Modifies the quantity of the ingredient in the Inventory by quantityUnits; if quantityUnits is
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
@@ -45,7 +55,7 @@ public class Inventory {
     boolean isCurrentlyLow = stockIngredient.getIsUnderThreshold();
     // if this InventoryIngredient was not already below the threshold, then
     // execute createRequest
-    if (!isAlreadyLow && isCurrentlyLow) {
+    if (!isAlreadyLow && !isCurrentlyLow) {
       createRequest(ingredientName);
     }
   }
@@ -108,9 +118,9 @@ public class Inventory {
     StringBuilder logString = new StringBuilder("List of ingredients in stock: \n");
     for (String ingredientName : listOfKeys) {
       logString.append(
-          String.format(
-              "%-17s %d%n",
-              ingredientName, ingredientsInventory.get(ingredientName).getQuantity()));
+              String.format(
+                      "%-17s %d%n",
+                      ingredientName, ingredientsInventory.get(ingredientName).getQuantity()));
     }
     logger.info(logString.toString());
   }
