@@ -20,6 +20,9 @@ public class Client implements Runnable {
   private BufferedReader input;
   private PrintWriter output;
 
+  private boolean typeIsReady = false;
+  private String employeeType;
+
 
   private Client() {
     this.isConnected = this.connect();
@@ -36,7 +39,7 @@ public class Client implements Runnable {
   /**
    * Connect this Client to the ComputerServer
    */
-  private boolean connect()  {
+  private boolean connect() {
     try {
       this.socket = new Socket(IP, PORT);
       this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -64,7 +67,27 @@ public class Client implements Runnable {
       try {
         if (this.input.ready()) {
           // Do something with the input from the server
-          System.out.println(this.input.readLine());
+          String message = this.input.readLine();
+          System.out.println(message);
+
+          // Log in
+          switch (message) {
+            case "Cook log in successful":
+              this.employeeType = "Cook";
+              this.typeIsReady = true;
+              break;
+            case "Manager log in successful":
+              this.employeeType = "Manager";
+              this.typeIsReady = true;
+              break;
+            case "Server log in successful":
+              this.employeeType = "Server";
+              this.typeIsReady = true;
+              break;
+            case "Log in failed":
+              this.employeeType = "Failed";
+              this.typeIsReady = true;
+          }
         }
       } catch (IOException e) {
         e.printStackTrace();
@@ -73,9 +96,23 @@ public class Client implements Runnable {
     }
   }
 
+  // Methods for GUI to call
+  public String logIn(int id) {
+    this.send("#" + Integer.toString(id));
+
+    // Waiting for Server to respond
+    while (!this.typeIsReady) {
+      ;
+    }
+
+    this.typeIsReady = false;
+    this.typeIsReady = false;
+    return this.employeeType;
+  }
+
   // TODO: Remove this after testing
   public static void main(String[] args) throws IOException {
-    Client client = new Client();
+    Client client = Client.getInstance();
     client.send("Manager;6;checkInventory;()");
     client.send("Server;1;takeSeat;(1)");
     client.send("Server;1;enterMenu;(1,(hamburger)|(hamburger:lettuce+2_tomato-1))");

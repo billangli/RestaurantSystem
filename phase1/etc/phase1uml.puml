@@ -213,16 +213,16 @@ ProcessableEvent --> Table
 ProcessableEvent --> Order
 
 
-class RestaurantSystem{
+class backend.RestaurantSystem{
 - {static} start(): void
 + {static} main(): void
 }
 
-RestaurantSystem --> TableManager
-RestaurantSystem --> EmployeeManager
-RestaurantSystem --> InventoryIngredient
-RestaurantSystem --> Inventory
-RestaurantSystem --> Menu
+backend.RestaurantSystem --> TableManager
+backend.RestaurantSystem --> EmployeeManager
+backend.RestaurantSystem --> InventoryIngredient
+backend.RestaurantSystem --> Inventory
+backend.RestaurantSystem --> Menu
 
-RestaurantSystem *-- EventManager
+backend.RestaurantSystem *-- EventManager
 @enduml

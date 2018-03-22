@@ -8,31 +8,47 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-public class ComputerServer {
+// Singleton pattern
+public class ComputerServer implements Runnable {
+  private static ComputerServer instance = new ComputerServer();
+
   private Socket socket;
   private ServerSocket serverSocket;
   private ArrayList<ClientThread> clients;
   private ClientThread clientThread;
-  private EventManager eventManager;
 
-  private int port;
+  private static final int PORT = 6000;
   private boolean isRunning;
 
-  public ComputerServer(int port) {
-    this.port = port;
-    this.eventManager = eventManager;
-
+  /**
+   * ComputerServer constructor
+   */
+  private ComputerServer() {
     this.isRunning = true;
     this.clients = new ArrayList<>();
 
-    this.run();
+    // Starts to listen for new connections
+    Thread thread = new Thread(this);
+    thread.start();
   }
 
-  // Accept new clients
-  private void run() {
+  /**
+   * Return the single instance of this Computer Server
+   *
+   * @return the static ComputerServer Object
+   */
+  public static ComputerServer getInstance() {
+    return instance;
+  }
+
+  /**
+   * This runs a loop listening for new connections
+   */
+  @Override
+  public void run() {
     System.out.println("Waiting for client connection...");
     try {
-      this.serverSocket = new ServerSocket(this.port);
+      this.serverSocket = new ServerSocket(PORT);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -59,5 +75,27 @@ public class ComputerServer {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Send a message to the desired employee
+   *
+   * @param employeeID is the employee's ID
+   * @param message is the message to be delivered
+   * @return true if the employee is logged on and message delivered, false if not
+   */
+  boolean send(int employeeID, String message) {
+    boolean messageSent = false;
+
+    for (ClientThread client : clients) { // TODO: A single person can sign on multiple times
+      if (client.isLoggedOn()) {
+        if (client.getEmployeeID() == employeeID) {
+          client.send(message);
+          messageSent = true;
+        }
+      }
+    }
+
+    return messageSent;
   }
 }
