@@ -87,16 +87,25 @@ public class Dish {
     }
   }
 
-  public boolean updateProjectedIngredientsStock() {
+  public boolean canDishBeCooked() {
     for (String ingredientName : ingredientsRequired.keySet()) {
+      int quantityRequiredForThisIngredient = ingredientsRequired.get(ingredientName).getQuantity();
 
-      Inventory.modifyIngredientMirrorQuantity(
-          ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
-      if (Inventory.getIngredient(ingredientName).getWouldBeUnderThreshold()) {
+      if (!Inventory.isInventoryIngredientEnough(ingredientName, quantityRequiredForThisIngredient)) {
         return false;
       }
+
     }
     return true;
+  }
+
+  public void updateProjectedIngredientsStock() {
+    for (String ingredientName : ingredientsRequired.keySet()) {
+      int quantityRequiredForThisIngredient = ingredientsRequired.get(ingredientName).getQuantity();
+      Inventory.modifyIngredientMirrorQuantity(
+              ingredientName, -1 * quantityRequiredForThisIngredient);
+    }
+
   }
 
   /**

@@ -75,7 +75,7 @@ public class RestaurantSystem {
       // from 1 and increments by 1, starting from server, cook then manager.
       // For example, if we have 3 servers, 2 cook, 1 manager in this restaurant system, then the id
       // of these employees are: server(1), server(2), server(3), cook(4), cook(5), manager(6).*/
-      int id = 1;
+      int id = 0;
       for (int i = 0; i < Integer.parseInt(serverNum); i++) {
         EmployeeManager.add(new Server(id));
         id++;

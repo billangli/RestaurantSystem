@@ -1,5 +1,6 @@
 package backend.table;
 
+
 import backend.inventory.Dish;
 
 import java.util.ArrayList;
@@ -23,9 +24,13 @@ public class Order {
    *
    * @param d a dish
    */
+
+
   public void addDish(Dish d) {
-    if (d.updateProjectedIngredientsStock()) {
+    if (d.canDishBeCooked()) {
+      d.updateProjectedIngredientsStock();
       dishes.add(d);
+      // TODO: Run the method that checks
     } else {
       // TODO: RAISE ERROR? MAYBE CONVERT THIS TRY INSTEAD?
     }

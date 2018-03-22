@@ -50,8 +50,8 @@ public class ServerController  implements Initializable {
         Button submit = new Button("take charge");
 //        submit.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override public void handle(ActionEvent e) {
-//                Stage primaryStage = (Stage)((Node)e.getSource()).getScene().getWindow();
-//                primaryStage.setScene(serverScene);
+//                int tableNumber = Integer.parseInt(tableNum.getText());
+//                client.send("Server;"+myId+";takeSeat;("+tableNum+")");
 //            }
 //        });
         tableView.add(submit,1,5);
@@ -80,8 +80,8 @@ public class ServerController  implements Initializable {
         Button submit = new Button("print bill");
 //        submit.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override public void handle(ActionEvent e) {
-//                Stage primaryStage = (Stage)((Node)e.getSource()).getScene().getWindow();
-//                primaryStage.setScene(serverScene);
+//                int tableNumber = Integer.parseInt(tableNum.getText());
+//                client.send("Server;"+myId+";printBill;("+tableNum+")");
 //            }
 //        });
         tableView.add(submit,1,5);
