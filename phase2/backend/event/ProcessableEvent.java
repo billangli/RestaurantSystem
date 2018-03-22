@@ -124,7 +124,7 @@ public class ProcessableEvent extends Event {
         {
           int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
           Table table = TableManager.getTable(tableNumber);
-          server.takeSeat(table);
+          server.takeSeat(table, 1);
           break;
         }
       case "enterMenu":

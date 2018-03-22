@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Table {
   private int tableNum;
+  private int numOfCustomer;
   private float cost;
   private Server server;
   private ArrayList<Order> order;
@@ -26,6 +27,7 @@ public class Table {
     this.tableNum = tableNum;
     order = new ArrayList<>();
     cost = 0;
+    numOfCustomer = 0;
   }
 
   /** clears the backend.table for new customer no server and empty order */
@@ -40,8 +42,9 @@ public class Table {
    *
    * @param server the server that serving this backend.table
    */
-  public void serve(Server server) {
+  public void serve(Server server, int numOfCustomer) {
     this.server = server;
+    this.numOfCustomer = numOfCustomer;
   }
 
   /**

@@ -23,8 +23,8 @@ public class Server extends ServiceEmployee {
    * @param table A backend.table where customers sat down, and where this server is now responsible
    *     for.
    */
-  public void takeSeat(Table table) {
-    table.serve(this);
+  public void takeSeat(Table table, int i) {
+    table.serve(this, i);
     logger.info("Customers take seat at backend.table " + table.getTableNum());
   }
 
