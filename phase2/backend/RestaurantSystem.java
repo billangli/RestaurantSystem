@@ -1,7 +1,6 @@
-import backend.employee.Cook;
-import backend.employee.EmployeeManager;
-import backend.employee.Manager;
-import backend.employee.Server;
+package backend;
+
+import backend.employee.*;
 import backend.event.EventManager;
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
@@ -128,13 +127,28 @@ public class RestaurantSystem {
     logger.config("---------initialization over---------\n\n");
   }
 
+  // TODO: Move this somewhere else where it makes more sense
+  public static String logIn(int id) {
+    Employee employee = EmployeeManager.getEmployeeById(id);
+    if (employee == null) {
+      return "Failed";
+    } else if (employee instanceof Cook) {
+      return "Cook log in successful";
+    } else if (employee instanceof Manager) {
+      return "Manager log in successful";
+    } else if (employee instanceof Server) {
+      return "Server log in successful";
+    }
+    return "Failed";
+  }
+
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
     start();
     EventManager.setRunning(true);
     Thread eventThread = new Thread(new EventManager());
     eventThread.start();
-    ComputerServer server = new ComputerServer(6000);
+    ComputerServer computerServer = ComputerServer.getInstance();
 
     // Initializing Logger.
 

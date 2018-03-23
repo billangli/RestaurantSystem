@@ -25,6 +25,7 @@ public class FXMain extends Application {
   //public static Client client = New Client()
 
   public static void main(String[] args)  throws IOException {
+    Client client = Client.getInstance();
 
     Menu.create();
     launch(args);
