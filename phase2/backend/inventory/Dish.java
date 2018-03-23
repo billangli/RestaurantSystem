@@ -71,6 +71,7 @@ public class Dish {
    * @param amount the amount of ingredient being added to the Order
    */
   public void adjustIngredient(String ingredientName, int amount) {
+    System.out.println(ingredientName+" " +amount);
     if (ingredientsRequired.get(ingredientName).allowed(amount)) {
       ingredientsRequired.get(ingredientName).modifyQuantity(amount);
     } else {
