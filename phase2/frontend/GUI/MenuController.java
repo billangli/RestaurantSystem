@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -30,7 +31,7 @@ public class MenuController{
     GridPane tableView = new GridPane();
     int numoforder = 0;
     volatile HashMap<String, Dish> dishes = Menu.getDishes();//client.requestMenu(); //TODO should get menu from web ComputerServer requestMenu()
-
+    ArrayList<Dish> dishOrder = new ArrayList<>();
     Client client = Client.getInstance();
     private Scene serverScene;
 
@@ -60,6 +61,8 @@ public class MenuController{
                    //set up the ingredient adjustment interface
                    Stage st = new Stage();
                    Dish dish = dishes.get(di);
+                   dishOrder.add(dish);
+                   dishOrder.add(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
