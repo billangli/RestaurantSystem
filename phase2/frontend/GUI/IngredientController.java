@@ -30,10 +30,13 @@ public class IngredientController {
             item.setId(in);
             tableView.add(item,0,i);
             Button add = new Button("add");
+            Text amount = new Text(""+ dish.getIngredientsRequired().get(in).getQuantity());
+            amount.setId(in+"Amount");
             add.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                     //TODO receive the order, sendOrder()
                     dish.adjustIngredient(in,1);
+                    amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
                 }
             });
             tableView.add(add,1,i);
@@ -42,9 +45,12 @@ public class IngredientController {
                 @Override public void handle(ActionEvent e) {
                     //TODO receive the order, sendOrder()
                     dish.adjustIngredient(in,-1);
+                    amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
                 }
             });
             tableView.add(subtract,2,i);
+            tableView.add(amount,3,i);
+
             i++;
         }
     }
