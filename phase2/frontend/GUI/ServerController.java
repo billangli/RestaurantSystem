@@ -191,6 +191,7 @@ public class ServerController  implements Initializable {
             r.setFill(COLOR_EMPTY);
             r.setStroke(Color.BLACK);
             Label l = new Label(Integer.toString(i + 1));
+            r.setId(""+ i+1);
             GridPane.setConstraints(r, i % sideLength, i / sideLength);
             GridPane.setConstraints(l, i % sideLength, i / sideLength);
             tableGrid.getChildren().addAll(r, l);
