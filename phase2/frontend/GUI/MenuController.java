@@ -30,10 +30,10 @@ import static java.awt.image.ImageObserver.WIDTH;
 public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
+    public Client client = Client.getInstance();
     int numoforder = 0;
-    volatile HashMap<String, DefaultDish> dishes = Menu.getDishes();//client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile Menu menu = (Menu)client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
     ArrayList<DefaultDish> dishOrder = new ArrayList<>();
-    Client client = Client.getInstance();
     private Scene serverScene;
 
     public void updateMenu(){}
@@ -45,7 +45,7 @@ public class MenuController{
 
 
     public void initialize() throws IOException{
-
+        HashMap<String,DefaultDish> dishes = Menu.getDishes();
         //set up dishes
         int i = 0;
         for(String di: dishes.keySet()){

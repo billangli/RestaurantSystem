@@ -16,7 +16,6 @@ public class SceneFactory {
 
     public Scene createScene(String type,int id) throws IOException {
         Scene scene = null;
-        System.out.println("SErver creating");
         if (type.equals("Cook")) {
             //load cook interface
             FXMLLoader cookLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Cook.fxml"));

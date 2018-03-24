@@ -81,9 +81,12 @@ public class ServerController  implements Initializable {
 
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
+            FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
+            Parent scene = numLoader.load();
             window.setTitle("Welcome!");
-            window.setScene(new Scene(root, 300, 200));
+            window.setScene(new Scene(scene, 300, 200));
+            NumberKeyBoardController paneController = numLoader.getController();
+            paneController.start();
             window.setMinWidth(300);
             window.setMinHeight(200);
             window.showAndWait();
