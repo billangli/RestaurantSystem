@@ -76,6 +76,20 @@ public class ServerController  implements Initializable {
 //            }
 //        });
         tableView.add(submit,1,5);
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
+            window.setTitle("Welcome!");
+            window.setScene(new Scene(root, 300, 200));
+            window.setMinWidth(300);
+            window.setMinHeight(200);
+            window.showAndWait();
+        } catch (IOException e) {
+            System.out.println("take seat error");
+        }
     }
 
     @FXML
@@ -185,7 +199,8 @@ public class ServerController  implements Initializable {
 
         // TODO: retrieve numOfTable value from backend.
         // now I will assume that we have certain number of tables.
-        int numOfTables = client.request("table");
+        System.out.println("Requesting table");
+        int numOfTables = (Integer) client.request("table");
         int sideLength = (int) ceil(sqrt(numOfTables));
 
         for (int i = 0; i < numOfTables; i++) {

@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.inventory.DefaultDish;
 import backend.inventory.Dish;
 import backend.inventory.Menu;
 import frontend.client.Client;
@@ -30,8 +31,8 @@ public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
     int numoforder = 0;
-    volatile HashMap<String, Dish> dishes = Menu.getDishes();//client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
-    ArrayList<Dish> dishOrder = new ArrayList<>();
+    volatile HashMap<String, DefaultDish> dishes = Menu.getDishes();//client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
+    ArrayList<DefaultDish> dishOrder = new ArrayList<>();
     Client client = Client.getInstance();
     private Scene serverScene;
 
@@ -60,14 +61,13 @@ public class MenuController{
 
                    //set up the ingredient adjustment interface
                    Stage st = new Stage();
-                   Dish dish = dishes.get(di);
-                   dishOrder.add(dish);
-                   dishOrder.add(dish);
+                   DefaultDish defaultdish = dishes.get(di);
+                   dishOrder.add(defaultdish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
                         IngredientController controller = ingredientLoader.getController();
-                        controller.getDish(dish);
+                        controller.getDish(new Dish(defaultdish));
                         Scene ingredientScene = new Scene(ingredient, 400, 400);
                         st.setScene(ingredientScene);
                         st.show();

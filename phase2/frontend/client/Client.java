@@ -19,8 +19,8 @@ public class Client implements Runnable {
   private ObjectInputStream input;
   private PrintWriter output;
 
-  private boolean objectIsReady = false;
-  private Object object;
+  private volatile boolean objectIsReady = false;
+  private volatile Object object;
 
 
   private Client() {
@@ -112,6 +112,7 @@ public class Client implements Runnable {
     // Waiting for Server to respond
     System.out.println("Waiting for ComputerServer to respond to log in request...");
     while (!this.objectIsReady) {
+      System.out.println("a");
     }
 
     // Return the employee type to the GUI
