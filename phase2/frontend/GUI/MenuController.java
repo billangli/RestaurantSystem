@@ -33,6 +33,7 @@ public class MenuController{
     int numoforder = 0;
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.request("inventory"); //TODO should get menu from web ComputerServer requestMenu()
     Inventory inventory = Inventory.getInstance();
+    private ArrayList<Dish> recipe = new ArrayList<>();
 
 
     volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
@@ -41,11 +42,25 @@ public class MenuController{
     Order dishOrder = new Order();
     private Scene serverScene;
 
-    public void updateMenu(ArrayList<InventoryIngredient> changed){
+    public void updateInventory(ArrayList<InventoryIngredient> changed){
         for(InventoryIngredient in: changed){
             String name = in.getName();
             InventoryIngredient ingredient = inventory.getIngredient(name);
-            //ingredient.
+            ingredient.setQuantity(in.getQuantity());
+            updateMenu();
+        }
+    }
+
+    public void updateMenu(){
+        for(Dish dish:recipe){
+            boolean cookable = dish.ableToCook();
+            Button tb = (Button) tableView.lookup("#"+dish.getName());
+            if(cookable){
+                tb.setDisable(false);
+            }
+            else{
+                tb.setDisable(true);
+            }
         }
     }
 
@@ -68,7 +83,6 @@ public class MenuController{
                 //order a dish
                 //TODO update inventory and order updateMenu()
                 @Override public void handle(ActionEvent e) {
-                    item.setDisable(true);
                    Button ordered = new Button(di);
                    ordered.setId(""+numoforder);
 
@@ -80,7 +94,7 @@ public class MenuController{
                    for(String in: ingredients.keySet()){
                        dishIngredients.add(ingredients.get(in));
                    }
-                   //client.adjustIngredient(dishIngredients, true);
+                   client.adjustIngredient(dishIngredients, true);
                    dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
@@ -134,6 +148,12 @@ public class MenuController{
                 BackgroundSize.DEFAULT);
         Background background= new Background(menuImage);
         tableView.setBackground(background);
+
+
+        for(String di: dishes.keySet()){
+            recipe.add(new Dish(dishes.get(di)));
+        }
+        updateMenu();
 
     }
 
