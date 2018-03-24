@@ -98,8 +98,8 @@ public class Client implements Runnable {
   }
 
   // Methods for GUI to call
-  public String logIn(int id) {
-    this.send("#" + Integer.toString(id));
+  public String logIn(String id) {
+    this.send("#" + id);
 
     System.out.println("Waiting for ComputerServer to respond to log in request...");
     // Waiting for Server to respond
