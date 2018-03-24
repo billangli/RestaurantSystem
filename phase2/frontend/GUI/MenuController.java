@@ -2,7 +2,9 @@ package frontend.GUI;
 
 import backend.inventory.DefaultDish;
 import backend.inventory.Dish;
+import backend.inventory.DishIngredient;
 import backend.inventory.Menu;
+import backend.table.Order;
 import frontend.client.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,7 +35,7 @@ public class MenuController{
     public Client client = Client.getInstance();
     int numoforder = 0;
     volatile Menu menu = (Menu)client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
-    ArrayList<DefaultDish> dishOrder = new ArrayList<>();
+    Order dishOrder = new Order();
     private Scene serverScene;
 
     public void updateMenu(){}
@@ -61,13 +63,19 @@ public class MenuController{
 
                    //set up the ingredient adjustment interface
                    Stage st = new Stage();
-                   DefaultDish defaultdish = dishes.get(di);
-                   dishOrder.add(defaultdish);
+                   Dish dish = new Dish(dishes.get(di));
+                   HashMap<String,DishIngredient> ingredients = dish.getIngredientsRequired();
+                   ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
+                   for(String in: ingredients.keySet()){
+                       dishIngredients.add(ingredients.get(in));
+                   }
+                   //client.adjustIngredient(dishIngredients, true);
+                   dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
                         IngredientController controller = ingredientLoader.getController();
-                        controller.getDish(new Dish(defaultdish));
+                        controller.getDish(new Dish(dish));
                         Scene ingredientScene = new Scene(ingredient, 400, 400);
                         st.setScene(ingredientScene);
                         st.show();
