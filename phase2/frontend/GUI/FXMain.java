@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class FXMain extends Application {
   Stage stage;
-  Scene mainScene, serverScene, menuScene, cookScene, managerScene;
+  Scene mainScene;
   final String TITLE = "Welcome to Four Guys restaurant system";
   public final int WIDTH = 600;
   public final int HEIGHT = 600;

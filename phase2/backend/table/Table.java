@@ -79,25 +79,26 @@ public class Table {
    * prints bill for this backend.table in format of Table number and all dishes with its price and the
    * total price
    */
-  public void printBill(boolean separate) {
+  public String printBill(boolean separate) {
     // TODO: Phase 1, Bill class. Bill should be printed on frontend.GUI as text (maybe this method should
     // return bill in string type.)
-    System.out.println("===== <BILL> =====");
-    System.out.println("Table number: " + tableNum + "\nList of dishes ordered:");
+    String fin = "";
+    fin += "===== <BILL> =====";
+    fin += "Table number: " + tableNum + "\nList of dishes ordered:";
     for (Order order : this.order) {
-      System.out.println(order);
+      fin += order.toString();
     }
     System.out.println("------------------");
     if(numOfCustomer >= 8){
       cost *= 1.15;
     }
     if(separate){
-      System.out.format("Total: $%.2f ", cost*1.13/numOfCustomer + " separate with " + numOfCustomer+"\n");
+      fin += "Total: " + cost*1.13/numOfCustomer + " separate with " + numOfCustomer+"\n";
     }
     else{
-      System.out.format("Total: $%.2f ", cost*1.13 +"\n");
+      fin += "Total: " + cost*1.13 +"\n";
     }
-    System.out.println("==================\n");
+    return fin;
   }
 
   /**

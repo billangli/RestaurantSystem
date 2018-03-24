@@ -142,4 +142,7 @@ public class Inventory implements Serializable {
     }
     logger.info(logString.toString());
   }
+    public static HashMap<String, InventoryIngredient> getIngredientsInventory() {
+        return ingredientsInventory;
+    }
 }

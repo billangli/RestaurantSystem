@@ -1,9 +1,6 @@
 package frontend.GUI;
 
-import backend.inventory.DefaultDish;
-import backend.inventory.Dish;
-import backend.inventory.DishIngredient;
-import backend.inventory.Menu;
+import backend.inventory.*;
 import backend.table.Order;
 import frontend.client.Client;
 import javafx.event.ActionEvent;
@@ -34,11 +31,18 @@ public class MenuController{
     GridPane tableView = new GridPane();
     public Client client = Client.getInstance();
     int numoforder = 0;
-    volatile Menu menu = (Menu)client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
+    //volatile Inventory inventory = (Inventory) client.request("inventory");
+    //volatile Menu menu = (Menu)client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
     Order dishOrder = new Order();
     private Scene serverScene;
 
-    public void updateMenu(){}
+    public void updateMenu(ArrayList<InventoryIngredient> changed){
+        for(InventoryIngredient in: changed){
+            String name = in.getName();
+            InventoryIngredient ingredient = Inventory.getIngredient(name);
+            //ingredient.
+        }
+    }
 
 
     public void setServerScene(Scene scene) {
