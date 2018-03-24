@@ -87,6 +87,7 @@ public class Client implements Runnable {
             case "Log in failed":
               this.employeeType = "Failed";
               this.typeIsReady = true;
+              break;
           }
         }
       } catch (IOException e) {
@@ -100,12 +101,11 @@ public class Client implements Runnable {
   public String logIn(int id) {
     this.send("#" + Integer.toString(id));
 
+    System.out.println("Waiting for ComputerServer to respond to log in request...");
     // Waiting for Server to respond
-    while (!this.typeIsReady) {
-      ;
-    }
+    while (!this.typeIsReady) {}
 
-    this.typeIsReady = false;
+    System.out.println("Employee Type is ready");
     this.typeIsReady = false;
     return this.employeeType;
   }
