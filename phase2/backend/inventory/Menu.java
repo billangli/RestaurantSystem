@@ -18,9 +18,11 @@ public class Menu implements Serializable {
   //        create();
   //    }
 
-  private Menu() {
+  private Menu() {}
+
+  public void readFromFile() {
     try {
-      this.create();
+      instance.create();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -52,6 +54,10 @@ public class Menu implements Serializable {
         line = fileReader.readLine();
       }
     }
+  }
+
+  public void setDishes(HashMap<String, DefaultDish> defaultDishes) {
+    instance.defaultDishes = defaultDishes;
   }
 
   /**
