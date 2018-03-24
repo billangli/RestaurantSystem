@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import frontend.client.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class ServerController  implements Initializable {
     private int myId;
     private final Color COLOR_OCCUPIED = Color.BLUE;
     private final Color COLOR_EMPTY = Color.WHITE;
+    public Client client = Client.getInstance();
     @FXML private VBox gridParent;
     @FXML private HBox hBox1;
     @FXML private HBox hBox2;
@@ -183,7 +185,7 @@ public class ServerController  implements Initializable {
 
         // TODO: retrieve numOfTable value from backend.
         // now I will assume that we have certain number of tables.
-        int numOfTables = 4;
+        int numOfTables = client.request("table");
         int sideLength = (int) ceil(sqrt(numOfTables));
 
         for (int i = 0; i < numOfTables; i++) {

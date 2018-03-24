@@ -33,7 +33,7 @@ public class StartSceneController{
         System.out.println(tf.getText());
         String id = tf.getText();
         String type = client.logIn(id);
-        scene = factory.createScene("Server", id);
+        scene = factory.createScene("Server", Integer.parseInt(id));
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(scene);

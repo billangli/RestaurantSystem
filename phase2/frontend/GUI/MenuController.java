@@ -30,7 +30,7 @@ public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
     int numoforder = 0;
-    volatile HashMap<String, Dish> dishes = Menu.getDishes();//client.requestMenu(); //TODO should get menu from web ComputerServer requestMenu()
+    volatile HashMap<String, Dish> dishes = Menu.getDishes();//client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
     ArrayList<Dish> dishOrder = new ArrayList<>();
     Client client = Client.getInstance();
     private Scene serverScene;
