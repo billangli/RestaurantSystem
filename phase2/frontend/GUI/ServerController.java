@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,16 +32,20 @@ import static java.lang.Math.sqrt;
 public class ServerController  implements Initializable {
     private Scene menuScene;
     private int myId;
+
     private final Color COLOR_OCCUPIED = Color.BLUE;
     private final Color COLOR_EMPTY = Color.WHITE;
+
     public Client client = Client.getInstance();
+
     @FXML private VBox gridParent;
     @FXML private HBox hBox1;
     @FXML private HBox hBox2;
+    @FXML GridPane tableView = new GridPane();
 
-    private ArrayList<Rectangle> rectangles;
-    @FXML
-    GridPane tableView = new GridPane();
+    private ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
+    private int selectedTableNumber;
+    private int numOfTables;
 
     public void setmyId(int id){
         myId = id;
@@ -50,6 +53,68 @@ public class ServerController  implements Initializable {
 
     public void setMenuScene(Scene scene) {
         menuScene = scene;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
+        //set up background
+        BackgroundImage menuImage= new BackgroundImage(new Image("server.png",600,600,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background background= new Background(menuImage);
+        int size = 15;
+        Rectangle rec1 = new Rectangle(size, size);
+        Label label1 = new Label(" : table is occupied");
+        Rectangle rec2 = new Rectangle(size, size);
+        Label label2 = new Label(" : table is empty");
+
+        rec1.setFill(COLOR_OCCUPIED);
+        rec1.setStroke(Color.BLACK);
+        rec2.setFill(COLOR_EMPTY);
+        rec2.setStroke(Color.BLACK);
+
+        hBox1.getChildren().addAll(rec1, label1);
+        hBox2.getChildren().addAll(rec2, label2);
+        hBox1.setPadding(new Insets(10, 0, 0, 10));
+        hBox2.setPadding(new Insets(10, 0, 0, 10));
+
+        GridPane tableGrid = new GridPane();
+        tableGrid.setHgap(10);
+        tableGrid.setVgap(8);
+        tableGrid.setPadding(new Insets(40, 0, 0, 40));
+
+        // Retrieve number of tables from backend.
+        System.out.println("Requesting table");
+        numOfTables = (Integer) client.request("table");
+        int sideLength = (int) ceil(sqrt(numOfTables));
+
+        for (int i = 0; i < numOfTables; i++) {
+            Rectangle r = new Rectangle(50, 50);
+            r.setFill(COLOR_EMPTY);
+            r.setStroke(Color.BLACK);
+            Label l = new Label(Integer.toString(i + 1));
+            rectangleArrayList.add(r);
+
+            StackPane stackPane = new StackPane();
+            stackPane.getChildren().add(r);
+            stackPane.getChildren().add(l);
+            stackPane.setOnMouseClicked(e -> {
+                for(Rectangle rectangle: rectangleArrayList) {
+                    rectangle.setStrokeWidth(1);
+                    rectangle.setStroke(Color.BLACK);
+                }
+                r.setStroke(Color.LIGHTBLUE);
+                r.setStrokeWidth(3);
+                selectedTableNumber = Integer.parseInt(l.getText());
+            });
+
+            GridPane.setConstraints(stackPane, i % sideLength, i / sideLength);
+            tableGrid.getChildren().add(stackPane);
+        }
+
+        gridParent.getChildren().add(tableGrid);
+
+        tableView.setBackground(background);
     }
 
     @FXML
@@ -172,53 +237,10 @@ public class ServerController  implements Initializable {
         tableView.add(submit,1,5);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb){
-        //set up background
-        BackgroundImage menuImage= new BackgroundImage(new Image("server.png",600,600,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        Background background= new Background(menuImage);
-        int size = 15;
-        Rectangle rec1 = new Rectangle(size, size);
-        Label label1 = new Label(" : table is occupied");
-        Rectangle rec2 = new Rectangle(size, size);
-        Label label2 = new Label(" : table is empty");
-
-        rec1.setFill(COLOR_OCCUPIED);
-        rec1.setStroke(Color.BLACK);
-        rec2.setFill(COLOR_EMPTY);
-        rec2.setStroke(Color.BLACK);
-
-        hBox1.getChildren().addAll(rec1, label1);
-        hBox2.getChildren().addAll(rec2, label2);
-        hBox1.setPadding(new Insets(10, 0, 0, 10));
-        hBox2.setPadding(new Insets(10, 0, 0, 10));
-
-        GridPane tableGrid = new GridPane();
-        tableGrid.setHgap(10);
-        tableGrid.setVgap(8);
-        tableGrid.setPadding(new Insets(40, 0, 0, 40));
-
-        // TODO: retrieve numOfTable value from backend.
-        // now I will assume that we have certain number of tables.
-        System.out.println("Requesting table");
-        int numOfTables = (Integer) client.request("table");
-        int sideLength = (int) ceil(sqrt(numOfTables));
-
-        for (int i = 0; i < numOfTables; i++) {
-            Rectangle r = new Rectangle(50, 50);
-            r.setFill(COLOR_EMPTY);
-            r.setStroke(Color.BLACK);
-            Label l = new Label(Integer.toString(i + 1));
-            r.setId(""+ i+1);
-            GridPane.setConstraints(r, i % sideLength, i / sideLength);
-            GridPane.setConstraints(l, i % sideLength, i / sideLength);
-            tableGrid.getChildren().addAll(r, l);
+    public void changeColorOfTable(int tableNumber, Color color) {
+        if (1 <= tableNumber && tableNumber <= numOfTables) {
+            rectangleArrayList.get(tableNumber-1).setFill(color);
         }
-
-        gridParent.getChildren().add(tableGrid);
-
-        tableView.setBackground(background);
     }
+
 }
