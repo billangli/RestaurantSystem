@@ -78,6 +78,7 @@ public class InventoryIngredient extends Ingredient {
 
     if ((this.mirrorQuantity < lowerThreshold) && (!bool1)) {
       modifyWouldBeUnderThreshold(true);
+      // TODO: run something that greys out the button
     } else if ((this.mirrorQuantity > lowerThreshold) && (bool1)) {
       modifyWouldBeUnderThreshold(false);
     }
