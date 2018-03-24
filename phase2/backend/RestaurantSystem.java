@@ -21,6 +21,7 @@ public class  RestaurantSystem {
    * @throws IOException for reading files
    */
   private static void start() throws IOException {
+    Inventory inventory = Inventory.getInstance();
     logger.config("------initializing restaurant system------");
 
     // check the existence of starter.txt and menu.txt
@@ -95,7 +96,7 @@ public class  RestaurantSystem {
         int threshold = Integer.parseInt(item[2]);
         InventoryIngredient inventoryIngredient =
             new InventoryIngredient(item[0], Integer.parseInt(item[1]), threshold);
-        Inventory.add(inventoryIngredient);
+        inventory.add(inventoryIngredient);
         line = fileReader.readLine();
       }
 

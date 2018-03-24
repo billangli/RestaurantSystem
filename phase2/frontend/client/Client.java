@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Client implements Runnable {
   private static Client instance = new Client();
 
-  private static final String IP = "100.64.83.63";
+  private static final String IP = "100.64.225.246";
   private static final int PORT = 6000;
 
   private Socket socket;
@@ -161,11 +161,11 @@ public class Client implements Runnable {
     // Return the employee type to the GUI
     System.out.println("Object is ready");
     this.objectIsReady = false;
-    System.out.println(((Packet) this.object).getObject());
+    System.out.println("Received " + ((Packet) this.object).getObject());
     return ((Packet) this.object).getObject();
   }
 
-  public void adjustIngredient(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
+  public Object adjustIngredient(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
 
     // Waiting for the Server to respond
@@ -173,7 +173,9 @@ public class Client implements Runnable {
     while (!this.objectIsReady) {
     }
 
-    //
+    this.objectIsReady = false;
+    System.out.println("Received " + ((Packet) this.object).getObject());
+    return ((Packet) this.object).getObject();
   }
 
   // TODO: Remove this after testing
