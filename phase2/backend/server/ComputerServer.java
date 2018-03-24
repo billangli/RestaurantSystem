@@ -1,13 +1,10 @@
 package backend.server;
 
-import backend.event.EventManager;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // Singleton pattern
 public class ComputerServer implements Runnable {
@@ -67,7 +64,6 @@ public class ComputerServer implements Runnable {
         System.err.println("*** Error connecting client to server ***");
         e.printStackTrace();
       }
-
     }
 
     System.out.println("This server is closing");
@@ -82,7 +78,7 @@ public class ComputerServer implements Runnable {
    * Send a message to the desired employee
    *
    * @param employeeID is the employee's ID
-   * @param message is the message to be delivered
+   * @param message    is the message to be delivered
    * @return true if the employee is logged on and message delivered, false if not
    */
   boolean send(int employeeID, String message) {

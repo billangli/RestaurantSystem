@@ -28,4 +28,13 @@ public class TableManager {
   public static Table getTable(int i) {
     return tables[i];
   }
+
+  /**
+   * Getter for number of tables
+   *
+   * @return the number of tables
+   */
+  public static int getNumberOfTables() {
+    return tables.length;
+  }
 }

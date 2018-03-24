@@ -1,9 +1,6 @@
 package frontend.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 
@@ -15,20 +12,24 @@ public class Client implements Runnable {
   private static final int PORT = 6000;
 
   private Socket socket;
-  private boolean isConnected = false;
+  private boolean connected = false;
+  private boolean loggedIn = false;
+  private boolean numberOfTablesReceived = false;
 
-  private BufferedReader input;
+  private ObjectInputStream input;
   private PrintWriter output;
 
-  private boolean typeIsReady = false;
-  private String employeeType;
+  private boolean objectIsReady = false;
+  private Object object;
 
 
   private Client() {
-    this.isConnected = this.connect();
-    if (this.isConnected) {
+    this.connected = this.connect();
+    if (this.connected) {
       Thread t = new Thread(this);
       t.start();
+    } else {
+      System.err.println("Could not connect to server");
     }
   }
 
@@ -42,7 +43,7 @@ public class Client implements Runnable {
   private boolean connect() {
     try {
       this.socket = new Socket(IP, PORT);
-      this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+      this.input = new ObjectInputStream(this.socket.getInputStream());
       this.output = new PrintWriter(this.socket.getOutputStream());
     } catch (IOException ioe) {
       System.err.println("Error connecting to server");
@@ -54,7 +55,7 @@ public class Client implements Runnable {
   }
 
   public void send(String message) {
-    if (this.isConnected) {
+    if (this.connected) {
       System.out.println("Sending " + message);
       this.output.println(message);
       this.output.flush();
@@ -63,36 +64,43 @@ public class Client implements Runnable {
 
   @Override
   public void run() {
-    while (this.isConnected) {
+    while (this.connected) {
       try {
-        if (this.input.ready()) {
-          // Do something with the input from the server
-          String message = this.input.readLine();
-          System.out.println(message);
+        this.object = this.input.readObject();
+        if (object != null) {
 
-          // Log in
-          switch (message) {
-            case "Cook log in successful":
-              this.employeeType = "Cook";
-              this.typeIsReady = true;
-              break;
-            case "Manager log in successful":
-              this.employeeType = "Manager";
-              this.typeIsReady = true;
-              break;
-            case "Server log in successful":
-              this.employeeType = "Server";
-              this.typeIsReady = true;
-              break;
-            case "Log in failed":
-              this.employeeType = "Failed";
-              this.typeIsReady = true;
-              break;
+          if (!this.loggedIn) {
+            // Receive log in feedback
+            // Do something with the input from the server
+            String message = (String) object;
+            System.out.println(message);
+
+            switch (message) {
+              case "Cook log in successful":
+                this.objectIsReady = true;
+                this.loggedIn = true;
+                break;
+              case "Manager log in successful":
+                this.objectIsReady = true;
+                this.loggedIn = true;
+                break;
+              case "Server log in successful":
+                this.objectIsReady = true;
+                this.loggedIn = true;
+                break;
+              case "Log in failed":
+                this.objectIsReady = true;
+                break;
+            }
+          } else if (!this.numberOfTablesReceived) {
+            this.objectIsReady = true;
           }
         }
       } catch (IOException e) {
         e.printStackTrace();
-        this.isConnected = false;
+        this.connected = false;
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
       }
     }
   }
@@ -101,13 +109,29 @@ public class Client implements Runnable {
   public String logIn(String id) {
     this.send("#" + id);
 
-    System.out.println("Waiting for ComputerServer to respond to log in request...");
     // Waiting for Server to respond
-    while (!this.typeIsReady) {}
+    System.out.println("Waiting for ComputerServer to respond to log in request...");
+    while (!this.objectIsReady) {
+    }
 
+    // Return the employee type to the GUI
     System.out.println("Employee Type is ready");
-    this.typeIsReady = false;
-    return this.employeeType;
+    this.objectIsReady = false;
+    return (String) this.object;
+  }
+
+  public Object request(String requestType) {
+    this.send("%" + requestType);
+
+    // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request...");
+    while (!this.objectIsReady) {
+    }
+
+    // Return the employee type to the GUI
+    System.out.println("Employee Type is ready");
+    this.objectIsReady = false;
+    return this.object;
   }
 
   // TODO: Remove this after testing

@@ -3,16 +3,19 @@ package backend.server;
 import backend.RestaurantSystem;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
+import backend.table.TableManager;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 class ClientThread implements Runnable {
   private Socket socket;
-  private boolean isRunning;
+  private boolean connected;
 
   private BufferedReader input;
-  private PrintWriter output;
   private ObjectOutputStream outputStream;
 
   private boolean loggedOn = false;
@@ -26,10 +29,9 @@ class ClientThread implements Runnable {
    */
   ClientThread(Socket socket) throws IOException {
     this.socket = socket;
-    this.isRunning = true;
+    this.connected = true;
     this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-    this.output = new PrintWriter(this.socket.getOutputStream());
-//    this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
+    this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
 
     Thread thread = new Thread(this);
     thread.start();
@@ -39,24 +41,36 @@ class ClientThread implements Runnable {
   @Override
   public void run() {
     System.out.println("Running this client thread");
-    while (this.isRunning) {
+    while (this.connected) {
       try {
         if (this.input.ready()) {
           String message = this.input.readLine();
           System.out.println("Received " + message);
+
 
           // Processing incoming messages from Client
           if (message.substring(0, 1).equals("#")) {
             // Log in request
             int id = Integer.parseInt(message.substring(1));
             this.send(RestaurantSystem.logIn(id));
+          } else if (message.substring(0, 1).equals("%")) {
+            // This is a request for information from the client
+            String request = message.substring(1);
+            if (request.equals("table")) {
+              this.outputStream.writeObject(TableManager.getNumberOfTables());
+            } else if (request.equals("menu")) {
+
+            } else if (request.equals("inventory")) {
+
+            }
           } else {
+            // Just an event
             EventManager.addEvent(new ProcessableEvent(message));
           }
         }
       } catch (IOException e) {
         e.printStackTrace();
-        this.isRunning = false;
+        this.connected = false;
       }
     }
 
@@ -75,8 +89,11 @@ class ClientThread implements Runnable {
    */
   void send (String message) {
     System.out.println("Sending \"" + message + "\"");
-    this.output.println(message);
-    this.output.flush();
+    try {
+      this.outputStream.writeObject(message);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**

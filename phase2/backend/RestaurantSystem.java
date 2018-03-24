@@ -12,7 +12,7 @@ import backend.table.TableManager;
 import java.io.*;
 import java.util.logging.Logger;
 
-public class RestaurantSystem {
+public class  RestaurantSystem {
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
