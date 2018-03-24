@@ -81,13 +81,13 @@ public class ComputerServer implements Runnable {
    * @param message    is the message to be delivered
    * @return true if the employee is logged on and message delivered, false if not
    */
-  boolean send(int employeeID, String message) {
+  boolean send(int employeeID, int type, String message) {
     boolean messageSent = false;
 
     for (ClientThread client : clients) { // TODO: A single person can sign on multiple times
       if (client.isLoggedOn()) {
         if (client.getEmployeeID() == employeeID) {
-          client.send(message);
+          client.send(type, message);
           messageSent = true;
         }
       }

@@ -6,9 +6,8 @@ import backend.event.ProcessableEvent;
 import backend.inventory.Menu;
 import backend.table.TableManager;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -16,8 +15,8 @@ class ClientThread implements Runnable {
   private Socket socket;
   private boolean connected;
 
-  private BufferedReader input;
-  private ObjectOutputStream outputStream;
+  private ObjectInputStream input;
+  private ObjectOutputStream output;
 
   private boolean loggedOn = false;
   private int employeeID = -1;
@@ -28,11 +27,16 @@ class ClientThread implements Runnable {
    * @param socket is the socket connected to the Client
    * @throws IOException for initializing BufferedReader and PrintWriter
    */
-  ClientThread(Socket socket) throws IOException {
-    this.socket = socket;
-    this.connected = true;
-    this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-    this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
+  ClientThread(Socket socket) {
+    try {
+      this.socket = socket;
+      this.connected = true;
+      this.output = new ObjectOutputStream(this.socket.getOutputStream());
+      this.input = new ObjectInputStream(this.socket.getInputStream());
+    } catch (Exception e) {
+      System.err.println("*** Error connecting to client ***");
+      e.printStackTrace();
+    }
 
     Thread thread = new Thread(this);
     thread.start();
@@ -44,36 +48,35 @@ class ClientThread implements Runnable {
     System.out.println("Running this client thread");
     while (this.connected) {
       try {
-        if (this.input.ready()) {
-          String message = this.input.readLine();
-          System.out.println("Received " + message);
+        Object object = this.input.readObject();
 
+        if (object != null) {
+          Packet packet = (Packet) object;
+          System.out.println("Received packet type " + packet.getType());
 
-          // Processing incoming messages from Client
-          if (message.substring(0, 1).equals("#")) {
+          if (packet.getType() == Packet.LOGINREQUEST) {
             // Log in request
-            int id = Integer.parseInt(message.substring(1));
-            this.send(RestaurantSystem.logIn(id));
-          } else if (message.substring(0, 1).equals("%")) {
-            // This is a request for information from the client
-            String request = message.substring(1);
-            if (request.equals("table")) {
-              System.out.println("Sending number of tables");
-              this.outputStream.writeObject(TableManager.getNumberOfTables());
-            } else if (request.equals("menu")) {
-              System.out.println("Sending menu");
-              this.outputStream.writeObject(Menu.getInstance());
-            } else if (request.equals("inventory")) {
-
-            }
-          } else {
+            int id = (Integer) packet.getObject();
+            this.send(Packet.LOGINCONFIRMATION, RestaurantSystem.logIn(id));
+          } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
+            System.out.println("Sending number of tables");
+            this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
+          } else if (packet.getType() == Packet.REQUESTMENU) {
+            System.out.println("Sending menu");
+            this.send(Packet.RECEIVEMENU, Menu.getInstance());
+          } else if (packet.getType() == Packet.REQUESTINVENTORY) {
+            System.out.println("Sending inventory");
+            // TODO: Send the inventory
+          } else if (packet.getType() == Packet.EVENT) {
             // Just an event
-            EventManager.addEvent(new ProcessableEvent(message));
+            EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));
           }
         }
       } catch (IOException e) {
         e.printStackTrace();
         this.connected = false;
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
 
@@ -88,12 +91,15 @@ class ClientThread implements Runnable {
   /**
    * Send a string to the client
    *
-   * @param message is what is being sent
+   * @param type is the type of the message
+   * @param object is what is being sent
    */
-  void send (String message) {
-    System.out.println("Sending \"" + message + "\"");
+  void send(int type, Object object) {
+    System.out.println("Sending \"" + object + "\"");
+
+    Packet packet = new Packet(type, object);
     try {
-      this.outputStream.writeObject(message);
+      this.output.writeObject(packet);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -104,10 +110,10 @@ class ClientThread implements Runnable {
    *
    * @param object is what is being sent
    */
-  void sendObject (Object object) {
+  void sendObject(Object object) {
     System.out.println("Sending " + object.getClass());
     try {
-      this.outputStream.writeObject(object);
+      this.output.writeObject(object);
     } catch (IOException e) {
       e.printStackTrace();
     }
