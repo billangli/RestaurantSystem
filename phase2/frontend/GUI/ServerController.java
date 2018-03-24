@@ -152,6 +152,7 @@ public class ServerController  implements Initializable {
             window.setScene(new Scene(scene, 300, 200));
             NumberKeyBoardController paneController = numLoader.getController();
             paneController.start();
+            paneController.setTableNumber(this.selectedTableNumber);
             window.setMinWidth(300);
             window.setMinHeight(200);
             window.showAndWait();
