@@ -17,7 +17,7 @@ public class FXMain extends Application {
   public final int WIDTH = 600;
   public final int HEIGHT = 600;
 
-  //public static Client client = New Client()
+  public static Client client = Client.getInstance();
 
   public static void main(String[] args) throws IOException {
     Client client = Client.getInstance();

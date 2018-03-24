@@ -55,6 +55,7 @@ public class ComputerServer implements Runnable {
       try {
         // Accepting the connection and adding to the existing client threads
         Socket connectionSocket = serverSocket.accept();
+        System.out.println("accepted");
         ClientThread clientThread = new ClientThread(connectionSocket);
         this.clients.add(clientThread);
 

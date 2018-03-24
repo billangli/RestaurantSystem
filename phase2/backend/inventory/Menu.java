@@ -30,6 +30,10 @@ public class Menu implements Serializable {
     return instance;
   }
 
+  public Object readResolve() {
+    return getInstance();
+  }
+
   /**
    * Creates a menu using the provided phase1/menu.txt file
    */
@@ -56,12 +60,12 @@ public class Menu implements Serializable {
    * @param name the name of the Dish dish
    * @return the copy of the Dish dish
    */
-  public static Dish makeDish(String name) {
+  public Dish makeDish(String name) {
     DefaultDish dish = instance.defaultDishes.get(name);
     return new Dish(dish);
   }
 
-  public static HashMap<String, DefaultDish> getDishes() {
+  public HashMap<String, DefaultDish> getDishes() {
     return instance.defaultDishes;
   }
 }

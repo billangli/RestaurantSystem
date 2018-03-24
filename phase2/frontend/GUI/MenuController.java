@@ -32,7 +32,8 @@ public class MenuController{
     public Client client = Client.getInstance();
     int numoforder = 0;
     //volatile Inventory inventory = (Inventory) client.request("inventory");
-    //volatile Menu menu = (Menu)client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile Menu menu = (Menu)client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
+    //private Menu menu = Menu.getInstance();
     Order dishOrder = new Order();
     private Scene serverScene;
 
@@ -51,7 +52,7 @@ public class MenuController{
 
 
     public void initialize() throws IOException{
-        HashMap<String,DefaultDish> dishes = Menu.getDishes();
+        HashMap<String,DefaultDish> dishes = menu.getDishes();
         //set up dishes
         int i = 0;
         for(String di: dishes.keySet()){
