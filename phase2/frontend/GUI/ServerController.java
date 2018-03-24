@@ -7,23 +7,38 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static java.lang.Math.ceil;
+import static java.lang.Math.sqrt;
 
 public class ServerController  implements Initializable {
     private Scene menuScene;
     private int myId;
+    private final Color COLOR_OCCUPIED = Color.BLUE;
+    private final Color COLOR_EMPTY = Color.WHITE;
+    @FXML private VBox gridParent;
+    @FXML private HBox hBox1;
+    @FXML private HBox hBox2;
+
+    private ArrayList<Rectangle> rectangles;
     @FXML
     GridPane tableView = new GridPane();
 
@@ -145,6 +160,44 @@ public class ServerController  implements Initializable {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         Background background= new Background(menuImage);
+        int size = 15;
+        Rectangle rec1 = new Rectangle(size, size);
+        Label label1 = new Label(" : table is occupied");
+        Rectangle rec2 = new Rectangle(size, size);
+        Label label2 = new Label(" : table is empty");
+
+        rec1.setFill(COLOR_OCCUPIED);
+        rec1.setStroke(Color.BLACK);
+        rec2.setFill(COLOR_EMPTY);
+        rec2.setStroke(Color.BLACK);
+
+        hBox1.getChildren().addAll(rec1, label1);
+        hBox2.getChildren().addAll(rec2, label2);
+        hBox1.setPadding(new Insets(10, 0, 0, 10));
+        hBox2.setPadding(new Insets(10, 0, 0, 10));
+
+        GridPane tableGrid = new GridPane();
+        tableGrid.setHgap(10);
+        tableGrid.setVgap(8);
+        tableGrid.setPadding(new Insets(40, 0, 0, 40));
+
+        // TODO: retrieve numOfTable value from backend.
+        // now I will assume that we have certain number of tables.
+        int numOfTables = 4;
+        int sideLength = (int) ceil(sqrt(numOfTables));
+
+        for (int i = 0; i < numOfTables; i++) {
+            Rectangle r = new Rectangle(50, 50);
+            r.setFill(COLOR_EMPTY);
+            r.setStroke(Color.BLACK);
+            Label l = new Label(Integer.toString(i + 1));
+            GridPane.setConstraints(r, i % sideLength, i / sideLength);
+            GridPane.setConstraints(l, i % sideLength, i / sideLength);
+            tableGrid.getChildren().addAll(r, l);
+        }
+
+        gridParent.getChildren().add(tableGrid);
+
         tableView.setBackground(background);
     }
 }

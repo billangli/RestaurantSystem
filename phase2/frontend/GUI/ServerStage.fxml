@@ -33,7 +33,7 @@
                         <Label text="Order Food" />
                     </children>
                 </StackPane>
-                <StackPane onMouseClicked="#order">
+                <StackPane onMouseClicked="#bill">
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="47.0" stroke="#806e6e" strokeType="INSIDE" width="175.0">
                             <VBox.margin>
@@ -75,124 +75,10 @@
                 </StackPane>
             </children>
         </VBox>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="131.0">
+        <VBox fx:id="gridParent" minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="131.0">
             <children>
-                <StackPane layoutX="89.0" layoutY="83.0">
-                    <children>
-                        <GridPane layoutX="89.0" layoutY="83.0" prefHeight="218.0" prefWidth="280.0" StackPane.alignment="TOP_LEFT">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-
-                                <Rectangle fx:id="rectangle1" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0"/>
-                                <Rectangle fx:id="rectangle2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1"/>
-                                <Rectangle fx:id="rectangle3" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2"/>
-                                <Rectangle fx:id="rectangle4" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3"/>
-                                <Rectangle fx:id="rectangle5" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1"/>
-                                <Rectangle fx:id="rectangle6" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1"
-                                           GridPane.rowIndex="1"/>
-                                <Rectangle fx:id="rectangle7" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2"
-                                           GridPane.rowIndex="1"/>
-                                <Rectangle fx:id="rectangle8" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3"
-                                           GridPane.rowIndex="1"/>
-                                <Rectangle fx:id="rectangle9" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="2"/>
-                                <Rectangle fx:id="rectangle10" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1"
-                                           GridPane.rowIndex="2"/>
-                                <Rectangle fx:id="rectangle11" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2"
-                                           GridPane.rowIndex="2"/>
-                                <Rectangle fx:id="rectangle12" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3"
-                                           GridPane.rowIndex="2"/>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="2"
-                                       GridPane.columnIndex="1">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="3" GridPane.columnIndex="2">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="4" GridPane.columnIndex="3">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="5" GridPane.rowIndex="1">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="7" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="8" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="9" GridPane.rowIndex="2">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="11" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="12" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                    <padding>
-                                        <Insets left="3.0" />
-                                    </padding>
-                                </Label>
-                        <Label alignment="TOP_LEFT" prefHeight="43.0" prefWidth="41.0" text="1">
-                           <padding>
-                              <Insets left="3.0" />
-                           </padding>
-                        </Label>
-                            </children>
-                        </GridPane>
-                    </children>
-                </StackPane>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="12.0" layoutX="251.0" layoutY="312.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                <Label layoutX="266.0" layoutY="309.0" text=": occupied" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="12.0" layoutX="251.0" layoutY="332.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                <Label layoutX="266.0" layoutY="329.0" text=":empty" />
-            </children>
-        </AnchorPane>
+                <HBox fx:id="hBox1" prefHeight="25.0" prefWidth="405.0" />
+                <HBox fx:id="hBox2" prefHeight="25.0" prefWidth="405.0" />
+            </children></VBox>
     </items>
 </SplitPane>
