@@ -8,7 +8,7 @@ import java.util.HashMap;
  * restaurant.
  */
 public class Menu {
-  private static HashMap<String, Dish> dishes = new HashMap<>();
+  private static HashMap<String, DefaultDish> defaultdishes = new HashMap<>();
   //    private static Inventory backend.inventory;
   //
   //    public Menu(Inventory backend.inventory)throws IOException{
@@ -28,7 +28,7 @@ public class Menu {
         String name = items[0];
         float price = Integer.parseInt(items[1]);
         String[] ingredients = items[2].split(",");
-        dishes.put(name, new Dish(name, price, ingredients));
+        defaultdishes.put(name, new Dish(name, price, ingredients));
         line = fileReader.readLine();
       }
     }
@@ -41,11 +41,11 @@ public class Menu {
    * @return the copy of the Dish dish
    */
   public static Dish makeDish(String name) {
-    Dish dish = dishes.get(name);
+    DefaultDish dish = defaultdishes.get(name);
     return new Dish(dish);
   }
 
-  public static HashMap<String, Dish> getDishes() {
-    return dishes;
+  public static HashMap<String, DefaultDish> getDishes() {
+    return defaultdishes;
   }
 }
