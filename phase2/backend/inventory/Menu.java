@@ -38,7 +38,7 @@ public class Menu implements Serializable {
    * Creates a menu using the provided phase1/menu.txt file
    */
   private void create() throws IOException {
-    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/menu.txt"))) {
+    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/menu.txt"))) {
 
       // Print the lines from f prefaced with the line number,
       // starting at 1.

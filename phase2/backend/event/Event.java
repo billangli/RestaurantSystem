@@ -82,7 +82,7 @@ abstract class Event {
       dishName = str.substring(0, str.indexOf(":"));
     }
     String ingredientAdjustments = str.substring(str.indexOf(":") + 1);
-    Menu menu = Menu.getInstance();
+    Menu menu = new Menu();
     Dish dish = menu.makeDish(dishName);
 
     // Making adjustments to the dish one ingredient at a time
