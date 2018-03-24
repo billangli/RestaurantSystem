@@ -8,9 +8,10 @@ package backend.inventory;
  */
 public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
-  private int mirrorQuantity;
+  private int
+      mirrorQuantity; // this is the quantity of the ingredient that is updated whenever a dish is
+                      // added to the order or any of its adjustable ingredients is adjusted
   private boolean isUnderThreshold;
-  private boolean wouldBeUnderThreshold;
 
   /**
    * Constructor for InventoryIngredient that takes in the name, quantity and lower threshold for
@@ -26,7 +27,6 @@ public class InventoryIngredient extends Ingredient {
     this.lowerThreshold = lowerThreshold;
     this.mirrorQuantity = quantity;
     this.isUnderThreshold = quantity < lowerThreshold;
-    this.wouldBeUnderThreshold = this.isUnderThreshold;
   }
 
   /**
@@ -73,15 +73,7 @@ public class InventoryIngredient extends Ingredient {
    * @param quantityUnit the quantity
    */
   public void modifyMirrorQuantity(int quantityUnit) {
-    boolean bool1 = this.wouldBeUnderThreshold;
     this.mirrorQuantity += quantityUnit;
-
-    if ((this.mirrorQuantity < lowerThreshold) && (!bool1)) {
-      modifyWouldBeUnderThreshold(true);
-      // TODO: run something that greys out the button
-    } else if ((this.mirrorQuantity > lowerThreshold) && (bool1)) {
-      modifyWouldBeUnderThreshold(false);
-    }
   }
 
   /**
@@ -94,15 +86,6 @@ public class InventoryIngredient extends Ingredient {
   }
 
   /**
-   * Modifies the WouldBeUnderThreshold variable of this InventoryIngredient to bool
-   *
-   * @param bool whether the WouldBeUnderThreshold must be converted into True or False
-   */
-  private void modifyWouldBeUnderThreshold(boolean bool) {
-    this.wouldBeUnderThreshold = bool;
-  }
-
-  /**
    * Returns the IsUnderThreshold of this InventoryIngredient
    *
    * @return the IsUnderThreshold of this InventoryIngredient
@@ -110,13 +93,5 @@ public class InventoryIngredient extends Ingredient {
   public boolean getIsUnderThreshold() {
     return this.isUnderThreshold;
   }
-
-  /**
-   * Returns the WouldBeUnderThreshold of this InventoryIngredient
-   *
-   * @return the WouldBeUnderThreshold of this InventoryIngredient
-   */
-  public boolean getWouldBeUnderThreshold() {
-    return this.wouldBeUnderThreshold;
-  }
 }
+
