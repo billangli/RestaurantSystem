@@ -31,16 +31,20 @@ public class MenuController{
     GridPane tableView = new GridPane();
     public Client client = Client.getInstance();
     int numoforder = 0;
-    //volatile Inventory inventory = (Inventory) client.request("inventory");
+    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.request("inventory"); //TODO should get menu from web ComputerServer requestMenu()
+    Inventory inventory = Inventory.getInstance();
+
+
     volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
     Menu menu = Menu.getInstance();
+
     Order dishOrder = new Order();
     private Scene serverScene;
 
     public void updateMenu(ArrayList<InventoryIngredient> changed){
         for(InventoryIngredient in: changed){
             String name = in.getName();
-            InventoryIngredient ingredient = Inventory.getIngredient(name);
+            InventoryIngredient ingredient = inventory.getIngredient(name);
             //ingredient.
         }
     }
@@ -53,6 +57,7 @@ public class MenuController{
 
     public void initialize() throws IOException{
         menu.setDishes(defaultDishes);
+        inventory.setStock(defaultInventory);
         HashMap<String,DefaultDish> dishes = menu.getDishes();
         //set up dishes
         int i = 0;

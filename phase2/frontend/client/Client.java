@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Client implements Runnable {
   private static Client instance = new Client();
 
-  private static final String IP = "100.64.225.246";
+  private static final String IP = "100.64.83.63";
   private static final int PORT = 6000;
 
   private Socket socket;

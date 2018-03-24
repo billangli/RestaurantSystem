@@ -17,7 +17,8 @@ import java.util.logging.Logger;
  * lists each ingredient in the backend.inventory and its stock.
  */
 public class Inventory implements Serializable {
-  private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
+  private static Inventory instance = new Inventory();
+  private HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
@@ -26,16 +27,30 @@ public class Inventory implements Serializable {
    * @param ingredientName the name of the Ingredient ingredient
    * @return the Ingredient ingredient that has the matching ingredientName
    */
-  public static InventoryIngredient getIngredient(String ingredientName) {
+  public InventoryIngredient getIngredient(String ingredientName) {
     return ingredientsInventory.get(ingredientName);
   }
 
-  public static void modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
+  private Inventory(){}
+
+  public static Inventory getInstance() {
+    return instance;
+  }
+
+  public Object readResolve() {
+    return getInstance();
+  }
+
+  public void setStock(HashMap<String,InventoryIngredient> in){
+    instance.ingredientsInventory = in;
+  }
+
+  public void modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     stockIngredient.modifyMirrorQuantity(quantityUnits);
   }
 
-  public static void modifyIngredientMirrorQuantity(
+  public void modifyIngredientMirrorQuantity(
       ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
     for (DishIngredient dishIngredient : dishIngredientList) {
       InventoryIngredient stockIngredient = ingredientsInventory.get(dishIngredient.getName());
@@ -49,7 +64,7 @@ public class Inventory implements Serializable {
     }
   }
 
-  public static boolean isInventoryIngredientEnough(String ingredientName, int quantityUnits) {
+  public boolean isInventoryIngredientEnough(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     if (stockIngredient.getMirrorQuantity() > quantityUnits) {
       return true;
@@ -65,7 +80,7 @@ public class Inventory implements Serializable {
    * @param ingredientName the name of the Ingredient to be added or subtracted
    * @param quantityUnits quantity of the Ingredient to be added or subtracted
    */
-  public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
+  public void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     boolean isAlreadyLow = stockIngredient.getIsUnderThreshold();
     stockIngredient.modifyQuantity(quantityUnits);
@@ -84,7 +99,7 @@ public class Inventory implements Serializable {
    * @param ingredientName the name of the InventoryIngredient that needs to be requested for
    *     restock
    */
-  private static void createRequest(String ingredientName) {
+  private void createRequest(String ingredientName) {
     // create a request as text that is to be stored in requests.txt for the manager
     // to cut and paste into n email
     // Default amount to request is 20 units
@@ -122,12 +137,12 @@ public class Inventory implements Serializable {
    *
    * @param ingredient The InventoryIngredient ingredient to be added to the backend.inventory
    */
-  public static void add(InventoryIngredient ingredient) {
+  public void add(InventoryIngredient ingredient) {
     ingredientsInventory.put(ingredient.getName(), ingredient);
   }
 
   /** Returns the String of list of ingredients and its stock */
-  public static void inventoryToString() {
+  public void inventoryToString() {
 
     ArrayList<String> listOfKeys = new ArrayList<>(ingredientsInventory.keySet());
 
@@ -142,7 +157,7 @@ public class Inventory implements Serializable {
     }
     logger.info(logString.toString());
   }
-    public static HashMap<String, InventoryIngredient> getIngredientsInventory() {
+    public HashMap<String, InventoryIngredient> getIngredientsInventory() {
         return ingredientsInventory;
     }
 }
