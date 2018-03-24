@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0"
             prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="frontend.GUI.NumberKeyBoardController">
+            fx:controller="frontend.GUI.TakeSeatController">
     <children>
         <Label layoutX="36.0" layoutY="72.0" text="Number of Customers:"/>
         <Button fx:id="confirmButton" layoutX="133.0" layoutY="159.0" mnemonicParsing="false" prefHeight="27.0"

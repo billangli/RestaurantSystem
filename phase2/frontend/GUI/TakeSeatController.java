@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-public class NumberKeyBoardController {
+public class TakeSeatController {
     @FXML private javafx.scene.control.TextField tf;
     @FXML private Button confirmButton, cancelButton;
     private int tableNumber;
@@ -25,13 +25,9 @@ public class NumberKeyBoardController {
         ((Stage) cancelButton.getScene().getWindow()).close();
     }
     public void start(){
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tf.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tf.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
     }

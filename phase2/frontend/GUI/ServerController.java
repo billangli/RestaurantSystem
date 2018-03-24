@@ -4,7 +4,6 @@ import frontend.client.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -120,44 +119,26 @@ public class ServerController  implements Initializable {
     @FXML
     protected void takeSeat() {
         //TODO link to server's takeseat method addTable()
-        TextField tableNum = new TextField();
-        tableNum.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tableNum.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+
+        if (this.selectedTableNumber != 0){
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+
+            Parent root;
+            try {
+                FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
+                Parent scene = numLoader.load();
+                window.setTitle("Welcome!");
+                window.setScene(new Scene(scene, 300, 200));
+                TakeSeatController paneController = numLoader.getController();
+                paneController.start();
+                paneController.setTableNumber(this.selectedTableNumber);
+                window.setMinWidth(300);
+                window.setMinHeight(200);
+                window.showAndWait();
+            } catch (IOException e) {
+                System.out.println("take seat error");
             }
-        });
-        tableView.add(tableNum,0,5);
-
-        //submit the order
-        Button submit = new Button("take charge");
-//        submit.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override public void handle(ActionEvent e) {
-//                int tableNumber = Integer.parseInt(tableNum.getText());
-//                client.send("Server;"+myId+";takeSeat;("+tableNum+")");
-//            }
-//        });
-        tableView.add(submit,1,5);
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-
-        Parent root;
-        try {
-            FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
-            Parent scene = numLoader.load();
-            window.setTitle("Welcome!");
-            window.setScene(new Scene(scene, 300, 200));
-            NumberKeyBoardController paneController = numLoader.getController();
-            paneController.start();
-            paneController.setTableNumber(this.selectedTableNumber);
-            window.setMinWidth(300);
-            window.setMinHeight(200);
-            window.showAndWait();
-        } catch (IOException e) {
-            System.out.println("take seat error");
         }
     }
 
@@ -177,9 +158,6 @@ public class ServerController  implements Initializable {
         window.setMinWidth(300);
         window.setMinHeight(200);
         window.showAndWait();
-
-        //Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        //primaryStage.setScene(menuScene);
     }
     @FXML
     protected void bill() {
@@ -212,30 +190,26 @@ public class ServerController  implements Initializable {
 
     @FXML
     protected void clear() {
-        //TODO method clear()
+        if (this.selectedTableNumber != 0){
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
 
-        TextField tableNum = new TextField();
-        tableNum.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tableNum.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        tableView.add(tableNum,0,5);
+            try {
+                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/ClearTableAlertBox.fxml"));
+                Parent root = loader.load();
+                window.setScene(new Scene(root, 300, 200));
+                ClearTableController controller = loader.getController();
 
-        //submit the order
-        Button submit = new Button("clear this table");
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                System.out.println(tableNum.getText());
-                int tableNumber = Integer.parseInt(tableNum.getText());
-//               client.send("ComputerServer;"+myId+";clear;("+tableNum+")");
+                controller.setTableNumber(this.selectedTableNumber);
+                controller.setText(Integer.toString(selectedTableNumber));
+                window.setTitle("Welcome!");
+                window.setMinWidth(300);
+                window.setMinHeight(200);
+                window.showAndWait();
+            } catch (IOException e) {
+                System.out.println("take seat error");
             }
-        });
-        tableView.add(submit,1,5);
+        }
     }
 
     public void changeColorOfTable(int tableNumber, Color color) {
