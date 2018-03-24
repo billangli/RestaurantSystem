@@ -50,7 +50,7 @@ public class Inventory implements Serializable {
     stockIngredient.modifyMirrorQuantity(quantityUnits);
   }
 
-  public void modifyIngredientMirrorQuantity(
+  public void modifyIngredientMirrorQuantity( // TODO: SHould return HashMap
       ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
     for (DishIngredient dishIngredient : dishIngredientList) {
       InventoryIngredient stockIngredient = ingredientsInventory.get(dishIngredient.getName());

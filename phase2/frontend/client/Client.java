@@ -1,7 +1,10 @@
 package frontend.client;
 
 import backend.inventory.DishIngredient;
+import backend.inventory.InventoryIngredient;
 import backend.server.Packet;
+import frontend.GUI.MenuController;
+import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -165,7 +168,7 @@ public class Client implements Runnable {
     return ((Packet) this.object).getObject();
   }
 
-  public Object adjustIngredient(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
+  public void adjustIngredient(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
 
     // Waiting for the Server to respond
@@ -174,8 +177,14 @@ public class Client implements Runnable {
     }
 
     this.objectIsReady = false;
-    System.out.println("Received " + ((Packet) this.object).getObject());
-    return ((Packet) this.object).getObject();
+    Packet packet = (Packet) this.object;
+
+    System.out.println("Received " + packet.getObject());
+
+    ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
+    FXMLLoader menuLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/MenuFx.fxml"));
+    MenuController menuController = menuLoader.getController();
+    menuController.updateInventory(newIngredientQuantities);
   }
 
   // TODO: Remove this after testing

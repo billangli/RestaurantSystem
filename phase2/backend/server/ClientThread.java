@@ -63,9 +63,10 @@ class ClientThread implements Runnable {
             this.send(Packet.RECEIVEMENU, menu.getDishes());
           } else if (packet.getType() == Packet.REQUESTINVENTORY) {
             System.out.println("Sending inventory");
-            // TODO: Send the inventory
             Inventory inventory = Inventory.getInstance();
             this.send(Packet.RECEIVEINVENTORY, inventory.getIngredientsInventory());
+          } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
+
           } else if (packet.getType() == Packet.EVENT) {
             // Just an event
             EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));

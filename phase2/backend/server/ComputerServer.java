@@ -96,4 +96,8 @@ public class ComputerServer implements Runnable {
 
     return messageSent;
   }
+
+//  broadcast() {
+//    for ()
+//  }
 }
