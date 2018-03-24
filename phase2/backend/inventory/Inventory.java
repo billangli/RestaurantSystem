@@ -1,18 +1,20 @@
 package backend.inventory;
 
-import java.io.*;
-import java.util.*;
-import java.util.logging.Logger;
 import backend.logger.RestaurantLogger;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  * Inventory class represents the backend.inventory of ingredients in the Restaurant.
- *
+ * <p>
  * <p>Inventory methods include, but are not limited to, modifying quantity of each ingredient in
  * the backend.inventory, adding Ingredient to the backend.inventory, and creating a String that
  * lists each ingredient in the backend.inventory and its stock.
  */
-public class Inventory {
+public class Inventory implements Serializable {
   private static HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
@@ -46,7 +48,7 @@ public class Inventory {
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
    *
    * @param ingredientName the name of the Ingredient to be added or subtracted
-   * @param quantityUnits quantity of the Ingredient to be added or subtracted
+   * @param quantityUnits  quantity of the Ingredient to be added or subtracted
    */
   public static void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
@@ -64,7 +66,7 @@ public class Inventory {
    * Create a text request to restock the Inventory Ingredient that has the same name as ingredientName
    *
    * @param ingredientName the name of the InventoryIngredient that needs to be requested for
-   *     restock
+   *                       restock
    */
   private static void createRequest(String ingredientName) {
     // create a request as text that is to be stored in requests.txt for the manager
@@ -108,7 +110,9 @@ public class Inventory {
     ingredientsInventory.put(ingredient.getName(), ingredient);
   }
 
-  /** Returns the String of list of ingredients and its stock */
+  /**
+   * Returns the String of list of ingredients and its stock
+   */
   public static void inventoryToString() {
 
     ArrayList<String> listOfKeys = new ArrayList<>(ingredientsInventory.keySet());

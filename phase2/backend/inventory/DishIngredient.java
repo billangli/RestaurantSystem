@@ -2,11 +2,11 @@ package backend.inventory;
 
 /**
  * The DishIngredient class represents the ingredients used in a Dish
- *
+ * <p>
  * <p>DishIngredient methods include checking whether a suggested quantity for the DishIngredient in
  * the Dish is acceptable as per the minimum and maximum quantity stipulated in each Dish
  */
-public class DishIngredient extends Ingredient {
+public class DishIngredient extends Ingredient  {
   private int minimumQuantity;
   private int maximumQuantity;
 
@@ -14,8 +14,8 @@ public class DishIngredient extends Ingredient {
    * Constructor for DishIngredient that takes in the name, quantity, minimum and maximum quantity
    * of this ingredient
    *
-   * @param name the name of this DishIngredient
-   * @param quantity the quantity of this DishIngredient
+   * @param name            the name of this DishIngredient
+   * @param quantity        the quantity of this DishIngredient
    * @param minimumQuantity the minimum quantity for this DishIngredient
    * @param maximumQuantity the maximum quantity for this DishIngredient
    */
@@ -41,6 +41,6 @@ public class DishIngredient extends Ingredient {
    * @return boolean statement
    */
   public boolean allowed(int n) {
-    return (n+getQuantity() >= minimumQuantity && n + getQuantity() <= maximumQuantity);
+    return (n + getQuantity() >= minimumQuantity && n + getQuantity() <= maximumQuantity);
   }
 }

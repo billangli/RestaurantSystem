@@ -130,7 +130,7 @@ public class Client implements Runnable {
     }
 
     // Return the employee type to the GUI
-    System.out.println("Employee Type is ready");
+    System.out.println("Object is ready");
     this.objectIsReady = false;
     return this.object;
   }

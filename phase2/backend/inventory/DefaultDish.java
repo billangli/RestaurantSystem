@@ -1,9 +1,7 @@
 package backend.inventory;
 
+import java.io.Serializable;
 import java.util.HashMap;
-import backend.table.Table;
-import java.util.logging.Logger;
-import backend.logger.RestaurantLogger;
 
 /**
  * The Dish class represents the dish that the restaurant offers in its menu, and also the dish that
@@ -15,7 +13,7 @@ import backend.logger.RestaurantLogger;
  * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating
  * a string with the name of its dish and its cost.
  */
-public class DefaultDish {
+public class DefaultDish implements Serializable{
     protected String name;
     protected HashMap<String, DishIngredient> ingredientsRequired = new HashMap<>();
     //private int dishNumber;

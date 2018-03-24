@@ -7,10 +7,10 @@ import java.util.HashMap;
  * The class represents the menu of this restaurant. It stores all the dishes offered by the
  * restaurant.
  */
-public class Menu implements Serializable{
+public class Menu implements Serializable {
   private static Menu instance = new Menu();
 
-  private HashMap<String, DefaultDish> defaultdishes = new HashMap<>();
+  private HashMap<String, DefaultDish> defaultDishes = new HashMap<>();
   //    private static Inventory backend.inventory;
   //
   //    public Menu(Inventory backend.inventory)throws IOException{
@@ -30,7 +30,9 @@ public class Menu implements Serializable{
     return instance;
   }
 
-  /** Creates a menu using the provided phase1/menu.txt file */
+  /**
+   * Creates a menu using the provided phase1/menu.txt file
+   */
   private void create() throws IOException {
     try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/menu.txt"))) {
 
@@ -42,7 +44,7 @@ public class Menu implements Serializable{
         String name = items[0];
         float price = Integer.parseInt(items[1]);
         String[] ingredients = items[2].split(",");
-        this.defaultdishes.put(name, new Dish(name, price, ingredients));
+        this.defaultDishes.put(name, new Dish(name, price, ingredients));
         line = fileReader.readLine();
       }
     }
@@ -55,11 +57,11 @@ public class Menu implements Serializable{
    * @return the copy of the Dish dish
    */
   public static Dish makeDish(String name) {
-    DefaultDish dish = instance.defaultdishes.get(name);
+    DefaultDish dish = instance.defaultDishes.get(name);
     return new Dish(dish);
   }
 
   public static HashMap<String, DefaultDish> getDishes() {
-    return instance.defaultdishes;
+    return instance.defaultDishes;
   }
 }
