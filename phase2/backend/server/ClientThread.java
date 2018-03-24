@@ -58,8 +58,10 @@ class ClientThread implements Runnable {
             // This is a request for information from the client
             String request = message.substring(1);
             if (request.equals("table")) {
+              System.out.println("Sending number of tables");
               this.outputStream.writeObject(TableManager.getNumberOfTables());
             } else if (request.equals("menu")) {
+              System.out.println("Sending menu");
               this.outputStream.writeObject(Menu.getInstance());
             } else if (request.equals("inventory")) {
 

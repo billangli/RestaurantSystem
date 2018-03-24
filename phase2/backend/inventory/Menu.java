@@ -42,7 +42,7 @@ public class Menu implements Serializable{
         String name = items[0];
         float price = Integer.parseInt(items[1]);
         String[] ingredients = items[2].split(",");
-        instance.defaultdishes.put(name, new Dish(name, price, ingredients));
+        this.defaultdishes.put(name, new Dish(name, price, ingredients));
         line = fileReader.readLine();
       }
     }

@@ -1,6 +1,5 @@
 package frontend.GUI;
 
-import backend.inventory.Menu;
 import frontend.client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +22,6 @@ public class FXMain extends Application {
   public static void main(String[] args) throws IOException {
     Client client = Client.getInstance();
 
-    Menu.create();
     launch(args);
   }
 
