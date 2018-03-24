@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class StartSceneController{
     @FXML private TextField tf;
     private Scene scene;
-    //public Client client = Client.getInstance();
+    public Client client = Client.getInstance();
     @FXML private Text actiontarget;
 
     @FXML
@@ -32,8 +32,8 @@ public class StartSceneController{
         //TODO IDidenify(int i)
         System.out.println(tf.getText());
         int id = Integer.parseInt(tf.getText());
-        //String type = client.logIn(id);
-        scene = factory.createScene("server", id);
+        String type = client.logIn(id);
+        scene = factory.createScene(type, id);
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(scene);

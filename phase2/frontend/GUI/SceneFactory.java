@@ -16,7 +16,7 @@ public class SceneFactory {
 
     public Scene createScene(String type,int id) throws IOException {
         Scene scene = null;
-        if (type.equals("cook")) {
+        if (type.equals("Cook")) {
             //load cook interface
             FXMLLoader cookLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Cook.fxml"));
             Parent cook = cookLoader.load();
@@ -25,7 +25,7 @@ public class SceneFactory {
             CookController paneController = cookLoader.getController();
             paneController.setmyId(id);
         }
-        else if(type.equals("server")){
+        else if(type.equals("Server")){
             //load server interface
             FXMLLoader serverLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/ServerStage.fxml"));
             Parent server = serverLoader.load();
@@ -46,7 +46,7 @@ public class SceneFactory {
             MenuController menuPaneController = menuLoader.getController();
             menuPaneController.setServerScene(scene);
         }
-        else if(type.equals("manager")){
+        else if(type.equals("Manager")){
             //load manager interface
             FXMLLoader managerLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Manager.fxml"));
             Parent manager = managerLoader.load();

@@ -20,7 +20,7 @@ public class FXMain extends Application {
   final String TITLE = "Welcome to Four Guys restaurant system";
   public final int WIDTH = 600;
   public final int HEIGHT = 600;
-  //public Client client = Client.getInstance();
+  public Client client = Client.getInstance();
 
   //public static Client client = New Client()
 
