@@ -33,6 +33,21 @@ public class Inventory implements Serializable {
     stockIngredient.modifyMirrorQuantity(quantityUnits);
   }
 
+  public static void modifyIngredientMirrorQuantity(
+      ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
+    for (DishIngredient dishIngredient : dishIngredientList) {
+      InventoryIngredient stockIngredient = ingredientsInventory.get(dishIngredient.getName());
+
+      int quantityUnits = -1 * dishIngredient.getQuantity();
+
+      if (shouldDecreaseQuantity == false) {
+        quantityUnits *= -1;
+      }
+      stockIngredient.modifyMirrorQuantity(quantityUnits);
+      }
+  }
+
+
   public static boolean isInventoryIngredientEnough(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     if (stockIngredient.getMirrorQuantity() > quantityUnits) {

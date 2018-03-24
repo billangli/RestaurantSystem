@@ -27,13 +27,13 @@ public class Order {
 
 
   public void addDish(Dish d) {
-    if (d.canDishBeCooked()) {
-      d.updateProjectedIngredientsStock();
-      dishes.add(d);
-      // TODO: Run the method that checks
-    } else {
-      // TODO: RAISE ERROR? MAYBE CONVERT THIS TRY INSTEAD?
-    }
+    //if (d.canDishBeCooked()) {
+    //d.updateProjectedIngredientsStock();
+    dishes.add(d);
+//      // TODO: Run the method that checks
+//    } else {
+//      // TODO: RAISE ERROR? MAYBE CONVERT THIS TRY INSTEAD?
+//    }
   }
 
   /**
