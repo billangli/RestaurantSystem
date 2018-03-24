@@ -49,8 +49,8 @@ public class Client implements Runnable {
   private boolean connect() {
     try {
       this.socket = new Socket(IP, PORT);
-      this.input = new ObjectInputStream(this.socket.getInputStream());
       this.output = new ObjectOutputStream(this.socket.getOutputStream());
+      this.input = new ObjectInputStream(this.socket.getInputStream());
     } catch (IOException ioe) {
       System.err.println("Error connecting to server");
       return false;

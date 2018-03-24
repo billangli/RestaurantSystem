@@ -25,18 +25,12 @@ class ClientThread implements Runnable {
    * Constructor for Client Thread
    *
    * @param socket is the socket connected to the Client
-   * @throws IOException for initializing BufferedReader and PrintWriter
    */
-  ClientThread(Socket socket) {
-    try {
-      this.socket = socket;
-      this.connected = true;
-      this.output = new ObjectOutputStream(this.socket.getOutputStream());
-      this.input = new ObjectInputStream(this.socket.getInputStream());
-    } catch (Exception e) {
-      System.err.println("*** Error connecting to client ***");
-      e.printStackTrace();
-    }
+  ClientThread(Socket socket) throws IOException {
+    this.socket = socket;
+    this.connected = true;
+    this.output = new ObjectOutputStream(socket.getOutputStream());
+    this.input = new ObjectInputStream(socket.getInputStream());
 
     Thread thread = new Thread(this);
     thread.start();
@@ -91,7 +85,7 @@ class ClientThread implements Runnable {
   /**
    * Send a string to the client
    *
-   * @param type is the type of the message
+   * @param type   is the type of the message
    * @param object is what is being sent
    */
   void send(int type, Object object) {
