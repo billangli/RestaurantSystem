@@ -1,9 +1,9 @@
 package backend.inventory;
 
-import java.util.HashMap;
-import backend.table.Table;
-import java.util.logging.Logger;
 import backend.logger.RestaurantLogger;
+import backend.table.Table;
+
+import java.util.logging.Logger;
 
 /**
  * The Dish class represents the dish that the restaurant offers in its menu, and also the dish that
@@ -21,6 +21,7 @@ public class Dish extends DefaultDish {
     private Table table;
     private boolean isSent;
     private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+    private Inventory inventory = Inventory.getInstance();
 
     /**
      * Constructor that takes the name of the dish, price and the list of names of the ingredients;
@@ -65,7 +66,7 @@ public class Dish extends DefaultDish {
     /** Subtracts all the amounts of ingredients used in backend.inventory to make this dish. */
     public void updateIngredientsStock() {
         for (String ingredientName : ingredientsRequired.keySet()) {
-            Inventory.modifyIngredientQuantity(
+            inventory.modifyIngredientQuantity(
                     ingredientName, -1 * ingredientsRequired.get(ingredientName).getQuantity());
         }
     }
@@ -74,7 +75,7 @@ public class Dish extends DefaultDish {
         for (String ingredientName : ingredientsRequired.keySet()) {
             int quantityRequiredForThisIngredient = ingredientsRequired.get(ingredientName).getQuantity();
 
-            if (!Inventory.isInventoryIngredientEnough(ingredientName, quantityRequiredForThisIngredient)) {
+            if (!inventory.isInventoryIngredientEnough(ingredientName, quantityRequiredForThisIngredient)) {
                 return false;
             }
 
@@ -85,7 +86,7 @@ public class Dish extends DefaultDish {
     public void updateProjectedIngredientsStock() {
         for (String ingredientName : ingredientsRequired.keySet()) {
             int quantityRequiredForThisIngredient = ingredientsRequired.get(ingredientName).getQuantity();
-            Inventory.modifyIngredientMirrorQuantity(
+            inventory.modifyIngredientMirrorQuantity(
                     ingredientName, -1 * quantityRequiredForThisIngredient);
         }
 
@@ -107,7 +108,7 @@ public class Dish extends DefaultDish {
      */
     public boolean ableToCook() {
         for (String ingredientName : ingredientsRequired.keySet()) {
-            int inventoryQuantity = Inventory.getIngredient(ingredientName).getQuantity();
+            int inventoryQuantity = inventory.getIngredient(ingredientName).getQuantity();
             int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
             if (inventoryQuantity < dishQuantity) {
                 return false;

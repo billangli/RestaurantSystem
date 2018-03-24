@@ -27,7 +27,8 @@ public class Employee {
    * @param quantity The amount of ingredient that has been shipped to the restaurant.
    */
   public void receiveIngredient(String receivedIngredientName, int quantity) {
-    Inventory.getIngredient(receivedIngredientName).modifyQuantity(quantity);
+    Inventory inventory = Inventory.getInstance();
+    inventory.getIngredient(receivedIngredientName).modifyQuantity(quantity);
     logger.info(
         "Employee " + ID + " received " + receivedIngredientName + " by this amount " + quantity);
   }
