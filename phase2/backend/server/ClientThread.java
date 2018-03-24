@@ -3,6 +3,7 @@ package backend.server;
 import backend.RestaurantSystem;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
+import backend.inventory.Menu;
 import backend.table.TableManager;
 
 import java.io.BufferedReader;
@@ -59,7 +60,7 @@ class ClientThread implements Runnable {
             if (request.equals("table")) {
               this.outputStream.writeObject(TableManager.getNumberOfTables());
             } else if (request.equals("menu")) {
-
+              this.outputStream.writeObject(Menu.getInstance());
             } else if (request.equals("inventory")) {
 
             }

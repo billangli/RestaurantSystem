@@ -7,14 +7,20 @@ import java.util.HashMap;
  * The class represents the menu of this restaurant. It stores all the dishes offered by the
  * restaurant.
  */
-public class Menu {
-  private static HashMap<String, DefaultDish> defaultdishes = new HashMap<>();
+public class Menu implements Serializable{
+  private static Menu instance = new Menu();
+
+  private HashMap<String, DefaultDish> defaultdishes = new HashMap<>();
   //    private static Inventory backend.inventory;
   //
   //    public Menu(Inventory backend.inventory)throws IOException{
   //        this.backend.inventory = backend.inventory;
   //        create();
   //    }
+
+  public static Menu getInstance() {
+    return instance;
+  }
 
   /** Creates a menu using the provided phase1/menu.txt file */
   public static void create() throws IOException {
@@ -28,7 +34,7 @@ public class Menu {
         String name = items[0];
         float price = Integer.parseInt(items[1]);
         String[] ingredients = items[2].split(",");
-        defaultdishes.put(name, new Dish(name, price, ingredients));
+        instance.defaultdishes.put(name, new Dish(name, price, ingredients));
         line = fileReader.readLine();
       }
     }
@@ -41,11 +47,11 @@ public class Menu {
    * @return the copy of the Dish dish
    */
   public static Dish makeDish(String name) {
-    DefaultDish dish = defaultdishes.get(name);
+    DefaultDish dish = instance.defaultdishes.get(name);
     return new Dish(dish);
   }
 
   public static HashMap<String, DefaultDish> getDishes() {
-    return defaultdishes;
+    return instance.defaultdishes;
   }
 }
