@@ -20,9 +20,9 @@ public class InventoryDisplayController {
         HashMap<String,InventoryIngredient> ingredients = inventory.getIngredientsInventory();
         int i = 0;
         for(String in: ingredients.keySet()){
-            System.out.println("WHAT???");
             tableView.add(new Text(in),0,i);
             tableView.add(new Text(""+ingredients.get(in).getQuantity()),1, i);
+            i++;
         }
     }
 }
