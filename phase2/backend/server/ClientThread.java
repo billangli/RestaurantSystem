@@ -4,17 +4,16 @@ import backend.RestaurantSystem;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 class ClientThread implements Runnable {
   private Socket socket;
   private boolean isRunning;
+
   private BufferedReader input;
   private PrintWriter output;
+  private ObjectOutputStream outputStream;
 
   private boolean loggedOn = false;
   private int employeeID = -1;
@@ -30,6 +29,7 @@ class ClientThread implements Runnable {
     this.isRunning = true;
     this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
     this.output = new PrintWriter(this.socket.getOutputStream());
+//    this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
 
     Thread thread = new Thread(this);
     thread.start();
@@ -68,10 +68,29 @@ class ClientThread implements Runnable {
     }
   }
 
+  /**
+   * Send a string to the client
+   *
+   * @param message is what is being sent
+   */
   void send (String message) {
     System.out.println("Sending \"" + message + "\"");
     this.output.println(message);
     this.output.flush();
+  }
+
+  /**
+   * Sends a serialized object to the Client
+   *
+   * @param object is what is being sent
+   */
+  void sendObject (Object object) {
+    System.out.println("Sending " + object.getClass());
+    try {
+      this.outputStream.writeObject(object);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
