@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import frontend.client.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,13 +24,15 @@ public class ClearTableController {
       tableNumberLabel.setText(s);
   }
 
+  private Client client = Client.getInstance();
+
   @FXML
   private void yesButtonClicked() {
-    // TODO: clear table in the backend.
     // In backend, clearTable(Table table) should be called where <table> has table number of
     // <tableNumber>.
 
     rectangleArrayList.get(tableNumber-1).setFill(COLOR_EMPTY);
+    //client.clearTable(tableNumber-1) // TODO creates it
 
     // close the window
     ((Stage) yesButton.getScene().getWindow()).close();
