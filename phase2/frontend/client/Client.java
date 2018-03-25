@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 // Singleton pattern
@@ -31,6 +32,8 @@ Client implements Runnable {
 
   private volatile boolean objectIsReady = false;
   private volatile Object object;
+
+  private HashMap<String, Object> stored = new HashMap<>();
 
 
   private Client() {
@@ -185,9 +188,12 @@ Client implements Runnable {
     System.out.println("Received " + packet.getObject());
 
     ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
-    FXMLLoader menuLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/MenuFx.fxml"));
-    MenuController menuController = menuLoader.getController();
+    MenuController menuController = (MenuController)stored.get("menuController");
     menuController.updateInventory(newIngredientQuantities);
+  }
+
+  public void store(String name, Object o){
+      stored.put(name, o);
   }
 
   // TODO: Remove this after testing
