@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="frontend.GUI.CookController"
-            prefHeight="400.0" prefWidth="600.0">
-    <center>
-        <GridPane fx:id="tableView"
-                  alignment="center" hgap="10" vgap="10"
-                  prefHeight="300.0" prefWidth="300.0">
-        </GridPane>
-    </center>
-    <right>
 
-        <HBox fx:id="personal"
-              alignment="CENTER"
-        >
-            <BorderPane.margin>
-                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-            </BorderPane.margin>
-
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.GUI.CookController">
+    <children>
+        <HBox prefHeight="30.0" prefWidth="200.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dishes in progress" textAlignment="CENTER" wrappingWidth="300.0">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next dishes to cook" textAlignment="CENTER" wrappingWidth="300.0">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+            </children>
         </HBox>
-    </right>
+        <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="330.0" minWidth="600.0" prefHeight="374.0" prefWidth="600.0">
+         <children>
+            <TableView fx:id="tableViewDishesInProgress" prefHeight="374.0" prefWidth="300.0">
+              <columns>
+                <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false" text="Dish name" />
+                <TableColumn fx:id="numberColumn1" editable="false" prefWidth="125.0" sortable="false" text="Dish number" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tableViewDishesInQueue" prefHeight="200.0" prefWidth="300.0">
+              <columns>
+                <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false" text="Dish name" />
 
-
-</BorderPane>
-
-
+                <TableColumn fx:id="numberColumn2" editable="false" prefWidth="125.0" sortable="false" text="Dish number" />
+              </columns>
+            </TableView>
+         </children></HBox>
+        <AnchorPane prefHeight="84.0" prefWidth="600.0">
+            <children>
+                <Text layoutX="340.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of orders in queue: " />
+                <Label fx:id="numOfOrderLabel" layoutX="513.0" layoutY="6.0" text="0" />
+                <Button fx:id="getOrderButton" layoutX="415.0" layoutY="29.0" mnemonicParsing="false" text="Get next order" />
+                <Button layoutX="107.0" layoutY="29.0" mnemonicParsing="false" onAction="#finishedButtonClicked" text="Finished" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>
