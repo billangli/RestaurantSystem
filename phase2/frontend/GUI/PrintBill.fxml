@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.GUI.PrintBillController">
+   <children>
+      <Text layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Print Bill for Table ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="tableNumberLabel" layoutX="171.0" layoutY="38.0" text="null">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="billToString" alignment="TOP_LEFT" layoutX="14.0" layoutY="71.0" prefHeight="145.0" prefWidth="372.0" text="(error: retrieve data from backend)" />
+   </children>
+</AnchorPane>
