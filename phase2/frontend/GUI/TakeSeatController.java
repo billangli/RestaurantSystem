@@ -20,13 +20,14 @@ public class TakeSeatController {
     private Client client = Client.getInstance();
 
     @FXML private void confirmButtonClicked() {
+        if (tf.getText().length()>0) {
+            // Change the color of the table into COLOR_OCCUPIED
+            rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
+            //client.seatSeat(tableNumber-1, tf.getText()); //TODO creates it
 
-    // Change the color of the table into COLOR_OCCUPIED
-    rectangleArrayList.get(tableNumber-1).setFill(COLOR_OCCUPIED);
-    //client.seatSeat(tableNumber-1, tf.getText()); //TODO creates it
-
-        // close the window
-        ((Stage) confirmButton.getScene().getWindow()).close();
+            // close the window
+            ((Stage) confirmButton.getScene().getWindow()).close();
+        }
     }
     @FXML private void cancelButtonClicked() {
         // close the window
