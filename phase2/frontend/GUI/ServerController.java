@@ -194,7 +194,7 @@ public class ServerController  implements Initializable {
 
     @FXML
     protected void clear() {
-        if (this.selectedTableNumber != 0){
+        if (this.selectedTableNumber != 0 && rectangleArrayList.get(selectedTableNumber-1).getFill() == COLOR_OCCUPIED){
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
 
