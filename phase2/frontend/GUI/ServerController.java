@@ -131,6 +131,10 @@ public class ServerController  implements Initializable {
                 window.setTitle("Welcome!");
                 window.setScene(new Scene(scene, 300, 200));
                 TakeSeatController paneController = numLoader.getController();
+
+                paneController.tableNumber = selectedTableNumber;
+                paneController.rectangleArrayList = rectangleArrayList;
+
                 paneController.start();
                 paneController.setTableNumber(this.selectedTableNumber);
                 window.setMinWidth(300);
@@ -202,6 +206,8 @@ public class ServerController  implements Initializable {
 
                 controller.setTableNumber(this.selectedTableNumber);
                 controller.setText(Integer.toString(selectedTableNumber));
+                controller.rectangleArrayList = this.rectangleArrayList;
+
                 window.setTitle("Welcome!");
                 window.setMinWidth(300);
                 window.setMinHeight(200);
@@ -211,11 +217,4 @@ public class ServerController  implements Initializable {
             }
         }
     }
-
-    public void changeColorOfTable(int tableNumber, Color color) {
-        if (1 <= tableNumber && tableNumber <= numOfTables) {
-            rectangleArrayList.get(tableNumber-1).setFill(color);
-        }
-    }
-
 }

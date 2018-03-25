@@ -1,21 +1,26 @@
 package frontend.GUI;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+
 public class TakeSeatController {
-    @FXML private javafx.scene.control.TextField tf;
+    @FXML private TextField tf;
     @FXML private Button confirmButton, cancelButton;
-    private int tableNumber;
+    int tableNumber;
+    private final Color COLOR_OCCUPIED = Color.BLUE;
+    ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
     @FXML private void confirmButtonClicked() {
-        // TODO: Should call takeSeat() in backend.
-        // the parameter for takeSeat() method
-        // @param: tableNumber
-        // @param: Server
+    // TODO: Should call takeSeat() in backend.
+
+    // Change the color of the table into COLOR_OCCUPIED
+    rectangleArrayList.get(tableNumber-1).setFill(COLOR_OCCUPIED);
 
         // close the window
         ((Stage) confirmButton.getScene().getWindow()).close();
