@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import frontend.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import java.io.IOException;
 public class SceneFactory {
     public final int WIDTH = 600;
     public final int HEIGHT = 600;
+    private Client client = Client.getInstance();
 
     public SceneFactory() {
     }
@@ -45,6 +47,8 @@ public class SceneFactory {
             //injecting server scene into the controller of the menu scene
             MenuController menuPaneController = menuLoader.getController();
             menuPaneController.setServerScene(scene);
+
+            client.store("menuController", menuPaneController);
         }
         else if(type.equals("Manager")){
             //load manager interface
