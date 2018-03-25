@@ -92,6 +92,8 @@ public class Client implements Runnable {
             this.objectIsReady = true;
           } else if (packet.getType() == Packet.RECEIVEINVENTORY) {
             this.objectIsReady = true;
+          } else if (packet.getType() == Packet.RECEIVEADJUSTMENT) {
+            this.objectIsReady = true;
           } else {
             System.out.println("*** Packet type invalid ***");
           }

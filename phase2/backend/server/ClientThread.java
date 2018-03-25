@@ -78,7 +78,9 @@ class ClientThread implements Runnable {
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
             ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
+            System.out.println("wokrrs");
             computerServer.broadcast(Packet.RECEIVEADJUSTMENT, newIngredientQuantities);
+            System.out.println("LOL");
           } else if (packet.getType() == Packet.EVENT) {
             // Just an event
             EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));
