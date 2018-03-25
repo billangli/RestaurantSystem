@@ -136,12 +136,10 @@ public class MenuController{
 
         //submit the order
         Button submit = new Button("order");
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                //TODO receive the order, sendOrder()
-                Stage primaryStage = (Stage)((Node)e.getSource()).getScene().getWindow();
-                primaryStage.setScene(serverScene);
-            }
+        submit.setOnAction(e -> {
+            //TODO receive the order, sendOrder()
+            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            stage.close();
         });
         tableView.add(submit,1,5);
 
