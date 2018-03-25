@@ -97,7 +97,11 @@ public class ComputerServer implements Runnable {
     return messageSent;
   }
 
-//  broadcast() {
-//    for ()
-//  }
+  void broadcast(int type, Object message) {
+    for (ClientThread client : clients) {
+      if (client.isLoggedOn()) {
+        client.send(type, message);
+      }
+    }
+  }
 }

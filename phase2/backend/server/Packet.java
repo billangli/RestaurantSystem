@@ -17,6 +17,7 @@ public class Packet implements Serializable {
   public static final int RECEIVENUMBEROFTABLES = -2;
   public static final int RECEIVEMENU = -3;
   public static final int RECEIVEINVENTORY = -4;
+  public static final int RECEIVEADJUSTMENT = -5;
 
   private int type;
   private Object object;

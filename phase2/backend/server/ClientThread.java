@@ -3,7 +3,9 @@ package backend.server;
 import backend.RestaurantSystem;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
+import backend.inventory.DishIngredient;
 import backend.inventory.Inventory;
+import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
 import backend.table.TableManager;
 
@@ -11,6 +13,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import static backend.inventory.Inventory.getInstance;
 
 class ClientThread implements Runnable {
   private Socket socket;
@@ -63,10 +68,17 @@ class ClientThread implements Runnable {
             this.send(Packet.RECEIVEMENU, menu.getDishes());
           } else if (packet.getType() == Packet.REQUESTINVENTORY) {
             System.out.println("Sending inventory");
-            Inventory inventory = Inventory.getInstance();
+            Inventory inventory = getInstance();
             this.send(Packet.RECEIVEINVENTORY, inventory.getIngredientsInventory());
           } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
-
+            System.out.println("Adjusting ingredient");
+            Object[] infoArray = (Object[]) packet.getObject();
+            ArrayList<DishIngredient> dishIngredients = (ArrayList<DishIngredient>) infoArray[0];
+            boolean decrease = (Boolean) infoArray[1];
+            Inventory inventory = Inventory.getInstance();
+            ComputerServer computerServer = ComputerServer.getInstance();
+            ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
+            computerServer.broadcast(Packet.RECEIVEADJUSTMENT, newIngredientQuantities);
           } else if (packet.getType() == Packet.EVENT) {
             // Just an event
             EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));
