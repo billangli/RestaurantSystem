@@ -42,12 +42,14 @@ public class MenuController{
     Order dishOrder = new Order();
     private Scene serverScene;
 
-    public void updateInventory(ArrayList<InventoryIngredient> changed){
-        for(InventoryIngredient in: changed){
-            String name = in.getName();
+    public void updateInventory(ArrayList changed){
+        System.out.println("WHAT??");
+        for(Object in: changed){
+            InventoryIngredient inventoryIngredient = (InventoryIngredient) in;
+            String name = inventoryIngredient.getName();
             InventoryIngredient ingredient = inventory.getIngredient(name);
-            ingredient.setQuantity(in.getQuantity());
-            updateMenu();
+            ingredient.setQuantity(inventoryIngredient.getQuantity());
+            //updateMenu();
         }
     }
 
@@ -95,6 +97,7 @@ public class MenuController{
                        dishIngredients.add(ingredients.get(in));
                    }
                    client.adjustIngredient(dishIngredients, true);
+                    System.out.println("WORKED");
                    dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
@@ -153,8 +156,6 @@ public class MenuController{
         for(String di: dishes.keySet()){
             recipe.add(new Dish(dishes.get(di)));
         }
-        updateMenu();
-
     }
 
 
