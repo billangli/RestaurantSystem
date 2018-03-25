@@ -57,7 +57,11 @@ class ClientThread implements Runnable {
           if (packet.getType() == Packet.LOGINREQUEST) {
             // Log in request
             int id = (Integer) packet.getObject();
-            this.send(Packet.LOGINCONFIRMATION, RestaurantSystem.logIn(id));
+            String logInConfirmation = RestaurantSystem.logIn(id);
+            if (!logInConfirmation.contains("ailed")) {
+              this.loggedOn = true;
+            }
+            this.send(Packet.LOGINCONFIRMATION, logInConfirmation);
           } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
             System.out.println("Sending number of tables");
             this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
@@ -78,9 +82,8 @@ class ClientThread implements Runnable {
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
             ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
-            System.out.println("wokrrs");
             computerServer.broadcast(Packet.RECEIVEADJUSTMENT, newIngredientQuantities);
-            System.out.println("LOL");
+//            this.send(Packet.RECEIVEADJUSTMENT, newIngredientQuantities); // TODO: Fix not broadcasting
           } else if (packet.getType() == Packet.EVENT) {
             // Just an event
             EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));

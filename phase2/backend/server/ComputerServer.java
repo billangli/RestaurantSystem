@@ -100,6 +100,7 @@ public class ComputerServer implements Runnable {
   void broadcast(int type, Object message) {
     for (ClientThread client : clients) {
       if (client.isLoggedOn()) {
+        System.out.println("Broadcasting to " + client);
         client.send(type, message);
       }
     }
