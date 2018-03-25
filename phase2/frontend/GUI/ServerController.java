@@ -148,45 +148,47 @@ public class ServerController  implements Initializable {
 
     @FXML
     protected void order() {
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
+        if(selectedTableNumber !=0 && rectangleArrayList.get(selectedTableNumber-1).getFill() == COLOR_OCCUPIED) {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
 
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/frontend/GUI/MenuFx.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/frontend/GUI/MenuFx.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            window.setTitle("Order Food");
+            window.setScene(new Scene(root, 600, 600));
+            window.showAndWait();
         }
-        window.setTitle("Welcome!");
-        window.setScene(new Scene(root, 600, 600));
-        window.setMinWidth(300);
-        window.setMinHeight(200);
-        window.showAndWait();
     }
     @FXML
     protected void bill() {
-        //TODO print bill base on the table number requestbill()
-        TextField tableNum = new TextField();
-        tableNum.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tableNum.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        tableView.add(tableNum,0,5);
+        //TODO: retrieve table bill data from backend.
+        if (selectedTableNumber != 0 && rectangleArrayList.get(selectedTableNumber-1).getFill() == COLOR_OCCUPIED) {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
 
-        //submit the order
-        Button submit = new Button("print bill");
-//        submit.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override public void handle(ActionEvent e) {
-//                int tableNumber = Integer.parseInt(tableNum.getText());
-//                client.send("Server;"+myId+";printBill;("+tableNum+")");
-//            }
-//        });
-        tableView.add(submit,1,5);
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/frontend/GUI/PrintBill.fxml"));
+                Parent root = loader.load();
+                window.setTitle("Print Bill Station");
+                window.setScene(new Scene(root, 400, 600));
+
+                PrintBillController controller = loader.getController();
+                controller.tableNumberLabel.setText(Integer.toString(selectedTableNumber));
+
+                // TODO: retrieve bill data from backend
+                //String data = (comes from backend)
+                //controller.billToString.setText(data);
+
+                window.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @FXML protected void deliver(ActionEvent event) {
         //TODO deliver dish
