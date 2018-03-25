@@ -43,7 +43,6 @@ public class MenuController{
     private Scene serverScene;
 
     public void updateInventory(ArrayList changed){
-        System.out.println("WHAT??");
         for(Object in: changed){
             InventoryIngredient inventoryIngredient = (InventoryIngredient) in;
             String name = inventoryIngredient.getName();
@@ -97,7 +96,6 @@ public class MenuController{
                        dishIngredients.add(ingredients.get(in));
                    }
                    client.adjustIngredient(dishIngredients, true);
-                    System.out.println("WORKED");
                    dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
@@ -136,10 +134,11 @@ public class MenuController{
 
         //submit the order
         Button submit = new Button("order");
-        submit.setOnAction(e -> {
-            //TODO receive the order, sendOrder()
-            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-            stage.close();
+        submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                //TODO receive the order, sendOrder()
+                ((Stage) submit.getScene().getWindow()).close();
+            }
         });
         tableView.add(submit,1,5);
 

@@ -29,10 +29,9 @@ public class StartSceneController{
     @FXML protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
         SceneFactory factory  = new SceneFactory();
         actiontarget.setText("Sign in button pressed");
-        //TODO IDidenify(int i)
         System.out.println(tf.getText());
         String id = tf.getText();
-        String type = client.logIn(id); //TODO failed case
+        String type = client.logIn(id); //TODO failes
         scene = factory.createScene("Server", Integer.parseInt(id));
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();

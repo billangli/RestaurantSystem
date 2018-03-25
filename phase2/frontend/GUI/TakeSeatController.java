@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import frontend.client.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -16,11 +17,13 @@ public class TakeSeatController {
     private final Color COLOR_OCCUPIED = Color.BLUE;
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
+    private Client client = Client.getInstance();
+
     @FXML private void confirmButtonClicked() {
-    // TODO: Should call takeSeat() in backend.
 
     // Change the color of the table into COLOR_OCCUPIED
     rectangleArrayList.get(tableNumber-1).setFill(COLOR_OCCUPIED);
+    //client.seatSeat(tableNumber-1, tf.getText()); //TODO creates it
 
         // close the window
         ((Stage) confirmButton.getScene().getWindow()).close();
