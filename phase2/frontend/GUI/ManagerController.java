@@ -25,7 +25,19 @@ public class ManagerController {
     }
 
     @FXML protected void request(ActionEvent event) {
-        //TODO request.txt output
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        Parent root;
+        try {
+            FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Request.fxml"));
+            Parent scene = numLoader.load();
+            window.setTitle("Ingredient request!");
+            window.setScene(new Scene(scene, 600, 600));
+            window.showAndWait();
+        } catch (IOException e) {
+            System.out.println("request error");
+        }
 
     }@FXML protected void ingredientAmount(ActionEvent event) {
         //TODO inventory to string
@@ -38,11 +50,9 @@ public class ManagerController {
             Parent scene = numLoader.load();
             window.setTitle("Welcome!");
             window.setScene(new Scene(scene, 600, 600));
-            window.setMinWidth(300);
-            window.setMinHeight(200);
             window.showAndWait();
         } catch (IOException e) {
-            System.out.println("request inventory error");
+            System.out.println("Ingredient amount error");
         }
 
     }
