@@ -18,6 +18,11 @@ public class TakeSeatController {
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
     private Client client = Client.getInstance();
+    private int myId;
+
+    public void setMyId(int id){
+        this.myId = id;
+    }
 
     @FXML private void confirmButtonClicked() {
         if (tf.getText().length()>0) {

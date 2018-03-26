@@ -41,7 +41,7 @@
             </Rectangle>
             <Label text="Print Bill"/>
         </StackPane>
-        <StackPane>
+        <StackPane onMouseClicked="#deliverSuccessful">
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="47.0" stroke="#806e6e"
                        strokeType="INSIDE" width="175.0">
                 <VBox.margin>
@@ -50,7 +50,7 @@
             </Rectangle>
             <Label text="Deliver Successful"/>
         </StackPane>
-        <StackPane>
+        <StackPane onMouseClicked="#deliverFailed">
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="47.0" stroke="#806e6e"
                        strokeType="INSIDE" width="175.0">
                 <VBox.margin>

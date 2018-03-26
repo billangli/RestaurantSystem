@@ -136,6 +136,9 @@ public class ServerController  implements Initializable {
                 paneController.tableNumber = selectedTableNumber;
                 paneController.rectangleArrayList = rectangleArrayList;
 
+                // takeSeatController has same id as this controller.
+                paneController.setMyId(myId);
+
                 paneController.start();
                 paneController.setTableNumber(this.selectedTableNumber);
                 window.setMinWidth(300);
@@ -172,7 +175,7 @@ public class ServerController  implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/frontend/GUI/PrintBill.fxml"));
                 Parent root = loader.load();
                 window.setTitle("Print Bill Station");
-                window.setScene(new Scene(root, 400, 600));
+                window.setScene(new Scene(root, 600, 600));
 
                 PrintBillController controller = loader.getController();
                 controller.tableNumberLabel.setText(Integer.toString(selectedTableNumber));
@@ -187,8 +190,51 @@ public class ServerController  implements Initializable {
             }
         }
     }
-    @FXML protected void deliver(ActionEvent event) {
-        //TODO deliver dish
+    @FXML protected void deliverSuccessful() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        Parent root;
+        try {
+            FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/DeliverSuccessfulAlertBox.fxml"));
+            Parent scene = numLoader.load();
+            window.setTitle("Welcome!");
+            window.setScene(new Scene(scene, 300, 200));
+            DeliverSuccessfulController paneController = numLoader.getController();
+
+            // takeSeatController has same id as this controller.
+            paneController.setMyId(myId);
+
+            paneController.start();
+            window.setMinWidth(300);
+            window.setMinHeight(200);
+            window.showAndWait();
+        } catch (IOException e) {
+            System.out.println("Deliver successful error");
+        }
+    }
+    @FXML protected void deliverFailed() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        Parent root;
+        try {
+            FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/DeliverFailedAlertBox.fxml"));
+            Parent scene = numLoader.load();
+            window.setTitle("Welcome!");
+            window.setScene(new Scene(scene, 300, 200));
+            DeliverFailedController paneController = numLoader.getController();
+
+            // takeSeatController has same id as this controller.
+            paneController.setMyId(myId);
+
+            paneController.start();
+            window.setMinWidth(300);
+            window.setMinHeight(200);
+            window.showAndWait();
+        } catch (IOException e) {
+            System.out.println("Deliver failed error");
+        }
     }
 
     @FXML
