@@ -106,9 +106,9 @@ public class Dish extends DefaultDish {
      *
      * @return if there is enough ingredient in backend.inventory
      */
-    public boolean ableToCook() {
+    public boolean ableToCook(Inventory in) {
         for (String ingredientName : ingredientsRequired.keySet()) {
-            int inventoryQuantity = inventory.getIngredient(ingredientName).getQuantity();
+            int inventoryQuantity = in.getIngredient(ingredientName).getQuantity();
             int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
             if (inventoryQuantity < dishQuantity) {
                 return false;

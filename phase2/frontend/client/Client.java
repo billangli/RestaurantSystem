@@ -196,6 +196,10 @@ Client implements Runnable {
       stored.put(name, o);
   }
 
+  public Object getStored(String name){
+    return stored.get(name);
+  }
+
   // TODO: Remove this after testing
   public static void main(String[] args) throws IOException {
     Client client = Client.getInstance();
