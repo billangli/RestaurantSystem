@@ -82,8 +82,12 @@ public class CookController {
 
   @FXML
   private void finishedButtonClicked() {
-    int dishNumber =
-        tableViewDishesInProgress.getSelectionModel().getSelectedItem().getDishNumber();
+    Dish selectedDish = tableViewDishesInProgress.getSelectionModel().getSelectedItem();
+    int dishNumber;
+
+    if (selectedDish != null) {
+      dishNumber = selectedDish.getDishNumber();
+    }
 
     /* TODO: In backend, cookObject.dishReady(dishNumber) has to be called */
     /* (cookObject).dishReady(dishNumber); */
