@@ -90,18 +90,22 @@ public class MenuController{
                    //set up the ingredient adjustment interface
                    Stage st = new Stage();
                    Dish dish = new Dish(dishes.get(di));
+
+                   //pass ingredient to server
                    HashMap<String,DishIngredient> ingredients = dish.getIngredientsRequired();
                    ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
                    for(String in: ingredients.keySet()){
                        dishIngredients.add(ingredients.get(in));
                    }
                    client.adjustIngredient(dishIngredients, true);
+
+
                    dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
                         IngredientController controller = ingredientLoader.getController();
-                        controller.getDish(new Dish(dish));
+                        controller.getDish(dish);
                         Scene ingredientScene = new Scene(ingredient, 400, 400);
                         st.setScene(ingredientScene);
                         st.show();
@@ -115,6 +119,7 @@ public class MenuController{
                        //TODO update order and inventory updateMenu()
                         @Override public void handle(ActionEvent e) {
                             tableView.getChildren().remove(ordered);
+                            //dishOrder.remove(ordered);
                         }
                     });
 

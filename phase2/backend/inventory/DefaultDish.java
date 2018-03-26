@@ -48,7 +48,9 @@ public class DefaultDish implements Serializable{
         this.name = dishName;
         this.cost = dishPrice;
         //isSent = false;
-        this.ingredientsRequired = ingredientsRequired;
+        for(String name: ingredientsRequired.keySet()){
+            this.ingredientsRequired.put(name,new DishIngredient(ingredientsRequired.get(name)));
+        }
 
     }
 
