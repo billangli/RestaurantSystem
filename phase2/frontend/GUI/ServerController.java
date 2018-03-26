@@ -129,7 +129,7 @@ public class ServerController  implements Initializable {
             try {
                 FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
                 Parent scene = numLoader.load();
-                window.setTitle("Welcome!");
+                window.setTitle("Take Seat");
                 window.setScene(new Scene(scene, 300, 200));
                 TakeSeatController paneController = numLoader.getController();
 
@@ -165,7 +165,6 @@ public class ServerController  implements Initializable {
     }
     @FXML
     protected void bill() {
-        //TODO: retrieve table bill data from backend.
         if (selectedTableNumber != 0 && rectangleArrayList.get(selectedTableNumber-1).getFill() == COLOR_OCCUPIED) {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -179,10 +178,6 @@ public class ServerController  implements Initializable {
 
                 PrintBillController controller = loader.getController();
                 controller.tableNumberLabel.setText(Integer.toString(selectedTableNumber));
-
-                // TODO: retrieve bill data from backend
-                //String data = (comes from backend)
-                //controller.billToString.setText(data);
 
                 window.showAndWait();
             } catch (IOException e) {
@@ -198,7 +193,7 @@ public class ServerController  implements Initializable {
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/DeliverSuccessfulAlertBox.fxml"));
             Parent scene = numLoader.load();
-            window.setTitle("Welcome!");
+            window.setTitle("Dish delivered successfully");
             window.setScene(new Scene(scene, 300, 200));
             DeliverSuccessfulController paneController = numLoader.getController();
 
@@ -221,7 +216,7 @@ public class ServerController  implements Initializable {
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/DeliverFailedAlertBox.fxml"));
             Parent scene = numLoader.load();
-            window.setTitle("Welcome!");
+            window.setTitle("Dish deliver failed");
             window.setScene(new Scene(scene, 300, 200));
             DeliverFailedController paneController = numLoader.getController();
 
@@ -253,12 +248,12 @@ public class ServerController  implements Initializable {
                 controller.setText(Integer.toString(selectedTableNumber));
                 controller.rectangleArrayList = this.rectangleArrayList;
 
-                window.setTitle("Welcome!");
+                window.setTitle("Clearing table");
                 window.setMinWidth(300);
                 window.setMinHeight(200);
                 window.showAndWait();
             } catch (IOException e) {
-                System.out.println("take seat error");
+                System.out.println("clear table error");
             }
         }
     }
