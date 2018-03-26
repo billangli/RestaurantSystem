@@ -12,9 +12,9 @@ import backend.logger.RestaurantLogger;
  *
  * <p>This class manages all the orders that are made from customers.
  */
-class OrderQueue {
+public class OrderQueue {
   // orders that are sent from server to cook and are not yet seen by cook.
-  private Queue<Order> OrdersInQueue;
+  private LinkedList<Order> OrdersInQueue;
 
   // dishes that are seen by cook and are being cooked.
   private LinkedList<Dish> DishesInProgress;
@@ -145,5 +145,13 @@ class OrderQueue {
       dish.sent();
     }
     return dish;
+  }
+
+  public LinkedList<Order> getOrdersInQueue() {
+    return OrdersInQueue;
+  }
+
+  public LinkedList<Dish> getDishesInProgress() {
+    return DishesInProgress;
   }
 }
