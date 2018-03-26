@@ -28,7 +28,10 @@ public class TakeSeatController {
         if (tf.getText().length()>0) {
             // Change the color of the table into COLOR_OCCUPIED
             rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
-            //client.seatSeat(tableNumber-1, tf.getText()); //TODO creates it
+
+            /* TODO: In backend, call takeSeat() method */
+            //(serverObj).takeSeat(TableManager.getTable(tableNumber - 1), Integer.parseInt(tf.getText()));
+            /* ------------------------------------------------------------------------------------------ */
 
             // close the window
             ((Stage) confirmButton.getScene().getWindow()).close();

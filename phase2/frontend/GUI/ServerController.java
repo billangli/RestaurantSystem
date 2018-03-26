@@ -119,7 +119,7 @@ public class ServerController  implements Initializable {
 
     @FXML
     protected void takeSeat() {
-        //TODO link to server's takeseat method addTable()
+        //TODO link to server's takeSeat method addTable() in TakeSeatController.java
 
         if (this.selectedTableNumber != 0){
             Stage window = new Stage();
