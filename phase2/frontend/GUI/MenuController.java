@@ -63,6 +63,7 @@ public class MenuController{
     public void updateMenu() {
         for(Dish dish:recipe){
             boolean cookable = dish.ableToCook(inventory);
+            System.out.println(dish.getName()+" "+cookable);
             Button tb = (Button) tableView.lookup("#"+dish.getName());
             if(cookable){
                 tb.setDisable(false);
@@ -74,13 +75,6 @@ public class MenuController{
         try{
             window.showAndWait();
         }catch(IllegalStateException e) { }
-
-        //this.scene = tableView.getScene();
-//        Stage window = new Stage();
-//        Scene scene = tableView.getScene();
-//        window.initModality(Modality.APPLICATION_MODAL);
-//        window.setScene(scene);
-//        window.showAndWait();
     }
 
 
@@ -99,7 +93,6 @@ public class MenuController{
                 //order a dish
                 //TODO update inventory and order updateMenu()
                 @Override public void handle(ActionEvent e) {
-                   System.out.println(tableView.lookup("#"+item.getId()));
                    Button ordered = new Button(di);
                    ordered.setId(""+numoforder);
 
