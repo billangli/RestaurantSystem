@@ -108,7 +108,7 @@ public class Dish extends DefaultDish {
      */
     public boolean ableToCook(Inventory in) {
         for (String ingredientName : ingredientsRequired.keySet()) {
-            int inventoryQuantity = in.getIngredient(ingredientName).getQuantity();
+            int inventoryQuantity = in.getIngredient(ingredientName).getMirrorQuantity();
             int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
             if (inventoryQuantity < dishQuantity) {
                 return false;
