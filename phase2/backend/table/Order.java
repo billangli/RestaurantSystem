@@ -94,4 +94,8 @@ public class Order {
       d.assignDishNumber();
     }
   }
+
+  public void remove(Dish dish){
+    dishes.remove(dish);
+  }
 }

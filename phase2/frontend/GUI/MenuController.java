@@ -15,7 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +31,8 @@ import static java.awt.image.ImageObserver.WIDTH;
 public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
+    private Scene scene = tableView.getScene();
+    private Stage window;
     public Client client = Client.getInstance();
     int numoforder = 0;
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.request("inventory"); //TODO should get menu from web ComputerServer requestMenu()
@@ -40,21 +44,25 @@ public class MenuController{
     Menu menu = Menu.getInstance();
 
     Order dishOrder = new Order();
-    private Scene serverScene;
 
-    public void updateInventory(ArrayList changed){
+    public void setStage(Stage stage){
+        this.window = stage;
+    }
+
+
+    public void updateInventory(ArrayList changed) {
         for(Object in: changed){
             InventoryIngredient inventoryIngredient = (InventoryIngredient) in;
             String name = inventoryIngredient.getName();
             InventoryIngredient ingredient = inventory.getIngredient(name);
             ingredient.setQuantity(inventoryIngredient.getQuantity());
-            //updateMenu();
         }
+        updateMenu();
     }
 
-    public void updateMenu(){
+    public void updateMenu() {
         for(Dish dish:recipe){
-            boolean cookable = dish.ableToCook();
+            boolean cookable = dish.ableToCook(inventory);
             Button tb = (Button) tableView.lookup("#"+dish.getName());
             if(cookable){
                 tb.setDisable(false);
@@ -63,12 +71,19 @@ public class MenuController{
                 tb.setDisable(true);
             }
         }
+        try{
+            window.showAndWait();
+        }catch(IllegalStateException e) { }
+
+        //this.scene = tableView.getScene();
+//        Stage window = new Stage();
+//        Scene scene = tableView.getScene();
+//        window.initModality(Modality.APPLICATION_MODAL);
+//        window.setScene(scene);
+//        window.showAndWait();
     }
 
 
-    public void setServerScene(Scene scene) {
-        serverScene = scene;
-    }
 
 
     public void initialize() throws IOException{
@@ -84,24 +99,29 @@ public class MenuController{
                 //order a dish
                 //TODO update inventory and order updateMenu()
                 @Override public void handle(ActionEvent e) {
+                   System.out.println(tableView.lookup("#"+item.getId()));
                    Button ordered = new Button(di);
                    ordered.setId(""+numoforder);
 
                    //set up the ingredient adjustment interface
                    Stage st = new Stage();
                    Dish dish = new Dish(dishes.get(di));
+
+                   //pass ingredient to server
                    HashMap<String,DishIngredient> ingredients = dish.getIngredientsRequired();
                    ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
                    for(String in: ingredients.keySet()){
                        dishIngredients.add(ingredients.get(in));
                    }
                    client.adjustIngredient(dishIngredients, true);
+
+
                    dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
                         IngredientController controller = ingredientLoader.getController();
-                        controller.getDish(new Dish(dish));
+                        controller.getDish(dish);
                         Scene ingredientScene = new Scene(ingredient, 400, 400);
                         st.setScene(ingredientScene);
                         st.show();
@@ -115,6 +135,7 @@ public class MenuController{
                        //TODO update order and inventory updateMenu()
                         @Override public void handle(ActionEvent e) {
                             tableView.getChildren().remove(ordered);
+                            //dishOrder.remove(ordered);
                         }
                     });
 

@@ -96,9 +96,9 @@ public class OrderQueue {
       int serverId = dish.getTable().getServerId();
       if (serverId == -1) {
         logger.warning("Not a valid server id.");
-      } else if (!dish.ableToCook()) {
-        logger.warning(
-            "not enough ingredients to cook " + dish.getName() + " (Dish #: " + dishNumber + ")");
+//      }else if (!dish.ableToCook(inventory)) { TODO if needed
+//        logger.warning(
+//            "not enough ingredients to cook " + dish.getName() + " (D12ish #: " + dishNumber + ")");
       } else {
         DishesCompleted.add(dish);
         dish.updateIngredientsStock();

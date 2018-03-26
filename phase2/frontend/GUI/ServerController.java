@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -151,16 +152,12 @@ public class ServerController  implements Initializable {
         if(selectedTableNumber !=0 && rectangleArrayList.get(selectedTableNumber-1).getFill() == COLOR_OCCUPIED) {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/frontend/GUI/MenuFx.fxml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            MenuController menuController = (MenuController)client.getStored("menuController");
+            menuController.setStage(window);
             window.setTitle("Order Food");
-            window.setScene(new Scene(root, 600, 600));
+            window.setScene(menuScene);
             window.showAndWait();
+
         }
     }
     @FXML
