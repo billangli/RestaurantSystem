@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.employee.OrderQueue;
 import backend.employee.ServiceEmployee;
 import backend.inventory.Dish;
 import backend.table.Order;
@@ -42,9 +43,11 @@ public class CookController {
   private ObservableList<Dish> getDishesInProgress() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    /* TODO: In backend, get OrderQueue.DishesInProgress and add them all in <dishes> as below */
-    dishes.addAll(ServiceEmployee.getOrderQueue().getDishesInProgress());
+    /* TODO: In backend, get ServiceEmployee.getOrderQueue().DishesInProgress */
+    LinkedList<Dish> dishesInProgress = ServiceEmployee.getOrderQueue().getDishesInProgress();
     /* ------------------------------------------------------------------------------------------ */
+
+    dishes.addAll(dishesInProgress);
 
     return dishes;
   }
@@ -52,7 +55,7 @@ public class CookController {
   private ObservableList<Dish> getDishesInFirstOrderQueue() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    /* TODO: In backend, get OrderQueue.ordersInQueue  */
+    /* TODO: In backend, get ServiceEmployee.getOrderQueue().ordersInQueue  */
     LinkedList<Order> ordersInQueue = ServiceEmployee.getOrderQueue().getOrdersInQueue();
     /* ------------------------------------------------------------------------------------------ */
 
@@ -66,7 +69,7 @@ public class CookController {
     return dishes;
   }
 
-  public void updateDishesOnTableView() {
+  private void updateDishesOnTableView() {
     tableViewDishesInProgress.setItems(getDishesInProgress());
     tableViewDishesInQueue.setItems(getDishesInFirstOrderQueue());
   }
