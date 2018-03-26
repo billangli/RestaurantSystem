@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.GUI.CookController">
     <children>
         <HBox prefHeight="30.0" prefWidth="200.0">
@@ -29,15 +30,30 @@
          <children>
             <TableView fx:id="tableViewDishesInProgress" prefHeight="374.0" prefWidth="300.0">
               <columns>
-                <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false" text="Dish name" />
-                <TableColumn fx:id="numberColumn1" editable="false" prefWidth="125.0" sortable="false" text="Dish number" />
+                  <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false" text="Dish name" >
+                      <cellValueFactory>
+                          <PropertyValueFactory property="name"/>
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="numberColumn1" editable="false" prefWidth="125.0" sortable="false" text="Dish number" >
+                      <cellValueFactory>
+                          <PropertyValueFactory property="dishNumber"/>
+                      </cellValueFactory>
+                  </TableColumn>
               </columns>
             </TableView>
             <TableView fx:id="tableViewDishesInQueue" prefHeight="200.0" prefWidth="300.0">
               <columns>
-                <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false" text="Dish name" />
-
-                <TableColumn fx:id="numberColumn2" editable="false" prefWidth="125.0" sortable="false" text="Dish number" />
+                  <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false" text="Dish name" >
+                      <cellValueFactory>
+                          <PropertyValueFactory property="name"/>
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="numberColumn2" editable="false" prefWidth="125.0" sortable="false" text="Dish number" >
+                      <cellValueFactory>
+                          <PropertyValueFactory property="dishNumber"/>
+                      </cellValueFactory>
+                  </TableColumn>
               </columns>
             </TableView>
          </children></HBox>
