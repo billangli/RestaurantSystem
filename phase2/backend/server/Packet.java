@@ -6,20 +6,25 @@ import java.io.Serializable;
  * Class for Packets being sent between client and server
  */
 public class Packet implements Serializable {
-  // Client to Server commands
+  // Client to Server resource requests
   public static final int LOGINREQUEST = 1;
   public static final int REQUESTNUMBEROFTABLES = 2;
   public static final int REQUESTMENU = 3;
   public static final int REQUESTINVENTORY = 4;
-  public static final int ADJUSTINGREDIENT = 5;
-  public static final int EVENT = 6;
+  public static final int REQUESTDISHESINPROGRESS = 5;
+  public static final int REQUESTORDERSINQUEUE = 6;
 
-  // Server to Client commands
+  // Server to Client receive resources
   public static final int LOGINCONFIRMATION = -1;
   public static final int RECEIVENUMBEROFTABLES = -2;
   public static final int RECEIVEMENU = -3;
   public static final int RECEIVEINVENTORY = -4;
-  public static final int RECEIVEADJUSTMENT = -5;
+  public static final int RECEIVEDISHESINPROGRESS = -5;
+  public static final int RECEIVEORDERSINQUEUE = -6;
+
+  // Adjust ingredient
+  public static final int ADJUSTINGREDIENT = 30;
+  public static final int RECEIVEADJUSTMENT = -30;
 
   // Event Type
   public static final int RECEIVEINGREDIENT = 55;

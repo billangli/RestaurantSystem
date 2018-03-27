@@ -29,8 +29,8 @@ public class StartSceneController{
         actiontarget.setText("Sign in button pressed");
         System.out.println(tf.getText());
         String id = tf.getText();
-        int type = client.sendLogInRequest(id); //TODO failes
-        scene = factory.createScene("Server", Integer.parseInt(id));
+        int type = client.sendLogInRequest(id); //TODO what happens if it fails?
+        scene = factory.createScene(type, Integer.parseInt(id));
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(scene);

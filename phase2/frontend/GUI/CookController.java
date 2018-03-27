@@ -1,6 +1,5 @@
 package frontend.GUI;
 
-import backend.employee.ServiceEmployee;
 import backend.inventory.Dish;
 import backend.server.Packet;
 import backend.table.Order;
@@ -46,8 +45,8 @@ public class CookController {
   private ObservableList<Dish> getDishesInProgress() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    /* TODO: In backend, get ServiceEmployee.getOrderQueue().DishesInProgress */
-    LinkedList<Dish> dishesInProgress = ServiceEmployee.getOrderQueue().getDishesInProgress();
+    // TODO: In backend, get ServiceEmployee.getOrderQueue().DishesInProgress
+    LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESINPROGRESS);
     /* ------------------------------------------------------------------------------------------ */
 
     dishes.addAll(dishesInProgress);
@@ -59,7 +58,7 @@ public class CookController {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
     /* TODO: In backend, get ServiceEmployee.getOrderQueue().ordersInQueue  */
-    LinkedList<Order> ordersInQueue = ServiceEmployee.getOrderQueue().getOrdersInQueue();
+    LinkedList<Order> ordersInQueue = (LinkedList<Order>) client.sendRequest(Packet.REQUESTORDERSINQUEUE);
     /* ------------------------------------------------------------------------------------------ */
 
     numOfOrdersInQueue = ordersInQueue.size();

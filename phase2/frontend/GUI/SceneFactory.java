@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import frontend.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,9 +17,9 @@ public class SceneFactory {
     public SceneFactory() {
     }
 
-    public Scene createScene(String type,int id) throws IOException {
+    public Scene createScene(int type,int id) throws IOException {
         Scene scene = null;
-        if (type.equals("Cook")) {
+        if (type == Packet.COOKTYPE) {
             //load cook interface
             FXMLLoader cookLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Cook.fxml"));
             Parent cook = cookLoader.load();
@@ -27,7 +28,7 @@ public class SceneFactory {
             CookController paneController = cookLoader.getController();
             paneController.setmyId(id);
         }
-        else if(type.equals("Server")){
+        else if(type == Packet.SERVERTYPE){
             //load server interface
             FXMLLoader serverLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/ServerStage.fxml"));
             Parent server = serverLoader.load();
@@ -49,7 +50,7 @@ public class SceneFactory {
 
             client.store("menuController", menuPaneController);
         }
-        else if(type.equals("Manager")){
+        else if(type == Packet.MANAGERTYPE){
             //load manager interface
             FXMLLoader managerLoader = new javafx.fxml.FXMLLoader(this.getClass().getResource("/frontend/GUI/Manager.fxml"));
             Parent manager = managerLoader.load();

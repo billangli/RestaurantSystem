@@ -1,6 +1,7 @@
 package backend.server;
 
 import backend.RestaurantSystem;
+import backend.employee.ServiceEmployee;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
 import backend.inventory.DishIngredient;
@@ -60,7 +61,7 @@ class ClientThread implements Runnable {
           System.out.println("Received packet type " + packet.getType());
 
           if (packet.getType() == Packet.LOGINREQUEST) {
-            // Log in sendResourceRequest
+            // Log in sendRequest
             int id = (Integer) packet.getObject();
             int logInConfirmation = RestaurantSystem.logIn(id);
             if (logInConfirmation != Packet.LOGINFAILED) {
@@ -80,7 +81,13 @@ class ClientThread implements Runnable {
             System.out.println("Sending inventory");
             Inventory inventory = getInstance();
             this.send(Packet.RECEIVEINVENTORY, inventory.getIngredientsInventory());
-          } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
+          } else if (packet.getType() == Packet.REQUESTDISHESINPROGRESS) {
+            System.out.println("Sending dishesInProgress");
+            this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getDishesInProgress());
+          } else if (packet.getType() == Packet.REQUESTORDERSINQUEUE) {
+            System.out.println("Sending ordersInQueue");
+            this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getOrdersInQueue());
+          }else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
             System.out.println("Adjusting ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
             ArrayList<DishIngredient> dishIngredients = (ArrayList<DishIngredient>) infoArray[0];

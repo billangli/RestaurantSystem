@@ -109,6 +109,10 @@ Client implements Runnable {
             this.objectIsReady = true;
           } else if (packet.getType() == Packet.RECEIVEADJUSTMENT) {
             this.objectIsReady = true;
+          } else if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
+            this.objectIsReady = true;
+          } else if (packet.getType() == Packet.RECEIVEORDERSINQUEUE) {
+            this.objectIsReady = true;
           } else {
             System.out.println("*** Packet type invalid ***");
           }
@@ -148,21 +152,8 @@ Client implements Runnable {
     }
   }
 
-  public Object sendResourceRequest(String requestType) {
-    switch (requestType) {
-      case "menu":
-        this.send(Packet.REQUESTMENU, null);
-        break;
-      case "inventory":
-        this.send(Packet.REQUESTINVENTORY, null);
-        break;
-      case "table":
-        this.send(Packet.REQUESTNUMBEROFTABLES, null);
-        break;
-      default:
-        System.out.println("*** Something broke ***");
-        break;
-    }
+  public Object sendRequest(int requestType) {
+    this.send(requestType);
 
     // Waiting for Server to respond
     System.out.println("Waiting for ComputerServer to respond to request...");

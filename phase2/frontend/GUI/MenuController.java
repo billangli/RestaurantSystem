@@ -1,6 +1,7 @@
 package frontend.GUI;
 
 import backend.inventory.*;
+import backend.server.Packet;
 import backend.table.Order;
 import frontend.client.Client;
 import javafx.event.ActionEvent;
@@ -25,14 +26,14 @@ public class MenuController{
     private Stage window;
     public Client client = Client.getInstance();
     int numoforder = 0;
-    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendResourceRequest("inventory"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
     Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
     private int myId;
 
 
-    volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.sendResourceRequest("menu"); //TODO should get menu from web ComputerServer requestMenu()
-    Menu menu = Menu.getInstance();
+    volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.sendRequest(Packet.REQUESTMENU);
+    Menu menu = Menu.getInstance(); // TODO: Should be removed
 
     Order dishOrder = new Order();
 

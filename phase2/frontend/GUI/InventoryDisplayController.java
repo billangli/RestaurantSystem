@@ -2,6 +2,7 @@ package frontend.GUI;
 
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
+import backend.server.Packet;
 import frontend.client.Client;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 public class InventoryDisplayController {
     @FXML private GridPane tableView;
     private Client client = Client.getInstance();
-    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendResourceRequest("inventory"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
     Inventory inventory = Inventory.getInstance();
 
     public void initialize(){

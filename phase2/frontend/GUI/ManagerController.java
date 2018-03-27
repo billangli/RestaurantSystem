@@ -28,11 +28,11 @@ public class ManagerController {
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Request.fxml"));
             Parent scene = numLoader.load();
-            window.setTitle("Ingredient sendResourceRequest!");
+            window.setTitle("Ingredient sendRequest!");
             window.setScene(new Scene(scene, 600, 600));
             window.showAndWait();
         } catch (IOException e) {
-            System.out.println("sendResourceRequest error");
+            System.out.println("sendRequest error");
         }
 
     }@FXML protected void ingredientAmount(ActionEvent event) {

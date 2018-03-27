@@ -97,19 +97,19 @@ public class Inventory implements Serializable {
   }
 
   /**
-   * Create a text sendResourceRequest to restock the Inventory Ingredient that has the same name as
+   * Create a text sendRequest to restock the Inventory Ingredient that has the same name as
    * ingredientName
    *
    * @param ingredientName the name of the InventoryIngredient that needs to be requested for
    *     restock
    */
   private void createRequest(String ingredientName) {
-    // create a sendResourceRequest as text that is to be stored in requests.txt for the manager
+    // create a sendRequest as text that is to be stored in requests.txt for the manager
     // to cut and paste into n email
-    // Default amount to sendResourceRequest is 20 units
+    // Default amount to sendRequest is 20 units
     // The manager can manually change that amount when creating the email
     BufferedWriter bw;
-    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/sendResourceRequest.txt"))) {
+    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/sendRequest.txt"))) {
       String myContent = ingredientName + " 20";
       // Specify the file name and path here
 
@@ -120,7 +120,7 @@ public class Inventory implements Serializable {
         line = fileReader.readLine();
       }
 
-      File file = new File("phase1/sendResourceRequest.txt");
+      File file = new File("phase1/sendRequest.txt");
 
       /* This logic will make sure that the file
        * gets created if it is not present at the

@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import frontend.client.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,7 +80,7 @@ public class ServerController  implements Initializable {
 
         // Retrieve number of tables from backend.
         System.out.println("Requesting table");
-        numOfTables = (Integer) client.sendResourceRequest("table");
+        numOfTables = (Integer) client.sendRequest(Packet.REQUESTNUMBEROFTABLES);
         int sideLength = (int) ceil(sqrt(numOfTables));
 
         for (int i = 0; i < numOfTables; i++) {
