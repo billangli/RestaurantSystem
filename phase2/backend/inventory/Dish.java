@@ -36,6 +36,11 @@ public class Dish extends DishRecipe {
         isSent = false;
     }
 
+    public Dish(DishRecipe dishRecipe) {
+        super(dishRecipe.name, dishRecipe.cost, dishRecipe.ingredientsRequired);
+        isSent = false;
+    }
+
 
     /**
      * A constructor that deep-copies the dish from the menu to create a dish for Order. <code>menuDish
@@ -43,9 +48,9 @@ public class Dish extends DishRecipe {
      *
      * @param menuDish is the dish in the menu
      */
-    public Dish(DishRecipe menuDish) {
-        super(menuDish.name, menuDish.cost, menuDish.ingredientsRequired);
-    }
+//    public Dish(DishRecipe menuDish) {
+//        super(menuDish.name, menuDish.cost, menuDish.ingredientsRequired);
+//    }
 
     /**
      * Adjusts the ingredient in the dish that is to be added or subtracted to the Order
