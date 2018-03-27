@@ -31,7 +31,8 @@ public class FXMain extends Application {
     FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
     GridPane startScene = startLoader.load();
     mainScene = new Scene(startScene, WIDTH, HEIGHT);
-    BackgroundImage mainImage = new BackgroundImage(new Image("hp.jpg", 600, 600, false, true),
+    BackgroundImage mainImage = new BackgroundImage(new Image("hp.jpg",
+            600, 600, false, true),
             BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     startScene.setBackground(new Background(mainImage));

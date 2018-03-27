@@ -19,6 +19,11 @@ public class Packet implements Serializable {
   public static final int RECEIVEINVENTORY = -4;
   public static final int RECEIVEADJUSTMENT = -5;
 
+  public static final int LOGINFAILED = -100;
+  public static final int COOKTYPE = 100;
+  public static final int MANAGERTYPE = 101;
+  public static final int SERVERTYPE = 102;
+
   private int type;
   private Object object;
 

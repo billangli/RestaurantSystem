@@ -4,7 +4,6 @@ import backend.inventory.DishIngredient;
 import backend.inventory.InventoryIngredient;
 import backend.server.Packet;
 import frontend.GUI.MenuController;
-import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

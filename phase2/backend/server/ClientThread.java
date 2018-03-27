@@ -26,6 +26,7 @@ class ClientThread implements Runnable {
 
   private boolean loggedOn = false;
   private int employeeID = -1;
+  private int employeeType = -1;
 
   /**
    * Constructor for Client Thread
@@ -57,9 +58,11 @@ class ClientThread implements Runnable {
           if (packet.getType() == Packet.LOGINREQUEST) {
             // Log in request
             int id = (Integer) packet.getObject();
-            String logInConfirmation = RestaurantSystem.logIn(id);
-            if (!logInConfirmation.contains("ailed")) {
+            int logInConfirmation = RestaurantSystem.logIn(id);
+            if (logInConfirmation != Packet.LOGINFAILED) {
               this.loggedOn = true;
+              this.employeeID = id;
+              this.employeeType = logInConfirmation;
             }
             this.send(Packet.LOGINCONFIRMATION, logInConfirmation);
           } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
@@ -68,7 +71,6 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTMENU) {
             System.out.println("Sending menu");
             Menu menu = Menu.getInstance();
-//            menu.readFromFile(); TODO: I don't need this right?
             this.send(Packet.RECEIVEMENU, menu.getDishes());
           } else if (packet.getType() == Packet.REQUESTINVENTORY) {
             System.out.println("Sending inventory");
@@ -83,7 +85,6 @@ class ClientThread implements Runnable {
             ComputerServer computerServer = ComputerServer.getInstance();
             ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
             computerServer.broadcast(Packet.RECEIVEADJUSTMENT, newIngredientQuantities);
-//            this.send(Packet.RECEIVEADJUSTMENT, newIngredientQuantities); // TODO: Fix not broadcasting
           } else if (packet.getType() == Packet.EVENT) {
             // Just an event
             EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));
@@ -152,5 +153,18 @@ class ClientThread implements Runnable {
    */
   public int getEmployeeID() {
     return employeeID;
+  }
+
+  /**
+   * Getter for employeeType
+   * 100: Cook
+   * 101: Manager
+   * 102: Server
+   * Outlined in Packet.java
+   *
+   * @return an integer representation of the employee type
+   */
+  public int getEmployeeType() {
+    return employeeType;
   }
 }

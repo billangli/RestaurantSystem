@@ -7,6 +7,7 @@ import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
 import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
+import backend.server.Packet;
 import backend.table.TableManager;
 
 import java.io.*;
@@ -131,18 +132,23 @@ public class  RestaurantSystem {
   }
 
   // TODO: Move this somewhere else where it makes more sense
-  public static String logIn(int id) {
+  public static int logIn(int id) {
     Employee employee = EmployeeManager.getEmployeeById(id);
     if (employee == null) {
-      return "Failed";
+      logger.info("Employee log in failed, employee ID: " + Integer.toString(id));
+      return Packet.LOGINFAILED;
     } else if (employee instanceof Cook) {
-      return "Cook log in successful";
+      logger.info("Cook log in successful, employee ID: " + Integer.toString(id));
+      return Packet.COOKTYPE;
     } else if (employee instanceof Manager) {
-      return "Manager log in successful";
+      logger.info("Manager log in successful, employee ID: " + Integer.toString(id));
+      return Packet.MANAGERTYPE;
     } else if (employee instanceof Server) {
-      return "Server log in successful";
+      logger.info("Server log in successful, employee ID: " + Integer.toString(id));
+      return Packet.SERVERTYPE;
     }
-    return "Failed";
+    logger.info("Employee log in failed, employee ID: " + Integer.toString(id));
+    return Packet.LOGINFAILED;
   }
 
   public static void main(String[] args) throws IOException {
@@ -154,7 +160,6 @@ public class  RestaurantSystem {
     ComputerServer computerServer = ComputerServer.getInstance();
 
     // Initializing Logger.
-
-    //        Application.launch(args);
+    //        Application.launch(args); TODO: What is this?
   }
 }
