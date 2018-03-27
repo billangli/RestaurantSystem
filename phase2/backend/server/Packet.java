@@ -26,7 +26,8 @@ public class Packet implements Serializable {
 
   // Adjust ingredient
   public static final int ADJUSTINGREDIENT = 30;
-  public static final int RECEIVEADJUSTMENT = -30;
+  public static final int ADJUSTINDIVIDUALINGREDIENT = 31;
+  public static final int RECEIVEINGREDIENTADJUSTMENT = -30;
 
   // Event Type
   public static final int RECEIVEINGREDIENT = 55;

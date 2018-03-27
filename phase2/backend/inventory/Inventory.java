@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 
 /**
  * Inventory class represents the backend.inventory of ingredients in the Restaurant.
- *
  * <p>
- *
+ * <p>
+ * <p>
  * <p>Inventory methods include, but are not limited to, modifying quantity of each ingredient in
  * the backend.inventory, adding Ingredient to the backend.inventory, and creating a String that
  * lists each ingredient in the backend.inventory and its stock.
@@ -31,7 +31,8 @@ public class Inventory implements Serializable {
     return ingredientsInventory.get(ingredientName);
   }
 
-  private Inventory(){}
+  private Inventory() {
+  }
 
   public static Inventory getInstance() {
     return instance;
@@ -41,17 +42,20 @@ public class Inventory implements Serializable {
     return getInstance();
   }
 
-  public void setStock(HashMap<String,InventoryIngredient> in){
+  public void setStock(HashMap<String, InventoryIngredient> in) {
     instance.ingredientsInventory = in;
   }
 
-  public void modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
+  public ArrayList<InventoryIngredient> modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     stockIngredient.modifyMirrorQuantity(quantityUnits);
+    ArrayList<InventoryIngredient> newDisplayQuantity = new ArrayList<>();
+    newDisplayQuantity.add(stockIngredient);
+    return newDisplayQuantity;
   }
 
   public ArrayList<InventoryIngredient> modifyIngredientMirrorQuantity(
-      ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
+          ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
     ArrayList<InventoryIngredient> newDisplayQuantity = new ArrayList<>();
 
     for (DishIngredient dishIngredient : dishIngredientList) {
@@ -82,7 +86,7 @@ public class Inventory implements Serializable {
    * negative, then subtract the quantity of the ingredient in the Inventory by quantityUnits
    *
    * @param ingredientName the name of the Ingredient to be added or subtracted
-   * @param quantityUnits quantity of the Ingredient to be added or subtracted
+   * @param quantityUnits  quantity of the Ingredient to be added or subtracted
    */
   public void modifyIngredientQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
@@ -101,7 +105,7 @@ public class Inventory implements Serializable {
    * ingredientName
    *
    * @param ingredientName the name of the InventoryIngredient that needs to be requested for
-   *     restock
+   *                       restock
    */
   private void createRequest(String ingredientName) {
     // create a sendRequest as text that is to be stored in requests.txt for the manager
@@ -145,7 +149,9 @@ public class Inventory implements Serializable {
     ingredientsInventory.put(ingredient.getName(), ingredient);
   }
 
-  /** Returns the String of list of ingredients and its stock */
+  /**
+   * Returns the String of list of ingredients and its stock
+   */
   public void inventoryToString() {
 
     ArrayList<String> listOfKeys = new ArrayList<>(ingredientsInventory.keySet());
@@ -155,13 +161,14 @@ public class Inventory implements Serializable {
     StringBuilder logString = new StringBuilder("List of ingredients in stock: \n");
     for (String ingredientName : listOfKeys) {
       logString.append(
-          String.format(
-              "%-17s %d%n",
-              ingredientName, ingredientsInventory.get(ingredientName).getQuantity()));
+              String.format(
+                      "%-17s %d%n",
+                      ingredientName, ingredientsInventory.get(ingredientName).getQuantity()));
     }
     logger.info(logString.toString());
   }
-    public HashMap<String, InventoryIngredient> getIngredientsInventory() {
-        return ingredientsInventory;
-    }
+
+  public HashMap<String, InventoryIngredient> getIngredientsInventory() {
+    return ingredientsInventory;
+  }
 }

@@ -188,6 +188,23 @@ Client implements Runnable {
     menuController.updateInventory(newIngredientQuantities);
   }
 
+  public void sendAdjustIngredientRequest(DishIngredient ingredient, int quantity) {
+    this.send(Packet.ADJUSTINDIVIDUALINGREDIENT, new Object[]{ingredient, quantity});
+
+    // Waiting for the Server to respond
+    System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
+    while (!this.objectIsReady) ;
+
+    this.objectIsReady = false;
+    Packet packet = (Packet) this.object;
+
+    System.out.println("Received " + packet.getObject());
+
+    ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
+    MenuController menuController = (MenuController) stored.get("menuController");
+    menuController.updateInventory(newIngredientQuantities);
+  }
+
   public void sendEvent(int methodName, ArrayList parameters) {
     Packet packet = new Packet(methodName, parameters);
     this.send(methodName, parameters);

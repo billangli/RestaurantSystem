@@ -4,10 +4,7 @@ import backend.RestaurantSystem;
 import backend.employee.ServiceEmployee;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
-import backend.inventory.DishIngredient;
-import backend.inventory.Inventory;
-import backend.inventory.InventoryIngredient;
-import backend.inventory.Menu;
+import backend.inventory.*;
 import backend.logger.RestaurantLogger;
 import backend.table.TableManager;
 
@@ -30,6 +27,9 @@ class ClientThread implements Runnable {
   private boolean loggedOn = false;
   private int employeeID = -1;
   private int employeeType = -1;
+
+  private Inventory inventory = Inventory.getInstance();
+  private ComputerServer computerServer = ComputerServer.getInstance();
 
   private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
@@ -98,7 +98,14 @@ class ClientThread implements Runnable {
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
             ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
-            computerServer.broadcast(Packet.RECEIVEADJUSTMENT, newIngredientQuantities);
+            computerServer.broadcast(Packet.RECEIVEINGREDIENTADJUSTMENT, newIngredientQuantities);
+          } else if (packet.getType() == Packet.ADJUSTINDIVIDUALINGREDIENT) {
+            System.out.println("Adjusting individual ingredient");
+            Object[] infoArray = (Object[]) packet.getObject();
+            DishIngredient ingredient = (DishIngredient) infoArray[0];
+            int quantity = (int) infoArray[1];
+            ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(ingredient.getName(), quantity);
+            computerServer.broadcast(Packet.RECEIVEINGREDIENTADJUSTMENT, newIngredientQuantities);
           } else if (packet.isEventType()) {
             // Just an event
             EventManager.addEvent(createEvent(packet)); // TODO: Broadcast when Inventory is changed

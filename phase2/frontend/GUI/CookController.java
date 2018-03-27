@@ -45,9 +45,7 @@ public class CookController {
   private ObservableList<Dish> getDishesInProgress() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    // TODO: In backend, get ServiceEmployee.getOrderQueue().DishesInProgress
     LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESINPROGRESS);
-    /* ------------------------------------------------------------------------------------------ */
 
     dishes.addAll(dishesInProgress);
 
@@ -57,9 +55,7 @@ public class CookController {
   private ObservableList<Dish> getDishesInFirstOrderQueue() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    /* TODO: In backend, get ServiceEmployee.getOrderQueue().ordersInQueue  */
     LinkedList<Order> ordersInQueue = (LinkedList<Order>) client.sendRequest(Packet.REQUESTORDERSINQUEUE);
-    /* ------------------------------------------------------------------------------------------ */
 
     numOfOrdersInQueue = ordersInQueue.size();
     numOfOrderLabel.setText(Integer.toString(numOfOrdersInQueue));
@@ -78,7 +74,7 @@ public class CookController {
 
   @FXML
   private void getOrderButtonClicked() {
-    client.sendEvent(Packet.ORDERRECEIVED); // TODO: In backend, cookObject.orderReceived() has to be called
+    client.sendEvent(Packet.ORDERRECEIVED);
     /* (cookObject).orderReceived(); */
     /* ------------------------------------------------------------------------------------------ */
 

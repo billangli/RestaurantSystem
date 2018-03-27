@@ -16,6 +16,7 @@ public class Table implements Serializable {
   private int tableNum;
   private int numOfCustomer;
   private float cost;
+  private boolean occupied;
   private Server server;
   private ArrayList<Order> order;
 
@@ -26,6 +27,7 @@ public class Table implements Serializable {
    */
   public Table(int tableNum) {
     this.tableNum = tableNum;
+    this.occupied = false;
     order = new ArrayList<>();
     cost = 0;
     numOfCustomer = 0;
@@ -36,6 +38,7 @@ public class Table implements Serializable {
     server = null;
     cost = 0;
     order = new ArrayList<>();
+    this.occupied = false;
   }
 
   /**
@@ -46,6 +49,7 @@ public class Table implements Serializable {
   public void serve(Server server, int numOfCustomer) {
     this.server = server;
     this.numOfCustomer = numOfCustomer;
+    this.occupied = true;
   }
 
   /**
@@ -118,5 +122,14 @@ public class Table implements Serializable {
 
   public int getNumOfCustomer() {
     return numOfCustomer;
+  }
+
+  /**
+   * Returns true if table is occupied, false if not
+   *
+   * @return the boolean
+   */
+  public boolean isOccupied() {
+    return occupied;
   }
 }
