@@ -128,4 +128,20 @@ public class ComputerServer implements Runnable {
       }
     }
   }
+
+  /**
+   * Broadcast by employee type
+   *
+   * @param employeeType is
+   * @param type
+   * @param message
+   */
+  void broadcast(String employeeType, int type, Object message) {
+    for (ClientThread client : clients) {
+      if (client.isLoggedOn()) {
+        System.out.println("Broadcasting to " + client);
+        client.send(type, message);
+      }
+    }
+  }
 }

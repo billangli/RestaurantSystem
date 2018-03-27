@@ -127,9 +127,8 @@ Client implements Runnable {
     this.send(Packet.LOGINREQUEST, Integer.parseInt(id));
 
     // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to log in sendResourceRequest...");
-    while (!this.objectIsReady) {
-    }
+    System.out.println("Waiting for ComputerServer to respond to log in request...");
+    while (!this.objectIsReady);
 
     // Return the employee type to the GUI
     System.out.println("Employee Type is ready");
@@ -166,9 +165,8 @@ Client implements Runnable {
     }
 
     // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to sendResourceRequest...");
-    while (!this.objectIsReady) {
-    }
+    System.out.println("Waiting for ComputerServer to respond to request...");
+    while (!this.objectIsReady);
 
     // Return the employee type to the GUI
     System.out.println("Object is ready");
@@ -182,8 +180,7 @@ Client implements Runnable {
 
     // Waiting for the Server to respond
     System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
-    while (!this.objectIsReady) {
-    }
+    while (!this.objectIsReady);
 
     this.objectIsReady = false;
     Packet packet = (Packet) this.object;
