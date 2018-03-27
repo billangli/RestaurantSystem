@@ -7,6 +7,7 @@ import backend.inventory.DishIngredient;
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
+import backend.logger.RestaurantLogger;
 import backend.table.TableManager;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import static backend.inventory.Inventory.getInstance;
 
@@ -27,6 +29,8 @@ class ClientThread implements Runnable {
   private boolean loggedOn = false;
   private int employeeID = -1;
   private int employeeType = -1;
+
+  private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * Constructor for Client Thread
@@ -107,31 +111,18 @@ class ClientThread implements Runnable {
   }
 
   /**
-   * Send a string to the client
+   * Send an object to the client
    *
    * @param type   is the type of the message
    * @param object is what is being sent
    */
   void send(int type, Object object) {
-    System.out.println("Sending \"" + object + "\"");
+    System.out.println("Sending " + object.getClass() +": \"" + object + "\" to " + this.employeeType + this.employeeID);
+    logger.info("Sending " + object.getClass() +": \"" + object + "\" to " + this.employeeType + this.employeeID);
 
     Packet packet = new Packet(type, object);
     try {
       this.output.writeObject(packet);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * Sends a serialized object to the Client
-   *
-   * @param object is what is being sent
-   */
-  void sendObject(Object object) {
-    System.out.println("Sending " + object.getClass());
-    try {
-      this.output.writeObject(object);
     } catch (IOException e) {
       e.printStackTrace();
     }

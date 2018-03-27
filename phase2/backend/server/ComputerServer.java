@@ -1,10 +1,13 @@
 package backend.server;
 
+import backend.logger.RestaurantLogger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 // Singleton pattern
 public class ComputerServer implements Runnable {
@@ -17,6 +20,8 @@ public class ComputerServer implements Runnable {
 
   private static final int PORT = 6000;
   private boolean isRunning;
+
+  private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * ComputerServer constructor
@@ -80,28 +85,46 @@ public class ComputerServer implements Runnable {
    *
    * @param employeeID is the employee's ID
    * @param message    is the message to be delivered
-   * @return true if the employee is logged on and message delivered, false if not
    */
-  boolean send(int employeeID, int type, String message) {
-    boolean messageSent = false;
-
+  void send(int employeeID, int type, String message) {
     for (ClientThread client : clients) { // TODO: A single person can sign on multiple times
       if (client.isLoggedOn()) {
         if (client.getEmployeeID() == employeeID) {
           client.send(type, message);
-          messageSent = true;
         }
       }
     }
-
-    return messageSent;
   }
 
-  void broadcast(int type, Object message) {
+  /**
+   * Sending a message to every client that is logged on
+   *
+   * @param messageType is the type of message being sent (protocol defined in Packet.java)
+   * @param message is the message
+   */
+  void broadcast(int messageType, Object message) {
+    logger.info("Broadcasting to all employees");
     for (ClientThread client : clients) {
       if (client.isLoggedOn()) {
-        System.out.println("Broadcasting to " + client);
-        client.send(type, message);
+        client.send(messageType, message);
+      }
+    }
+  }
+
+  /**
+   * Sending a message to every client that is logged on and has the given employee type
+   *
+   * @param employeeType is the employee type
+   * @param messageType is the type of message being sent (protocol defined in Packet.java)
+   * @param message is the message being sent
+   */
+  void broadcast(int employeeType, int messageType, Object message) {
+    logger.info("Broadcasting to employee type " + employeeType);
+    for (ClientThread client : clients) {
+      if (client.isLoggedOn()) {
+        if (client.getEmployeeType() == employeeType) {
+          client.send(messageType, message);
+        }
       }
     }
   }
