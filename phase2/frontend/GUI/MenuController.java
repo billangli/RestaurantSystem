@@ -46,12 +46,12 @@ public class MenuController{
     }
 
 
-    public void updateInventory(ArrayList changed) {
-        for(Object in: changed){
-            InventoryIngredient inventoryIngredient = (InventoryIngredient) in;
-            String name = inventoryIngredient.getName();
-            InventoryIngredient ingredient = inventory.getIngredient(name);
-            ingredient.setQuantity(inventoryIngredient.getMirrorQuantity());
+    public void updateInventory(HashMap newDisplayQuantity) {
+        for(Object i: newDisplayQuantity.keySet()){
+            String ingredientName = (String) i;
+            int mirrorQuantity = (int) newDisplayQuantity.get(i);
+            InventoryIngredient inventoryIngredient = inventory.getIngredient(ingredientName);
+            inventoryIngredient.setQuantity(mirrorQuantity);
         }
         updateMenu();
     }

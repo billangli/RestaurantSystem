@@ -4,7 +4,9 @@ import backend.RestaurantSystem;
 import backend.employee.ServiceEmployee;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
-import backend.inventory.*;
+import backend.inventory.DishIngredient;
+import backend.inventory.Inventory;
+import backend.inventory.Menu;
 import backend.logger.RestaurantLogger;
 import backend.table.TableManager;
 
@@ -13,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import static backend.inventory.Inventory.getInstance;
@@ -97,14 +100,14 @@ class ClientThread implements Runnable {
             boolean decrease = (Boolean) infoArray[1];
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
-            ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
+            HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
             computerServer.broadcast(Packet.RECEIVEINGREDIENTADJUSTMENT, newIngredientQuantities);
           } else if (packet.getType() == Packet.ADJUSTINDIVIDUALINGREDIENT) {
             System.out.println("Adjusting individual ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
             DishIngredient ingredient = (DishIngredient) infoArray[0];
             int quantity = (int) infoArray[1];
-            ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(ingredient.getName(), quantity);
+            HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(ingredient.getName(), quantity);
             computerServer.broadcast(Packet.RECEIVEINGREDIENTADJUSTMENT, newIngredientQuantities);
           } else if (packet.isEventType()) {
             // Just an event

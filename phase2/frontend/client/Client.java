@@ -1,7 +1,6 @@
 package frontend.client;
 
 import backend.inventory.DishIngredient;
-import backend.inventory.InventoryIngredient;
 import backend.server.Packet;
 import frontend.GUI.MenuController;
 
@@ -102,10 +101,17 @@ Client implements Runnable {
             // Confirm log in or not
             confirmLogIn((int) packet.getObject());
           } else if (Math.abs(packet.getType()) <= 10) {
-              // Receive resource protocol
-              this.objectIsReady = true;
+            // Receive resource protocol
+            this.objectIsReady = true;
           } else if (packet.getType() == Packet.RECEIVEINGREDIENTADJUSTMENT) {
-              this.objectIsReady = true;
+            this.objectIsReady = true;
+
+            // Kinda sketch because I'm doing it twice
+            this.objectIsReady = false;
+            System.out.println("Received " + packet.getObject());
+            HashMap newDisplayQuantity = (HashMap) packet.getObject();
+            MenuController menuController = (MenuController) stored.get("menuController");
+            menuController.updateInventory(newDisplayQuantity);
           } else {
             System.out.println("*** Packet type invalid ***");
           }
@@ -185,9 +191,9 @@ Client implements Runnable {
 
     System.out.println("Received " + packet.getObject());
 
-    ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
+    HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
-    menuController.updateInventory(newIngredientQuantities);
+    menuController.updateInventory(newDisplayQuantity);
   }
 
   public void sendAdjustIngredientRequest(DishIngredient ingredient, int quantity) {
@@ -202,9 +208,9 @@ Client implements Runnable {
 
     System.out.println("Received " + packet.getObject());
 
-    ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
+    HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
-    menuController.updateInventory(newIngredientQuantities);
+    menuController.updateInventory(newDisplayQuantity);
   }
 
   public void sendEvent(int methodName, ArrayList parameters) {

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Inventory implements Serializable {
   private static Inventory instance = new Inventory();
-  private HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
+  private volatile HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
@@ -46,17 +46,17 @@ public class Inventory implements Serializable {
     instance.ingredientsInventory = in;
   }
 
-  public ArrayList<InventoryIngredient> modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
+  public HashMap modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
     stockIngredient.modifyMirrorQuantity(quantityUnits);
-    ArrayList<InventoryIngredient> newDisplayQuantity = new ArrayList<>();
-    newDisplayQuantity.add(stockIngredient);
+    HashMap<String, Integer> newDisplayQuantity = new HashMap<>();
+    newDisplayQuantity.put(stockIngredient.getName(), stockIngredient.getMirrorQuantity());
     return newDisplayQuantity;
   }
 
-  public ArrayList<InventoryIngredient> modifyIngredientMirrorQuantity(
+  public HashMap modifyIngredientMirrorQuantity(
           ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
-    ArrayList<InventoryIngredient> newDisplayQuantity = new ArrayList<>();
+    HashMap<String, Integer> newDisplayQuantity = new HashMap<>();
 
     for (DishIngredient dishIngredient : dishIngredientList) {
       InventoryIngredient stockIngredient = ingredientsInventory.get(dishIngredient.getName());
@@ -67,7 +67,7 @@ public class Inventory implements Serializable {
         quantityUnits *= -1;
       }
       stockIngredient.modifyMirrorQuantity(quantityUnits);
-      newDisplayQuantity.add(stockIngredient);
+      newDisplayQuantity.put(stockIngredient.getName(), stockIngredient.getMirrorQuantity());
     }
     return newDisplayQuantity;
   }
