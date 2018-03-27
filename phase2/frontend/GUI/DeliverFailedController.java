@@ -1,9 +1,12 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import static frontend.GUI.FXMain.client;
 
 public class DeliverFailedController {
   @FXML private TextField tf;
@@ -15,7 +18,7 @@ public class DeliverFailedController {
       if (tf.getText().length() > 0) {
           int dishNumber = Integer.parseInt(tf.getText());
 
-          /* TODO: In backend, (serverObject).deliverDishFailed(dishNumber) should be called*/
+          client.sendEvent(Packet.DELIVERDISHFAILED, dishNumber);// TODO: In backend, (serverObject).deliverDishFailed(dishNumber) should be called
           // (serverObject).deliverDishFailed(dishNumber)
           /* ------------------------------------------------------------------------------------------ */
 

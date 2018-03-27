@@ -1,9 +1,10 @@
 package frontend.GUI;
 
-import backend.employee.OrderQueue;
 import backend.employee.ServiceEmployee;
 import backend.inventory.Dish;
+import backend.server.Packet;
 import backend.table.Order;
+import frontend.client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,6 +31,8 @@ public class CookController {
   @FXML private TableColumn<Dish, String> nameColumn2;
   @FXML private TableColumn<Dish, Integer> numberColumn2;
   private int numOfOrdersInQueue;
+
+  private Client client = Client.getInstance();
 
   public void setmyId(int id) {
     myId = id;
@@ -76,7 +79,7 @@ public class CookController {
 
   @FXML
   private void getOrderButtonClicked() {
-    /* TODO: In backend, cookObject.orderReceived() has to be called */
+    client.sendEvent(Packet.ORDERRECEIVED); // TODO: In backend, cookObject.orderReceived() has to be called
     /* (cookObject).orderReceived(); */
     /* ------------------------------------------------------------------------------------------ */
 
@@ -86,13 +89,13 @@ public class CookController {
   @FXML
   private void finishedButtonClicked() {
     Dish selectedDish = tableViewDishesInProgress.getSelectionModel().getSelectedItem();
-    int dishNumber;
+    int dishNumber = -1; // TODO: Bill added this because it might not have been initialized
 
     if (selectedDish != null) {
       dishNumber = selectedDish.getDishNumber();
     }
 
-    /* TODO: In backend, cookObject.dishReady(dishNumber) has to be called */
+    client.sendEvent(Packet.DISHREADY, dishNumber);// TODO: In backend, cookObject.dishReady(dishNumber) has to be called
     /* (cookObject).dishReady(dishNumber); */
     /* ------------------------------------------------------------------------------------------ */
 

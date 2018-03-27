@@ -89,9 +89,9 @@ class ClientThread implements Runnable {
             ComputerServer computerServer = ComputerServer.getInstance();
             ArrayList<InventoryIngredient> newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
             computerServer.broadcast(Packet.RECEIVEADJUSTMENT, newIngredientQuantities);
-          } else if (packet.getType() == Packet.EVENT) {
+          } else if (packet.isEventType()) {
             // Just an event
-            EventManager.addEvent(new ProcessableEvent((String) packet.getObject()));
+            EventManager.addEvent(createEvent(packet)); // TODO: Broadcast when Inventory is changed
           }
         }
       } catch (IOException e) {
@@ -126,6 +126,12 @@ class ClientThread implements Runnable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private ProcessableEvent createEvent (Packet packet) {
+    int methodName = packet.getType();
+    ArrayList parameters = (ArrayList) packet.getObject();
+    return new ProcessableEvent(this.employeeType, this.employeeID, methodName, parameters);
   }
 
   /**

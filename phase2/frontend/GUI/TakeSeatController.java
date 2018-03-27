@@ -2,11 +2,11 @@ package frontend.GUI;
 
 import frontend.client.Client;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class TakeSeatController {
             // Change the color of the table into COLOR_OCCUPIED
             rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
 
-            /* TODO: In backend, call takeSeat() method */
+            // TODO: In backend, call takeSeat() method (need number of customers)
             //(serverObj).takeSeat(TableManager.getTable(tableNumber - 1), Integer.parseInt(tf.getText()));
             /* ------------------------------------------------------------------------------------------ */
 

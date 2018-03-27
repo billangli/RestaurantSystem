@@ -122,8 +122,9 @@ public class ProcessableEvent extends Event {
       case Packet.TAKESEAT:
         {
           int tableNumber = Integer.parseInt((String) this.parameters.get(0)) - 1;
+          int numberOfCustomers = Integer.parseInt((String) this.parameters.get(1));
           Table table = TableManager.getTable(tableNumber);
-          server.takeSeat(table, 1);
+          server.takeSeat(table, numberOfCustomers);
           break;
         }
       case Packet.ENTERMENU:

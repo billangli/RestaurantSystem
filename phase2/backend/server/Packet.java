@@ -59,8 +59,21 @@ public class Packet implements Serializable {
     this.object = object;
   }
 
+  /**
+   * Packet constructor without object
+   *
+   * @param type   is the type of the object
+   */
+  public Packet(int type) {
+    this.type = type;
+  }
+
   public int getType() {
     return type;
+  }
+
+  public boolean isEventType() {
+    return (this.type >= 50) && (this.type < 80);
   }
 
   public Object getObject() {

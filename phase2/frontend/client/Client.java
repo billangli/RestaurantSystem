@@ -191,8 +191,18 @@ Client implements Runnable {
     menuController.updateInventory(newIngredientQuantities);
   }
 
-  public void sendEvent(String event) {
+  public void sendEvent(int methodName, ArrayList parameters) {
+    Packet packet = new Packet(methodName, parameters);
+  }
 
+  public void sendEvent(int methodName, Object parameter) {
+    ArrayList<Object> parameters = new ArrayList<>();
+    parameters.add(parameter);
+    Packet packet = new Packet(methodName, parameters);
+  }
+
+  public void sendEvent(int methodName) {
+    Packet packet = new Packet(methodName);
   }
 
   public void store(String name, Object o){
