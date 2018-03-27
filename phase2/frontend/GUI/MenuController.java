@@ -35,6 +35,7 @@ public class MenuController{
     Menu menu = Menu.getInstance();
 
     Order dishOrder = new Order();
+    HashMap<String,Dish> order = new HashMap<>();
 
     public void setMyId(int myId) {
         this.myId = myId;
@@ -50,7 +51,7 @@ public class MenuController{
             InventoryIngredient inventoryIngredient = (InventoryIngredient) in;
             String name = inventoryIngredient.getName();
             InventoryIngredient ingredient = inventory.getIngredient(name);
-            ingredient.setQuantity(inventoryIngredient.getQuantity());
+            ingredient.setQuantity(inventoryIngredient.getMirrorQuantity());
         }
         updateMenu();
     }
@@ -103,7 +104,7 @@ public class MenuController{
                    }
                    client.sendAdjustIngredientRequest(dishIngredients, true);
 
-
+                   order.put(""+numoforder, dish);
                    dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {

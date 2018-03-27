@@ -45,10 +45,4 @@ public abstract class Ingredient implements Serializable {
     return this.name;
   }
 
-  public void setQuantity(int amount){
-    if(this.quantity != amount){
-      System.out.println("CHANGED");
-    }
-    this.quantity = amount;
-  }
 }

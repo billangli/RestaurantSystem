@@ -93,5 +93,9 @@ public class InventoryIngredient extends Ingredient {
   public boolean getIsUnderThreshold() {
     return this.isUnderThreshold;
   }
+
+  public void setQuantity(int amount){
+    this.mirrorQuantity = amount;
+  }
 }
 

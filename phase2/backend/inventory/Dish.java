@@ -88,17 +88,7 @@ public class Dish extends DishRecipe {
         }
     }
 
-    public boolean canDishBeCooked() {
-        for (String ingredientName : ingredientsRequired.keySet()) {
-            int quantityRequiredForThisIngredient = ingredientsRequired.get(ingredientName).getQuantity();
 
-            if (!inventory.isInventoryIngredientEnough(ingredientName, quantityRequiredForThisIngredient)) {
-                return false;
-            }
-
-        }
-        return true;
-    }
 
     public void updateProjectedIngredientsStock() {
         for (String ingredientName : ingredientsRequired.keySet()) {
