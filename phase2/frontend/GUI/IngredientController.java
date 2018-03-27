@@ -1,6 +1,6 @@
 package frontend.GUI;
 
-import backend.inventory.DefaultDish;
+import backend.inventory.DishRecipe;
 import backend.inventory.Dish;
 import backend.inventory.DishIngredient;
 import javafx.event.ActionEvent;

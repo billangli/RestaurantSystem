@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating
  * a string with the name of its dish and its cost.
  */
-public class Dish extends DefaultDish {
+public class Dish extends DishRecipe {
     private int dishNumber;
     private static int countDish = 0;
     private Table table;
@@ -43,7 +43,7 @@ public class Dish extends DefaultDish {
      *
      * @param menuDish is the dish in the menu
      */
-    public Dish(DefaultDish menuDish) {
+    public Dish(DishRecipe menuDish) {
         super(menuDish.name, menuDish.cost, menuDish.ingredientsRequired);
     }
 
