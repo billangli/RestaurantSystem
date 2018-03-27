@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -8,58 +9,55 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="frontend.GUI.CookController">
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.GUI.CookController">
     <children>
+      <AnchorPane prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="524.0" layoutY="3.0" mnemonicParsing="false" text="Sign out" onAction="#logOff"/>
+         </children>
+      </AnchorPane>
         <HBox prefHeight="30.0" prefWidth="200.0">
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dishes in progress" textAlignment="CENTER"
-                      wrappingWidth="300.0">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dishes in progress" textAlignment="CENTER" wrappingWidth="300.0">
                     <font>
-                        <Font size="20.0"/>
+                        <Font size="20.0" />
                     </font>
                 </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next dishes to cook" textAlignment="CENTER"
-                      wrappingWidth="300.0">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next dishes to cook" textAlignment="CENTER" wrappingWidth="300.0">
                     <font>
-                        <Font size="20.0"/>
+                        <Font size="20.0" />
                     </font>
                 </Text>
             </children>
         </HBox>
-        <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="330.0" minWidth="600.0"
-              prefHeight="374.0" prefWidth="600.0">
+        <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="330.0" minWidth="600.0" prefHeight="374.0" prefWidth="600.0">
             <children>
                 <TableView fx:id="tableViewDishesInProgress" prefHeight="374.0" prefWidth="300.0">
                     <columns>
-                        <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false"
-                                     text="Dish name">
+                        <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false" text="Dish name">
                             <cellValueFactory>
-                                <PropertyValueFactory property="name"/>
+                                <PropertyValueFactory property="name" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="numberColumn1" editable="false" prefWidth="125.0" sortable="false"
-                                     text="Dish number">
+                        <TableColumn fx:id="numberColumn1" editable="false" prefWidth="125.0" sortable="false" text="Dish number">
                             <cellValueFactory>
-                                <PropertyValueFactory property="dishNumber"/>
+                                <PropertyValueFactory property="dishNumber" />
                             </cellValueFactory>
                         </TableColumn>
                     </columns>
                 </TableView>
                 <TableView fx:id="tableViewDishesInQueue" prefHeight="200.0" prefWidth="300.0">
                     <columns>
-                        <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false"
-                                     text="Dish name">
+                        <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false" text="Dish name">
                             <cellValueFactory>
-                                <PropertyValueFactory property="name"/>
+                                <PropertyValueFactory property="name" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="numberColumn2" editable="false" prefWidth="125.0" sortable="false"
-                                     text="Dish number">
+                        <TableColumn fx:id="numberColumn2" editable="false" prefWidth="125.0" sortable="false" text="Dish number">
                             <cellValueFactory>
-                                <PropertyValueFactory property="dishNumber"/>
+                                <PropertyValueFactory property="dishNumber" />
                             </cellValueFactory>
                         </TableColumn>
                     </columns>
@@ -68,13 +66,10 @@
         </HBox>
         <AnchorPane prefHeight="84.0" prefWidth="600.0">
             <children>
-                <Text layoutX="340.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Number of orders in queue: "/>
-                <Label fx:id="numOfOrderLabel" layoutX="513.0" layoutY="6.0" text="0"/>
-                <Button fx:id="getOrderButton" layoutX="415.0" layoutY="29.0" mnemonicParsing="false"
-                        text="Get next order" onAction="#getOrderButtonClicked"/>
-                <Button layoutX="107.0" layoutY="29.0" mnemonicParsing="false" onAction="#finishedButtonClicked"
-                        text="Finished"/>
+                <Text layoutX="340.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of orders in queue: " />
+                <Label fx:id="numOfOrderLabel" layoutX="513.0" layoutY="6.0" text="0" />
+                <Button fx:id="getOrderButton" layoutX="415.0" layoutY="29.0" mnemonicParsing="false" onAction="#getOrderButtonClicked" text="Get next order" />
+                <Button layoutX="107.0" layoutY="29.0" mnemonicParsing="false" onAction="#finishedButtonClicked" text="Finished" />
             </children>
         </AnchorPane>
     </children>

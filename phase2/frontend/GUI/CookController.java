@@ -7,12 +7,17 @@ import backend.table.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class CookController {
@@ -97,5 +102,24 @@ public class CookController {
     /* ------------------------------------------------------------------------------------------ */
 
     updateDishesOnTableView();
+  }
+
+  @FXML private void logOff() throws IOException {
+      FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
+      GridPane root = startLoader.load();
+      Scene mainScene = new Scene(root, 600, 600);
+      BackgroundImage mainImage = new BackgroundImage(new Image("hp.jpg", 600, 600, false, true),
+              BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+              BackgroundSize.DEFAULT);
+      root.setBackground(new Background(mainImage));
+
+      StartSceneController paneController = startLoader.getController();
+      paneController.start();
+
+      Stage window = (Stage)(hBox.getScene().getWindow());
+
+      window.setTitle("Welcome to Four Guys Restaurant System");
+      window.setScene(mainScene);
+      window.show();
   }
 }

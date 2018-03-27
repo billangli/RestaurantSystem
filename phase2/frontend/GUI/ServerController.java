@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -260,5 +261,25 @@ public class ServerController  implements Initializable {
                 System.out.println("clear table error");
             }
         }
+    }
+
+    @FXML
+    protected void logOff() throws IOException {
+        FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
+        GridPane root = startLoader.load();
+        Scene mainScene = new Scene(root, 600, 600);
+        BackgroundImage mainImage = new BackgroundImage(new Image("hp.jpg", 600, 600, false, true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        root.setBackground(new Background(mainImage));
+
+        StartSceneController paneController = startLoader.getController();
+        paneController.start();
+
+        Stage window = (Stage)(hBox1.getScene().getWindow());
+
+        window.setTitle("Welcome to Four Guys Restaurant System");
+        window.setScene(mainScene);
+        window.show();
     }
 }
