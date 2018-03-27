@@ -13,7 +13,7 @@ import java.util.HashMap;
  * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating
  * a string with the name of its dish and its cost.
  */
-public class DefaultDish implements Serializable{
+public class DishRecipe implements Serializable{
     protected String name;
     protected HashMap<String, DishIngredient> ingredientsRequired = new HashMap<>();
     //private int dishNumber;
@@ -31,7 +31,7 @@ public class DefaultDish implements Serializable{
      * @param dishPrice is the price of the Dish in dollars
      * @param ingredients is the list of names of the ingredients used for this dish
      */
-    public DefaultDish(String dishName, float dishPrice, String[] ingredients) {
+    public DishRecipe(String dishName, float dishPrice, String[] ingredients) {
         this.name = dishName;
         this.cost = dishPrice;
         //isSent = false;
@@ -44,7 +44,7 @@ public class DefaultDish implements Serializable{
         }
     }
 
-    public DefaultDish(String dishName, float dishPrice, HashMap<String, DishIngredient> ingredientsRequired) {
+    public DishRecipe(String dishName, float dishPrice, HashMap<String, DishIngredient> ingredientsRequired) {
         this.name = dishName;
         this.cost = dishPrice;
         //isSent = false;
