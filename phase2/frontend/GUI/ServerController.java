@@ -157,6 +157,10 @@ public class ServerController  implements Initializable {
             window.initModality(Modality.APPLICATION_MODAL);
             MenuController menuController = (MenuController)client.getStored("menuController");
             menuController.setStage(window);
+
+            // menuController has same id as this contoller.
+            menuController.setMyId(myId);
+
             window.setTitle("Order Food");
             window.setScene(menuScene);
             window.showAndWait();

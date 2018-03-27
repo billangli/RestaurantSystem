@@ -38,12 +38,17 @@ public class MenuController{
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.request("inventory"); //TODO should get menu from web ComputerServer requestMenu()
     Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
+    private int myId;
 
 
     volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
     Menu menu = Menu.getInstance();
 
     Order dishOrder = new Order();
+
+    public void setMyId(int myId) {
+        this.myId = myId;
+    }
 
     public void setStage(Stage stage){
         this.window = stage;

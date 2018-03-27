@@ -7,9 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class PrintBillController {
-  int tableNumber;
-  Table table;
-  String billInfo;
+  private int tableNumber;
+  private Table table;
+  private String billInfo;
 
   @FXML Label tableNumberLabel;
   @FXML Label billToString;
@@ -18,8 +18,8 @@ public class PrintBillController {
   @FXML
   private void initialize() {
     tableNumberLabel.setText(Integer.toString(tableNumber));
-    /* TODO: In backend, get number of customers in table <tableNumber> */
-//    table = TableManager.getTable(tableNumber - 1);
+    /* TODO: In backend, get table with table number <tableNumber> */
+    //    table = TableManager.getTable(tableNumber - 1);
     /* ----------------------------------------------------- */
   }
 
