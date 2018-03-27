@@ -102,8 +102,10 @@ Client implements Runnable {
             // Confirm log in or not
             confirmLogIn((int) packet.getObject());
           } else if (Math.abs(packet.getType()) <= 10) {
-            // Receive resource protocol
-            this.objectIsReady = true;
+              // Receive resource protocol
+              this.objectIsReady = true;
+          } else if (packet.getType() == Packet.RECEIVEINGREDIENTADJUSTMENT) {
+              this.objectIsReady = true;
           } else {
             System.out.println("*** Packet type invalid ***");
           }

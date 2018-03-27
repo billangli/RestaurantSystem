@@ -26,13 +26,13 @@ public class MenuController{
     public Client client = Client.getInstance();
     int numoforder = 0;
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
-    Inventory inventory = Inventory.getInstance();
+    public Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
     private int myId;
 
 
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
-    Menu menu = Menu.getInstance(); // TODO: Should be removed
+    Menu menu = Menu.getInstance();
 
     Order dishOrder = new Order();
 
