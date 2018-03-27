@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Menu implements Serializable {
   private static Menu instance = new Menu();
 
-  private HashMap<String, DishRecipe> dishRecipes = new HashMap<>();
+  private HashMap<String, DishRecipe> menuDishes = new HashMap<>();
   //    private static Inventory backend.inventory;
   //
   //    public Menu(Inventory backend.inventory)throws IOException{
@@ -50,14 +50,14 @@ public class Menu implements Serializable {
         String name = items[0];
         float price = Integer.parseInt(items[1]);
         String[] ingredients = items[2].split(",");
-        this.dishRecipes.put(name, new Dish(name, price, ingredients));
+        this.menuDishes.put(name, new DishRecipe(name, price, ingredients));
         line = fileReader.readLine();
       }
     }
   }
 
-  public void setDishes(HashMap<String, DishRecipe> dishRecipes) {
-    instance.dishRecipes = dishRecipes;
+  public void setDishes(HashMap<String, DishRecipe> menuDishes) {
+    instance.menuDishes = menuDishes;
   }
 
   /**
@@ -67,11 +67,11 @@ public class Menu implements Serializable {
    * @return the copy of the Dish dish
    */
   public Dish makeDish(String name) {
-    DishRecipe dish = instance.dishRecipes.get(name);
+    DishRecipe dish = instance.menuDishes.get(name);
     return new Dish(dish);
   }
 
   public HashMap<String, DishRecipe> getDishes() {
-    return instance.dishRecipes;
+    return instance.menuDishes;
   }
 }

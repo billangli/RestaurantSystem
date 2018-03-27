@@ -32,7 +32,7 @@ public class MenuController{
     private int myId;
 
 
-    volatile HashMap<String, DishRecipe> dishRecipes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
+    volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
     Menu menu = Menu.getInstance(); // TODO: Should be removed
 
     Order dishOrder = new Order();
@@ -77,7 +77,7 @@ public class MenuController{
 
 
     public void initialize() throws IOException{
-        menu.setDishes(dishRecipes);
+        menu.setDishes(menuDishes);
         inventory.setStock(defaultInventory);
         HashMap<String,DishRecipe> dishes = menu.getDishes();
         //set up dishes
