@@ -86,7 +86,7 @@ public class ProcessableEvent extends Event {
         break;
       case Packet.DISHREADY:
         {
-          int dishNumber = Integer.parseInt((String) this.parameters.get(0));
+          int dishNumber = (int) this.parameters.get(0);
           cook.dishReady(dishNumber);
           break;
         }
@@ -121,15 +121,15 @@ public class ProcessableEvent extends Event {
     switch (this.methodName) {
       case Packet.TAKESEAT:
         {
-          int tableNumber = Integer.parseInt((String) this.parameters.get(0)) - 1;
-          int numberOfCustomers = Integer.parseInt((String) this.parameters.get(1));
+          int tableNumber = (int) this.parameters.get(0) - 1;
+          int numberOfCustomers = (int) this.parameters.get(1);
           Table table = TableManager.getTable(tableNumber);
           server.takeSeat(table, numberOfCustomers);
           break;
         }
       case Packet.ENTERMENU:
         {
-          int tableNumber = Integer.parseInt((String) this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
           Table table = TableManager.getTable(tableNumber);
           Order order = (Order) this.parameters.get(1);
           server.enterMenu(table, order);
@@ -137,26 +137,26 @@ public class ProcessableEvent extends Event {
         }
       case Packet.DELIVERDISHCOMPLETED:
         {
-          int dishNumber = Integer.parseInt((String) this.parameters.get(0));
+          int dishNumber = (int) this.parameters.get(0);
           server.deliverDishCompleted(dishNumber);
           break;
         }
       case Packet.DELIVERDISHFAILED:
         {
-          int dishNumber = Integer.parseInt((String) this.parameters.get(0));
+          int dishNumber = (int) this.parameters.get(0);
           server.deliverDishFailed(dishNumber);
           break;
         }
       case Packet.PRINTBILL:
         {
-          int tableNumber = Integer.parseInt((String) this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.printBill(table);
           break;
         }
       case Packet.CLEARTABLE:
         {
-          int tableNumber = Integer.parseInt((String) this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.clearTable(table);
           break;

@@ -38,7 +38,7 @@ public class ClearTableController {
     // <tableNumber>.
 
     rectangleArrayList.get(tableNumber-1).setFill(COLOR_EMPTY);
-    client.sendEvent(Packet.TAKESEAT, 1);
+    client.sendEvent(Packet.TAKESEAT, 1); // TODO: Don't think this is right
 //      (serverObj).clearTable(TableManager.getTable(tableNumber-1));
     /* ------------------------------------------------------------------------------------------ */
     // close the window

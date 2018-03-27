@@ -78,6 +78,18 @@ Client implements Runnable {
     }
   }
 
+  private void send(int type) {
+    if (this.connected) {
+      System.out.println("Sending ");
+      try {
+        Packet packet = new Packet(type);
+        this.output.writeObject(packet);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
   @Override
   public void run() {
     while (this.connected) {
@@ -88,7 +100,7 @@ Client implements Runnable {
 
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
             // Confirm log in or not
-            confirmLogIn((String) packet.getObject());
+            confirmLogIn((int) packet.getObject());
           } else if (packet.getType() == Packet.RECEIVENUMBEROFTABLES) {
             this.objectIsReady = true;
           } else if (packet.getType() == Packet.RECEIVEMENU) {
@@ -111,7 +123,7 @@ Client implements Runnable {
   }
 
   // Methods for GUI to call
-  public String sendLogInRequest(String id) {
+  public int sendLogInRequest(String id) {
     this.send(Packet.LOGINREQUEST, Integer.parseInt(id));
 
     // Waiting for Server to respond
@@ -122,25 +134,17 @@ Client implements Runnable {
     // Return the employee type to the GUI
     System.out.println("Employee Type is ready");
     this.objectIsReady = false;
-    return (String) ((Packet) this.object).getObject();
+    return (int) ((Packet) this.object).getObject();
   }
 
-  private void confirmLogIn(String message) {
-    switch (message) {
-      case "Cook log in successful":
+  private void confirmLogIn(int confirmation) {
+    switch (confirmation) {
+      case Packet.LOGINFAILED:
+        this.loggedIn = false;
+        break;
+      default:
         this.objectIsReady = true;
         this.loggedIn = true;
-        break;
-      case "Manager log in successful":
-        this.objectIsReady = true;
-        this.loggedIn = true;
-        break;
-      case "Server log in successful":
-        this.objectIsReady = true;
-        this.loggedIn = true;
-        break;
-      case "Log in failed":
-        this.objectIsReady = true;
         break;
     }
   }
@@ -193,16 +197,19 @@ Client implements Runnable {
 
   public void sendEvent(int methodName, ArrayList parameters) {
     Packet packet = new Packet(methodName, parameters);
+    this.send(methodName, parameters);
   }
 
   public void sendEvent(int methodName, Object parameter) {
     ArrayList<Object> parameters = new ArrayList<>();
     parameters.add(parameter);
     Packet packet = new Packet(methodName, parameters);
+    this.send(methodName, parameters);
   }
 
   public void sendEvent(int methodName) {
     Packet packet = new Packet(methodName);
+    this.send(methodName);
   }
 
   public void store(String name, Object o){
