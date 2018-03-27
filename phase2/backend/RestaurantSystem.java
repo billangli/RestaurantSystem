@@ -159,6 +159,13 @@ public class  RestaurantSystem {
     eventThread.start();
     ComputerServer computerServer = ComputerServer.getInstance();
 
+//    // Test
+//    Server server = (Server) EmployeeManager.getEmployeeById(0);
+//    server.takeSeat(TableManager.getTable(0), 2);
+//    Order order = new Order();
+//    order.addDish(new Dish("bbq", 3, new String[]{"nugget:4:4:4"}));
+//    server.enterMenu(TableManager.getTable(0), order);
+
     // Initializing Logger.
     //        Application.launch(args); TODO: What is this?
   }

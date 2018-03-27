@@ -3,6 +3,7 @@ package backend.table;
 import backend.employee.Server;
 import backend.inventory.Dish;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * <p>Table class methods include storing the customer's orders, adding orders, adding cost of the
  * order.
  */
-public class Table {
+public class Table implements Serializable {
   private int tableNum;
   private int numOfCustomer;
   private float cost;

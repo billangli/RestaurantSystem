@@ -114,7 +114,6 @@ public class ServerController  implements Initializable {
 
     @FXML
     protected void takeSeat() {
-        //TODO link to server's takeSeat method addTable() in TakeSeatController.java
 
         if (this.selectedTableNumber != 0){
             Stage window = new Stage();
@@ -177,6 +176,7 @@ public class ServerController  implements Initializable {
 
                 PrintBillController controller = loader.getController();
                 controller.tableNumberLabel.setText(Integer.toString(selectedTableNumber));
+                controller.setTableNumber(this.selectedTableNumber);
 
                 window.showAndWait();
             } catch (IOException e) {

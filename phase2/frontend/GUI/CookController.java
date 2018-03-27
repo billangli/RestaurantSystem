@@ -88,13 +88,13 @@ public class CookController {
   @FXML
   private void finishedButtonClicked() {
     Dish selectedDish = tableViewDishesInProgress.getSelectionModel().getSelectedItem();
-    int dishNumber = -1; // TODO: Bill added this because it might not have been initialized
+    int dishNumber = -1;
 
     if (selectedDish != null) {
       dishNumber = selectedDish.getDishNumber();
     }
 
-    client.sendEvent(Packet.DISHREADY, dishNumber);// TODO: In backend, cookObject.dishReady(dishNumber) has to be called
+    client.sendEvent(Packet.DISHREADY, dishNumber);
     /* (cookObject).dishReady(dishNumber); */
     /* ------------------------------------------------------------------------------------------ */
 

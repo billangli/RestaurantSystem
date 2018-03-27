@@ -68,7 +68,7 @@ Client implements Runnable {
 
   private void send(int type, Object object) {
     if (this.connected) {
-      System.out.println("Sending " + object);
+      System.out.println("Sending " + type + " " + object);
       try {
         Packet packet = new Packet(type, object);
         this.output.writeObject(packet);
@@ -80,7 +80,7 @@ Client implements Runnable {
 
   private void send(int type) {
     if (this.connected) {
-      System.out.println("Sending ");
+      System.out.println("Sending " + type);
       try {
         Packet packet = new Packet(type);
         this.output.writeObject(packet);
@@ -101,17 +101,8 @@ Client implements Runnable {
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
             // Confirm log in or not
             confirmLogIn((int) packet.getObject());
-          } else if (packet.getType() == Packet.RECEIVENUMBEROFTABLES) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEMENU) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEINVENTORY) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEADJUSTMENT) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEORDERSINQUEUE) {
+          } else if (Math.abs(packet.getType()) <= 10) {
+            // Receive resource protocol
             this.objectIsReady = true;
           } else {
             System.out.println("*** Packet type invalid ***");
@@ -132,7 +123,7 @@ Client implements Runnable {
 
     // Waiting for Server to respond
     System.out.println("Waiting for ComputerServer to respond to log in request...");
-    while (!this.objectIsReady);
+    while (!this.objectIsReady) ;
 
     // Return the employee type to the GUI
     System.out.println("Employee Type is ready");
@@ -157,7 +148,21 @@ Client implements Runnable {
 
     // Waiting for Server to respond
     System.out.println("Waiting for ComputerServer to respond to request...");
-    while (!this.objectIsReady);
+    while (!this.objectIsReady) ;
+
+    // Return the employee type to the GUI
+    System.out.println("Object is ready");
+    this.objectIsReady = false;
+    System.out.println("Received " + ((Packet) this.object).getObject());
+    return ((Packet) this.object).getObject();
+  }
+
+  public Object sendRequest(int requestType, Object message) {
+    this.send(requestType, message);
+
+    // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request...");
+    while (!this.objectIsReady) ;
 
     // Return the employee type to the GUI
     System.out.println("Object is ready");
@@ -171,7 +176,7 @@ Client implements Runnable {
 
     // Waiting for the Server to respond
     System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
-    while (!this.objectIsReady);
+    while (!this.objectIsReady) ;
 
     this.objectIsReady = false;
     Packet packet = (Packet) this.object;
@@ -179,7 +184,7 @@ Client implements Runnable {
     System.out.println("Received " + packet.getObject());
 
     ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
-    MenuController menuController = (MenuController)stored.get("menuController");
+    MenuController menuController = (MenuController) stored.get("menuController");
     menuController.updateInventory(newIngredientQuantities);
   }
 
@@ -200,11 +205,11 @@ Client implements Runnable {
     this.send(methodName);
   }
 
-  public void store(String name, Object o){
-      stored.put(name, o);
+  public void store(String name, Object o) {
+    stored.put(name, o);
   }
 
-  public Object getStored(String name){
+  public Object getStored(String name) {
     return stored.get(name);
   }
 }

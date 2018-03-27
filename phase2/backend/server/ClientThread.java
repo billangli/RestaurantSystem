@@ -87,7 +87,10 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTORDERSINQUEUE) {
             System.out.println("Sending ordersInQueue");
             this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getOrdersInQueue());
-          }else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
+          } else if (packet.getType() == Packet.REQUESTTABLE) {
+            System.out.println("Sending table");
+            this.send(Packet.RECEIVETABLE, TableManager.getTable((int) packet.getObject()));
+          } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
             System.out.println("Adjusting ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
             ArrayList<DishIngredient> dishIngredients = (ArrayList<DishIngredient>) infoArray[0];
@@ -124,8 +127,8 @@ class ClientThread implements Runnable {
    * @param object is what is being sent
    */
   void send(int type, Object object) {
-    System.out.println("Sending " + object.getClass() +": \"" + object + "\" to " + this.employeeType + this.employeeID);
-    logger.info("Sending " + object.getClass() +": \"" + object + "\" to " + this.employeeType + this.employeeID);
+    System.out.println("Sending " + object.getClass() + ": \"" + object + "\" to " + this.employeeType + this.employeeID);
+    logger.info("Sending " + object.getClass() + ": \"" + object + "\" to " + this.employeeType + this.employeeID);
 
     Packet packet = new Packet(type, object);
     try {
@@ -135,7 +138,7 @@ class ClientThread implements Runnable {
     }
   }
 
-  private ProcessableEvent createEvent (Packet packet) {
+  private ProcessableEvent createEvent(Packet packet) {
     int methodName = packet.getType();
     ArrayList parameters = (ArrayList) packet.getObject();
     return new ProcessableEvent(this.employeeType, this.employeeID, methodName, parameters);

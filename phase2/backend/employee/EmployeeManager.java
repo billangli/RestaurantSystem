@@ -1,7 +1,8 @@
 package backend.employee;
 
-import java.util.ArrayList;
 import backend.logger.RestaurantLogger;
+
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /** An EmployeeManager class. This class manages all the employees working in the restaurant. */
@@ -43,11 +44,11 @@ public class EmployeeManager {
    * @return An Employee instance whose id is equal to <code>id</code>.
    */
   public static Employee getEmployeeById(int id) {
-    if (id < 1 || id > employeeList.size()) {
+    if (id < 0 || id > employeeList.size()) {
       logger.warning("Not a valid backend.employee id.");
       return null;
     } else {
-      return employeeList.get(id - 1);
+      return employeeList.get(id);
     }
   }
 }
