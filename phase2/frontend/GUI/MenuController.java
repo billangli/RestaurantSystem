@@ -105,7 +105,6 @@ public class MenuController{
                    client.sendAdjustIngredientRequest(dishIngredients, true);
 
                    order.put(""+numoforder, dish);
-                   dishOrder.addDish(dish);
                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
@@ -124,7 +123,13 @@ public class MenuController{
                        //TODO update order and inventory updateMenu()
                         @Override public void handle(ActionEvent e) {
                             tableView.getChildren().remove(ordered);
-                            //dishOrder.remove(ordered);
+                            order.remove(ordered.getId());
+                            HashMap<String,DishIngredient> ingredients = dish.getIngredientsRequired();
+                            ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
+                            for(String in: ingredients.keySet()){
+                                dishIngredients.add(ingredients.get(in));
+                            }
+                            client.sendAdjustIngredientRequest(dishIngredients, false);
                         }
                     });
 
