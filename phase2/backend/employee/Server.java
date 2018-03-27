@@ -75,7 +75,7 @@ public class Server extends ServiceEmployee {
               + dish.getDishNumber()
               + ", "
               + dish.getName()
-              + " has been delivered but put back upon customer's request.");
+              + " has been delivered but put back upon customer's sendRequest.");
 
       // Sets price of the dish to zero, while remaining the dish in the backend.table's order list.
       dish.isCancelled();

@@ -4,7 +4,6 @@ import backend.inventory.DishIngredient;
 import backend.inventory.InventoryIngredient;
 import backend.server.Packet;
 import frontend.GUI.MenuController;
-import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -67,11 +66,23 @@ Client implements Runnable {
     return true;
   }
 
-  public void send(int type, Object object) {
+  private void send(int type, Object object) {
     if (this.connected) {
-      System.out.println("Sending " + object);
+      System.out.println("Sending " + type + " " + object);
       try {
         Packet packet = new Packet(type, object);
+        this.output.writeObject(packet);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private void send(int type) {
+    if (this.connected) {
+      System.out.println("Sending " + type);
+      try {
+        Packet packet = new Packet(type);
         this.output.writeObject(packet);
       } catch (IOException e) {
         e.printStackTrace();
@@ -89,14 +100,9 @@ Client implements Runnable {
 
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
             // Confirm log in or not
-            confirmLogIn((String) packet.getObject());
-          } else if (packet.getType() == Packet.RECEIVENUMBEROFTABLES) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEMENU) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEINVENTORY) {
-            this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEADJUSTMENT) {
+            confirmLogIn((int) packet.getObject());
+          } else if (Math.abs(packet.getType()) <= 10) {
+            // Receive resource protocol
             this.objectIsReady = true;
           } else {
             System.out.println("*** Packet type invalid ***");
@@ -112,60 +118,37 @@ Client implements Runnable {
   }
 
   // Methods for GUI to call
-  public String logIn(String id) {
+  public int sendLogInRequest(String id) {
     this.send(Packet.LOGINREQUEST, Integer.parseInt(id));
 
     // Waiting for Server to respond
     System.out.println("Waiting for ComputerServer to respond to log in request...");
-    while (!this.objectIsReady) {
-    }
+    while (!this.objectIsReady) ;
 
     // Return the employee type to the GUI
     System.out.println("Employee Type is ready");
     this.objectIsReady = false;
-    return (String) ((Packet) this.object).getObject();
+    return (int) ((Packet) this.object).getObject();
   }
 
-  private void confirmLogIn(String message) {
-    switch (message) {
-      case "Cook log in successful":
-        this.objectIsReady = true;
-        this.loggedIn = true;
-        break;
-      case "Manager log in successful":
-        this.objectIsReady = true;
-        this.loggedIn = true;
-        break;
-      case "Server log in successful":
-        this.objectIsReady = true;
-        this.loggedIn = true;
-        break;
-      case "Log in failed":
-        this.objectIsReady = true;
-        break;
-    }
-  }
-
-  public Object request(String requestType) {
-    switch (requestType) {
-      case "menu":
-        this.send(Packet.REQUESTMENU, null);
-        break;
-      case "inventory":
-        this.send(Packet.REQUESTINVENTORY, null);
-        break;
-      case "table":
-        this.send(Packet.REQUESTNUMBEROFTABLES, null);
+  private void confirmLogIn(int confirmation) {
+    switch (confirmation) {
+      case Packet.LOGINFAILED:
+        this.loggedIn = false;
         break;
       default:
-        System.out.println("*** Something broke ***");
+        this.objectIsReady = true;
+        this.loggedIn = true;
         break;
     }
+  }
+
+  public Object sendRequest(int requestType) {
+    this.send(requestType);
 
     // Waiting for Server to respond
     System.out.println("Waiting for ComputerServer to respond to request...");
-    while (!this.objectIsReady) {
-    }
+    while (!this.objectIsReady) ;
 
     // Return the employee type to the GUI
     System.out.println("Object is ready");
@@ -174,13 +157,26 @@ Client implements Runnable {
     return ((Packet) this.object).getObject();
   }
 
-  public void adjustIngredient(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
+  public Object sendRequest(int requestType, Object message) {
+    this.send(requestType, message);
+
+    // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request...");
+    while (!this.objectIsReady) ;
+
+    // Return the employee type to the GUI
+    System.out.println("Object is ready");
+    this.objectIsReady = false;
+    System.out.println("Received " + ((Packet) this.object).getObject());
+    return ((Packet) this.object).getObject();
+  }
+
+  public void sendAdjustIngredientRequest(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
 
     // Waiting for the Server to respond
     System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
-    while (!this.objectIsReady) {
-    }
+    while (!this.objectIsReady) ;
 
     this.objectIsReady = false;
     Packet packet = (Packet) this.object;
@@ -188,24 +184,49 @@ Client implements Runnable {
     System.out.println("Received " + packet.getObject());
 
     ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
-    MenuController menuController = (MenuController)stored.get("menuController");
+    MenuController menuController = (MenuController) stored.get("menuController");
     menuController.updateInventory(newIngredientQuantities);
   }
 
-  public void store(String name, Object o){
-      stored.put(name, o);
+  public void sendAdjustIngredientRequest(DishIngredient ingredient, int quantity) {
+    this.send(Packet.ADJUSTINDIVIDUALINGREDIENT, new Object[]{ingredient, quantity});
+
+    // Waiting for the Server to respond
+    System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
+    while (!this.objectIsReady) ;
+
+    this.objectIsReady = false;
+    Packet packet = (Packet) this.object;
+
+    System.out.println("Received " + packet.getObject());
+
+    ArrayList<InventoryIngredient> newIngredientQuantities = (ArrayList<InventoryIngredient>) packet.getObject();
+    MenuController menuController = (MenuController) stored.get("menuController");
+    menuController.updateInventory(newIngredientQuantities);
   }
 
-  public Object getStored(String name){
+  public void sendEvent(int methodName, ArrayList parameters) {
+    Packet packet = new Packet(methodName, parameters);
+    this.send(methodName, parameters);
+  }
+
+  public void sendEvent(int methodName, Object parameter) {
+    ArrayList<Object> parameters = new ArrayList<>();
+    parameters.add(parameter);
+    Packet packet = new Packet(methodName, parameters);
+    this.send(methodName, parameters);
+  }
+
+  public void sendEvent(int methodName) {
+    Packet packet = new Packet(methodName);
+    this.send(methodName);
+  }
+
+  public void store(String name, Object o) {
+    stored.put(name, o);
+  }
+
+  public Object getStored(String name) {
     return stored.get(name);
-  }
-
-  // TODO: Remove this after testing
-  public static void main(String[] args) throws IOException {
-    Client client = Client.getInstance();
-    client.send(Packet.EVENT, "Manager;6;checkInventory;()");
-    client.send(Packet.EVENT, "Server;1;takeSeat;(1)");
-    client.send(Packet.EVENT, "Server;1;enterMenu;(1,(hamburger)|(hamburger:lettuce+2_tomato-1))");
-    client.send(Packet.EVENT, "Server;1;enterMenu;(1,(chicken nuggets(L)))");
   }
 }

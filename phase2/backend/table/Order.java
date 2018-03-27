@@ -2,6 +2,7 @@ package backend.table;
 
 import backend.inventory.Dish;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  *
  * <p>Order class methods include assigning a Dish to a Table,
  */
-public class Order {
+public class Order implements Serializable {
   private ArrayList<Dish> dishes;
   private Table table;
 

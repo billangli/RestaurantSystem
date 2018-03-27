@@ -1,10 +1,13 @@
 package backend.event;
 
 import backend.employee.*;
+import backend.server.Packet;
 import backend.table.Order;
 import backend.table.Table;
 import backend.table.TableManager;
 import backend.logger.RestaurantLogger;
+
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -15,23 +18,33 @@ import java.util.logging.Logger;
 public class ProcessableEvent extends Event {
 
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+
   /**
    * Constructor for ProcessableEvent
    *
-   * @param line is the line of text containing the information to be parsed
+   * @param employeeType is the type of employee
+   * @param employeeID is the employee ID
+   * @param methodName is the name of the method to call
+   * @param parameters are parameters required by the method call
    */
-  public ProcessableEvent(String line) {
-    super(line);
+  public ProcessableEvent(int employeeType, int employeeID, int methodName, ArrayList parameters) {
+    super(employeeType, employeeID, methodName, parameters);
   }
 
   /** Find which type of Employee to cast this backend.employee to and call their methods */
   @Override
   void process() {
-    System.out.println("An event is being processed"); // TODO: remove this
+    System.out.println("An event is being processed");
     Employee employee = EmployeeManager.getEmployeeById(this.employeeID);
 
+    if (this.methodName == Packet.RECEIVEINGREDIENT) {
+      String ingredientName = (String) this.parameters.get(0);
+      int quantity = Integer.parseInt((String) this.parameters.get(1));
+      employee.receiveIngredient(ingredientName, quantity); // TODO: Make sure this works
+    }
+
     switch (this.employeeType) {
-      case "Cook":
+      case Packet.COOKTYPE:
         if (employee instanceof Cook) {
           this.processCookEvent((Cook) employee);
         } else {
@@ -39,7 +52,7 @@ public class ProcessableEvent extends Event {
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
-      case "Manager":
+      case Packet.MANAGERTYPE:
         if (employee instanceof Manager) {
           this.processManagerEvent((Manager) employee);
         } else {
@@ -47,7 +60,7 @@ public class ProcessableEvent extends Event {
               "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
         }
         break;
-      case "ComputerServer":
+      case Packet.SERVERTYPE:
         if (employee instanceof Server) {
           this.processServerEvent((Server) employee);
         } else {
@@ -68,20 +81,13 @@ public class ProcessableEvent extends Event {
    */
   private void processCookEvent(Cook cook) {
     switch (this.methodName) {
-      case "orderReceived":
+      case Packet.ORDERRECEIVED:
         cook.orderReceived();
         break;
-      case "dishReady":
+      case Packet.DISHREADY:
         {
-          int dishNumber = Integer.parseInt(this.parameters.get(0));
+          int dishNumber = (int) this.parameters.get(0);
           cook.dishReady(dishNumber);
-          break;
-        }
-      case "receiveIngredient":
-        {
-          String ingredientName = this.parameters.get(0);
-          int quantity = Integer.parseInt(this.parameters.get(1));
-          cook.receiveIngredient(ingredientName, quantity);
           break;
         }
       default:
@@ -97,16 +103,9 @@ public class ProcessableEvent extends Event {
    */
   private void processManagerEvent(Manager manager) {
     switch (this.methodName) {
-      case "checkInventory":
+      case Packet.CHECKINVENTORY:
         manager.checkInventory();
         break;
-      case "receiveIngredient":
-        {
-          String ingredientName = this.parameters.get(0);
-          int quantity = Integer.parseInt(this.parameters.get(1));
-          manager.receiveIngredient(ingredientName, quantity);
-          break;
-        }
       default:
         logger.warning("*** Manager has no " + this.methodName + " method ***");
         break;
@@ -120,52 +119,46 @@ public class ProcessableEvent extends Event {
    */
   private void processServerEvent(Server server) {
     switch (this.methodName) {
-      case "takeSeat":
+      case Packet.TAKESEAT:
         {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
+          int numberOfCustomers = (int) this.parameters.get(1);
           Table table = TableManager.getTable(tableNumber);
-          server.takeSeat(table, 1);
+          server.takeSeat(table, numberOfCustomers);
           break;
         }
-      case "enterMenu":
+      case Packet.ENTERMENU:
         {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
           Table table = TableManager.getTable(tableNumber);
-          Order order = Event.parseOrder(this.parameters.get(1));
+          Order order = (Order) this.parameters.get(1);
           server.enterMenu(table, order);
           break;
         }
-      case "deliverDishCompleted":
+      case Packet.DELIVERDISHCOMPLETED:
         {
-          int dishNumber = Integer.parseInt(this.parameters.get(0));
+          int dishNumber = (int) this.parameters.get(0);
           server.deliverDishCompleted(dishNumber);
           break;
         }
-      case "deliverDishFailed":
+      case Packet.DELIVERDISHFAILED:
         {
-          int dishNumber = Integer.parseInt(this.parameters.get(0));
+          int dishNumber = (int) this.parameters.get(0);
           server.deliverDishFailed(dishNumber);
           break;
         }
-      case "printBill":
+      case Packet.PRINTBILL:
         {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.printBill(table);
           break;
         }
-      case "clearTable":
+      case Packet.CLEARTABLE:
         {
-          int tableNumber = Integer.parseInt(this.parameters.get(0)) - 1;
+          int tableNumber = (int) this.parameters.get(0) - 1;
           Table table = TableManager.getTable(tableNumber);
           server.clearTable(table);
-          break;
-        }
-      case "receiveIngredient":
-        {
-          String ingredientName = this.parameters.get(0);
-          int quantity = Integer.parseInt(this.parameters.get(1));
-          server.receiveIngredient(ingredientName, quantity);
           break;
         }
       default:

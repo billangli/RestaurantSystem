@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating
  * a string with the name of its dish and its cost.
  */
-public class Dish extends DefaultDish {
+public class Dish extends DishRecipe {
     private int dishNumber;
     private static int countDish = 0;
     private Table table;
@@ -36,6 +36,11 @@ public class Dish extends DefaultDish {
         isSent = false;
     }
 
+    public Dish(DishRecipe dishRecipe) {
+        super(dishRecipe.name, dishRecipe.cost, dishRecipe.ingredientsRequired);
+        isSent = false;
+    }
+
 
     /**
      * A constructor that deep-copies the dish from the menu to create a dish for Order. <code>menuDish
@@ -43,25 +48,37 @@ public class Dish extends DefaultDish {
      *
      * @param menuDish is the dish in the menu
      */
-    public Dish(DefaultDish menuDish) {
-        super(menuDish.name, menuDish.cost, menuDish.ingredientsRequired);
-    }
+//    public Dish(DishRecipe menuDish) {
+//        super(menuDish.name, menuDish.cost, menuDish.ingredientsRequired);
+//    }
 
     /**
-     * Adjusts the ingredient in the dish that is to be added or subtracted to the Order
-     *
+     * if is able to adjusts the ingredient in the dish that is to be added or subtracted to the Order
+     *@return if the adjustment is allowed
      * @param ingredientName name of this Ingredient
      * @param amount the amount of ingredient being added to the Order
      */
-    public void adjustIngredient(String ingredientName, int amount) {
-        System.out.println(ingredientName+" " +amount);
+    public boolean ableToAdjustIngredient(String ingredientName, int amount) {
         if (ingredientsRequired.get(ingredientName).allowed(amount)) {
-            ingredientsRequired.get(ingredientName).modifyQuantity(amount);
+            return true;
+            //ingredientsRequired.get(ingredientName).modifyQuantity(amount);
         } else {
-            logger.warning(
-                    "Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
+            return false;
+//            logger.warning(
+//                    "Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
         }
     }
+
+    /**
+     * adjust the ingredient by this amount
+     * @param ingredientName the name of the ingredient
+     * @param amount the amount is being adjusted
+     */
+    public void adjustIngredient(String ingredientName, int amount){
+        ingredientsRequired.get(ingredientName).modifyQuantity(amount);
+    }
+
+
 
     /** Subtracts all the amounts of ingredients used in backend.inventory to make this dish. */
     public void updateIngredientsStock() {

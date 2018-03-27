@@ -12,7 +12,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class ManagerController {
     @FXML
@@ -33,11 +32,11 @@ public class ManagerController {
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Request.fxml"));
             Parent scene = numLoader.load();
-            window.setTitle("Ingredient request!");
+            window.setTitle("Ingredient sendRequest!");
             window.setScene(new Scene(scene, 600, 600));
             window.showAndWait();
         } catch (IOException e) {
-            System.out.println("request error");
+            System.out.println("sendRequest error");
         }
 
     }

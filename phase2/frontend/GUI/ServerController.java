@@ -1,9 +1,7 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import frontend.client.Client;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,10 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -86,7 +81,7 @@ public class ServerController  implements Initializable {
 
         // Retrieve number of tables from backend.
         System.out.println("Requesting table");
-        numOfTables = (Integer) client.request("table");
+        numOfTables = (Integer) client.sendRequest(Packet.REQUESTNUMBEROFTABLES);
         int sideLength = (int) ceil(sqrt(numOfTables));
 
         for (int i = 0; i < numOfTables; i++) {
@@ -120,7 +115,6 @@ public class ServerController  implements Initializable {
 
     @FXML
     protected void takeSeat() {
-        //TODO link to server's takeSeat method addTable() in TakeSeatController.java
 
         if (this.selectedTableNumber != 0){
             Stage window = new Stage();
@@ -183,6 +177,7 @@ public class ServerController  implements Initializable {
 
                 PrintBillController controller = loader.getController();
                 controller.tableNumberLabel.setText(Integer.toString(selectedTableNumber));
+                controller.setTableNumber(this.selectedTableNumber);
 
                 window.showAndWait();
             } catch (IOException e) {

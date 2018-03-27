@@ -1,9 +1,9 @@
 package frontend.GUI;
 
-import backend.employee.OrderQueue;
-import backend.employee.ServiceEmployee;
 import backend.inventory.Dish;
+import backend.server.Packet;
 import backend.table.Order;
+import frontend.client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,6 +36,8 @@ public class CookController {
   @FXML private TableColumn<Dish, Integer> numberColumn2;
   private int numOfOrdersInQueue;
 
+  private Client client = Client.getInstance();
+
   public void setmyId(int id) {
     myId = id;
   }
@@ -48,9 +50,7 @@ public class CookController {
   private ObservableList<Dish> getDishesInProgress() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    /* TODO: In backend, get ServiceEmployee.getOrderQueue().DishesInProgress */
-    LinkedList<Dish> dishesInProgress = ServiceEmployee.getOrderQueue().getDishesInProgress();
-    /* ------------------------------------------------------------------------------------------ */
+    LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESINPROGRESS);
 
     dishes.addAll(dishesInProgress);
 
@@ -60,9 +60,7 @@ public class CookController {
   private ObservableList<Dish> getDishesInFirstOrderQueue() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    /* TODO: In backend, get ServiceEmployee.getOrderQueue().ordersInQueue  */
-    LinkedList<Order> ordersInQueue = ServiceEmployee.getOrderQueue().getOrdersInQueue();
-    /* ------------------------------------------------------------------------------------------ */
+    LinkedList<Order> ordersInQueue = (LinkedList<Order>) client.sendRequest(Packet.REQUESTORDERSINQUEUE);
 
     numOfOrdersInQueue = ordersInQueue.size();
     numOfOrderLabel.setText(Integer.toString(numOfOrdersInQueue));
@@ -81,7 +79,7 @@ public class CookController {
 
   @FXML
   private void getOrderButtonClicked() {
-    /* TODO: In backend, cookObject.orderReceived() has to be called */
+    client.sendEvent(Packet.ORDERRECEIVED);
     /* (cookObject).orderReceived(); */
     /* ------------------------------------------------------------------------------------------ */
 
@@ -91,13 +89,13 @@ public class CookController {
   @FXML
   private void finishedButtonClicked() {
     Dish selectedDish = tableViewDishesInProgress.getSelectionModel().getSelectedItem();
-    int dishNumber;
+    int dishNumber = -1;
 
     if (selectedDish != null) {
       dishNumber = selectedDish.getDishNumber();
     }
 
-    /* TODO: In backend, cookObject.dishReady(dishNumber) has to be called */
+    client.sendEvent(Packet.DISHREADY, dishNumber);
     /* (cookObject).dishReady(dishNumber); */
     /* ------------------------------------------------------------------------------------------ */
 

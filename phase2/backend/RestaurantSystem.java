@@ -7,6 +7,7 @@ import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
 import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
+import backend.server.Packet;
 import backend.table.TableManager;
 
 import java.io.*;
@@ -100,18 +101,18 @@ public class  RestaurantSystem {
         line = fileReader.readLine();
       }
 
-      // creating request.txt
+      // creating sendRequest.txt
       try {
-        File file = new File("phase1/request.txt");
+        File file = new File("phase1/sendRequest.txt");
         /*If file gets created then the createNewFile()
          * method would return true or if the file is
          * already present it would return false
          */
         boolean fvar = file.createNewFile();
         if (fvar) {
-          logger.config("request.txt has been created successfully");
+          logger.config("sendRequest.txt has been created successfully");
         } else {
-          logger.config("request.txt already present at the specified location");
+          logger.config("sendRequest.txt already present at the specified location");
           // Clearing the file
           PrintWriter output = new PrintWriter(file);
           output.print("");
@@ -131,18 +132,23 @@ public class  RestaurantSystem {
   }
 
   // TODO: Move this somewhere else where it makes more sense
-  public static String logIn(int id) {
+  public static int logIn(int id) {
     Employee employee = EmployeeManager.getEmployeeById(id);
     if (employee == null) {
-      return "Failed";
+      logger.info("Employee log in failed, employee ID: " + Integer.toString(id));
+      return Packet.LOGINFAILED;
     } else if (employee instanceof Cook) {
-      return "Cook log in successful";
+      logger.info("Cook log in successful, employee ID: " + Integer.toString(id));
+      return Packet.COOKTYPE;
     } else if (employee instanceof Manager) {
-      return "Manager log in successful";
+      logger.info("Manager log in successful, employee ID: " + Integer.toString(id));
+      return Packet.MANAGERTYPE;
     } else if (employee instanceof Server) {
-      return "Server log in successful";
+      logger.info("Server log in successful, employee ID: " + Integer.toString(id));
+      return Packet.SERVERTYPE;
     }
-    return "Failed";
+    logger.info("Employee log in failed, employee ID: " + Integer.toString(id));
+    return Packet.LOGINFAILED;
   }
 
   public static void main(String[] args) throws IOException {
@@ -153,8 +159,14 @@ public class  RestaurantSystem {
     eventThread.start();
     ComputerServer computerServer = ComputerServer.getInstance();
 
-    // Initializing Logger.
+//    // Test
+//    Server server = (Server) EmployeeManager.getEmployeeById(0);
+//    server.takeSeat(TableManager.getTable(0), 2);
+//    Order order = new Order();
+//    order.addDish(new Dish("bbq", 3, new String[]{"nugget:4:4:4"}));
+//    server.enterMenu(TableManager.getTable(0), order);
 
-    //        Application.launch(args);
+    // Initializing Logger.
+    //        Application.launch(args); TODO: What is this?
   }
 }
