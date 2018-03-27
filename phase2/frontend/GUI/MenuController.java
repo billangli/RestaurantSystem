@@ -56,7 +56,10 @@ public class MenuController{
         updateMenu();
     }
 
-    public void updateMenu() {
+    /**
+     * update the menu, grey out dish that are unavailable
+     */
+    private void updateMenu() {
         for(Dish dish:recipe){
             boolean cookable = dish.ableToCook(inventory);
             System.out.println(dish.getName()+" "+cookable);
@@ -143,14 +146,15 @@ public class MenuController{
 
 
         }
-        TextField tableNum = new TextField();
-        tableNum.maxWidth(30);
-        tableView.add(tableNum,0,5);
 
         //submit the order
         Button submit = new Button("order");
         submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                for(String item: order.keySet()){
+                    Dish dish = order.get(item);
+                    dishOrder.addDish(dish);
+                }
                 //TODO receive the order, sendOrder()
                 ((Stage) submit.getScene().getWindow()).close();
             }
