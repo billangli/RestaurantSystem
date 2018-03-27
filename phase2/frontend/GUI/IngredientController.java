@@ -3,6 +3,8 @@ package frontend.GUI;
 import backend.inventory.DishRecipe;
 import backend.inventory.Dish;
 import backend.inventory.DishIngredient;
+import backend.inventory.Inventory;
+import frontend.client.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,6 +24,8 @@ public class IngredientController {
     GridPane tableView = new GridPane();
 
     Dish dish;
+    private Inventory inventory = Inventory.getInstance();
+    private Client client = Client.getInstance();
 
     public void getDish(Dish dish){
         this.dish = dish;
@@ -36,8 +40,11 @@ public class IngredientController {
             add.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                     //TODO receive the order, sendOrder()
-                    dish.adjustIngredient(in,1);
-                    amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
+                    if(inventory.isInventoryIngredientEnough(in,1)&& dish.ableToAdjustIngredient(in,1)){
+                        client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in),-1);
+                        dish.adjustIngredient(in,1);
+                        amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
+                    }
                 }
             });
             tableView.add(add,1,i);
@@ -45,8 +52,11 @@ public class IngredientController {
             subtract.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                     //TODO receive the order, sendOrder()
-                    dish.adjustIngredient(in,-1);
-                    amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
+                    if( dish.ableToAdjustIngredient(in,-1)){
+                        client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in),1);
+                        dish.adjustIngredient(in,-1);
+                        amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
+                    }
                 }
             });
             tableView.add(subtract,2,i);

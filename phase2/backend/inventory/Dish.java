@@ -53,20 +53,32 @@ public class Dish extends DishRecipe {
 //    }
 
     /**
-     * Adjusts the ingredient in the dish that is to be added or subtracted to the Order
-     *
+     * if is able to adjusts the ingredient in the dish that is to be added or subtracted to the Order
+     *@return if the adjustment is allowed
      * @param ingredientName name of this Ingredient
      * @param amount the amount of ingredient being added to the Order
      */
-    public void adjustIngredient(String ingredientName, int amount) {
-        System.out.println(ingredientName+" " +amount);
+    public boolean ableToAdjustIngredient(String ingredientName, int amount) {
         if (ingredientsRequired.get(ingredientName).allowed(amount)) {
-            ingredientsRequired.get(ingredientName).modifyQuantity(amount);
+            return true;
+            //ingredientsRequired.get(ingredientName).modifyQuantity(amount);
         } else {
-            logger.warning(
-                    "Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
+            return false;
+//            logger.warning(
+//                    "Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
         }
     }
+
+    /**
+     * adjust the ingredient by this amount
+     * @param ingredientName the name of the ingredient
+     * @param amount the amount is being adjusted
+     */
+    public void adjustIngredient(String ingredientName, int amount){
+        ingredientsRequired.get(ingredientName).modifyQuantity(amount);
+    }
+
+
 
     /** Subtracts all the amounts of ingredients used in backend.inventory to make this dish. */
     public void updateIngredientsStock() {

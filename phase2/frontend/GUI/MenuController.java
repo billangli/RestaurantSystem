@@ -22,7 +22,6 @@ import java.util.HashMap;
 public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
-    private Scene scene = tableView.getScene();
     private Stage window;
     public Client client = Client.getInstance();
     int numoforder = 0;
