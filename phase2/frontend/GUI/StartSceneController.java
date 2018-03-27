@@ -13,8 +13,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class StartSceneController{
     @FXML private TextField tf;
@@ -31,7 +29,7 @@ public class StartSceneController{
         actiontarget.setText("Sign in button pressed");
         System.out.println(tf.getText());
         String id = tf.getText();
-        String type = client.logIn(id); //TODO failes
+        String type = client.sendLogInRequest(id); //TODO failes
         scene = factory.createScene("Server", Integer.parseInt(id));
 
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();

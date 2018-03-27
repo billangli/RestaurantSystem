@@ -60,7 +60,7 @@ class ClientThread implements Runnable {
           System.out.println("Received packet type " + packet.getType());
 
           if (packet.getType() == Packet.LOGINREQUEST) {
-            // Log in request
+            // Log in sendResourceRequest
             int id = (Integer) packet.getObject();
             int logInConfirmation = RestaurantSystem.logIn(id);
             if (logInConfirmation != Packet.LOGINFAILED) {

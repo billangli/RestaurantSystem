@@ -7,26 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
-
-import static java.awt.image.ImageObserver.HEIGHT;
-import static java.awt.image.ImageObserver.WIDTH;
 
 public class MenuController{
     @FXML
@@ -35,13 +25,13 @@ public class MenuController{
     private Stage window;
     public Client client = Client.getInstance();
     int numoforder = 0;
-    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.request("inventory"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendResourceRequest("inventory"); //TODO should get menu from web ComputerServer requestMenu()
     Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
     private int myId;
 
 
-    volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.request("menu"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile HashMap<String, DefaultDish> defaultDishes = (HashMap<String, DefaultDish>) client.sendResourceRequest("menu"); //TODO should get menu from web ComputerServer requestMenu()
     Menu menu = Menu.getInstance();
 
     Order dishOrder = new Order();
@@ -111,7 +101,7 @@ public class MenuController{
                    for(String in: ingredients.keySet()){
                        dishIngredients.add(ingredients.get(in));
                    }
-                   client.adjustIngredient(dishIngredients, true);
+                   client.sendAdjustIngredientRequest(dishIngredients, true);
 
 
                    dishOrder.addDish(dish);

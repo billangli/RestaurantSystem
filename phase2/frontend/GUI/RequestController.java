@@ -13,7 +13,7 @@ public class RequestController {
 
   @FXML
   private void initialize() throws IOException {
-    String fileName = "phase2/request.txt";
+    String fileName = "phase2/sendResourceRequest.txt";
     BufferedReader br = new BufferedReader(new FileReader(fileName));
 
     requestListLabel.setText("");

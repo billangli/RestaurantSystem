@@ -1,19 +1,15 @@
 package frontend.GUI;
 
-import backend.inventory.Inventory;
-import backend.inventory.InventoryIngredient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class ManagerController {
     @FXML
@@ -32,11 +28,11 @@ public class ManagerController {
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Request.fxml"));
             Parent scene = numLoader.load();
-            window.setTitle("Ingredient request!");
+            window.setTitle("Ingredient sendResourceRequest!");
             window.setScene(new Scene(scene, 600, 600));
             window.showAndWait();
         } catch (IOException e) {
-            System.out.println("request error");
+            System.out.println("sendResourceRequest error");
         }
 
     }@FXML protected void ingredientAmount(ActionEvent event) {

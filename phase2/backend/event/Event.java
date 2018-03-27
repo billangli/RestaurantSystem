@@ -1,11 +1,6 @@
 package backend.event;
 
-import backend.inventory.Dish;
-import backend.inventory.Menu;
-import backend.table.Order;
-
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 /**
  * Event.java - An abstract class to represent an backend.event
@@ -13,98 +8,24 @@ import java.util.StringTokenizer;
  * <p>Created by Bill Ang Li on Feb. 22nd, 2018
  */
 abstract class Event {
-  String employeeType;
+  int employeeType;
   int employeeID;
-  String methodName;
-  ArrayList<String> parameters = new ArrayList<>();
+  int methodName;
+  ArrayList parameters = new ArrayList<>();
 
   /**
-   * Constructor that takes a line and uses the information in the line to create the backend.event This
-   * uses the parseEvent methodName
+   * Constructor for Event
    *
-   * @param line is the line (in backend.event.txt) that contains the information
+   * @param employeeType is the type of employee
+   * @param employeeID is the employee ID
+   * @param methodName is the name of the method to call
+   * @param parameters are parameters required by the method call
    */
-  Event(String line) {
-    this.parseEvent(line);
-  }
-
-  /**
-   * Parses a line (read from backend.event.txt) into an backend.event and returns it
-   *
-   * @param line is the line to be parsed
-   */
-  private void parseEvent(String line) {
-    StringTokenizer lineTokenizer = new StringTokenizer(line, ";");
-
-    // Parsing the text file according to our format
-    this.employeeType = lineTokenizer.nextToken();
-    this.employeeID = Integer.parseInt(lineTokenizer.nextToken());
-    this.methodName = lineTokenizer.nextToken();
-
-    // Creating an ArrayList of parameters from one token in the line
-    String allParameters = lineTokenizer.nextToken();
-    allParameters = allParameters.substring(1, allParameters.length() - 1);
-    StringTokenizer parameterTokenizer = new StringTokenizer(allParameters, ",");
-    while (parameterTokenizer.hasMoreTokens()) {
-      this.parameters.add(parameterTokenizer.nextToken());
-    }
-  }
-
-  /**
-   * Reads a str of text and returns the Order
-   *
-   * @param str is the string to read from
-   * @return the Order from that string
-   */
-  static Order parseOrder(String str) {
-    StringTokenizer orderTokenizer = new StringTokenizer(str, "|");
-    Order order = new Order();
-    while (orderTokenizer.hasMoreTokens()) {
-      String dishString = orderTokenizer.nextToken();
-      dishString = dishString.substring(1, dishString.length() - 1); // Get rid of the brackets
-      Dish dish = parseDish(dishString);
-      order.addDish(dish);
-    }
-    return order;
-  }
-
-  /**
-   * Reads a str of text and returns the Dish
-   *
-   * @param str is the string to read from
-   * @return the Dish from that string
-   */
-  private static Dish parseDish(String str) {
-    // Parsing the dish name and removing the dish name from str to make a string of ingredient
-    // adjustments
-    String dishName = str;
-    if (str.contains(":")) {
-      dishName = str.substring(0, str.indexOf(":"));
-    }
-    String ingredientAdjustments = str.substring(str.indexOf(":") + 1);
-    Menu menu = Menu.getInstance();
-    Dish dish = menu.makeDish(dishName);
-
-    // Making adjustments to the dish one ingredient at a time
-    StringTokenizer adjustmentTokenizer = new StringTokenizer(ingredientAdjustments, "_");
-    while (adjustmentTokenizer.hasMoreTokens()) {
-      String adjustment = adjustmentTokenizer.nextToken();
-
-      // Checking if add or subtract ingredient
-      if (adjustment.contains("+")) {
-        // Add more ingredients
-        String ingredientName = adjustment.substring(0, adjustment.indexOf("+"));
-        int amount = Integer.parseInt(adjustment.substring(adjustment.indexOf("+") + 1));
-        dish.adjustIngredient(ingredientName, amount);
-      } else if (adjustment.contains("-")) {
-        // Subtract ingredients
-        String ingredientName = adjustment.substring(0, adjustment.indexOf("-"));
-        int amount = Integer.parseInt(adjustment.substring(adjustment.indexOf("-") + 1));
-        dish.adjustIngredient(ingredientName, (-1) * amount);
-      }
-    }
-
-    return dish;
+  public Event(int employeeType, int employeeID, int methodName, ArrayList parameters) {
+    this.employeeType = employeeType;
+    this.employeeID = employeeID;
+    this.methodName = methodName;
+    this.parameters = parameters;
   }
 
   /** Tells the ProcessableEvent to process the backend.event */

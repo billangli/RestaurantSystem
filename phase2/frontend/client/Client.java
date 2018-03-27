@@ -66,7 +66,7 @@ Client implements Runnable {
     return true;
   }
 
-  public void send(int type, Object object) {
+  private void send(int type, Object object) {
     if (this.connected) {
       System.out.println("Sending " + object);
       try {
@@ -111,11 +111,11 @@ Client implements Runnable {
   }
 
   // Methods for GUI to call
-  public String logIn(String id) {
+  public String sendLogInRequest(String id) {
     this.send(Packet.LOGINREQUEST, Integer.parseInt(id));
 
     // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to log in request...");
+    System.out.println("Waiting for ComputerServer to respond to log in sendResourceRequest...");
     while (!this.objectIsReady) {
     }
 
@@ -145,7 +145,7 @@ Client implements Runnable {
     }
   }
 
-  public Object request(String requestType) {
+  public Object sendResourceRequest(String requestType) {
     switch (requestType) {
       case "menu":
         this.send(Packet.REQUESTMENU, null);
@@ -162,7 +162,7 @@ Client implements Runnable {
     }
 
     // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to request...");
+    System.out.println("Waiting for ComputerServer to respond to sendResourceRequest...");
     while (!this.objectIsReady) {
     }
 
@@ -173,7 +173,7 @@ Client implements Runnable {
     return ((Packet) this.object).getObject();
   }
 
-  public void adjustIngredient(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
+  public void sendAdjustIngredientRequest(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
 
     // Waiting for the Server to respond
@@ -191,20 +191,15 @@ Client implements Runnable {
     menuController.updateInventory(newIngredientQuantities);
   }
 
+  public void sendEvent(String event) {
+
+  }
+
   public void store(String name, Object o){
       stored.put(name, o);
   }
 
   public Object getStored(String name){
     return stored.get(name);
-  }
-
-  // TODO: Remove this after testing
-  public static void main(String[] args) throws IOException {
-    Client client = Client.getInstance();
-    client.send(Packet.EVENT, "Manager;6;checkInventory;()");
-    client.send(Packet.EVENT, "Server;1;takeSeat;(1)");
-    client.send(Packet.EVENT, "Server;1;enterMenu;(1,(hamburger)|(hamburger:lettuce+2_tomato-1))");
-    client.send(Packet.EVENT, "Server;1;enterMenu;(1,(chicken nuggets(L)))");
   }
 }

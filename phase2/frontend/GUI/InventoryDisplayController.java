@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class InventoryDisplayController {
     @FXML private GridPane tableView;
     private Client client = Client.getInstance();
-    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.request("inventory"); //TODO should get menu from web ComputerServer requestMenu()
+    volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendResourceRequest("inventory"); //TODO should get menu from web ComputerServer requestMenu()
     Inventory inventory = Inventory.getInstance();
 
     public void initialize(){
