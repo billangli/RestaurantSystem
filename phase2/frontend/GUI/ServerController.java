@@ -47,6 +47,11 @@ public class ServerController implements Initializable {
   private ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int selectedTableNumber;
   private int numOfTables;
+  private int myId;
+
+  public void setMyId(int id) {
+    this.myId = id;
+  }
 
   public void setMenuScene(Scene scene) {
     menuScene = scene;
@@ -160,6 +165,7 @@ public class ServerController implements Initializable {
         paneController.rectangleArrayList = rectangleArrayList;
 
         paneController.setTableNumber(selectedTableNumber);
+        paneController.setMyId(myId);
 
         paneController.start();
         window.setMinWidth(300);
@@ -182,6 +188,7 @@ public class ServerController implements Initializable {
 
       // menuController has same id as this contoller.
       menuController.setTableNumber(selectedTableNumber);
+      menuController.setMyId(myId);
 
       window.setTitle("Order Food");
       window.setScene(menuScene);
@@ -230,6 +237,7 @@ public class ServerController implements Initializable {
 
       // takeSeatController has same id as this controller.
       paneController.setTableNumber(selectedTableNumber);
+      paneController.setMyId(myId);
 
       paneController.start();
       window.setMinWidth(300);
@@ -256,6 +264,7 @@ public class ServerController implements Initializable {
 
       // takeSeatController has same id as this controller.
       paneController.setTableNumber(selectedTableNumber);
+      paneController.setMyId(myId);
 
       paneController.start();
       window.setMinWidth(300);
@@ -281,6 +290,7 @@ public class ServerController implements Initializable {
         ClearTableController controller = loader.getController();
 
         controller.setTableNumber(this.selectedTableNumber);
+        controller.setMyId(myId);
         controller.setText("Are you sure to clear table number " + Integer.toString(selectedTableNumber) + "?");
         controller.rectangleArrayList = this.rectangleArrayList;
 
@@ -306,6 +316,7 @@ public class ServerController implements Initializable {
       window.setTitle("Receive Item");
       window.setScene(new Scene(root, 400, 200));
       ReceiveItemController controller = loader.getController();
+      controller.setMyId(myId);
       controller.start();
       window.showAndWait();
     } catch (IOException e) {

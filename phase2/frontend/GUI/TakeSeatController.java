@@ -15,10 +15,15 @@ public class TakeSeatController {
     @FXML private TextField tf;
     @FXML private Button confirmButton, cancelButton;
     int tableNumber;
+    private int myId;
     private final Color COLOR_OCCUPIED = Color.BLUE;
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
     private Client client = Client.getInstance();
+
+    public void setMyId(int id) {
+        this.myId = id;
+    }
 
     public void setTableNumber(int tableNumber){
         this.tableNumber = tableNumber;

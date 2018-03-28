@@ -12,6 +12,7 @@ public class DeliverFailedController {
   @FXML private TextField tf;
   @FXML private Button confirmButton, cancelButton;
   private int tableNumber;
+  private int myId;
 
   @FXML
   private void confirmButtonClicked() {
@@ -45,5 +46,9 @@ public class DeliverFailedController {
 
   public void setTableNumber(int tableNumber) {
     this.tableNumber = tableNumber;
+  }
+
+  public void setMyId(int id) {
+      this.myId = id;
   }
 }

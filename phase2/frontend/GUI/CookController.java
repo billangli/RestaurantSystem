@@ -119,6 +119,7 @@ public class CookController {
       window.setTitle("Receive Item");
       window.setScene(new Scene(root, 400, 200));
       ReceiveItemController controller = loader.getController();
+      controller.setMyId(myId);
       controller.start();
       window.showAndWait();
     } catch (IOException e) {

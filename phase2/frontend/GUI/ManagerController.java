@@ -66,7 +66,7 @@ public class ManagerController {
             window.setTitle("Receive Item");
             window.setScene(new Scene(root, 400, 200));
             ReceiveItemController controller = loader.getController();
-            controller.setTableNumber(myId);
+            controller.setMyId(myId);
             controller.start();
             window.showAndWait();
         } catch (IOException e) {

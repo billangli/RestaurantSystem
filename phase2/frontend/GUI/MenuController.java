@@ -28,13 +28,17 @@ public class MenuController{
     public Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
     private int tableNumber;
-
+    private int myId;
 
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
     Menu menu = Menu.getInstance();
 
     Order dishOrder = new Order();
     HashMap<String,Dish> order = new HashMap<>();
+
+    public void setMyId(int id) {
+        this.myId = id;
+    }
 
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
