@@ -19,7 +19,7 @@ public class Dish extends DishRecipe {
     private int dishNumber;
     private static int countDish = 0;
     private Table table;
-    private boolean isSent;
+    private boolean hasBeenDelivered;
     private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
     private Inventory inventory = Inventory.getInstance();
 
@@ -33,52 +33,44 @@ public class Dish extends DishRecipe {
      */
     public Dish(String dishName, float dishPrice, String[] ingredients) {
         super(dishName, dishPrice, ingredients);
-        isSent = false;
+        hasBeenDelivered = false;
     }
 
     public Dish(DishRecipe dishRecipe) {
         super(dishRecipe.name, dishRecipe.cost, dishRecipe.ingredientsRequired);
-        isSent = false;
+        hasBeenDelivered = false;
     }
 
-
     /**
-     * A constructor that deep-copies the dish from the menu to create a dish for Order. <code>menuDish
-     * </code> should not be mutated.
+     * Return true if and only if it is possible for this Dish to permit the amount amount for the
+     * DishIngredient ingredientName
      *
-     * @param menuDish is the dish in the menu
-     */
-//    public Dish(DishRecipe menuDish) {
-//        super(menuDish.name, menuDish.cost, menuDish.ingredientsRequired);
-//    }
-
-    /**
-     * if is able to adjusts the ingredient in the dish that is to be added or subtracted to the Order
-     *@return if the adjustment is allowed
-     * @param ingredientName name of this Ingredient
-     * @param amount the amount of ingredient being added to the Order
+     * @param ingredientName the name of the DishIngredient
+     * @param amount the total amount of DishIngredient allowed for this Dish
+     * @return
      */
     public boolean ableToAdjustIngredient(String ingredientName, int amount) {
         if (ingredientsRequired.get(ingredientName).allowed(amount)) {
             return true;
-            //ingredientsRequired.get(ingredientName).modifyQuantity(amount);
+            // ingredientsRequired.get(ingredientName).modifyQuantity(amount);
         } else {
             return false;
-//            logger.warning(
-//                    "Adjusting " + amount + " " + ingredientName + " is not valid for dish " + name);
+            //            logger.warning(
+            //                    "Adjusting " + amount + " " + ingredientName + " is not valid for dish "
+            // + name);
         }
     }
 
     /**
-     * adjust the ingredient by this amount
+     * Adjust the DishIngredient of this Dish by this amount amount, increasing by the amount amount
+     * if amount > 0, decreasing by the amount amount if amount < 0.
+     *
      * @param ingredientName the name of the ingredient
      * @param amount the amount is being adjusted
      */
-    public void adjustIngredient(String ingredientName, int amount){
+    public void adjustIngredient(String ingredientName, int amount) {
         ingredientsRequired.get(ingredientName).modifyQuantity(amount);
     }
-
-
 
     /** Subtracts all the amounts of ingredients used in backend.inventory to make this dish. */
     public void updateIngredientsStock() {
@@ -88,30 +80,21 @@ public class Dish extends DishRecipe {
         }
     }
 
-
-
-    public void updateProjectedIngredientsStock() {
-        for (String ingredientName : ingredientsRequired.keySet()) {
-            int quantityRequiredForThisIngredient = ingredientsRequired.get(ingredientName).getQuantity();
-            inventory.modifyIngredientMirrorQuantity(
-                    ingredientName, -1 * quantityRequiredForThisIngredient);
-        }
-
-    }
-
     /**
-     * Assigns this dish to the backend.table t
+     * Assigns this Dish to the Table t
      *
-     * @param t the backend.table that this dish was ordered from
+     * @param t the table that ordered this Dish
      */
     public void assignDishToTable(Table t) {
         table = t;
     }
 
     /**
-     * Checks if there is enough ingredient to cook this dish
+     * Returns true if and only if there is enough quantity secured in the inventory to cook this
+     * Dish. In other words, this method returns true iff there is enough amount of
+     * InventoryIngredients in the inventory for every DishIngredient required to cook this Dish
      *
-     * @return if there is enough ingredient in backend.inventory
+     * @return true iff there is enough InventoryIngredients in the inventory to cook this Dish
      */
     public boolean ableToCook(Inventory in) {
         for (String ingredientName : ingredientsRequired.keySet()) {
@@ -124,27 +107,26 @@ public class Dish extends DishRecipe {
         return true;
     }
 
-
     /**
-     * Returns the backend.table that this dish was ordered from
+     * Returns the Table table that ordered this Dish
      *
-     * @return the backend.table that this dish was ordered from
+     * @return the Table table that ordered this Dish
      */
     public Table getTable() {
         return table;
     }
 
     /**
-     * Returns the name of the dish and its cost
+     * Returns the name of this Dish and its cost
      *
-     * @return the name of the dish and its cost
+     * @return the name of the Dish and its cost
      */
     public String toString() {
-        //    float currentCost = isSent ? cost : 0;
+        //    float currentCost = hasBeenDelivered ? cost : 0;
         return String.format("%-20s: $%.2f", name, cost);
     }
 
-    /** Adds the cost of this dish to the backend.table that ordered this dish */
+    /** Adds the cost of this Dish to the Table that ordered this Dish */
     public void addCostToTable() {
         table.addCost(this);
     }
@@ -155,9 +137,9 @@ public class Dish extends DishRecipe {
     }
 
     /**
-     * Returns the unique number that identifies this particular dish
+     * Returns the unique number assigned to this Dish
      *
-     * @return Return the number that identifies this particular dish
+     * @return the unique number assigned to this Dish
      */
     public int getDishNumber() {
         return dishNumber;
@@ -168,17 +150,16 @@ public class Dish extends DishRecipe {
         dishNumber = ++Dish.countDish;
     }
 
-    /** Acknowledges the dish is sent(=delivered) to its backend.table. */
-    public void sent() {
-        isSent = true;
+    /** Acknowledges this Dish is sent(i.e., delivered) to the Table that ordered it*/
+    public void delivered() {
+        hasBeenDelivered = true;
     }
 
-    public boolean isSent() {
-        return isSent;
+    /**
+     * Returns true iff this Dish has been delivered
+     * @return true iff
+     */
+    public boolean hasBeenDelivered() {
+        return hasBeenDelivered;
     }
-
-    public int getTableNumber() {
-        return table.getTableNum();
-    }
-
 }

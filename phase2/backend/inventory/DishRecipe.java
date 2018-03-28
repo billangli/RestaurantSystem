@@ -20,7 +20,7 @@ public class DishRecipe implements Serializable{
     //private static int countDish = 0;
     protected float cost;
     //private Table table;
-    //private boolean isSent;
+    //private boolean hasBeenDelivered;
     //private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
     /**
@@ -34,7 +34,7 @@ public class DishRecipe implements Serializable{
     public DishRecipe(String dishName, float dishPrice, String[] ingredients) {
         this.name = dishName;
         this.cost = dishPrice;
-        //isSent = false;
+        //hasBeenDelivered = false;
         for (String ingredient : ingredients) {
             String[] item = ingredient.split(":");
             int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -47,7 +47,7 @@ public class DishRecipe implements Serializable{
     public DishRecipe(String dishName, float dishPrice, HashMap<String, DishIngredient> ingredientsRequired) {
         this.name = dishName;
         this.cost = dishPrice;
-        //isSent = false;
+        //hasBeenDelivered = false;
         for(String name: ingredientsRequired.keySet()){
             this.ingredientsRequired.put(name,new DishIngredient(ingredientsRequired.get(name)));
         }
@@ -78,7 +78,7 @@ public class DishRecipe implements Serializable{
      * @return the name of the dish and its cost
      */
     public String toString() {
-        //    float currentCost = isSent ? cost : 0;
+        //    float currentCost = hasBeenDelivered ? cost : 0;
         return String.format("%-20s: $%.2f", name, cost);
     }
 

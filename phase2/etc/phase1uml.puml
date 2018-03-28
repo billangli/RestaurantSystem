@@ -109,7 +109,7 @@ abstract class Dish{
 - name: String
 - ingredientsRequired: HashMap<String, DishIngredient>
 - dishNumber: int
-- isSent: boolean
+- hasBeenDelivered: boolean
 - {static} countDish: int
 - cost: float
 - backend.table: Table

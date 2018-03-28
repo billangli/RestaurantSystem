@@ -145,7 +145,7 @@ public class OrderQueue {
       logger.warning(
           "the backend.table is empty, the dish " + dishNumber + " will not be delivered");
     } else {
-      dish.sent();
+      dish.delivered();
     }
     return dish;
   }
