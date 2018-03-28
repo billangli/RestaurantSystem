@@ -27,7 +27,7 @@ public class MenuController{
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
     public Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
-    private int myId;
+    private int tableNumber;
 
 
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
@@ -36,8 +36,8 @@ public class MenuController{
     Order dishOrder = new Order();
     HashMap<String,Dish> order = new HashMap<>();
 
-    public void setMyId(int myId) {
-        this.myId = myId;
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public void setStage(Stage stage){
@@ -154,7 +154,10 @@ public class MenuController{
                     Dish dish = order.get(item);
                     dishOrder.addDish(dish);
                 }
-                //TODO receive the order, sendOrder()
+                ArrayList<Object> info = new ArrayList<>();
+                info.add(tableNumber);
+                info.add(dishOrder);
+                client.sendEvent(Packet.ENTERMENU, info);
                 ((Stage) submit.getScene().getWindow()).close();
             }
         });
