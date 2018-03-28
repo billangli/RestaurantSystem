@@ -39,6 +39,9 @@
         <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="330.0" minWidth="600.0" prefHeight="374.0" prefWidth="600.0">
             <children>
                 <TableView fx:id="tableViewDishesInProgress" prefHeight="374.0" prefWidth="300.0">
+                    <placeholder>
+                        <Label text="No dishes are in progress"/>
+                    </placeholder>
                     <columns>
                         <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false" text="Dish name">
                             <cellValueFactory>
@@ -53,6 +56,9 @@
                     </columns>
                 </TableView>
                 <TableView fx:id="tableViewDishesInQueue" prefHeight="200.0" prefWidth="300.0">
+                    <placeholder>
+                        <Label text="No dishes are in queue."/>
+                    </placeholder>
                     <columns>
                         <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false" text="Dish name">
                             <cellValueFactory>
