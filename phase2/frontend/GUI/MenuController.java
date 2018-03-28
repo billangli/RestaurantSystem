@@ -58,10 +58,9 @@ public class MenuController{
     /**
      * update the menu, grey out dish that are unavailable
      */
-    private void updateMenu() {
+    public void updateMenu() {
         for(Dish dish:recipe){
             boolean cookable = dish.ableToCook(inventory);
-            System.out.println(dish.getName()+" "+cookable);
             Button tb = (Button) tableView.lookup("#"+dish.getName());
             if(cookable){
                 tb.setDisable(false);

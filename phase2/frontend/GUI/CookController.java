@@ -44,7 +44,7 @@ public class CookController {
     myId = id;
   }
 
-  // TODO: In backend, this method should be called to update after finishedButton or getOrderButton is clicked.
+  // TODO: In backend, this method should be called to update after server enters menu, or finishedButton is clicked or getOrderButton is clicked.
   private void updateDishesOnTableView() {
     tableViewDishesInProgress.setItems(getDishesInProgress());
     tableViewDishesInQueue.setItems(getDishesInFirstOrderQueue());
@@ -94,17 +94,17 @@ public class CookController {
   @FXML
   private void finishedButtonClicked() {
     Dish selectedDish = tableViewDishesInProgress.getSelectionModel().getSelectedItem();
-    int dishNumber = -1;
 
     if (selectedDish != null) {
-      dishNumber = selectedDish.getDishNumber();
+      int dishNumber = selectedDish.getDishNumber();
+      client.sendEvent(Packet.DISHREADY, dishNumber);
+      updateDishesOnTableView();
     }
 
-    client.sendEvent(Packet.DISHREADY, dishNumber);
     /* (cookObject).dishReady(dishNumber); */
     /* ------------------------------------------------------------------------------------------ */
 
-    updateDishesOnTableView();
+
   }
 
   @FXML
@@ -119,7 +119,6 @@ public class CookController {
       window.setTitle("Receive Item");
       window.setScene(new Scene(root, 400, 200));
       ReceiveItemController controller = loader.getController();
-      controller.setTableNumber(myId);
       controller.start();
       window.showAndWait();
     } catch (IOException e) {
