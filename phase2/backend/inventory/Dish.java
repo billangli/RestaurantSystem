@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * <p>The class includes methods for adjusting the ingredients in the Dish, updating the ingredients
  * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating
- * a string with the name of its dish and its cost.
+ * a string with the name of its dish and its price.
  */
 public class Dish extends DishRecipe {
     private int dishNumber;
@@ -37,7 +37,7 @@ public class Dish extends DishRecipe {
     }
 
     public Dish(DishRecipe dishRecipe) {
-        super(dishRecipe.name, dishRecipe.cost, dishRecipe.ingredientsRequired);
+        super(dishRecipe.name, dishRecipe.price, dishRecipe.ingredientsRequired);
         hasBeenDelivered = false;
     }
 
@@ -117,23 +117,23 @@ public class Dish extends DishRecipe {
     }
 
     /**
-     * Returns the name of this Dish and its cost
+     * Returns the name of this Dish and its price
      *
-     * @return the name of the Dish and its cost
+     * @return the name of the Dish and its price
      */
     public String toString() {
-        //    float currentCost = hasBeenDelivered ? cost : 0;
-        return String.format("%-20s: $%.2f", name, cost);
+        //    float currentCost = hasBeenDelivered ? price : 0;
+        return String.format("%-20s: $%.2f", name, price);
     }
 
-    /** Adds the cost of this Dish to the Table that ordered this Dish */
+    /** Adds the price of this Dish to the Table that ordered this Dish */
     public void addCostToTable() {
         table.addCost(this);
     }
 
-    /** Modifies the cost of this dish to 0; */
+    /** Modifies the price of this dish to 0; */
     public void isCancelled() {
-        cost = 0;
+        price = 0;
     }
 
     /**

@@ -119,7 +119,7 @@ abstract class Dish{
 + updateIngredientsStock(): void
 + assignDishToTable(t: Table): void
 + getName(): String
-+ getCost(): float
++ getPrice(): float
 + getTable(): Table
 + toString(): String
 + addCostToTable(): void

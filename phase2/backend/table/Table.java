@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Table class represents each backend.table in the restaurant.
  *
- * <p>Table class methods include storing the customer's orders, adding orders, adding cost of the
+ * <p>Table class methods include storing the customer's orders, adding orders, adding price of the
  * order.
  */
 public class Table implements Serializable {
@@ -21,7 +21,7 @@ public class Table implements Serializable {
   private ArrayList<Order> order;
 
   /**
-   * initializes the backend.table with its number and cost of 0
+   * initializes the backend.table with its number and price of 0
    *
    * @param tableNum the backend.table number
    */
@@ -58,7 +58,7 @@ public class Table implements Serializable {
    * @param d a dish object
    */
   public void addCost(Dish d) {
-    cost += d.getCost();
+    cost += d.getPrice();
   }
 
   /**

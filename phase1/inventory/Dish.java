@@ -12,7 +12,7 @@ import backend.table.Table;
  *
  * <p>The class includes methods for adjusting the ingredients in the Dish, updating the ingredients
  * in the Restaurant backend.inventory, assigning the Dish to a Table that ordered it, and creating a string
- * with the name of its dish and its cost.
+ * with the name of its dish and its price.
  */
 public class Dish {
   private String name;
@@ -21,7 +21,7 @@ public class Dish {
   private static int countDish = 0;
   private float cost;
   private Table table;
-  private boolean isSent;
+  private boolean hasBeenDelivered;
 
   /**
    * Constructor that takes the name of the dish, price and the list of names of the ingredients;
@@ -34,7 +34,7 @@ public class Dish {
   public Dish(String dishName, float dishPrice, String[] ingredients) {
     this.name = dishName;
     this.cost = dishPrice;
-    isSent = false;
+    hasBeenDelivered = false;
     for (String ingredient : ingredients) {
       String[] item = ingredient.split(":");
       int[] limit = {Integer.parseInt(item[2]), Integer.parseInt(item[3])};
@@ -112,9 +112,9 @@ public class Dish {
   }
 
   /**
-   * Returns the cost of the dish
+   * Returns the price of the dish
    *
-   * @return the cost of the dish
+   * @return the price of the dish
    */
   public float getCost() {
     return cost;
@@ -130,21 +130,21 @@ public class Dish {
   }
 
   /**
-   * Returns the name of the dish and its cost
+   * Returns the name of the dish and its price
    *
-   * @return the name of the dish and its cost
+   * @return the name of the dish and its price
    */
   public String toString() {
-    float currentCost = isSent ? cost : 0;
+    float currentCost = hasBeenDelivered ? cost : 0;
     return String.format("%-20s", name) + ": $" + String.format("%.2f", currentCost);
   }
 
-  /** Adds the cost of this dish to the backend.table that ordered this dish */
+  /** Adds the price of this dish to the backend.table that ordered this dish */
   public void addCostToTable() {
     table.addCost(this);
   }
 
-  /** Modifies the cost of this dish to 0; */
+  /** Modifies the price of this dish to 0; */
   public void isCancelled() {
     cost = 0;
   }
@@ -165,6 +165,6 @@ public class Dish {
 
   /** Acknowledges the dish is sent(=delivered) to its backend.table. */
   public void sent() {
-    isSent = true;
+    hasBeenDelivered = true;
   }
 }
