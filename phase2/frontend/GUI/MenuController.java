@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -46,7 +45,7 @@ public class MenuController{
     }
 
 
-    public void updateInventory(HashMap newDisplayQuantity) {
+    public void updateMirrorQuantity(HashMap newDisplayQuantity) {
         for(Object i: newDisplayQuantity.keySet()){
             String ingredientName = (String) i;
             int mirrorQuantity = (int) newDisplayQuantity.get(i);

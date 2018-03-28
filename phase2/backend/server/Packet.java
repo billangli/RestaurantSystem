@@ -14,6 +14,8 @@ public class Packet implements Serializable {
   public static final int REQUESTDISHESINPROGRESS = 5;
   public static final int REQUESTORDERSINQUEUE = 6;
   public static final int REQUESTTABLE = 7;
+  public static final int REQUESTQUANTITIES = 8;
+  public static final int REQUESTMIRRORQUANTITIES = 9;
 
   // Server to Client receive resources
   public static final int LOGINCONFIRMATION = -1;
@@ -23,11 +25,13 @@ public class Packet implements Serializable {
   public static final int RECEIVEDISHESINPROGRESS = -5;
   public static final int RECEIVEORDERSINQUEUE = -6;
   public static final int RECEIVETABLE = -7;
+  public static final int RECEIVEQUANTITIES = -8;
+  public static final int RECEIVEMIRRORQUANTITIES = -9;
 
   // Adjust ingredient
   public static final int ADJUSTINGREDIENT = 30;
   public static final int ADJUSTINDIVIDUALINGREDIENT = 31;
-  public static final int RECEIVEINGREDIENTADJUSTMENT = -30;
+  public static final int RECEIVEMIRRORQUANTITYADJUSTMENT = -30;
 
   // Event Type
   public static final int RECEIVEINGREDIENT = 55;

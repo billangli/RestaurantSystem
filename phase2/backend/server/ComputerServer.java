@@ -102,7 +102,7 @@ public class ComputerServer implements Runnable {
    * @param messageType is the type of message being sent (protocol defined in Packet.java)
    * @param message is the message
    */
-  void broadcast(int messageType, Object message) {
+  public void broadcast(int messageType, Object message) {
     logger.info("Broadcasting to all employees");
     for (ClientThread client : clients) {
       if (client.isLoggedOn()) {
@@ -118,7 +118,7 @@ public class ComputerServer implements Runnable {
    * @param messageType is the type of message being sent (protocol defined in Packet.java)
    * @param message is the message being sent
    */
-  void broadcast(int employeeType, int messageType, Object message) {
+  public void broadcast(int employeeType, int messageType, Object message) {
     logger.info("Broadcasting to employee type " + employeeType);
     for (ClientThread client : clients) {
       if (client.isLoggedOn()) {

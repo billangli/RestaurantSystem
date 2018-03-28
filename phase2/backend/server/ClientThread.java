@@ -4,9 +4,7 @@ import backend.RestaurantSystem;
 import backend.employee.ServiceEmployee;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
-import backend.inventory.DishIngredient;
-import backend.inventory.Inventory;
-import backend.inventory.Menu;
+import backend.inventory.*;
 import backend.logger.RestaurantLogger;
 import backend.table.TableManager;
 
@@ -93,6 +91,14 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTTABLE) {
             System.out.println("Sending table");
             this.send(Packet.RECEIVETABLE, TableManager.getTable((int) packet.getObject()));
+          } else if (packet.getType() == Packet.REQUESTQUANTITIES) {
+            System.out.println("Sending ingredient quantities");
+            HashMap<String, InventoryIngredient> inventoryIngredients = inventory.getIngredientsInventory();
+            HashMap<String, Integer> quantities = new HashMap<>();
+            for (String ingredientName : inventoryIngredients.keySet()) {
+              quantities.put(ingredientName, inventoryIngredients.get(ingredientName).getQuantity());
+            }
+            this.send(Packet.RECEIVEQUANTITIES, quantities);
           } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
             System.out.println("Adjusting ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
@@ -101,14 +107,14 @@ class ClientThread implements Runnable {
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
             HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
-            computerServer.broadcast(Packet.RECEIVEINGREDIENTADJUSTMENT, newIngredientQuantities);
+            computerServer.broadcast(Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newIngredientQuantities);
           } else if (packet.getType() == Packet.ADJUSTINDIVIDUALINGREDIENT) {
             System.out.println("Adjusting individual ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
             DishIngredient ingredient = (DishIngredient) infoArray[0];
             int quantity = (int) infoArray[1];
             HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(ingredient.getName(), quantity);
-            computerServer.broadcast(Packet.RECEIVEINGREDIENTADJUSTMENT, newIngredientQuantities);
+            computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newIngredientQuantities);
           } else if (packet.isEventType()) {
             // Just an event
             EventManager.addEvent(createEvent(packet)); // TODO: Broadcast when Inventory is changed

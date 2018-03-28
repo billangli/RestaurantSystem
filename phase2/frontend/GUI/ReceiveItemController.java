@@ -64,7 +64,7 @@ public class ReceiveItemController {
       ArrayList<Object> info = new ArrayList<Object>();
       info.add(ingredientName);
       info.add(quantity);
-      client.sendRequest(Packet.RECEIVEINGREDIENT, info);
+      client.sendEvent(Packet.RECEIVEINGREDIENT, info);
 
       //TODO: when this button is clicked, Manager's check inventory GUI should be updated
         //TODO: when dishes are ordered(it's not in this controller), Manager's check inventory GUI should be updated

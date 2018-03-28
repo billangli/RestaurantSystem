@@ -13,8 +13,7 @@ import java.util.HashMap;
 
 
 // Singleton pattern
-public class
-Client implements Runnable {
+public class Client implements Runnable {
   private static Client instance = new Client();
 
   private static final String IP = "127.0.0.1";
@@ -24,6 +23,7 @@ Client implements Runnable {
   private boolean connected = false;
   private boolean loggedIn = false;
   private boolean numberOfTablesReceived = false;
+  private int employeeType;
 
   private ObjectInputStream input;
   private ObjectOutputStream output;
@@ -103,15 +103,17 @@ Client implements Runnable {
           } else if (Math.abs(packet.getType()) <= 10) {
             // Receive resource protocol
             this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEINGREDIENTADJUSTMENT) {
+          } else if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
             this.objectIsReady = true;
 
             // Kinda sketch because I'm doing it twice
             this.objectIsReady = false;
             System.out.println("Received " + packet.getObject());
             HashMap newDisplayQuantity = (HashMap) packet.getObject();
-            MenuController menuController = (MenuController) stored.get("menuController");
-            menuController.updateInventory(newDisplayQuantity);
+            if (this.employeeType == Packet.SERVERTYPE) {
+              MenuController menuController = (MenuController) stored.get("menuController");
+              menuController.updateMirrorQuantity(newDisplayQuantity);
+            }
           } else {
             System.out.println("*** Packet type invalid ***");
           }
@@ -136,7 +138,11 @@ Client implements Runnable {
     // Return the employee type to the GUI
     System.out.println("Employee Type is ready");
     this.objectIsReady = false;
-    return (int) ((Packet) this.object).getObject();
+    int employeeType = (int) ((Packet) this.object).getObject();
+    if (employeeType != Packet.LOGINFAILED) {
+      this.employeeType = employeeType;
+    }
+    return employeeType;
   }
 
   private void confirmLogIn(int confirmation) {
@@ -193,7 +199,7 @@ Client implements Runnable {
 
     HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
-    menuController.updateInventory(newDisplayQuantity);
+    menuController.updateMirrorQuantity(newDisplayQuantity);
   }
 
   public void sendAdjustIngredientRequest(DishIngredient ingredient, int quantity) {
@@ -210,7 +216,7 @@ Client implements Runnable {
 
     HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
-    menuController.updateInventory(newDisplayQuantity);
+    menuController.updateMirrorQuantity(newDisplayQuantity);
   }
 
   public void sendEvent(int methodName, ArrayList parameters) {

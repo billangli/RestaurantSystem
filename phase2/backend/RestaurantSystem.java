@@ -14,7 +14,8 @@ import java.io.*;
 import java.util.logging.Logger;
 
 public class  RestaurantSystem {
-  private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+  public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+  public static ComputerServer computerServer;
 
   /**
    * Read and parse the config files for employees, tables, menu and backend.inventory
@@ -157,7 +158,7 @@ public class  RestaurantSystem {
     EventManager.setRunning(true);
     Thread eventThread = new Thread(new EventManager());
     eventThread.start();
-    ComputerServer computerServer = ComputerServer.getInstance();
+    computerServer = ComputerServer.getInstance();
 
 //    // Test
 //    Server server = (Server) EmployeeManager.getEmployeeById(0);
