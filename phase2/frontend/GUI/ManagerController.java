@@ -19,7 +19,7 @@ public class ManagerController {
     Button signOut;
 
     private int myId;
-    public void setmyId(int id){
+    public void setMyId(int id){
         myId = id;
     }
 

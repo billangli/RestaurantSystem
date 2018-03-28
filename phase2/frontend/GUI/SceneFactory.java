@@ -27,7 +27,7 @@ public class SceneFactory {
 
             CookController paneController = cookLoader.getController();
             client.store("cookController", paneController);
-            paneController.setmyId(id);
+            paneController.setMyId(id);
         }
         else if(type == Packet.SERVERTYPE){
             //load server interface
@@ -45,6 +45,7 @@ public class SceneFactory {
             ServerController paneController = serverLoader.getController();
             client.store("serverController",paneController);
             paneController.setMenuScene(menuScene);
+            paneController.setMyId(id);
 
             //injecting server scene into the controller of the menu scene
             MenuController menuPaneController = menuLoader.getController();
@@ -58,7 +59,7 @@ public class SceneFactory {
             scene = new Scene(manager, WIDTH, HEIGHT);
 
             ManagerController paneController = managerLoader.getController();
-            paneController.setmyId(id);
+            paneController.setMyId(id);
         }
         return scene;
     }
