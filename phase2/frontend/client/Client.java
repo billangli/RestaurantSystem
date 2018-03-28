@@ -114,7 +114,7 @@ public class Client implements Runnable {
               CookController cookController = (CookController) stored.get("cookController");
               cookController.updateDishesOnTableView();
             } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
-              ServerController serverController = (ServerController) stored.get("cookController");
+              ServerController serverController = (ServerController) stored.get("serverController");
               serverController.updateTableView();
             }
 
