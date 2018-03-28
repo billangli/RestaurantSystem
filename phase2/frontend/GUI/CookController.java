@@ -44,6 +44,12 @@ public class CookController {
     myId = id;
   }
 
+  // TODO: In backend, this method should be called to update
+  private void updateDishesOnTableView() {
+    tableViewDishesInProgress.setItems(getDishesInProgress());
+    tableViewDishesInQueue.setItems(getDishesInFirstOrderQueue());
+  }
+
   @FXML
   private void initialize() {
     updateDishesOnTableView();
@@ -74,11 +80,6 @@ public class CookController {
     }
 
     return dishes;
-  }
-
-  private void updateDishesOnTableView() {
-    tableViewDishesInProgress.setItems(getDishesInProgress());
-    tableViewDishesInQueue.setItems(getDishesInFirstOrderQueue());
   }
 
   @FXML

@@ -177,4 +177,8 @@ public class Dish extends DishRecipe {
         return isSent;
     }
 
+    public int getTableNumber() {
+        return table.getTableNum();
+    }
+
 }
