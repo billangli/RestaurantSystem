@@ -1,5 +1,5 @@
-internet connection
-fix phase 1 code design
-connect phase 1 code with frontend.GUI
-build the frontend.GUI Yujie Miao
-backend.logger
+internet connection(Server, Client): Bill
+fix phase 1 code design: Dunghee
+connect phase 1 code with frontend.GUI through Server: Yujie, Bill
+build the frontend.GUI: Justin, Yujie
+backend.logger: Justin
