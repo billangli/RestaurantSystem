@@ -24,24 +24,22 @@ public class ManagerController {
         myId = id;
     }
 
-    @FXML protected void request(ActionEvent event) {
+    @FXML private void request() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
-        Parent root;
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Request.fxml"));
             Parent scene = numLoader.load();
-            window.setTitle("Ingredient sendRequest!");
+            window.setTitle("Ingredient request!");
             window.setScene(new Scene(scene, 600, 600));
             window.showAndWait();
         } catch (IOException e) {
-            System.out.println("sendRequest error");
+            System.out.println("Request error");
         }
-
     }
 
-    @FXML protected void ingredientAmount(ActionEvent event) {
+    @FXML protected void ingredientAmount() {
         //TODO inventory to string
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -55,6 +53,25 @@ public class ManagerController {
             window.showAndWait();
         } catch (IOException e) {
             System.out.println("Ingredient amount error");
+        }
+    }
+
+    @FXML
+    private void receiveItem() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/ReceiveItem.fxml"));
+            Parent root = loader.load();
+            window.setTitle("Receive Item");
+            window.setScene(new Scene(root, 400, 200));
+            ReceiveItemController controller = loader.getController();
+            controller.setMyId(myId);
+            controller.start();
+            window.showAndWait();
+        } catch (IOException e) {
+            System.out.println("receive item error");
         }
     }
 

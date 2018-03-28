@@ -22,7 +22,7 @@ public class PrintBillController {
 
   @FXML
   private void initialize() {
-    tableNumberLabel.setText(Integer.toString(tableNumber));
+    tableNumberLabel.setText("Print Bill for Table: " + Integer.toString(tableNumber));
     /* TODO: In backend, get table with table number <tableNumber> */
 
   }

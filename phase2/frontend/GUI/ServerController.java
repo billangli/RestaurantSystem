@@ -259,6 +259,25 @@ public class ServerController  implements Initializable {
     }
 
     @FXML
+    private void receiveItem() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/ReceiveItem.fxml"));
+            Parent root = loader.load();
+            window.setTitle("Receive Item");
+            window.setScene(new Scene(root, 400, 200));
+            ReceiveItemController controller = loader.getController();
+            controller.setMyId(myId);
+            controller.start();
+            window.showAndWait();
+        } catch (IOException e) {
+            System.out.println("receive item error");
+        }
+    }
+
+    @FXML
     protected void logOff() throws IOException {
         FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
         GridPane root = startLoader.load();

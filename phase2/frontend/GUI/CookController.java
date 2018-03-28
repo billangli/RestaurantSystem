@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -50,7 +52,8 @@ public class CookController {
   private ObservableList<Dish> getDishesInProgress() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESINPROGRESS);
+    LinkedList<Dish> dishesInProgress =
+        (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESINPROGRESS);
 
     dishes.addAll(dishesInProgress);
 
@@ -60,10 +63,11 @@ public class CookController {
   private ObservableList<Dish> getDishesInFirstOrderQueue() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    LinkedList<Order> ordersInQueue = (LinkedList<Order>) client.sendRequest(Packet.REQUESTORDERSINQUEUE);
+    LinkedList<Order> ordersInQueue =
+        (LinkedList<Order>) client.sendRequest(Packet.REQUESTORDERSINQUEUE);
 
     numOfOrdersInQueue = ordersInQueue.size();
-    numOfOrderLabel.setText(Integer.toString(numOfOrdersInQueue));
+    numOfOrderLabel.setText("Number of orders in queue: " + Integer.toString(numOfOrdersInQueue));
 
     if (!ordersInQueue.isEmpty()) {
       dishes.addAll(ordersInQueue.get(0).getDishes());
@@ -102,22 +106,48 @@ public class CookController {
     updateDishesOnTableView();
   }
 
-  @FXML private void logOff() throws IOException {
-      FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
-      GridPane root = startLoader.load();
-      Scene mainScene = new Scene(root, 600, 600);
-      BackgroundImage mainImage = new BackgroundImage(new Image("hp.jpg", 600, 600, false, true),
-              BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-              BackgroundSize.DEFAULT);
-      root.setBackground(new Background(mainImage));
+  @FXML
+  private void receiveItem() {
+    Stage window = new Stage();
+    window.initModality(Modality.APPLICATION_MODAL);
 
-      StartSceneController paneController = startLoader.getController();
-      paneController.start();
+    try {
+      FXMLLoader loader =
+          new FXMLLoader(this.getClass().getResource("/frontend/GUI/ReceiveItem.fxml"));
+      Parent root = loader.load();
+      window.setTitle("Receive Item");
+      window.setScene(new Scene(root, 400, 200));
+      ReceiveItemController controller = loader.getController();
+      controller.setMyId(myId);
+      controller.start();
+      window.showAndWait();
+    } catch (IOException e) {
+      System.out.println("receive item error");
+    }
+  }
 
-      Stage window = (Stage)(hBox.getScene().getWindow());
+  @FXML
+  private void logOff() throws IOException {
+    FXMLLoader startLoader =
+        new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
+    GridPane root = startLoader.load();
+    Scene mainScene = new Scene(root, 600, 600);
+    BackgroundImage mainImage =
+        new BackgroundImage(
+            new Image("hp.jpg", 600, 600, false, true),
+            BackgroundRepeat.REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    root.setBackground(new Background(mainImage));
 
-      window.setTitle("Welcome to Four Guys Restaurant System");
-      window.setScene(mainScene);
-      window.show();
+    StartSceneController paneController = startLoader.getController();
+    paneController.start();
+
+    Stage window = (Stage) (hBox.getScene().getWindow());
+
+    window.setTitle("Welcome to Four Guys Restaurant System");
+    window.setScene(mainScene);
+    window.show();
   }
 }
