@@ -52,9 +52,9 @@ public class MenuController{
     public void updateMirrorQuantity(HashMap newDisplayQuantity) {
         for(Object i: newDisplayQuantity.keySet()){
             String ingredientName = (String) i;
-            int mirrorQuantity = (int) newDisplayQuantity.get(i);
+            int runningQuantity = (int) newDisplayQuantity.get(i);
             InventoryIngredient inventoryIngredient = inventory.getIngredient(ingredientName);
-            inventoryIngredient.setQuantity(mirrorQuantity);
+            inventoryIngredient.setRunningQuantity(runningQuantity);
         }
         updateMenu();
     }

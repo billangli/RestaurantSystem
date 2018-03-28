@@ -53,7 +53,7 @@ public class ProcessableEvent extends Event {
       int quantity = (int) this.parameters.get(1);
       employee.receiveIngredient(ingredientName, quantity);
       HashMap<String, Integer> newMirrorQuantities = new HashMap<>();
-      newMirrorQuantities.put(ingredientName, inventory.getIngredient(ingredientName).getMirrorQuantity());
+      newMirrorQuantities.put(ingredientName, inventory.getIngredient(ingredientName).getRunningQuantity());
       computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newMirrorQuantities);
     } else {
 
