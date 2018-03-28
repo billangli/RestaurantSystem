@@ -57,7 +57,7 @@ public class ServerController implements Initializable {
     menuScene = scene;
   }
 
-  //TODO: In backend, this method should be called to update
+  //TODO: In backend, this method should be called to update after each time a dish is finished by cook
   public void updateTableView() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
@@ -69,7 +69,7 @@ public class ServerController implements Initializable {
     finishedDishTableView.setItems(dishes);
   }
 
-  //TODO: In backend, this method should be called to update
+  //TODO: In backend, this method should be called to update after each time takeSeat is called by any server.
   public void updateTableColor(int tableNumber, boolean occupied) {
       if (occupied) {
           rectangleArrayList.get(tableNumber-1).setFill(COLOR_OCCUPIED);

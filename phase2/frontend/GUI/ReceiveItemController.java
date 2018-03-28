@@ -52,6 +52,8 @@ public class ReceiveItemController {
       int quantity = Integer.parseInt(tf.getText());
 
       // TODO: In backend, call (employeeObj).receiveIngredient(ingredientName, quantity)
+        //TODO: when this button is clicked, Manager's check inventory GUI should be updated
+        //TODO: when dishes are ordered(it's not in this controller), Manager's check inventory GUI should be updated
 
       // close the window
       ((Stage) confirmButton.getScene().getWindow()).close();
