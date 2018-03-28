@@ -2,7 +2,7 @@ package backend.inventory;
 
 import java.io.Serializable;
 
-/** Ingredient class represents ingredients. */
+/** Ingredient class represents food ingredients. */
 public abstract class Ingredient implements Serializable {
   private String name;
   private int quantity;
