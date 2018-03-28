@@ -132,15 +132,14 @@ public class ComputerServer implements Runnable {
   /**
    * Broadcast by employee type
    *
-   * @param employeeType is
-   * @param type
-   * @param message
+   * @param employeeType is the employee type
+   * @param messageType is the type of message being sent (protocol defined in Packet.java)
    */
-  void broadcast(String employeeType, int type, Object message) {
+  public void broadcast(int employeeType, int messageType) {
     for (ClientThread client : clients) {
       if (client.isLoggedOn()) {
         System.out.println("Broadcasting to " + client);
-        client.send(type, message);
+        client.send(messageType);
       }
     }
   }

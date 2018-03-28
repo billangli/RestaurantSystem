@@ -45,7 +45,7 @@ public class CookController {
   }
 
   // TODO: In backend, this method should be called to update after server enters menu, or finishedButton is clicked or getOrderButton is clicked.
-  private void updateDishesOnTableView() {
+  public void updateDishesOnTableView() {
     tableViewDishesInProgress.setItems(getDishesInProgress());
     tableViewDishesInQueue.setItems(getDishesInFirstOrderQueue());
   }

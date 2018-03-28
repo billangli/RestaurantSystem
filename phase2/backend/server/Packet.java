@@ -26,7 +26,7 @@ public class Packet implements Serializable {
   public static final int RECEIVEORDERSINQUEUE = -6;
   public static final int RECEIVETABLE = -7;
   public static final int RECEIVEQUANTITIES = -8;
-  public static final int RECEIVEMIRRORQUANTITIES = -9;
+  public static final int RECEIVEDISHESCOMPLETED = -9;
 
   // Adjust ingredient
   public static final int ADJUSTINGREDIENT = 30;
@@ -35,6 +35,9 @@ public class Packet implements Serializable {
 
   // Event Type
   public static final int RECEIVEINGREDIENT = 55;
+
+  // Events that might be updated automatically
+  public static final Integer[] RECEIVEUPDATE = {RECEIVEDISHESINPROGRESS, RECEIVEORDERSINQUEUE, RECEIVEDISHESCOMPLETED, RECEIVEMIRRORQUANTITYADJUSTMENT};
 
   // Cook Events
   public static final int ORDERRECEIVED = 50;

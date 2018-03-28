@@ -24,6 +24,10 @@ public class ProcessableEvent extends Event {
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   private static final Inventory inventory = Inventory.getInstance();
 
+//  private LinkedList ordersInQueue = ServiceEmployee.getOrderQueue().getOrdersInQueue();
+//  private LinkedList dishesInProgress = ServiceEmployee.getOrderQueue().getDishesInProgress();
+//  private LinkedList dishesCompleted = ServiceEmployee.getOrderQueue().getDishesCompleted(); TODO: Get rid of this
+
   /**
    * Constructor for ProcessableEvent
    *
@@ -94,10 +98,14 @@ public class ProcessableEvent extends Event {
     switch (this.methodName) {
       case Packet.ORDERRECEIVED:
         cook.orderReceived();
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEORDERSINQUEUE);
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESINPROGRESS);
         break;
       case Packet.DISHREADY: {
         int dishNumber = (int) this.parameters.get(0);
         cook.dishReady(dishNumber);
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESINPROGRESS);
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESCOMPLETED);
         break;
       }
       default:
@@ -141,16 +149,19 @@ public class ProcessableEvent extends Event {
         Table table = TableManager.getTable(tableNumber);
         Order order = (Order) this.parameters.get(1);
         server.enterMenu(table, order);
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEORDERSINQUEUE);
         break;
       }
       case Packet.DELIVERDISHCOMPLETED: {
         int dishNumber = (int) this.parameters.get(0);
         server.deliverDishCompleted(dishNumber);
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESCOMPLETED);
         break;
       }
       case Packet.DELIVERDISHFAILED: {
         int dishNumber = (int) this.parameters.get(0);
         server.deliverDishFailed(dishNumber);
+        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESCOMPLETED);
         break;
       }
       case Packet.PRINTBILL: {

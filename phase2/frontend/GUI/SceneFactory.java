@@ -26,6 +26,7 @@ public class SceneFactory {
             scene = new Scene(cook, WIDTH, HEIGHT);
 
             CookController paneController = cookLoader.getController();
+            client.store("cookController", paneController);
             paneController.setmyId(id);
         }
         else if(type == Packet.SERVERTYPE){

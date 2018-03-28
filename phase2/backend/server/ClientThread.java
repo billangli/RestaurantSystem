@@ -154,6 +154,23 @@ class ClientThread implements Runnable {
     }
   }
 
+  /**
+   * Send just the message type to the client
+   *
+   * @param type   is the type of the message
+   */
+  void send(int type) {
+    System.out.println("Sending " + type + " to " + this.employeeType + this.employeeID);
+    logger.info("Sending " + type + " to " + this.employeeType + this.employeeID);
+
+    Packet packet = new Packet(type);
+    try {
+      this.output.writeObject(packet);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   private ProcessableEvent createEvent(Packet packet) {
     int methodName = packet.getType();
     ArrayList parameters = (ArrayList) packet.getObject();

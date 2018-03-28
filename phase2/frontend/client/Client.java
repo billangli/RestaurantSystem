@@ -2,13 +2,16 @@ package frontend.client;
 
 import backend.inventory.DishIngredient;
 import backend.server.Packet;
+import frontend.GUI.CookController;
 import frontend.GUI.MenuController;
+import frontend.GUI.ServerController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -97,6 +100,7 @@ public class Client implements Runnable {
         this.object = this.input.readObject();
         if (object != null) {
           Packet packet = (Packet) object;
+          System.out.println("Packet type: " + packet.getType());
 
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
             // Confirm log in or not
@@ -104,18 +108,31 @@ public class Client implements Runnable {
           } else if (Math.abs(packet.getType()) <= 10) {
             // Receive resource protocol
             this.objectIsReady = true;
-          } else if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
+          } else if (Arrays.asList(Packet.RECEIVEUPDATE).contains(packet.getType())) {
+            System.out.println("Received " + packet.getObject());
+            if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS || packet.getType() == Packet.RECEIVEORDERSINQUEUE) {
+              CookController cookController = (CookController) stored.get("cookController");
+              cookController.updateDishesOnTableView();
+            } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
+              ServerController serverController = (ServerController) stored.get("cookController");
+              serverController.updateTableView();
+            }
+
             if (otherUpdate) {
-              System.out.println("Received " + packet.getObject());
-              HashMap newDisplayQuantity = (HashMap) packet.getObject();
-              if (this.employeeType == Packet.SERVERTYPE) {
-                MenuController menuController = (MenuController) stored.get("menuController");
-                menuController.updateMirrorQuantity(newDisplayQuantity);
+              if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
+                HashMap newDisplayQuantity = (HashMap) packet.getObject();
+                if (this.employeeType == Packet.SERVERTYPE) {
+                  MenuController menuController = (MenuController) stored.get("menuController");
+                  menuController.updateMirrorQuantity(newDisplayQuantity);
+                }
               }
             } else {
               this.objectIsReady = true;
             }
           } else {
+            for (int i : Packet.RECEIVEUPDATE) {
+              System.out.print(i);
+            }
             System.out.println("*** Packet type invalid ***");
           }
         }
@@ -159,6 +176,7 @@ public class Client implements Runnable {
   }
 
   public Object sendRequest(int requestType) {
+    this.otherUpdate = false;
     this.send(requestType);
 
     // Waiting for Server to respond
@@ -169,10 +187,12 @@ public class Client implements Runnable {
     System.out.println("Object is ready");
     this.objectIsReady = false;
     System.out.println("Received " + ((Packet) this.object).getObject());
+    this.otherUpdate = true;
     return ((Packet) this.object).getObject();
   }
 
   public Object sendRequest(int requestType, Object message) {
+    this.otherUpdate = false;
     this.send(requestType, message);
 
     // Waiting for Server to respond
@@ -183,6 +203,7 @@ public class Client implements Runnable {
     System.out.println("Object is ready");
     this.objectIsReady = false;
     System.out.println("Received " + ((Packet) this.object).getObject());
+    this.otherUpdate = true;
     return ((Packet) this.object).getObject();
   }
 
