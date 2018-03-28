@@ -40,7 +40,7 @@ public class CookController {
 
   private Client client = Client.getInstance();
 
-  public void setmyId(int id) {
+  public void setMyId(int id) {
     myId = id;
   }
 

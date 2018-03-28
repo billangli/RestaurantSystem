@@ -186,7 +186,7 @@ public class ServerController implements Initializable {
       MenuController menuController = (MenuController) client.getStored("menuController");
       menuController.setStage(window);
 
-      // menuController has same id as this contoller.
+      // menuController has same id as this controller.
       menuController.setTableNumber(selectedTableNumber);
       menuController.setMyId(myId);
 
