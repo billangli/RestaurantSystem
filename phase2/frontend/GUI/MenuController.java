@@ -179,7 +179,6 @@ public class MenuController{
         }
         for(Dish dish:recipe){
             boolean cookable = dish.ableToCook(inventory);
-            System.out.println(dish.getName()+" "+cookable);
             Button tb = (Button) tableView.lookup("#"+dish.getName());
             if(cookable){
                 tb.setDisable(false);
