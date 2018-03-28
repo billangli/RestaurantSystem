@@ -23,7 +23,7 @@ public class IngredientController {
     @FXML
     GridPane tableView = new GridPane();
 
-    Dish dish;
+    private Dish dish;
     private Inventory inventory = Inventory.getInstance();
     private Client client = Client.getInstance();
 
@@ -64,11 +64,5 @@ public class IngredientController {
 
             i++;
         }
-    }
-
-
-    public void initialize(URL url, ResourceBundle rb){
-
-
     }
 }

@@ -17,7 +17,7 @@ import java.io.IOException;
 public class StartSceneController{
     @FXML private TextField tf;
     private Scene scene;
-    public Client client = Client.getInstance();
+    private Client client = Client.getInstance();
     @FXML private Text actiontarget;
 
     @FXML

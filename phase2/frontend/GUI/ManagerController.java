@@ -43,7 +43,6 @@ public class ManagerController {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
-        Parent root;
         try {
             FXMLLoader numLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/InventoryDisplay.fxml"));
             Parent scene = numLoader.load();

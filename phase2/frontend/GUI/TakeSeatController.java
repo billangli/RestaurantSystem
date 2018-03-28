@@ -19,7 +19,7 @@ public class TakeSeatController {
     private final Color COLOR_OCCUPIED = Color.BLUE;
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
-    private Client client = Client.getInstance();
+    private final Client client = Client.getInstance();
 
     public void setMyId(int id) {
         this.myId = id;

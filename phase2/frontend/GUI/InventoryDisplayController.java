@@ -14,7 +14,7 @@ public class InventoryDisplayController {
     @FXML private GridPane tableView;
     private Client client = Client.getInstance();
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
-    Inventory inventory = Inventory.getInstance();
+    private Inventory inventory = Inventory.getInstance();
 
     public void initialize(){
         inventory.setStock(defaultInventory);

@@ -40,7 +40,6 @@ public class ServerStageController {
   @FXML private HBox hBox2;
 
   private int numOfTables;
-  private ArrayList<Rectangle> rectangles;
   /* Methods */
   @FXML
   private void initialize() {

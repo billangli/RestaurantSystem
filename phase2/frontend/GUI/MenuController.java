@@ -22,19 +22,19 @@ public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
     private Stage window;
-    public Client client = Client.getInstance();
-    int numoforder = 0;
+    private Client client = Client.getInstance();
+    private int numoforder = 0;
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
-    public Inventory inventory = Inventory.getInstance();
+    private Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
     private int tableNumber;
     private int myId;
 
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
-    Menu menu = Menu.getInstance();
+    private Menu menu = Menu.getInstance();
 
-    Order dishOrder = new Order();
-    HashMap<String,Dish> order = new HashMap<>();
+    private Order dishOrder = new Order();
+    private HashMap<String,Dish> order = new HashMap<>();
 
     public void setMyId(int id) {
         this.myId = id;
@@ -81,7 +81,7 @@ public class MenuController{
 
 
 
-    public void initialize() throws IOException{
+    public void initialize(){
         menu.setDishes(menuDishes);
         inventory.setStock(defaultInventory);
         HashMap<String,DishRecipe> dishes = menu.getDishes();
