@@ -40,7 +40,7 @@ public class ProcessableEvent extends Event {
     if (this.methodName == Packet.RECEIVEINGREDIENT) {
       String ingredientName = (String) this.parameters.get(0);
       int quantity = Integer.parseInt((String) this.parameters.get(1));
-      employee.receiveIngredient(ingredientName, quantity); // TODO: Make sure this works
+      employee.receiveIngredient(ingredientName, quantity);
     }
 
     switch (this.employeeType) {

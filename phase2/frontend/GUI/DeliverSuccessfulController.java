@@ -18,7 +18,7 @@ public class DeliverSuccessfulController {
     if (tf.getText().length() > 0) {
       int dishNumber = Integer.parseInt(tf.getText());
 
-      client.sendEvent(Packet.DELIVERDISHCOMPLETED, dishNumber); // TODO: In backend, (serverObject).deliverDishCompleted(dishNumber) should be called
+      client.sendEvent(Packet.DELIVERDISHCOMPLETED, dishNumber);
       // (serverObject).deliverDishCompleted(dishNumber)
       /* ------------------------------------------------------------------------------------------ */
 

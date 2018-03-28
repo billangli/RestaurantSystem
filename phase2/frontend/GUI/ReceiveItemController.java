@@ -1,6 +1,6 @@
 package frontend.GUI;
 
-import backend.inventory.InventoryIngredient;
+import backend.server.Packet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,7 +9,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import static frontend.GUI.FXMain.client;
 
 public class ReceiveItemController {
   @FXML Button confirmButton, cancelButton;
@@ -36,12 +39,17 @@ public class ReceiveItemController {
   private void initialize() {
     ObservableList<String> ingredientNames = FXCollections.observableArrayList();
 
-    // TODO: get Inventory.inventoryIngredient from backend
-//    HashMap<String, InventoryIngredient> ingredientHashMap = Inventory.inventoryIngredient
-    /* ---------------------------------------------------------- */
 
-    //    ingredientNames.addAll(ingredientHashMap.keySet());
-    ingredientNames.addAll("banana", "apple"); // temporary values for testing
+    HashMap ingredientHashMap = (HashMap) client.sendRequest(Packet.REQUESTINVENTORY);
+    /* ---------------------------------------------------------- */
+    ArrayList<String> ingredientNamesArrayList = new ArrayList<>();
+    for (Object object : ingredientHashMap.keySet()) {
+      ingredientNamesArrayList.add((String) object);
+    }
+
+
+    ingredientNames.addAll(ingredientNamesArrayList);
+//    ingredientNames.addAll("banana", "apple"); // temporary values for testing
     choiceBox.setItems(ingredientNames);
   }
 
@@ -52,7 +60,13 @@ public class ReceiveItemController {
       int quantity = Integer.parseInt(tf.getText());
 
       // TODO: In backend, call (employeeObj).receiveIngredient(ingredientName, quantity)
-        //TODO: when this button is clicked, Manager's check inventory GUI should be updated
+
+      ArrayList<Object> info = new ArrayList<Object>();
+      info.add(ingredientName);
+      info.add(quantity);
+      client.sendRequest(Packet.RECEIVEINGREDIENT, info);
+
+      //TODO: when this button is clicked, Manager's check inventory GUI should be updated
         //TODO: when dishes are ordered(it's not in this controller), Manager's check inventory GUI should be updated
 
       // close the window

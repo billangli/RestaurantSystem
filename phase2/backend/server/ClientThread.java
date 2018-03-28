@@ -89,7 +89,7 @@ class ClientThread implements Runnable {
             this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getDishesInProgress());
           } else if (packet.getType() == Packet.REQUESTORDERSINQUEUE) {
             System.out.println("Sending ordersInQueue");
-            this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getOrdersInQueue());
+            this.send(Packet.RECEIVEORDERSINQUEUE, ServiceEmployee.getOrderQueue().getOrdersInQueue());
           } else if (packet.getType() == Packet.REQUESTTABLE) {
             System.out.println("Sending table");
             this.send(Packet.RECEIVETABLE, TableManager.getTable((int) packet.getObject()));

@@ -61,7 +61,6 @@ public class ServerController implements Initializable {
   public void updateTableView() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-    // TODO: In backend, get ServiceEmployee.getOrderQueue().getDishesCompleted
     LinkedList<Dish> dishesCompleted =
         (LinkedList<Dish>) ServiceEmployee.getOrderQueue().getDishesCompleted();
 
