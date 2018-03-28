@@ -29,6 +29,7 @@ public class Client implements Runnable {
   private ObjectOutputStream output;
 
   private volatile boolean objectIsReady = false;
+  private volatile boolean otherUpdate; // Some other client updated something
   private volatile Object object;
 
   private HashMap<String, Object> stored = new HashMap<>();
@@ -104,15 +105,15 @@ public class Client implements Runnable {
             // Receive resource protocol
             this.objectIsReady = true;
           } else if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
-            this.objectIsReady = true;
-
-            // Kinda sketch because I'm doing it twice
-            this.objectIsReady = false;
-            System.out.println("Received " + packet.getObject());
-            HashMap newDisplayQuantity = (HashMap) packet.getObject();
-            if (this.employeeType == Packet.SERVERTYPE) {
-              MenuController menuController = (MenuController) stored.get("menuController");
-              menuController.updateMirrorQuantity(newDisplayQuantity);
+            if (otherUpdate) {
+              System.out.println("Received " + packet.getObject());
+              HashMap newDisplayQuantity = (HashMap) packet.getObject();
+              if (this.employeeType == Packet.SERVERTYPE) {
+                MenuController menuController = (MenuController) stored.get("menuController");
+                menuController.updateMirrorQuantity(newDisplayQuantity);
+              }
+            } else {
+              this.objectIsReady = true;
             }
           } else {
             System.out.println("*** Packet type invalid ***");
@@ -186,6 +187,7 @@ public class Client implements Runnable {
   }
 
   public void sendAdjustIngredientRequest(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
+    this.otherUpdate = false;
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
 
     // Waiting for the Server to respond
@@ -200,9 +202,11 @@ public class Client implements Runnable {
     HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
     menuController.updateMirrorQuantity(newDisplayQuantity);
+    this.otherUpdate = true;
   }
 
   public void sendAdjustIngredientRequest(DishIngredient ingredient, int quantity) {
+    this.otherUpdate = false;
     this.send(Packet.ADJUSTINDIVIDUALINGREDIENT, new Object[]{ingredient, quantity});
 
     // Waiting for the Server to respond
@@ -217,6 +221,7 @@ public class Client implements Runnable {
     HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
     menuController.updateMirrorQuantity(newDisplayQuantity);
+    this.otherUpdate = true;
   }
 
   public void sendEvent(int methodName, ArrayList parameters) {
