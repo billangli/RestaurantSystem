@@ -36,8 +36,8 @@ public class MenuController{
     Order dishOrder = new Order();
     HashMap<String,Dish> order = new HashMap<>();
 
-    public void setTableNumber(int myId) {
-        this.tableNumber = myId;
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public void setStage(Stage stage){
@@ -154,7 +154,10 @@ public class MenuController{
                     Dish dish = order.get(item);
                     dishOrder.addDish(dish);
                 }
-                //TODO receive the order, sendOrder()
+                ArrayList<Object> info = new ArrayList<>();
+                info.add(tableNumber);
+                info.add(dishOrder);
+                client.sendEvent(Packet.ENTERMENU, info);
                 ((Stage) submit.getScene().getWindow()).close();
             }
         });
