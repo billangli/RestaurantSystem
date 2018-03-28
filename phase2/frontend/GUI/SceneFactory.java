@@ -43,7 +43,7 @@ public class SceneFactory {
 
             //injecting menu scene into the controller of the server scene
             ServerController paneController = serverLoader.getController();
-            paneController.setmyId(id);
+            client.store("serverController",paneController);
             paneController.setMenuScene(menuScene);
 
             //injecting server scene into the controller of the menu scene
