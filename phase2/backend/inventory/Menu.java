@@ -36,9 +36,7 @@ public class Menu implements Serializable {
     return getInstance();
   }
 
-  /**
-   * Creates a menu using the provided phase1/menu.txt file
-   */
+  /** Creates a menu using the provided phase1/menu.txt file */
   private void create() throws IOException {
     try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/menu.txt"))) {
 

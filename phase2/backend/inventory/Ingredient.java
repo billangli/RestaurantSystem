@@ -44,5 +44,4 @@ public abstract class Ingredient implements Serializable {
   public String getName() {
     return this.name;
   }
-
 }

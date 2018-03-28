@@ -10,7 +10,7 @@ public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
   private int
       mirrorQuantity; // this is the quantity of the ingredient that is updated whenever a dish is
-                      // added to the order or any of its adjustable ingredients is adjusted
+  // added to the order or any of its adjustable ingredients is adjusted
   private boolean isUnderThreshold;
 
   /**
@@ -94,8 +94,7 @@ public class InventoryIngredient extends Ingredient {
     return this.isUnderThreshold;
   }
 
-  public void setQuantity(int amount){
+  public void setQuantity(int amount) {
     this.mirrorQuantity = amount;
   }
 }
-
