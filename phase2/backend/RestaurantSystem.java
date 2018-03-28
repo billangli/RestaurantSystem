@@ -104,7 +104,7 @@ public class  RestaurantSystem {
 
       // creating sendRequest.txt
       try {
-        File file = new File("phase1/sendRequest.txt");
+        File file = new File("phase2/Request.txt");
         /*If file gets created then the createNewFile()
          * method would return true or if the file is
          * already present it would return false
