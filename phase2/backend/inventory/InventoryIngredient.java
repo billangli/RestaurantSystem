@@ -8,9 +8,17 @@ package backend.inventory;
  */
 public class InventoryIngredient extends Ingredient {
   private int lowerThreshold;
-  private int
-      mirrorQuantity; // this is the quantity of the ingredient that is updated whenever a dish is
-  // added to the order or any of its adjustable ingredients is adjusted
+  // The runningQuantity is similar to the actual quantity of the InventoryIngredient, but the
+  // former is updated whenever a Dish
+  // is added to the order to avoid a situation where more orders are made than the ingredient
+  // available in inventory -
+  // while still allowing the actual quantity to be deducted only when the Dish has been prepared
+  // (or if the cook needs to
+  // discard the InventoryIngredient due to spoilage or wasting it by accident).
+  //
+  // @Contract("runningQuality <= quantity")
+  //
+  private int runningQuantity;
   private boolean isUnderThreshold;
 
   /**
@@ -25,7 +33,7 @@ public class InventoryIngredient extends Ingredient {
   public InventoryIngredient(String name, int quantity, int lowerThreshold) {
     super(name, quantity);
     this.lowerThreshold = lowerThreshold;
-    this.mirrorQuantity = quantity;
+    this.runningQuantity = quantity;
     this.isUnderThreshold = quantity < lowerThreshold;
   }
 
@@ -38,8 +46,12 @@ public class InventoryIngredient extends Ingredient {
     return this.lowerThreshold > this.getQuantity();
   }
 
-  public int getMirrorQuantity() {
-    return this.mirrorQuantity;
+  /**
+   * Returns the runningQuantity of this InventoryIngredient
+   * @return the runningQuantity of this InventoryIngredient
+   */
+  public int getRunningQuantity() {
+    return this.runningQuantity;
   }
 
   /**
@@ -73,11 +85,11 @@ public class InventoryIngredient extends Ingredient {
    * @param quantityUnit the quantity
    */
   public void modifyMirrorQuantity(int quantityUnit) {
-    this.mirrorQuantity += quantityUnit;
+    this.runningQuantity += quantityUnit;
   }
 
   /**
-   * Modifies the IsUnderThreshold variable of this InventoryIngredient to bool
+   * Modifies the IsUnderThreshold variable of this InventoryIngredient to boolean bool
    *
    * @param bool whether the isUnderThreshold must be converted into True or False
    */
@@ -86,15 +98,19 @@ public class InventoryIngredient extends Ingredient {
   }
 
   /**
-   * Returns the IsUnderThreshold of this InventoryIngredient
+   * Returns true iff the IsUnderThreshold of this InventoryIngredient is true. Otherwise returns false.
    *
-   * @return the IsUnderThreshold of this InventoryIngredient
+   * @return true iff the IsUnderThreshold of this InventoryIngredient is true. Otherwise return false.
    */
   public boolean getIsUnderThreshold() {
     return this.isUnderThreshold;
   }
 
-  public void setQuantity(int amount) {
-    this.mirrorQuantity = amount;
+  /**
+   * Sets the runningQuantity of this InventoryIngredient as int amount
+   * @param amount the amount that the runningQuantity of this InventoryIngredient must be set as
+   */
+  public void setRunningQuantity(int amount) {
+    this.runningQuantity = amount;
   }
 }

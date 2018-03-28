@@ -47,7 +47,8 @@ public class Dish extends DishRecipe {
    *
    * @param ingredientName the name of the DishIngredient
    * @param amount the total amount of DishIngredient allowed for this Dish
-   * @return
+   * @return true if and only if it is possible for this Dish to permit the amount amount for the
+   * DishIngredient ingredientName
    */
   public boolean ableToAdjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired.get(ingredientName).allowed(amount)) {
@@ -98,7 +99,7 @@ public class Dish extends DishRecipe {
    */
   public boolean ableToCook(Inventory in) {
     for (String ingredientName : ingredientsRequired.keySet()) {
-      int inventoryQuantity = in.getIngredient(ingredientName).getMirrorQuantity();
+      int inventoryQuantity = in.getIngredient(ingredientName).getRunningQuantity();
       int dishQuantity = ingredientsRequired.get(ingredientName).getQuantity();
       if (inventoryQuantity < dishQuantity) {
         return false;
