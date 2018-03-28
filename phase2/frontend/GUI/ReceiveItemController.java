@@ -19,12 +19,6 @@ public class ReceiveItemController {
   @FXML TextField tf;
   @FXML ChoiceBox<String> choiceBox;
 
-  private int myId;
-
-  public void setMyId(int myId) {
-    this.myId = myId;
-  }
-
   public void start() {
     tf.textProperty()
         .addListener(

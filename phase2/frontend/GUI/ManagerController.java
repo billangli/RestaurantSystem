@@ -1,6 +1,5 @@
 package frontend.GUI;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,7 +66,7 @@ public class ManagerController {
             window.setTitle("Receive Item");
             window.setScene(new Scene(root, 400, 200));
             ReceiveItemController controller = loader.getController();
-            controller.setMyId(myId);
+            controller.setTableNumber(myId);
             controller.start();
             window.showAndWait();
         } catch (IOException e) {

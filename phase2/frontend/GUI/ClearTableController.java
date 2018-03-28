@@ -17,14 +17,9 @@ public class ClearTableController {
   int tableNumber;
   private final Color COLOR_EMPTY = Color.WHITE;
   ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
-  private int myId;
 
-    public void setMyId(int myId) {
-        this.myId = myId;
-    }
-
-    public void setTableNumber(int t) {
-    this.tableNumber = t;
+    public void setTableNumber(int tableNumber) {
+    this.tableNumber = tableNumber;
   }
   public void setText(String s) {
       tableNumberLabel.setText(s);

@@ -11,7 +11,7 @@ import static frontend.GUI.FXMain.client;
 public class DeliverFailedController {
   @FXML private TextField tf;
   @FXML private Button confirmButton, cancelButton;
-  private int myId;
+  private int tableNumber;
 
   @FXML
   private void confirmButtonClicked() {
@@ -43,7 +43,7 @@ public class DeliverFailedController {
             });
   }
 
-  public void setMyId(int myId) {
-    this.myId = myId;
+  public void setTableNumber(int tableNumber) {
+    this.tableNumber = tableNumber;
   }
 }

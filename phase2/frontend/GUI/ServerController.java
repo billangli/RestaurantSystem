@@ -32,7 +32,6 @@ import static java.lang.Math.sqrt;
 
 public class ServerController implements Initializable {
   private Scene menuScene;
-  private int myId;
 
   private final Color COLOR_OCCUPIED = Color.BLUE;
   private final Color COLOR_EMPTY = Color.WHITE;
@@ -48,10 +47,6 @@ public class ServerController implements Initializable {
   private ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int selectedTableNumber;
   private int numOfTables;
-
-  public void setmyId(int id) {
-    myId = id;
-  }
 
   public void setMenuScene(Scene scene) {
     menuScene = scene;
@@ -164,11 +159,9 @@ public class ServerController implements Initializable {
         paneController.tableNumber = selectedTableNumber;
         paneController.rectangleArrayList = rectangleArrayList;
 
-        // takeSeatController has same id as this controller.
-        paneController.setMyId(myId);
+        paneController.setTableNumber(selectedTableNumber);
 
         paneController.start();
-        paneController.setTableNumber(this.selectedTableNumber);
         window.setMinWidth(300);
         window.setMinHeight(200);
         window.showAndWait();
@@ -188,7 +181,7 @@ public class ServerController implements Initializable {
       menuController.setStage(window);
 
       // menuController has same id as this contoller.
-      menuController.setMyId(myId);
+      menuController.setTableNumber(selectedTableNumber);
 
       window.setTitle("Order Food");
       window.setScene(menuScene);
@@ -236,7 +229,7 @@ public class ServerController implements Initializable {
       DeliverSuccessfulController paneController = numLoader.getController();
 
       // takeSeatController has same id as this controller.
-      paneController.setMyId(myId);
+      paneController.setTableNumber(selectedTableNumber);
 
       paneController.start();
       window.setMinWidth(300);
@@ -262,7 +255,7 @@ public class ServerController implements Initializable {
       DeliverFailedController paneController = numLoader.getController();
 
       // takeSeatController has same id as this controller.
-      paneController.setMyId(myId);
+      paneController.setTableNumber(selectedTableNumber);
 
       paneController.start();
       window.setMinWidth(300);
@@ -313,7 +306,6 @@ public class ServerController implements Initializable {
       window.setTitle("Receive Item");
       window.setScene(new Scene(root, 400, 200));
       ReceiveItemController controller = loader.getController();
-      controller.setMyId(myId);
       controller.start();
       window.showAndWait();
     } catch (IOException e) {

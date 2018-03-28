@@ -19,10 +19,9 @@ public class TakeSeatController {
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
     private Client client = Client.getInstance();
-    private int myId;
 
-    public void setMyId(int id){
-        this.myId = id;
+    public void setTableNumber(int tableNumber){
+        this.tableNumber = tableNumber;
     }
 
     @FXML private void confirmButtonClicked() {
@@ -52,8 +51,4 @@ public class TakeSeatController {
             }
         });
     }
-    public void setTableNumber(int t) {
-        tableNumber = t;
-    }
-
 }
