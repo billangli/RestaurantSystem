@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-
+/**
+ * factory that generate scene for employees
+ */
 public class SceneFactory {
     private final int WIDTH = 600;
     private final int HEIGHT = 600;
@@ -17,6 +19,13 @@ public class SceneFactory {
     public SceneFactory() {
     }
 
+    /**
+     * create the corresponding scene for employee
+     * @param type the type of this employee
+     * @param id the id of the employee
+     * @return
+     * @throws IOException
+     */
     public Scene createScene(int type,int id) throws IOException {
         Scene scene = null;
         if (type == Packet.COOKTYPE) {

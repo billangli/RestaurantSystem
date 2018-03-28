@@ -10,7 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-
+/*
+the controller for ingredients
+ */
 public class IngredientController {
     @FXML
     GridPane tableView = new GridPane();
@@ -19,6 +21,11 @@ public class IngredientController {
     private Inventory inventory = Inventory.getInstance();
     private Client client = Client.getInstance();
 
+
+    /**
+     * generate the ingredient display for this dish
+     * @param dish the dish is being used
+     */
     public void getDish(Dish dish){
         this.dish = dish;
         int i = 0;
