@@ -38,7 +38,7 @@ public class Order implements Serializable {
 
     int i = 0;
     for (; i < dishes.size(); i++) {
-      if (dishes.get(i).isSent()) {
+      if (dishes.get(i).hasBeenDelivered()) {
         result.add(dishes.get(i).toString());
       }
     }

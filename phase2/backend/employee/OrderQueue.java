@@ -3,7 +3,6 @@ package backend.employee;
 import backend.inventory.Dish;
 import backend.table.Order;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.logging.Logger;
 import backend.logger.RestaurantLogger;
 
@@ -146,7 +145,7 @@ public class OrderQueue {
       logger.warning(
           "the backend.table is empty, the dish " + dishNumber + " will not be delivered");
     } else {
-      dish.sent();
+      dish.delivered();
     }
     return dish;
   }

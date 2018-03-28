@@ -18,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static frontend.GUI.FXMain.client;
 import static java.lang.Math.ceil;
@@ -40,7 +39,6 @@ public class ServerStageController {
   @FXML private HBox hBox2;
 
   private int numOfTables;
-  private ArrayList<Rectangle> rectangles;
   /* Methods */
   @FXML
   private void initialize() {
@@ -90,14 +88,15 @@ public class ServerStageController {
     Parent root = null;
     try {
       root = FXMLLoader.load(getClass().getResource("/frontend/GUI_2/TakeSeatAlertBox.fxml"));
+      window.setTitle("Welcome!");
+      window.setScene(new Scene(root, 300, 200));
+      window.setMinWidth(300);
+      window.setMinHeight(200);
+      window.showAndWait();
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("CAN NOT TAKE SEAT");
     }
-    window.setTitle("Welcome!");
-    window.setScene(new Scene(root, 300, 200));
-    window.setMinWidth(300);
-    window.setMinHeight(200);
-    window.showAndWait();
+
   }
 
   @FXML
@@ -129,16 +128,15 @@ public class ServerStageController {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
-    Parent root = null;
     try {
-      root = FXMLLoader.load(getClass().getResource("/frontend/GUI_2/ClearTableAlertBox.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/frontend/GUI_2/ClearTableAlertBox.fxml"));
+      window.setTitle("Welcome!");
+      window.setScene(new Scene(root, 300, 200));
+      window.setMinWidth(300);
+      window.setMinHeight(200);
+      window.showAndWait();
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("NOT ALLOW TO CLEAR");
     }
-    window.setTitle("Welcome!");
-    window.setScene(new Scene(root, 300, 200));
-    window.setMinWidth(300);
-    window.setMinHeight(200);
-    window.showAndWait();
   }
 }

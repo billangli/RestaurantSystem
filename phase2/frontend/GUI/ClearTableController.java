@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ClearTableController {
   @FXML Button yesButton, noButton;
   @FXML Label tableNumberLabel;
-  int tableNumber;
+  private int tableNumber;
   private final Color COLOR_EMPTY = Color.WHITE;
   ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int myId;

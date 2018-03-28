@@ -36,13 +36,13 @@ public class ServerController implements Initializable {
   private final Color COLOR_OCCUPIED = Color.BLUE;
   private final Color COLOR_EMPTY = Color.WHITE;
 
-  public Client client = Client.getInstance();
+  private Client client = Client.getInstance();
 
   @FXML private VBox gridParent;
   @FXML private HBox hBox1;
   @FXML private HBox hBox2;
   @FXML private TableView finishedDishTableView;
-  @FXML GridPane tableView = new GridPane();
+  @FXML private GridPane tableView = new GridPane();
 
   private ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int selectedTableNumber;
@@ -151,8 +151,6 @@ public class ServerController implements Initializable {
         && rectangleArrayList.get(selectedTableNumber - 1).getFill() != COLOR_OCCUPIED) {
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
-
-      Parent root;
       try {
         FXMLLoader numLoader =
             new FXMLLoader(this.getClass().getResource("/frontend/GUI/TakeSeatAlertBox.fxml"));
@@ -225,7 +223,6 @@ public class ServerController implements Initializable {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
-    Parent root;
     try {
       FXMLLoader numLoader =
           new FXMLLoader(
@@ -253,7 +250,6 @@ public class ServerController implements Initializable {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
-    Parent root;
     try {
       FXMLLoader numLoader =
           new FXMLLoader(this.getClass().getResource("/frontend/GUI/DeliverFailedAlertBox.fxml"));

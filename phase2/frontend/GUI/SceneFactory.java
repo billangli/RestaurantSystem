@@ -10,9 +10,9 @@ import java.io.IOException;
 
 
 public class SceneFactory {
-    public final int WIDTH = 600;
-    public final int HEIGHT = 600;
-    private Client client = Client.getInstance();
+    private final int WIDTH = 600;
+    private final int HEIGHT = 600;
+    private final Client client = Client.getInstance();
 
     public SceneFactory() {
     }
