@@ -43,13 +43,9 @@ public class MenuController{
 
     @FXML
     private TableView<Dish> menuColumn = new TableView<>();
-    @FXML
-    private TableColumn<Dish, String> menuItems;
 
     @FXML
     private TableView<Dish> orderColumn = new TableView<>();
-    @FXML
-    private TableColumn<Dish, String> orderItems;
 
     public void setMyId(int id) {
         this.myId = id;
