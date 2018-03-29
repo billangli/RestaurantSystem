@@ -1,7 +1,9 @@
 package backend.logger;
 
-import java.io.*;
-import java.util.logging.*;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class RestaurantLogger {
   // Logger.getLogger() follows Factory Pattern.
@@ -25,8 +27,5 @@ public class RestaurantLogger {
     //    Logger rootLogger = Logger.getLogger("");
     //    rootLogger.addHandler(fileHandler);
     logger.addHandler(fileHandler);
-
   }
-
-
 }

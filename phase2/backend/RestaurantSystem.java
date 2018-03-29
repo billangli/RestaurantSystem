@@ -5,6 +5,7 @@ import backend.event.EventManager;
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
+import backend.logger.BillLogger;
 import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
 import backend.server.Packet;
@@ -19,8 +20,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.logging.Logger;
 
-
-public class  RestaurantSystem extends Application{
+public class RestaurantSystem extends Application {
   public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   public static ComputerServer computerServer;
   public static StartController startController;
@@ -80,7 +80,8 @@ public class  RestaurantSystem extends Application{
       TableManager.tableSetUp(Integer.parseInt(TableNum));
       String serverNum = fileReader.readLine();
 
-      // There are three types of employees(ComputerServer/Cook/Manager). The id of each backend.employee
+      // There are three types of employees(ComputerServer/Cook/Manager). The id of each
+      // backend.employee
       // starts
       // from 1 and increments by 1, starting from server, cook then manager.
       // For example, if we have 3 servers, 2 cook, 1 manager in this restaurant system, then the id
@@ -131,7 +132,6 @@ public class  RestaurantSystem extends Application{
         logger.warning("File Exception Occurred.");
         // TODO: Delete printStackTrace() before submission.
         e.printStackTrace();
-
       }
     }
 
@@ -162,7 +162,7 @@ public class  RestaurantSystem extends Application{
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    //load starter interface
+    // load starter interface
     FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/backend/Start.fxml"));
     AnchorPane startScene = startLoader.load();
     Scene mainScene = new Scene(startScene, 600, 600);
@@ -172,19 +172,21 @@ public class  RestaurantSystem extends Application{
     primaryStage.setTitle("backend");
     primaryStage.setScene(mainScene);
     primaryStage.show();
-    primaryStage.setOnCloseRequest(t -> {
-      ComputerServer.getInstance().shutDown();
-      Platform.exit();
-      System.exit(0);
-    });
+    primaryStage.setOnCloseRequest(
+        t -> {
+          ComputerServer.getInstance().shutDown();
+          Platform.exit();
+          System.exit(0);
+        });
   }
 
-  public static void receive(String message){
+  public static void receive(String message) {
     startController.receiveMessage(message);
   }
 
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
+    BillLogger.init();
     startBackEnd();
     EventManager.setRunning(true);
     Thread eventThread = new Thread(new EventManager());
@@ -192,12 +194,12 @@ public class  RestaurantSystem extends Application{
     computerServer = ComputerServer.getInstance();
     launch(args);
 
-//    // Test
-//    Server server = (Server) EmployeeManager.getEmployeeById(0);
-//    server.takeSeat(TableManager.getTable(0), 2);
-//    Order order = new Order();
-//    order.addDish(new Dish("bbq", 3, new String[]{"nugget:4:4:4"}));
-//    server.enterMenu(TableManager.getTable(0), order);
+    //    // Test
+    //    Server server = (Server) EmployeeManager.getEmployeeById(0);
+    //    server.takeSeat(TableManager.getTable(0), 2);
+    //    Order order = new Order();
+    //    order.addDish(new Dish("bbq", 3, new String[]{"nugget:4:4:4"}));
+    //    server.enterMenu(TableManager.getTable(0), order);
 
     // Initializing Logger.
     //        Application.launch(args); TODO: What is this?

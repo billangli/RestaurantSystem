@@ -119,7 +119,7 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTBILL) {
             int tableIndex = (int) packet.getObject();
             System.out.println("Sending all dishes delivered to table index " + tableIndex);
-            this.send(Packet.RECEIVEBILL, TableManager.getTable(tableIndex).getAllDishes());
+            this.send(Packet.RECEIVEBILL, TableManager.getTable(tableIndex).getAllDeliveredDishes());
           } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
             System.out.println("Adjusting ingredient");
             Object[] infoArray = (Object[]) packet.getObject();

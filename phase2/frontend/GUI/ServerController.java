@@ -70,8 +70,7 @@ public class ServerController implements Initializable {
   public void updateTableView(LinkedList<Dish> dishesCompleted) {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
     dishes.addAll(dishesCompleted);
-    Platform.runLater(() ->
-    finishedDishTableView.setItems(dishes));
+    Platform.runLater(() -> finishedDishTableView.setItems(dishes));
   }
 
   // TODO: In backend, this method should be called to update after each time takeSeat is called by
@@ -222,8 +221,14 @@ public class ServerController implements Initializable {
         window.setScene(new Scene(root, 600, 600));
 
         PrintBillController controller = loader.getController();
-        controller.tableNumberLabel.setText(Integer.toString(selectedTableNumber));
+        controller.tableNumberLabel.setText("Print bill for table "+Integer.toString(selectedTableNumber));
         controller.setTableNumber(this.selectedTableNumber);
+
+        ObservableList<Dish> observableList = FXCollections.observableArrayList();
+        ArrayList<Dish> dishes =
+            (ArrayList<Dish>) client.sendRequest(Packet.REQUESTBILL, selectedTableNumber - 1);
+        observableList.addAll(dishes);
+        controller.setTableView(observableList);
 
         window.showAndWait();
       } catch (IOException e) {
