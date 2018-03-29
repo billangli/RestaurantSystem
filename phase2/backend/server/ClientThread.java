@@ -102,6 +102,9 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTTABLE) {
             System.out.println("Sending table");
             this.send(Packet.RECEIVETABLE, TableManager.getTable((int) packet.getObject()));
+          } else if (packet.getType() == Packet.REQUESTDISHESCOMPLETED) {
+            System.out.println("Sending dishes completed");
+            this.send(Packet.RECEIVEDISHESCOMPLETED, ServiceEmployee.getOrderQueue().getDishesCompleted());
           } else if (packet.getType() == Packet.REQUESTQUANTITIES) {
             System.out.println("Sending ingredient quantities");
             HashMap<String, InventoryIngredient> inventoryIngredients = inventory.getIngredientsInventory();

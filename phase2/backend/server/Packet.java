@@ -18,7 +18,7 @@ public class Packet implements Serializable {
   public static final int REQUESTORDERSINQUEUE = 6;
   public static final int REQUESTTABLE = 7;
   public static final int REQUESTQUANTITIES = 8;
-  public static final int REQUESTRUNNINGQUANTITIES = 9;
+  public static final int REQUESTDISHESCOMPLETED = 9;
   public static final int REQUESTTABLEOCCUPANCY = -10;
 
   // Server to Client receive resources
