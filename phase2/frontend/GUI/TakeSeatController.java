@@ -16,7 +16,6 @@ public class TakeSeatController {
     @FXML private Button confirmButton, cancelButton;
     int tableNumber;
     private int myId;
-    private final Color COLOR_OCCUPIED = Color.BLUE;
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
 
     private final Client client = Client.getInstance();
@@ -32,11 +31,10 @@ public class TakeSeatController {
     @FXML private void confirmButtonClicked() {
         if (tf.getText().length()>0) {
             // Change the color of the table into COLOR_OCCUPIED
-            rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
 
             ArrayList<Object> parameters = new ArrayList<>();
             parameters.add(tableNumber);
-            parameters.add(1); // TODO: SHould be number of customers
+            parameters.add(Integer.parseInt(tf.getText())); // TODO: SHould be number of customers
             client.sendEvent(Packet.TAKESEAT, parameters);// TODO: In backend, call takeSeat() method (need number of customers)
             //(serverObj).takeSeat(TableManager.getTable(tableNumber - 1), Integer.parseInt(tf.getText()));
             /* ------------------------------------------------------------------------------------------ */

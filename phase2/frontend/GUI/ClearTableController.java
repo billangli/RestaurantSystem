@@ -15,7 +15,6 @@ public class ClearTableController {
   @FXML Button yesButton, noButton;
   @FXML Label tableNumberLabel;
   private int tableNumber;
-  private final Color COLOR_EMPTY = Color.WHITE;
   ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int myId;
 
@@ -37,8 +36,7 @@ public class ClearTableController {
     // In backend, clearTable(Table table) should be called where <table> has table number of
     // <tableNumber>.
 
-    rectangleArrayList.get(tableNumber-1).setFill(COLOR_EMPTY);
-    client.sendEvent(Packet.TAKESEAT, tableNumber);
+    client.sendEvent(Packet.CLEARTABLE, tableNumber);
 //      (serverObj).clearTable(TableManager.getTable(tableNumber-1));
     /* ------------------------------------------------------------------------------------------ */
     // close the window

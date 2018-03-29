@@ -130,6 +130,9 @@ public class Client implements Runnable {
                   MenuController menuController = (MenuController) stored.get("menuController");
                   menuController.updateRunningQuantity(newDisplayQuantity);
                 }
+              } else if (packet.getType() == Packet.RECEIVETABLEOCCUPANCY) {
+                ServerController serverController = (ServerController) stored.get("serverController");
+                serverController.updateTableColor((ArrayList) packet.getObject());
               }
             } else {
               System.out.println("The object is ready");

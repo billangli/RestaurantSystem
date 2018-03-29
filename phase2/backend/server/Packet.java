@@ -27,6 +27,7 @@ public class Packet implements Serializable {
   public static final int RECEIVETABLE = -7;
   public static final int RECEIVEQUANTITIES = -8;
   public static final int RECEIVEDISHESCOMPLETED = -9;
+  public static final int RECEIVETABLEOCCUPANCY = -10;
 
   // Adjust ingredient
   public static final int ADJUSTINGREDIENT = 30;
@@ -92,7 +93,8 @@ public class Packet implements Serializable {
     return (this.type == RECEIVEDISHESINPROGRESS) ||
             (this.type == RECEIVEORDERSINQUEUE) ||
             (this.type == RECEIVEDISHESCOMPLETED) ||
-            (this.type == RECEIVERUNNINGQUANTITYADJUSTMENT);
+            (this.type == RECEIVERUNNINGQUANTITYADJUSTMENT) ||
+            (this.type == RECEIVETABLEOCCUPANCY);
   }
 
   public Object getObject() {
