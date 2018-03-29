@@ -8,12 +8,17 @@ import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
-
+/**
+ * the controller for the request GUI
+ */
 public class RequestController {
     @FXML
     Label requestListLabel;
     private Client client = Client.getInstance();
 
+    /**
+     * initialize the GUI
+     */
     @FXML
     private void initialize() {
         ArrayList request = (ArrayList) client.sendRequest(Packet.REQUESTREQUEST);

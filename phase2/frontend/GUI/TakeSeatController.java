@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * the controller for take seat GUI
+ */
 public class TakeSeatController {
     @FXML private TextField tf;
     @FXML private Button confirmButton, cancelButton;
@@ -24,6 +27,10 @@ public class TakeSeatController {
         this.myId = id;
     }
 
+    /**
+     * set the table number for the take seat button
+     * @param tableNumber the table that the customer is taking seat
+     */
     public void setTableNumber(int tableNumber){
         this.tableNumber = tableNumber;
     }
@@ -43,10 +50,18 @@ public class TakeSeatController {
             ((Stage) confirmButton.getScene().getWindow()).close();
         }
     }
+
+    /**
+     * cancel the current action
+     */
     @FXML private void cancelButtonClicked() {
         // close the window
         ((Stage) cancelButton.getScene().getWindow()).close();
     }
+
+    /**
+     * start up the code after init
+     */
     public void start(){
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
