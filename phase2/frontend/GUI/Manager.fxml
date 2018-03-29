@@ -26,7 +26,7 @@
                 <Button onAction="#request" prefHeight="27.0" prefWidth="250.0" text="Request for more ..."
                         GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                 <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="250.0"
-                        text="List of dishes not delivered yet" GridPane.rowIndex="2"
+                        text="List of orders not delivered yet" GridPane.rowIndex="2"
                         onAction="#checkDishesNotDelivered"/>
             </children>
             <columnConstraints>

@@ -99,4 +99,8 @@ public class Order implements Serializable {
   public void remove(Dish dish){
     dishes.remove(dish);
   }
+
+  public boolean isEmpty() {
+      return dishes.isEmpty();
+  }
 }
