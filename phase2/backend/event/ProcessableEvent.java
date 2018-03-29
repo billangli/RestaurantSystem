@@ -52,7 +52,10 @@ public class ProcessableEvent extends Event {
     if (this.methodName == Packet.RECEIVEINGREDIENT) {
       String ingredientName = (String) this.parameters.get(0);
       int quantity = (int) this.parameters.get(1);
-      employee.receiveIngredient(ingredientName, quantity);
+      if (employee != null) {
+        employee.receiveIngredient(ingredientName, quantity);
+        System.err.println("Null Pointer Exception: Employee cannot be null");
+      }
       HashMap<String, Integer> newRunningQuantities= new HashMap<>();
       newRunningQuantities.put(ingredientName, inventory.getIngredient(ingredientName).getRunningQuantity());
       computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newRunningQuantities);

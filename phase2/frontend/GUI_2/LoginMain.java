@@ -24,7 +24,11 @@ public class LoginMain extends Application {
       e.printStackTrace();
     }
     primaryStage.setTitle("Welcome!");
-    Scene scene = new Scene(root, WIDTH, HEIGHT);
+    Scene scene = null;
+    if (root != null) {
+      scene = new Scene(root, WIDTH, HEIGHT);
+      System.err.println("Null Pointer Exception: root cannnot be null");
+    }
     primaryStage.setScene(scene);
     primaryStage.setMinHeight(HEIGHT);
     primaryStage.setMinWidth(WIDTH);
