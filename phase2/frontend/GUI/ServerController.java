@@ -76,7 +76,8 @@ public class ServerController implements Initializable {
     finishedDishTableView.setItems(dishes);
   }
 
-  //TODO: In backend, this method should be called to update after each time takeSeat is called by any server.
+  // TODO: In backend, this method should be called to update after each time takeSeat is called by
+  // any server.
   // TODO: In backend, this method should be called to update after each time takeSeat is called by
   // any server.
   public void updateTableColor(int tableNumber, boolean occupied) {
@@ -308,6 +309,30 @@ public class ServerController implements Initializable {
       } catch (IOException e) {
         System.out.println("clear table error");
       }
+    }
+  }
+
+  @FXML
+  private void successButtonClicked() {
+    Dish dish;
+    int dishNumber;
+    if (finishedDishTableView.getSelectionModel().getSelectedItem() != null) {
+      dish = (Dish) finishedDishTableView.getSelectionModel().getSelectedItem();
+      dishNumber = dish.getDishNumber();
+
+      client.sendEvent(Packet.DELIVERDISHCOMPLETED, dishNumber);
+    }
+  }
+
+  @FXML
+  private void failButtonClicked() {
+    Dish dish;
+    int dishNumber;
+    if (finishedDishTableView.getSelectionModel().getSelectedItem() != null) {
+      dish = (Dish) finishedDishTableView.getSelectionModel().getSelectedItem();
+      dishNumber = dish.getDishNumber();
+
+      client.sendEvent(Packet.DELIVERDISHFAILED, dishNumber);
     }
   }
 
