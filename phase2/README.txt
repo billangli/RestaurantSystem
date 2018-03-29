@@ -6,7 +6,13 @@ Yujie Miao
 Ang Li (Bill-linux, Bill)
 
 
-
+TODO
+- Server/Client
+    Allows for multiple clients to be run across different computers
+- GUI
+    Created GUI for Server, Cook and Manager.
+- Logger
+    Created Logger
 
 
 menu.txt
