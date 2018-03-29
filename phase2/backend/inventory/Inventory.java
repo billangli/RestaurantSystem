@@ -116,7 +116,7 @@ public class Inventory implements Serializable {
     // Default amount to sendRequest is 20 units
     // The manager can manually change that amount when creating the email
     BufferedWriter bw;
-    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase1/sendRequest.txt"))) {
+    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/sendRequest.txt"))) {
       String myContent = ingredientName + " 20";
       // Specify the file name and path here
 
@@ -127,7 +127,7 @@ public class Inventory implements Serializable {
         line = fileReader.readLine();
       }
 
-      File file = new File("phase1/sendRequest.txt");
+      File file = new File("phase2/sendRequest.txt");
 
       /* This logic will make sure that the file
        * gets created if it is not present at the
