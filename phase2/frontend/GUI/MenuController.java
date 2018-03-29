@@ -4,8 +4,6 @@ import backend.inventory.*;
 import backend.server.Packet;
 import backend.table.Order;
 import frontend.client.Client;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -110,11 +108,9 @@ public class MenuController{
         for(String di: dishes.keySet()){
             Button item = new Button(di);
             item.setId(di);
-            item.setOnAction(new EventHandler<>() {
+            item.setOnAction(e12 ->{
                 //order a dish
                 //TODO update inventory and order updateMenu()
-                @Override
-                public void handle(ActionEvent e) {
                     Button ordered = new Button(di);
                     ordered.setId("" + numoforder);
 
@@ -146,7 +142,7 @@ public class MenuController{
 
                     //delete a dish
 //TODO update order and inventory updateMenu()
-                    ordered.setOnAction(e12 -> {
+                    ordered.setOnAction(e13 -> {
                         tableView.getChildren().remove(ordered);
                         order.remove(ordered.getId());
                         HashMap<String, DishIngredient> ingredients1 = dish.getIngredientsRequired();
@@ -159,7 +155,7 @@ public class MenuController{
 
                     numoforder++;
                     tableView.add(ordered, 2, numoforder + 1);
-                }
+
             });
 
             tableView.add(item,0,i);

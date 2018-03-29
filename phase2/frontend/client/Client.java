@@ -147,7 +147,7 @@ public class Client implements Runnable {
               System.out.println("The object is ready");
               this.objectIsReady = true;
             }
-          } else if (Math.abs(packet.getType()) <= 10) {
+          } else if (Math.abs(packet.getType()) <= 11) {
             // Receive resource protocol
             System.out.println("The object is ready");
             this.objectIsReady = true;
