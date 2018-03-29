@@ -20,6 +20,7 @@ public class Dish extends DishRecipe {
   private static int countDish = 0;
   private Table table;
   private boolean hasBeenDelivered;
+  private String status = "";
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   private Inventory inventory = Inventory.getInstance();
 
@@ -48,7 +49,7 @@ public class Dish extends DishRecipe {
    * @param ingredientName the name of the DishIngredient
    * @param amount the total amount of DishIngredient allowed for this Dish
    * @return true if and only if it is possible for this Dish to permit the amount amount for the
-   * DishIngredient ingredientName
+   *     DishIngredient ingredientName
    */
   public boolean ableToAdjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired.get(ingredientName).allowed(amount)) {
@@ -147,7 +148,7 @@ public class Dish extends DishRecipe {
   }
 
   public int getTableNumber() {
-      return table.getTableNum();
+    return table.getTableNum();
   }
 
   /** Assigns a unique number that identifies this dish */
@@ -167,5 +168,13 @@ public class Dish extends DishRecipe {
    */
   public boolean hasBeenDelivered() {
     return hasBeenDelivered;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public String getStatus() {
+    return status;
   }
 }

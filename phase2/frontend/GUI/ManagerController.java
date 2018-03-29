@@ -103,6 +103,7 @@ public class ManagerController {
     try {
       FXMLLoader loader =
           new FXMLLoader(this.getClass().getResource("/frontend/GUI/DishesNotDelivered.fxml"));
+      client.store("checkDishesNotDeliveredController", loader.getController());
       Parent root = loader.load();
       window.setTitle("Dishes not delivered");
       window.setScene(new Scene(root, 600, 600));

@@ -36,6 +36,9 @@ public class OrderQueue {
    */
   public void addOrderInQueue(Order order) {
     OrdersInQueue.add(order);
+    for (Dish d: order.getDishes()) {
+        d.setStatus("In queue");
+    }
   }
 
   /**
@@ -59,6 +62,9 @@ public class OrderQueue {
               + ", list of dishes: "
               + order.dishesToString());
       DishesInProgress.addAll(order.getDishes());
+      for (Dish d: order.getDishes()) {
+          d.setStatus("In progress");
+      }
     }
   }
 
@@ -105,6 +111,7 @@ public class OrderQueue {
                 + " (Dish #: "
                 + dishNumber
                 + ") is ready to be delivered.");
+        dish.setStatus("Completed");
       }
     }
   }

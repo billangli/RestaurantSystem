@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.cell.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.GUI.DishesNotDeliveredController">
     <columnConstraints>
@@ -32,14 +33,19 @@
                 <Label text="All dishes are delivered!" />
             </placeholder>
             <columns>
-                <TableColumn prefWidth="399.0" text="Dish name">
+                <TableColumn prefWidth="204.0" text="Dish name">
                     <cellValueFactory>
                         <PropertyValueFactory property="name" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn minWidth="0.0" prefWidth="200.0" text="Dish number">
+                <TableColumn minWidth="0.0" prefWidth="164.0" text="Dish number">
                     <cellValueFactory>
                         <PropertyValueFactory property="dishNumber" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="210.0" text="Status" >
+                    <cellValueFactory>
+                        <PropertyValueFactory property="status"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>

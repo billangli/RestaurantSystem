@@ -17,8 +17,13 @@ public class DishesNotDeliveredController {
   @FXML private TableView tableView;
 
   public void updateDishesOnTableView() {
-    tableView.setItems(getDishesInProgress());
-    tableView.setItems(getDishesInFirstOrderQueue());
+
+      ObservableList<Dish> allDishes = FXCollections.observableArrayList();
+      allDishes.addAll(getDishesCompleted());
+      allDishes.addAll(getDishesInProgress());
+      allDishes.addAll(getDishesInOrderQueue());
+
+      tableView.setItems(allDishes);
   }
 
   @FXML private void refreshButtonClicked() {
@@ -29,6 +34,17 @@ public class DishesNotDeliveredController {
   private void initialize() {
     updateDishesOnTableView();
   }
+
+    private ObservableList<Dish> getDishesCompleted() {
+        ObservableList<Dish> dishes = FXCollections.observableArrayList();
+
+        LinkedList<Dish> dishesInProgress =
+                (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESCOMPLETED);
+
+        dishes.addAll(dishesInProgress);
+
+        return dishes;
+    }
 
   private ObservableList<Dish> getDishesInProgress() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
@@ -41,14 +57,14 @@ public class DishesNotDeliveredController {
     return dishes;
   }
 
-  private ObservableList<Dish> getDishesInFirstOrderQueue() {
+  private ObservableList<Dish> getDishesInOrderQueue() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
     LinkedList<Order> ordersInQueue =
         (LinkedList<Order>) client.sendRequest(Packet.REQUESTORDERSINQUEUE);
 
-    if (!ordersInQueue.isEmpty()) {
-      dishes.addAll(ordersInQueue.get(0).getDishes());
+    for (Order o: ordersInQueue) {
+        dishes.addAll(o.getDishes());
     }
 
     return dishes;
