@@ -85,16 +85,12 @@ public class Table implements Serializable {
    * the total price
    */
   public ArrayList<Dish> printBill() {
-    // TODO: Phase 1, Bill class. Bill should be printed on frontend.GUI as text (maybe this method
-    // should
-    // return bill in string type.)
-    //TODO OBject type??
     ArrayList<Dish> dishes = new ArrayList<>();
     for (Order order : this.order) {
-      for(Dish dish: order.getDishes()){
+      for (Dish dish : order.getDishes()) {
         dish.taxed();
-        if(numOfCustomer >= 8){
-          dish.tiped();
+        if (numOfCustomer >= 8) {
+          dish.tipped();
         }
         dishes.add(dish);
       }

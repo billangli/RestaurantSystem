@@ -188,7 +188,7 @@ public class Dish extends DishRecipe {
   /**
    * add tip to the dish
    */
-  public void tiped(){
+  public void tipped(){
     this.price *= 1.15;
   }
 }

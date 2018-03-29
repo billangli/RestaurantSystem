@@ -118,7 +118,7 @@ public class Inventory implements Serializable {
     // The manager can manually change that amount when creating the email
     requested.add(ingredientName);
     BufferedWriter bw;
-    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/sendRequest.txt"))) {
+    try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/request.txt"))) {
       String myContent = ingredientName + " 20";
       // Specify the file name and path here
 
@@ -129,7 +129,7 @@ public class Inventory implements Serializable {
         line = fileReader.readLine();
       }
 
-      File file = new File("phase2/sendRequest.txt");
+      File file = new File("phase2/request.txt");
 
       /* This logic will make sure that the file
        * gets created if it is not present at the
