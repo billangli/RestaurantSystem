@@ -1,7 +1,10 @@
 package frontend.GUI;
 
+import backend.inventory.Dish;
 import backend.server.Packet;
 import backend.table.Table;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +18,7 @@ public class PrintBillController {
   private int tableNumber;
   private Table table;
   private String billInfo;
+  ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
   @FXML
   Label tableNumberLabel;
@@ -29,6 +33,8 @@ public class PrintBillController {
   @FXML
   private void initialize() {
     tableNumberLabel.setText("Print Bill for Table: " + Integer.toString(tableNumber));
+    table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
+    dishes.addAll(table.printBill()); // get ArrayList of dishes from backend
   }
 
   @FXML
@@ -36,7 +42,7 @@ public class PrintBillController {
     if (table == null) {
       table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
     }
-    //billInfo = table.printBill(false);
+//    billInfo = table.printBill(false);
     billToString.setText(billInfo);
   }
 
