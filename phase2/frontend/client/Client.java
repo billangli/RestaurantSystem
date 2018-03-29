@@ -121,8 +121,8 @@ public class Client implements Runnable {
                 cookController.updateOrdersInQueueOnTableView(ordersInQueue);
               } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
                 LinkedList<Dish> dishesCompleted = (LinkedList<Dish>) packet.getObject();
-                ServerController serverController = (ServerController) stored.get("cookController");
-                serverController.updateTableView();
+                ServerController serverController = (ServerController) stored.get("serverController");
+                serverController.updateTableView(dishesCompleted);
               }
               if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
                 HashMap newDisplayQuantity = (HashMap) packet.getObject();

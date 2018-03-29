@@ -106,7 +106,7 @@ public class ProcessableEvent extends Event {
         int dishNumber = (int) this.parameters.get(0);
         cook.dishReady(dishNumber);
         computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESINPROGRESS, dishesInProgress);
-        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
+        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
         break;
       }
       default:
@@ -156,13 +156,13 @@ public class ProcessableEvent extends Event {
       case Packet.DELIVERDISHCOMPLETED: {
         int dishNumber = (int) this.parameters.get(0);
         server.deliverDishCompleted(dishNumber);
-        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
+        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
         break;
       }
       case Packet.DELIVERDISHFAILED: {
         int dishNumber = (int) this.parameters.get(0);
         server.deliverDishFailed(dishNumber);
-        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
+        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
         break;
       }
       case Packet.PRINTBILL: {
