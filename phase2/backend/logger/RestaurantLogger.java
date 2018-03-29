@@ -1,7 +1,9 @@
 package backend.logger;
 
-import java.io.*;
-import java.util.logging.*;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class RestaurantLogger {
   // Logger.getLogger() follows Factory Pattern.
@@ -25,30 +27,5 @@ public class RestaurantLogger {
     //    Logger rootLogger = Logger.getLogger("");
     //    rootLogger.addHandler(fileHandler);
     logger.addHandler(fileHandler);
-    // Note that Log levels INFO and higher will be automatically written to the console.
-
-    //    PrintStream outPS = null;
-    //    try {
-    //      outPS = new PrintStream(new BufferedOutputStream(new FileOutputStream("logFile.log",
-    // true)));
-    //    } catch (FileNotFoundException e) {
-    //      e.printStackTrace();
-    //    }
-    //    System.setOut(outPS); // redirect System.out
-    //    System.setErr(outPS); // redirect System.err
   }
-
-  // TODO: Delete before finalizing.
-  //  public static void main(String[] args) {
-  //    init();
-  //    System.err.println("serr");
-  //    backend.logger.log(Level.INFO, "message 1"); // INFO: Default level.
-  //    System.out.println("sout");
-  //
-  //    // CONFIG Level is lower than INFO level, so it doesn't show on log.
-  //    backend.logger.log(Level.CONFIG, "message 2");
-  //    System.out.println("sout2");
-  //    LoggerTest2.thing();
-  //    System.err.println("serr2");
-  //  }
 }

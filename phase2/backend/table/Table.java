@@ -99,10 +99,14 @@ public class Table implements Serializable {
    *
    * @return list of all dishes in the order.
    */
-  public ArrayList<Dish> getAllDishes() {
+  public ArrayList<Dish> getAllDeliveredDishes() {
     ArrayList<Dish> dishes = new ArrayList<>();
     for (Order order : this.order) {
-      dishes.addAll(order.getDishes());
+        for (Dish d: order.getDishes()) {
+            if (d.hasBeenDelivered()) {
+                dishes.add(d);
+            }
+        }
     }
     return dishes;
   }

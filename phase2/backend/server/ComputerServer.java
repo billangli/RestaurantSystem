@@ -9,18 +9,28 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-// Singleton pattern
+/**
+ * ComputerServer.java
+ * Created by Bill Ang Li
+ *
+ * This is the class run in the back end that is responsible for communicating with the clients
+ */
 public class ComputerServer implements Runnable {
+  // Defining variables
+
+  // Singleton instance
   private static ComputerServer instance = new ComputerServer();
 
+  // Logger
+  private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+
+  // Client-server variables
   private ServerSocket serverSocket;
   private ArrayList<ClientThread> clients;
   private ClientThread clientThread;
-
-  private static final int PORT = 6969;
+  private static final int PORT = 6000;
   private boolean isRunning;
 
-  private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   /**
    * ComputerServer constructor
@@ -44,22 +54,24 @@ public class ComputerServer implements Runnable {
   }
 
   /**
-   * This runs a loop listening for new connections
+   * This runs a loop listening for new connections and adds the connections to the connectionPool
    */
   @Override
   public void run() {
-    System.out.println("Waiting for client connection...");
+    // Starting the Computer Server
+    logger.info("Starting the ComputerServer");
     try {
       this.serverSocket = new ServerSocket(PORT);
     } catch (IOException e) {
       e.printStackTrace();
     }
 
+    // Start the loop to listen for new connections while it is still running
     while (this.isRunning) {
       try {
         // Accepting the connection and adding to the existing client threads
         Socket connectionSocket = serverSocket.accept();
-        System.out.println("accepted");
+        logger.info("accepted");
         ClientThread clientThread = new ClientThread(connectionSocket);
         this.clients.add(clientThread);
       } catch (SocketException se) {
@@ -70,7 +82,8 @@ public class ComputerServer implements Runnable {
       }
     }
 
-    System.out.println("This server is closing");
+    // Closing the socket when the ComputerServer is meant to be shut down
+    logger.warning("This server is closing");
     try {
       this.serverSocket.close();
     } catch (IOException e) {
@@ -137,7 +150,7 @@ public class ComputerServer implements Runnable {
     for (ClientThread client : clients) {
       if (client.isLoggedOn()) {
         if (client.getEmployeeType() == employeeType) {
-          System.out.println("Broadcasting to " + client);
+          logger.info("Broadcasting to " + client);
           client.send(messageType);
         }
       }
@@ -150,7 +163,7 @@ public class ComputerServer implements Runnable {
   public void shutDown() {
     // Telling clientThreads to shut down
     for (ClientThread client : clients) {
-      System.out.println("ComputerServer shutting down");
+      logger.info("ComputerServer shutting down");
       client.send(Packet.SERVERSHUTDOWN);
       client.shutDown();
     }

@@ -159,7 +159,7 @@ public class CookController {
       controller.start();
       window.showAndWait();
     } catch (IOException e) {
-      System.out.println("receive item error");
+      System.out.println("println item error");
     }
   }
 

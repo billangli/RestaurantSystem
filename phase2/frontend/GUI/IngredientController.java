@@ -38,7 +38,7 @@ public class IngredientController {
             Text amount = new Text(""+ dish.getIngredientsRequired().get(in).getQuantity());
             amount.setId(in+"Amount");
             add.setOnAction(e -> {
-                //TODO receive the order, sendOrder()
+                //TODO println the order, sendOrder()
                 if (inventory.isInventoryIngredientEnough(in, 1) && dish.ableToAdjustIngredient(in, 1)) {
                     client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in), -1);
                     dish.adjustIngredient(in, 1);
@@ -48,7 +48,7 @@ public class IngredientController {
             tableView.add(add,1,i);
             Button subtract = new Button("subtract");
             subtract.setOnAction(e -> {
-                //TODO receive the order, sendOrder()
+                //TODO println the order, sendOrder()
                 if (dish.ableToAdjustIngredient(in, -1)) {
                     client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in), 1);
                     dish.adjustIngredient(in, -1);

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import static frontend.GUI.FXMain.client;
 
 /**
- * the controller for receive item GUI
+ * the controller for println item GUI
  */
 public class ReceiveItemController {
   @FXML Button confirmButton, cancelButton;
@@ -63,7 +63,7 @@ public class ReceiveItemController {
   }
 
   /**
-   * confirm the action, receive items
+   * confirm the action, println items
    */
   @FXML
   private void confirmButtonClicked() {
