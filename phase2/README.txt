@@ -12,7 +12,12 @@ TODO
 - GUI
     Created GUI for Server, Cook and Manager.
 - Logger
-    Created Logger
+    - RestaurantLogger
+        - Logs configuration information in CONFIG level
+        - Logs any errors that occur in WARNING level
+        - Logs any inputs that server, cook, manager make in INFO.level
+    - BillLogger
+        - Keeps track of all paid bills.
 
 
 menu.txt

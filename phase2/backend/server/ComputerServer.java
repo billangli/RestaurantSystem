@@ -17,7 +17,7 @@ public class ComputerServer implements Runnable {
   private ArrayList<ClientThread> clients;
   private ClientThread clientThread;
 
-  private static final int PORT = 6000;
+  private static final int PORT = 6969;
   private boolean isRunning;
 
   private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
