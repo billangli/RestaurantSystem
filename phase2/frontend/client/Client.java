@@ -23,7 +23,7 @@ public class Client implements Runnable {
   private static Client instance = new Client();
 
   private static final String IP = "127.0.0.1";
-  private static final int PORT = 6000;
+  private static final int PORT = 6969;
 
   private Socket socket;
   private boolean connected;
