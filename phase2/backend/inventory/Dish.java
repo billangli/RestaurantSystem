@@ -168,4 +168,18 @@ public class Dish extends DishRecipe {
   public boolean hasBeenDelivered() {
     return hasBeenDelivered;
   }
+
+  /**
+   * add tax to the dish
+   */
+  public void taxed(){
+    this.price *= 1.13;
+  }
+
+  /**
+   * add tip to the dish
+   */
+  public void tiped(){
+    this.price *= 1.15;
+  }
 }

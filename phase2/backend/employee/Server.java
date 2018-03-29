@@ -88,7 +88,7 @@ public class Server extends ServiceEmployee {
    * @param table The backend.table which asked to have their bill.
    */
   public void printBill(Table table) {
-      logger.info(table.printBill(true));
+      //logger.info(table.printBill());//TODO to be fixed
   }
 
   /**

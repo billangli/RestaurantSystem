@@ -21,7 +21,7 @@ import java.util.LinkedList;
 public class Client implements Runnable {
   private static Client instance = new Client();
 
-  private static final String IP = "128.100.109.47";
+  private static final String IP = "127.0.0.1";
   private static final int PORT = 6000;
 
   private Socket socket;
@@ -283,7 +283,7 @@ public class Client implements Runnable {
     ArrayList<Object> parameters = new ArrayList<>();
     parameters.add(parameter);
     Packet packet = new Packet(methodName, parameters);
-    this.send(methodName, parameters);
+    this.send(methodName, parameters); //TODO packet not used
   }
 
   public void sendEvent(int methodName) {
