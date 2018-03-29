@@ -143,6 +143,10 @@ public class Inventory implements Serializable {
     }
   }
 
+//  public ArrayList<String> getRequests() {
+    // TODO: REQUEST Manager calls this to get a ArrayList of ingredientNames to be requested
+//  }
+
   /**
    * Adds the InventoryIngredient ingredient to the backend.inventory
    *

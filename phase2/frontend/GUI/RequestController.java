@@ -6,11 +6,7 @@ import frontend.client.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class RequestController {
@@ -20,7 +16,7 @@ public class RequestController {
 
     @FXML
     private void initialize() {
-        ArrayList request = (ArrayList) client.sentRequest(Packet.REQUESTREQUEST);
+        ArrayList request = (ArrayList) client.sendRequest(Packet.REQUESTREQUEST);
         requestListLabel.setText("");
         for (Object o : request) {
             String name = (String) o;

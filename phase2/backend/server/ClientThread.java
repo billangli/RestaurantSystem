@@ -93,6 +93,9 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTTABLEOCCUPANCY) {
             System.out.println("Sending table occupancy");
             this.send(Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
+          } else if (packet.getType() == Packet.REQUESTREQUEST) {
+            System.out.println("Sending request");
+//            this.send(Packet.RECEIVEREQUEST, inventory.getRequests()); TODO: REQUEST Uncomment this when it's done
           } else if (packet.getType() == Packet.REQUESTDISHESINPROGRESS) {
             System.out.println("Sending dishesInProgress");
             this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getDishesInProgress());
