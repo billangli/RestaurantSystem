@@ -162,6 +162,7 @@ public class MenuController{
             numoforder = 0;
             dishOrder = new Order();
             order = new ArrayList<>();
+            updateOrder();
 
 
             ((Stage) menuColumn.getScene().getWindow()).close();
