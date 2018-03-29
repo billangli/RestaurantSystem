@@ -69,6 +69,14 @@ public class ServerController implements Initializable {
     finishedDishTableView.setItems(dishes);
   }
 
+  public void updateTableView(LinkedList<Dish> dishesCompleted) {
+    ObservableList<Dish> dishes = FXCollections.observableArrayList();
+
+    dishes.addAll(dishesCompleted);
+    finishedDishTableView.setItems(dishes);
+  }
+
+  //TODO: In backend, this method should be called to update after each time takeSeat is called by any server.
   // TODO: In backend, this method should be called to update after each time takeSeat is called by
   // any server.
   public void updateTableColor(int tableNumber, boolean occupied) {

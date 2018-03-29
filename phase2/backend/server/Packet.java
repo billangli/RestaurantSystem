@@ -36,9 +36,6 @@ public class Packet implements Serializable {
   // Event Type
   public static final int RECEIVEINGREDIENT = 55;
 
-  // Events that might be updated automatically
-  public static final Integer[] RECEIVEUPDATE = {RECEIVEDISHESINPROGRESS, RECEIVEORDERSINQUEUE, RECEIVEDISHESCOMPLETED, RECEIVEMIRRORQUANTITYADJUSTMENT};
-
   // Cook Events
   public static final int ORDERRECEIVED = 50;
   public static final int DISHREADY = 51;
@@ -89,6 +86,13 @@ public class Packet implements Serializable {
 
   public boolean isEventType() {
     return (this.type >= 50) && (this.type < 80);
+  }
+
+  public boolean isUpdateType() {
+    return (this.type == RECEIVEDISHESINPROGRESS) ||
+            (this.type == RECEIVEORDERSINQUEUE) ||
+            (this.type == RECEIVEDISHESCOMPLETED) ||
+            (this.type == RECEIVEMIRRORQUANTITYADJUSTMENT);
   }
 
   public Object getObject() {

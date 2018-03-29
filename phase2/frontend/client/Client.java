@@ -1,7 +1,9 @@
 package frontend.client;
 
+import backend.inventory.Dish;
 import backend.inventory.DishIngredient;
 import backend.server.Packet;
+import backend.table.Order;
 import frontend.GUI.CookController;
 import frontend.GUI.MenuController;
 import frontend.GUI.ServerController;
@@ -11,8 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 
 // Singleton pattern
@@ -32,7 +34,7 @@ public class Client implements Runnable {
   private ObjectOutputStream output;
 
   private volatile boolean objectIsReady = false;
-  private volatile boolean otherUpdate; // Some other client updated something
+  private volatile boolean otherUpdate = false; // Some other client updated something
   private volatile Object object;
 
   private HashMap<String, Object> stored = new HashMap<>();
@@ -105,20 +107,23 @@ public class Client implements Runnable {
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
             // Confirm log in or not
             confirmLogIn((int) packet.getObject());
-          } else if (Math.abs(packet.getType()) <= 10) {
-            // Receive resource protocol
-            this.objectIsReady = true;
-          } else if (Arrays.asList(Packet.RECEIVEUPDATE).contains(packet.getType())) {
+          } else if (packet.isUpdateType()) {
             System.out.println("Received " + packet.getObject());
-            if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS || packet.getType() == Packet.RECEIVEORDERSINQUEUE) {
-              CookController cookController = (CookController) stored.get("cookController");
-              cookController.updateDishesOnTableView();
-            } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
-              ServerController serverController = (ServerController) stored.get("serverController");
-              serverController.updateTableView();
-            }
 
             if (otherUpdate) {
+              if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
+                LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) packet.getObject();
+                CookController cookController = (CookController) stored.get("cookController");
+                cookController.updateDishesInProgressOnTableView(dishesInProgress);
+              } else if (packet.getType() == Packet.RECEIVEORDERSINQUEUE) {
+                LinkedList<Order> ordersInQueue = (LinkedList<Order>) packet.getObject();
+                CookController cookController = (CookController) stored.get("cookController");
+                cookController.updateOrdersInQueueOnTableView(ordersInQueue);
+              } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
+                LinkedList<Dish> dishesCompleted = (LinkedList<Dish>) packet.getObject();
+                ServerController serverController = (ServerController) stored.get("cookController");
+                serverController.updateTableView();
+              }
               if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
                 HashMap newDisplayQuantity = (HashMap) packet.getObject();
                 if (this.employeeType == Packet.SERVERTYPE) {
@@ -127,12 +132,14 @@ public class Client implements Runnable {
                 }
               }
             } else {
+              System.out.println("The object is ready");
               this.objectIsReady = true;
             }
+          } else if (Math.abs(packet.getType()) <= 10) {
+            // Receive resource protocol
+            System.out.println("The object is ready");
+            this.objectIsReady = true;
           } else {
-            for (int i : Packet.RECEIVEUPDATE) {
-              System.out.print(i);
-            }
             System.out.println("*** Packet type invalid ***");
           }
         }
@@ -196,7 +203,7 @@ public class Client implements Runnable {
     this.send(requestType, message);
 
     // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to request...");
+    System.out.println("Waiting for ComputerServer to respond to request" + requestType + "...");
     while (!this.objectIsReady) ;
 
     // Return the employee type to the GUI

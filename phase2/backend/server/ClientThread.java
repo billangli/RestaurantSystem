@@ -143,12 +143,13 @@ class ClientThread implements Runnable {
    * @param object is what is being sent
    */
   void send(int type, Object object) {
-    System.out.println("Sending " + object.getClass() + ": \"" + object + "\" to " + this.employeeType + this.employeeID);
-    logger.info("Sending " + object.getClass() + ": \"" + object + "\" to " + this.employeeType + this.employeeID);
+    System.out.println("Sending " + object.getClass() + ": \"" + object + "\" to employee type " + this.employeeType + " employee " + this.employeeID);
+    logger.info("Sending " + object.getClass() + ": \"" + object + "\" to employee type " + this.employeeType + "employee " + this.employeeID);
 
     Packet packet = new Packet(type, object);
     try {
       this.output.writeObject(packet);
+      this.output.reset();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -157,15 +158,16 @@ class ClientThread implements Runnable {
   /**
    * Send just the message type to the client
    *
-   * @param type   is the type of the message
+   * @param type is the type of the message
    */
   void send(int type) {
-    System.out.println("Sending " + type + " to " + this.employeeType + this.employeeID);
-    logger.info("Sending " + type + " to " + this.employeeType + this.employeeID);
+    System.out.println("Sending " + type + " to employee type" + this.employeeType + " employee " + this.employeeID);
+    logger.info("Sending " + type + " to employee type" + this.employeeType + " employee " + this.employeeID);
 
     Packet packet = new Packet(type);
     try {
       this.output.writeObject(packet);
+      this.output.reset();
     } catch (IOException e) {
       e.printStackTrace();
     }

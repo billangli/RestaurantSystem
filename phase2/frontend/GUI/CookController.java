@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class CookController {
@@ -45,14 +46,38 @@ public class CookController {
   }
 
   // TODO: In backend, this method should be called to update after server enters menu, or finishedButton is clicked or getOrderButton is clicked.
-  public void updateDishesOnTableView() {
+  public void updateDishesInProgressOnTableView() {
     tableViewDishesInProgress.setItems(getDishesInProgress());
+  }
+
+  public void updateDishesInProgressOnTableView(LinkedList<Dish> dishesInProgress) {
+    ObservableList<Dish> observableList = FXCollections.observableArrayList();
+    observableList.addAll(dishesInProgress);
+    tableViewDishesInProgress.setItems(observableList);
+  }
+
+  public void updateOrdersInQueueOnTableView() {
     tableViewDishesInQueue.setItems(getDishesInFirstOrderQueue());
+  }
+
+  public void updateOrdersInQueueOnTableView(LinkedList<Order> ordersInQueue) {
+    ObservableList<Dish> observableList = FXCollections.observableArrayList();
+
+    ArrayList<Dish> dishes = new ArrayList<>();
+    if (!ordersInQueue.isEmpty()) {
+      dishes = ordersInQueue.get(0).getDishes();
+    }
+    numOfOrdersInQueue = ordersInQueue.size();
+    numOfOrderLabel.setText("Number of orders in queue: " + Integer.toString(numOfOrdersInQueue));
+
+    observableList.addAll(dishes);
+    tableViewDishesInQueue.setItems(observableList);
   }
 
   @FXML
   private void initialize() {
-    updateDishesOnTableView();
+    updateDishesInProgressOnTableView();
+    updateOrdersInQueueOnTableView();
   }
 
   private ObservableList<Dish> getDishesInProgress() {
@@ -88,7 +113,8 @@ public class CookController {
     /* (cookObject).orderReceived(); */
     /* ------------------------------------------------------------------------------------------ */
 
-    updateDishesOnTableView();
+    updateDishesInProgressOnTableView();
+    updateOrdersInQueueOnTableView();
   }
 
   @FXML
@@ -98,7 +124,8 @@ public class CookController {
     if (selectedDish != null) {
       int dishNumber = selectedDish.getDishNumber();
       client.sendEvent(Packet.DISHREADY, dishNumber);
-      updateDishesOnTableView();
+      updateDishesInProgressOnTableView();
+      updateOrdersInQueueOnTableView();
     }
 
     /* (cookObject).dishReady(dishNumber); */
