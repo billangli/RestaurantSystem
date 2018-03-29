@@ -49,15 +49,15 @@ public class Inventory implements Serializable {
     instance.ingredientsInventory = in;
   }
 
-  public HashMap modifyIngredientMirrorQuantity(String ingredientName, int quantityUnits) {
+  public HashMap modifyIngredientRunningQuantity(String ingredientName, int quantityUnits) {
     InventoryIngredient stockIngredient = ingredientsInventory.get(ingredientName);
-    stockIngredient.modifyMirrorQuantity(quantityUnits);
+    stockIngredient.modifyRunningQuantity(quantityUnits);
     HashMap<String, Integer> newDisplayQuantity = new HashMap<>();
     newDisplayQuantity.put(stockIngredient.getName(), stockIngredient.getRunningQuantity());
     return newDisplayQuantity;
   }
 
-  public HashMap modifyIngredientMirrorQuantity(
+  public HashMap modifyIngredientRunningQuantity(
           ArrayList<DishIngredient> dishIngredientList, boolean shouldDecreaseQuantity) {
     HashMap<String, Integer> newDisplayQuantity = new HashMap<>();
 
@@ -69,7 +69,7 @@ public class Inventory implements Serializable {
       if (!shouldDecreaseQuantity) {
         quantityUnits *= -1;
       }
-      stockIngredient.modifyMirrorQuantity(quantityUnits);
+      stockIngredient.modifyRunningQuantity(quantityUnits);
       newDisplayQuantity.put(stockIngredient.getName(), stockIngredient.getRunningQuantity());
     }
     return newDisplayQuantity;

@@ -84,7 +84,7 @@ public class InventoryIngredient extends Ingredient {
    *
    * @param quantityUnit the quantity
    */
-  public void modifyMirrorQuantity(int quantityUnit) {
+  public void modifyRunningQuantity(int quantityUnit) {
     this.runningQuantity += quantityUnit;
   }
 

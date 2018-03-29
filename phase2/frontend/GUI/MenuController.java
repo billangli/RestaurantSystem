@@ -63,7 +63,7 @@ public class MenuController{
      *  update any difference in local inventory and back end inventory
      * @param newDisplayQuantity the quantity that changed
      */
-    public void updateMirrorQuantity(HashMap newDisplayQuantity) {
+    public void updateRunningQuantity(HashMap newDisplayQuantity) {
         for(Object i: newDisplayQuantity.keySet()){
             String ingredientName = (String) i;
             int runningQuantity = (int) newDisplayQuantity.get(i);

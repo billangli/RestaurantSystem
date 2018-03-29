@@ -124,11 +124,11 @@ public class Client implements Runnable {
                 ServerController serverController = (ServerController) stored.get("serverController");
                 serverController.updateTableView(dishesCompleted);
               }
-              if (packet.getType() == Packet.RECEIVEMIRRORQUANTITYADJUSTMENT) {
+              if (packet.getType() == Packet.RECEIVERUNNINGQUANTITYADJUSTMENT) {
                 HashMap newDisplayQuantity = (HashMap) packet.getObject();
                 if (this.employeeType == Packet.SERVERTYPE) {
                   MenuController menuController = (MenuController) stored.get("menuController");
-                  menuController.updateMirrorQuantity(newDisplayQuantity);
+                  menuController.updateRunningQuantity(newDisplayQuantity);
                 }
               }
             } else {
@@ -229,7 +229,7 @@ public class Client implements Runnable {
 
     HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
-    menuController.updateMirrorQuantity(newDisplayQuantity);
+    menuController.updateRunningQuantity(newDisplayQuantity);
     this.otherUpdate = true;
   }
 
@@ -248,7 +248,7 @@ public class Client implements Runnable {
 
     HashMap newDisplayQuantity = (HashMap) packet.getObject();
     MenuController menuController = (MenuController) stored.get("menuController");
-    menuController.updateMirrorQuantity(newDisplayQuantity);
+    menuController.updateRunningQuantity(newDisplayQuantity);
     this.otherUpdate = true;
   }
 

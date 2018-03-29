@@ -106,15 +106,15 @@ class ClientThread implements Runnable {
             boolean decrease = (Boolean) infoArray[1];
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
-            HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
-            computerServer.broadcast(Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newIngredientQuantities);
+            HashMap newIngredientQuantities = inventory.modifyIngredientRunningQuantity(dishIngredients, decrease);
+            computerServer.broadcast(Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newIngredientQuantities);
           } else if (packet.getType() == Packet.ADJUSTINDIVIDUALINGREDIENT) {
             System.out.println("Adjusting individual ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
             DishIngredient ingredient = (DishIngredient) infoArray[0];
             int quantity = (int) infoArray[1];
-            HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(ingredient.getName(), quantity);
-            computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newIngredientQuantities);
+            HashMap newIngredientQuantities = inventory.modifyIngredientRunningQuantity(ingredient.getName(), quantity);
+            computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newIngredientQuantities);
           } else if (packet.isEventType()) {
             // Just an event
             EventManager.addEvent(createEvent(packet)); // TODO: Broadcast when Inventory is changed
