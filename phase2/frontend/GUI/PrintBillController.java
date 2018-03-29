@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-
 import java.util.logging.Logger;
 
 /** the controller for print bill GUI */
@@ -56,7 +55,7 @@ public class PrintBillController {
         result += "Gratuity: " + String.format("%.2f", totalCost * 0.15);
         result += "\n\n" + "Total: " + String.format("%.2f", totalCost * 1.28);
       } else {
-        result += "\n\n" + "Total: " + String.format("%.2f", totalCost * 1.13);
+        result += "\n" + "Total: " + String.format("%.2f", totalCost * 1.13);
       }
       billLabel.setText(result);
     }
@@ -64,7 +63,9 @@ public class PrintBillController {
 
   @FXML
   private void payBillButtonClicked() {
-    logger.info(billLabel.getText());
+    if (!billLabel.getText().equals(billInitial)) {
+      logger.info(billLabel.getText());
+    }
     billLabel.setText(billInitial);
     totalCost = 0;
   }
