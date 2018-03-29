@@ -231,59 +231,6 @@ public class ServerController implements Initializable {
   }
 
   @FXML
-  protected void deliverSuccessful() {
-    Stage window = new Stage();
-    window.initModality(Modality.APPLICATION_MODAL);
-
-    try {
-      FXMLLoader numLoader =
-          new FXMLLoader(
-              this.getClass().getResource("/frontend/GUI/DeliverSuccessfulAlertBox.fxml"));
-      Parent scene = numLoader.load();
-      window.setTitle("Dish delivered successfully");
-      window.setScene(new Scene(scene, 300, 200));
-      DeliverSuccessfulController paneController = numLoader.getController();
-
-      // takeSeatController has same id as this controller.
-      paneController.setTableNumber(selectedTableNumber);
-      paneController.setMyId(myId);
-
-      paneController.start();
-      window.setMinWidth(300);
-      window.setMinHeight(200);
-      window.showAndWait();
-    } catch (IOException e) {
-      System.out.println("Deliver successful error");
-    }
-  }
-
-  @FXML
-  protected void deliverFailed() {
-    Stage window = new Stage();
-    window.initModality(Modality.APPLICATION_MODAL);
-
-    try {
-      FXMLLoader numLoader =
-          new FXMLLoader(this.getClass().getResource("/frontend/GUI/DeliverFailedAlertBox.fxml"));
-      Parent scene = numLoader.load();
-      window.setTitle("Dish deliver failed");
-      window.setScene(new Scene(scene, 300, 200));
-      DeliverFailedController paneController = numLoader.getController();
-
-      // takeSeatController has same id as this controller.
-      paneController.setTableNumber(selectedTableNumber);
-      paneController.setMyId(myId);
-
-      paneController.start();
-      window.setMinWidth(300);
-      window.setMinHeight(200);
-      window.showAndWait();
-    } catch (IOException e) {
-      System.out.println("Deliver failed error");
-    }
-  }
-
-  @FXML
   protected void clear() {
     if (this.selectedTableNumber != 0
         && rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED) {

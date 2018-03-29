@@ -46,26 +46,6 @@
                      <Label text="Print Bill" />
                  </children>
               </StackPane>
-              <StackPane onMouseClicked="#deliverSuccessful">
-                 <children>
-                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="47.0" stroke="#806e6e" strokeType="INSIDE" width="175.0">
-                         <VBox.margin>
-                             <Insets bottom="3.0" left="3.0" right="3.0" top="20.0" />
-                         </VBox.margin>
-                     </Rectangle>
-                     <Label text="Deliver Successful" />
-                 </children>
-              </StackPane>
-              <StackPane onMouseClicked="#deliverFailed">
-                 <children>
-                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="47.0" stroke="#806e6e" strokeType="INSIDE" width="175.0">
-                         <VBox.margin>
-                             <Insets bottom="3.0" left="3.0" right="3.0" top="20.0" />
-                         </VBox.margin>
-                     </Rectangle>
-                     <Label text="Deliver Failed" />
-                 </children>
-              </StackPane>
               <StackPane onMouseClicked="#clear">
                  <children>
                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="47.0" stroke="#806e6e" strokeType="INSIDE" width="175.0">
@@ -146,8 +126,8 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" text="Success" onAction="#successButtonClicked"/>
-                  <Button mnemonicParsing="false" text="Fail" onAction="#failButtonClicked"/>
+                  <Button mnemonicParsing="false" onAction="#successButtonClicked" text="Success" />
+                  <Button mnemonicParsing="false" onAction="#failButtonClicked" text="Fail" />
                </children>
                <VBox.margin>
                   <Insets />
