@@ -84,32 +84,14 @@ public class MenuController{
             InventoryIngredient inventoryIngredient = inventory.getIngredient(ingredientName);
             inventoryIngredient.setRunningQuantity(runningQuantity);
         }
-        updateMenuT();
+        updateMenu();
     }
 
     /**
      * update the menu, grey out dish that are unavailable
      */
-    public void updateMenu() {
-        for(Dish dish:recipe){
-            boolean cookable = dish.ableToCook(inventory);
-            Button tb = (Button) tableView.lookup("#"+dish.getName());
-            if(cookable){
-                tb.setDisable(false);
-            }
-            else{
-                tb.setDisable(true);
-            }
-        }
-        try{
-            window.showAndWait();
-        }catch(IllegalStateException e) {
-            System.out.println("there exist a window already");
-        }
-    }
-
-    public void updateMenuT(){
-        ObservableList<Dish> dishes = FXCollections.observableArrayList();
+    public void updateMenu(){
+            ObservableList<Dish> dishes = FXCollections.observableArrayList();
         for(Dish dish:recipe){
             boolean cookable = dish.ableToCook(inventory);
 
@@ -194,8 +176,6 @@ public class MenuController{
     }
 
 
-
-
     /**
      * initialize the GUI
      */
@@ -209,115 +189,8 @@ public class MenuController{
         for(String di: dishes.keySet()){
             recipe.add(new Dish(dishes.get(di)));
         }
-        //try
-        updateMenuT();
+        updateMenu();
 
-        //set up dishes
-//        int i = 0;
-//        for(String di: dishes.keySet()){
-//            Button item = new Button(di);
-//            item.setId(di);
-//            item.setOnAction(e12 ->{
-//                //order a dish
-//                //TODO update inventory and order updateMenu()
-//                    Button ordered = new Button(di);
-//                    ordered.setId("" + numoforder);
-//
-//                    //set up the ingredient adjustment interface
-//                    Stage st = new Stage();
-//                    Dish dish = new Dish(dishes.get(di));
-//
-//                    //pass ingredient to server
-//                    HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
-//                    ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
-//                    for (String in : ingredients.keySet()) {
-//                        dishIngredients.add(ingredients.get(in));
-//                    }
-//                    client.sendAdjustIngredientRequest(dishIngredients, true);
-//
-//                    order.put("" + numoforder, dish);
-//                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
-//                    try {
-//                        GridPane ingredient = ingredientLoader.load();
-//                        IngredientController controller = ingredientLoader.getController();
-//                        controller.getDish(dish);
-//                        Scene ingredientScene = new Scene(ingredient, 400, 400);
-//                        st.setScene(ingredientScene);
-//                        st.show();
-//                    } catch (IOException e1) {
-//                        System.out.println(ingredientLoader);
-//                    }
-//
-//
-//                    //delete a dish
-////TODO update order and inventory updateMenu()
-//                    ordered.setOnAction(e13 -> {
-//                        tableView.getChildren().remove(ordered);
-//                        order.remove(ordered.getId());
-//                        HashMap<String, DishIngredient> ingredients1 = dish.getIngredientsRequired();
-//                        ArrayList<DishIngredient> dishIngredients1 = new ArrayList<>();
-//                        for (String in : ingredients1.keySet()) {
-//                            dishIngredients1.add(ingredients1.get(in));
-//                        }
-//                        client.sendAdjustIngredientRequest(dishIngredients1, false);
-//                    });
-//
-//                    numoforder++;
-//                    tableView.add(ordered, 2, numoforder + 1);
-//
-//            });
-//
-//            tableView.add(item,0,i);
-//            i++;
-//
-//
-//        }
-//        Text orderText = new Text("your order");
-//        tableView.add(orderText,2,0);
-//        //submit the order
-//        Button submit = new Button("order");
-//        submit.setOnAction(e -> {
-//            for (String item : order.keySet()) {
-//                Dish dish = order.get(item);
-//                dishOrder.addDish(dish);
-//                Button tb = (Button) tableView.lookup("#" + item);
-//                tableView.getChildren().remove(tb);
-//            }
-//            ArrayList<Object> info = new ArrayList<>();
-//            info.add(tableNumber);
-//            info.add(dishOrder);
-//            client.sendEvent(Packet.ENTERMENU, info);
-//
-//            numoforder = 0;
-//            dishOrder = new Order();
-//            order = new HashMap<>();
-//
-//
-//            ((Stage) submit.getScene().getWindow()).close();
-//        });
-//        tableView.add(submit,1,5);
-//
-//        //set up background
-//        BackgroundImage menuImage= new BackgroundImage(new Image("menu.jpg",600,600,false,true),
-//                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-//                BackgroundSize.DEFAULT);
-//        Background background= new Background(menuImage);
-//        tableView.setBackground(background);
-//
-//
-//        for(String di: dishes.keySet()){
-//            recipe.add(new Dish(dishes.get(di)));
-//        }
-//        for(Dish dish:recipe){
-//            boolean cookable = dish.ableToCook(inventory);
-//            Button tb = (Button) tableView.lookup("#"+dish.getName());
-//            if(cookable){
-//                tb.setDisable(false);
-//            }
-//            else{
-//                tb.setDisable(true);
-//            }
-//        }
     }
 
 

@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 public class  RestaurantSystem extends Application{
   public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   public static ComputerServer computerServer;
+  public static StartController startController;
 
   /**
    * Read and parse the config files for employees, tables, menu and backend.inventory
@@ -166,7 +167,7 @@ public class  RestaurantSystem extends Application{
     AnchorPane startScene = startLoader.load();
     Scene mainScene = new Scene(startScene, 600, 600);
 
-
+    startController = startLoader.getController();
 
     primaryStage.setTitle("backend");
     primaryStage.setScene(mainScene);
