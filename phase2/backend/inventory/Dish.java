@@ -146,6 +146,10 @@ public class Dish extends DishRecipe {
     return dishNumber;
   }
 
+  public int getTableNumber() {
+      return table.getTableNum();
+  }
+
   /** Assigns a unique number that identifies this dish */
   public void assignDishNumber() {
     dishNumber = ++Dish.countDish;
