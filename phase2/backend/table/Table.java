@@ -84,31 +84,23 @@ public class Table implements Serializable {
    * prints bill for this backend.table in format of Table number and all dishes with its price and
    * the total price
    */
-  public String printBill(boolean separate) {
+  public ArrayList<Dish> printBill() {
     // TODO: Phase 1, Bill class. Bill should be printed on frontend.GUI as text (maybe this method
     // should
     // return bill in string type.)
-    String fin = "";
-    fin += "===== <BILL> =====";
-    fin += "Table number: " + tableNum + "\nList of dishes ordered:";
+    //TODO OBject type??
+    ArrayList<Dish> dishes = new ArrayList<>();
     for (Order order : this.order) {
-      fin += order.toString();
+      for(Dish dish: order.getDishes()){
+        dish.taxed();
+        if(numOfCustomer >= 8){
+          dish.tiped();
+        }
+        dishes.add(dish);
+      }
     }
-    System.out.println("------------------");
-    if (numOfCustomer >= 8) {
-      cost *= 1.15;
-    }
-    if (separate) {
-      fin +=
-          "Total: "
-              + String.format("%.2f", cost * 1.13 / numOfCustomer)
-              + " for each person, split by "
-              + numOfCustomer
-              + " people.\n";
-    } else {
-      fin += "Total: " + cost * 1.13 + "\n";
-    }
-    return fin;
+
+    return dishes;
   }
 
   /**

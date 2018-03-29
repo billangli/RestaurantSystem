@@ -23,6 +23,7 @@ public class Inventory implements Serializable {
   private static Inventory instance = new Inventory();
   private volatile HashMap<String, InventoryIngredient> ingredientsInventory = new HashMap<>();
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+  private ArrayList<String> requested = new ArrayList<>();
 
   /**
    * Returns the Ingredient ingredient stored in the backend.inventory
@@ -115,6 +116,7 @@ public class Inventory implements Serializable {
     // to cut and paste into n email
     // Default amount to sendRequest is 20 units
     // The manager can manually change that amount when creating the email
+    requested.add(ingredientName);
     BufferedWriter bw;
     try (BufferedReader fileReader = new BufferedReader(new FileReader("phase2/sendRequest.txt"))) {
       String myContent = ingredientName + " 20";
@@ -177,5 +179,13 @@ public class Inventory implements Serializable {
 
   public HashMap<String, InventoryIngredient> getIngredientsInventory() {
     return ingredientsInventory;
+  }
+
+  /**
+   * return the requested ingredient
+   * @return the requested ingredient
+   */
+  public ArrayList getRequests(){
+    return requested;
   }
 }

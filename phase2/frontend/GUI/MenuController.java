@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -158,7 +159,7 @@ public class MenuController{
                     });
 
                    numoforder++;
-                   tableView.add(ordered,2,numoforder);
+                   tableView.add(ordered,2,numoforder+1);
                 }
             });
 
@@ -167,7 +168,8 @@ public class MenuController{
 
 
         }
-
+        Text orderText = new Text("your order");
+        tableView.add(orderText,2,0);
         //submit the order
         Button submit = new Button("order");
         submit.setOnAction(new EventHandler<ActionEvent>() {

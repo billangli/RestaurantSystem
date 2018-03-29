@@ -30,7 +30,7 @@ public class PrintBillController {
     if (table == null) {
       table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
     }
-    billInfo = table.printBill(false);
+    //billInfo = table.printBill(false);
     billToString.setText(billInfo);
   }
 
@@ -39,7 +39,7 @@ public class PrintBillController {
     if (table == null) {
       table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
     }
-    billInfo = table.printBill(true);
+    //billInfo = table.printBill(true);
     billToString.setText(billInfo);
   }
 
