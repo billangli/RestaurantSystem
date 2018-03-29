@@ -49,7 +49,7 @@ public class Dish extends DishRecipe {
    * @param ingredientName the name of the DishIngredient
    * @param amount the total amount of DishIngredient allowed for this Dish
    * @return true if and only if it is possible for this Dish to permit the amount amount for the
-   *     DishIngredient ingredientName
+   * DishIngredient ingredientName
    */
   public boolean ableToAdjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired.get(ingredientName).allowed(amount)) {
@@ -176,5 +176,19 @@ public class Dish extends DishRecipe {
 
   public String getStatus() {
     return status;
+  }
+
+  /**
+   * add tax to the dish
+   */
+  public void taxed(){
+    this.price *= 1.13;
+  }
+
+  /**
+   * add tip to the dish
+   */
+  public void tiped(){
+    this.price *= 1.15;
   }
 }

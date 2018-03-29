@@ -96,7 +96,7 @@ public class ServerStageController {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
-    Parent root = null;
+    Parent root;
     try {
       root = FXMLLoader.load(getClass().getResource("/frontend/GUI_2/TakeSeatAlertBox.fxml"));
       window.setTitle("Welcome!");

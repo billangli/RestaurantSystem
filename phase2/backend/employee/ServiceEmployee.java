@@ -9,6 +9,11 @@ public class ServiceEmployee extends Employee {
     super(id);
   }
 
+  /**
+   * Returns the Order Queue
+   * @return the Order Queue
+   */
+
   public static OrderQueue getOrderQueue() {
     return orderQueue;
   }

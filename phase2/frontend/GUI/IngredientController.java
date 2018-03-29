@@ -36,26 +36,22 @@ public class IngredientController {
             Button add = new Button("add");
             Text amount = new Text(""+ dish.getIngredientsRequired().get(in).getQuantity());
             amount.setId(in+"Amount");
-            add.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                    //TODO receive the order, sendOrder()
-                    if(inventory.isInventoryIngredientEnough(in,1)&& dish.ableToAdjustIngredient(in,1)){
-                        client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in),-1);
-                        dish.adjustIngredient(in,1);
-                        amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
-                    }
+            add.setOnAction(e -> {
+                //TODO receive the order, sendOrder()
+                if (inventory.isInventoryIngredientEnough(in, 1) && dish.ableToAdjustIngredient(in, 1)) {
+                    client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in), -1);
+                    dish.adjustIngredient(in, 1);
+                    amount.setText("" + dish.getIngredientsRequired().get(in).getQuantity());
                 }
             });
             tableView.add(add,1,i);
             Button subtract = new Button("subtract");
-            subtract.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                    //TODO receive the order, sendOrder()
-                    if( dish.ableToAdjustIngredient(in,-1)){
-                        client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in),1);
-                        dish.adjustIngredient(in,-1);
-                        amount.setText(""+ dish.getIngredientsRequired().get(in).getQuantity());
-                    }
+            subtract.setOnAction(e -> {
+                //TODO receive the order, sendOrder()
+                if (dish.ableToAdjustIngredient(in, -1)) {
+                    client.sendAdjustIngredientRequest(dish.getIngredientsRequired().get(in), 1);
+                    dish.adjustIngredient(in, -1);
+                    amount.setText("" + dish.getIngredientsRequired().get(in).getQuantity());
                 }
             });
             tableView.add(subtract,2,i);

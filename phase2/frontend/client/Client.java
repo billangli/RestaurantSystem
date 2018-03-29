@@ -25,7 +25,7 @@ public class Client implements Runnable {
   private static final int PORT = 6000;
 
   private Socket socket;
-  private boolean connected = false;
+  private boolean connected;
   private boolean loggedIn = false;
   private boolean numberOfTablesReceived = false;
   private int employeeType;
@@ -147,7 +147,7 @@ public class Client implements Runnable {
               System.out.println("The object is ready");
               this.objectIsReady = true;
             }
-          } else if (Math.abs(packet.getType()) <= 10) {
+          } else if (Math.abs(packet.getType()) <= 11) {
             // Receive resource protocol
             System.out.println("The object is ready");
             this.objectIsReady = true;
@@ -283,7 +283,7 @@ public class Client implements Runnable {
     ArrayList<Object> parameters = new ArrayList<>();
     parameters.add(parameter);
     Packet packet = new Packet(methodName, parameters);
-    this.send(methodName, parameters);
+    this.send(methodName, parameters); //TODO packet not used
   }
 
   public void sendEvent(int methodName) {

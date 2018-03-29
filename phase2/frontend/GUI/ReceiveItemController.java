@@ -14,6 +14,9 @@ import java.util.HashMap;
 
 import static frontend.GUI.FXMain.client;
 
+/**
+ * the controller for receive item GUI
+ */
 public class ReceiveItemController {
   @FXML Button confirmButton, cancelButton;
   @FXML TextField tf;
@@ -25,6 +28,9 @@ public class ReceiveItemController {
     this.myId = id;
   }
 
+  /**
+   * start the GUI after init
+   */
   public void start() {
     tf.textProperty()
         .addListener(
@@ -35,6 +41,9 @@ public class ReceiveItemController {
             });
   }
 
+  /**
+   * initialize the GUI
+   */
   @FXML
   private void initialize() {
     ObservableList<String> ingredientNames = FXCollections.observableArrayList();
@@ -53,6 +62,9 @@ public class ReceiveItemController {
     choiceBox.setItems(ingredientNames);
   }
 
+  /**
+   * confirm the action, receive items
+   */
   @FXML
   private void confirmButtonClicked() {
     if (tf.getText().length() > 0 && choiceBox.getValue() != null) {
@@ -61,7 +73,7 @@ public class ReceiveItemController {
 
       // TODO: In backend, call (employeeObj).receiveIngredient(ingredientName, quantity)
 
-      ArrayList<Object> info = new ArrayList<Object>();
+      ArrayList<Object> info = new ArrayList<>();
       info.add(ingredientName);
       info.add(quantity);
       client.sendEvent(Packet.RECEIVEINGREDIENT, info);
@@ -74,6 +86,9 @@ public class ReceiveItemController {
     }
   }
 
+  /**
+   * cancel the current action
+   */
   @FXML
   private void cancelButtonClicked() {
     // close the window

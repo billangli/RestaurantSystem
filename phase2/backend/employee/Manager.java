@@ -30,7 +30,4 @@ public class Manager extends Employee {
   public String toString() {
     return "Manager, id:" + getId();
   }
-
-  //TODO: Create a method that produces list of all orders  in the system, but have not been delivered yet
-  //Whichever order in OrderQueue that is not
 }

@@ -1,6 +1,7 @@
 package backend.employee;
 
 import backend.inventory.Inventory;
+import backend.inventory.InventoryIngredient;
 import backend.logger.RestaurantLogger;
 
 import java.io.Serializable;
@@ -30,8 +31,13 @@ public class Employee implements Serializable {
    */
   public void receiveIngredient(String receivedIngredientName, int quantity) {
     Inventory inventory = Inventory.getInstance();
-    inventory.getIngredient(receivedIngredientName).modifyQuantity(quantity);
-    inventory.getIngredient(receivedIngredientName).modifyRunningQuantity(quantity);
+    InventoryIngredient ingredient = inventory.getIngredient(receivedIngredientName);
+    ingredient.modifyQuantity(quantity);
+    ingredient.modifyRunningQuantity(quantity);
+    if(!ingredient.getIsUnderThreshold() && inventory.getIngredient(receivedIngredientName) != null){
+      inventory.removeFromRequest(receivedIngredientName);
+    }
+
     logger.info(
         "Employee " + ID + " received " + receivedIngredientName + " by this amount " + quantity);
   }
