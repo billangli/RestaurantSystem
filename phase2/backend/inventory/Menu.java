@@ -69,7 +69,7 @@ public class Menu implements Serializable {
    * @param name the name of the Dish dish
    * @return the copy of the Dish dish
    */
-  public Dish createNewDish(String name) {
+  public Dish createNewDishd(String name) {
     DishRecipe dish = menu.menuDishes.get(name);
     return new Dish(dish);
   }
