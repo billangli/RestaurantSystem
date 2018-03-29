@@ -99,7 +99,7 @@ public class Inventory implements Serializable {
     boolean isCurrentlyLow = stockIngredient.getIsUnderThreshold();
     // if this InventoryIngredient was not already below the threshold, then
     // execute createRequest
-    if (!isAlreadyLow && !isCurrentlyLow) {
+    if (!isAlreadyLow && isCurrentlyLow) {
       createRequest(ingredientName);
     }
   }
