@@ -10,7 +10,42 @@ TODO
 - Server/Client
     Allows for multiple clients to be run across different computers
 - GUI
-    Created GUI for Server, Cook and Manager.
+    login screen:
+        enter the id of the employee and screen would change in to the according employee screen
+        if computer server is not connected or the employee id is invalid, it would not log in
+    server screen:
+        employee can select table that displayed on the screen
+        it has buttond for many actions:
+            receive button: receive ingredients, and update the inventory
+            log out: log out
+            take seat: enter the amount of customer and select the table they are sitting
+            clear: clear the selected table
+            order: the selected table is making an order, and screen change into menu screen
+            print bill: print bill for the selected table, and change screen into print bill screen
+            delivered fail: customer doesn't want the select dish
+            delivered success: the selected dish is delivered
+    menu Screen:
+        it has buttons for many actions:
+            order: the customer ordered the select dish from menu column, and pop up window for adjustment
+            delete: delete the selected dish from order column
+            submit: submit the order and go back server screen
+    Ingredient screen:
+        show all the ingredient and buttons for adjustment, click done when customer finished the adjustment
+    printbill screen:
+        all dish for this table is shown on the left right.
+        select the dishes and confirm. and then click pay
+        or payall to pay all the dishes
+    manager screen:
+        it has buttons for many actions:
+        check inventory: show all the ingredient in inventory
+        request for more: show all item that is going low
+        dish in progress: show all dishes that not delivered
+
+    cook screen:
+        show the dish that are in progress and waiting in line
+        select a dish and click finish to finish a dish.
+        when all dish in progress is finished, cook can click confirm next order to put the next order into progress
+
 - Logger
     - RestaurantLogger
         - Logs configuration information in CONFIG level
@@ -46,63 +81,6 @@ starter.txt
 - all amount are integers
 - when the ingredients are below the lowerThreshold, the program will write to request.txt requesting for more backend.inventory
 - this file will be recreated as an empty file by the program when deleted
-
-
-backend.event.txt
-===========================================
-- Dish is in the following format:
-    no adjustments: dishName
-    with adjustments: dishName:ingredient±a_ingredient2±b_..._ingredientN±n
-        this code adds a units of ingredient1, subtracts b units of ingredient2, and subtracts n units of ingredientN.
-    the ingredients are separated by comma
-- Order is the following format:
-    (dish1)|(dish2)|...|(dishN)
-
-- please enter commands in this format:
-    employeeType;employeeID;methodName;(parametersSeparatedByCommaWithoutSpace)
-
-- we have the following methods with their respective parameters:
-
-Cook
------------------
-Cook;employeeID;orderReceived;()
-    confirms that an order has been received
-
-Cook;employeeID;orderReady;(dishNumber)
-    confirms that a dish with dishNumber has been cooked (each dish cooked has an unique dishNumber starting from 1 like McDonalds)
-
-Cook;employeeID;receiveIngredient;(ingredientName,quantity)
-    receive the ingredientName with the specified quantity and updates the backend.inventory, we cannot do anything if it is not int our backend.inventory
-
-Manager
------------------
-Manager;employeeID;checkInventory;()
-    print out backend.inventory to console
-
-Manager;employeeID;receiveIngredient;(ingredientName,quantity)
-    receive the ingredientName with the specified quantity and updates the backend.inventory, we cannot do anything if it is not int our backend.inventory
-
-Server
------------------
-Server;employeeID;takeSeat;(tableNumber)
-    customers take seat at Table i, with this computerServer
-
-Server;employeeID;enterMenu;(tableNumber,order)
-    enters the order for cook to confirm for backend.table at tableNumber
-
-Server;employeeID;deliverDishCompleted;(dishNumber)
-    this computerServer successfully delivered the dish with the dishNumber
-
-Server;employeeID;deliverDishFailed;(dishNumber)
-    the current dish this computerServer delivered to the customer has failed, the customer no longer wants it
-
-Server;employeeID;printBill;(tableNumber)
-    this computerServer print a bill to console for backend.table with tableNumber
-
-Server;employeeID;clearTable;(tableNumber)
-    this computerServer clear the backend.table with tableNumber, which means current Table clears all its data (not more Order, Server and cost = 0)
-
-- backend.event.txt some invalid input if the employeeID, methodNames are not entered correctly, also if the dishNumber, tableNumber are invalid, it will be addressed, but this will not happen in phase 2 because we will only give the user valid input in the frontend.GUI to enter into the system
 
 
 request.txt
