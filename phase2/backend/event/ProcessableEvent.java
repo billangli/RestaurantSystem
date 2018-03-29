@@ -53,9 +53,9 @@ public class ProcessableEvent extends Event {
       String ingredientName = (String) this.parameters.get(0);
       int quantity = (int) this.parameters.get(1);
       employee.receiveIngredient(ingredientName, quantity);
-      HashMap<String, Integer> newMirrorQuantities = new HashMap<>();
-      newMirrorQuantities.put(ingredientName, inventory.getIngredient(ingredientName).getRunningQuantity());
-      computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newMirrorQuantities);
+      HashMap<String, Integer> newRunningQuantities= new HashMap<>();
+      newRunningQuantities.put(ingredientName, inventory.getIngredient(ingredientName).getRunningQuantity());
+      computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newRunningQuantities);
     } else {
 
       switch (this.employeeType) {
@@ -143,6 +143,7 @@ public class ProcessableEvent extends Event {
         int numberOfCustomers = (int) this.parameters.get(1);
         Table table = TableManager.getTable(tableNumber);
         server.takeSeat(table, numberOfCustomers);
+        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
         break;
       }
       case Packet.ENTERMENU: {
@@ -175,6 +176,7 @@ public class ProcessableEvent extends Event {
         int tableNumber = (int) this.parameters.get(0) - 1;
         Table table = TableManager.getTable(tableNumber);
         server.clearTable(table);
+        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
         break;
       }
       default:

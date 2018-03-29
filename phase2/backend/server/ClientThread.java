@@ -74,6 +74,14 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
             System.out.println("Sending number of tables");
             this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
+          } else if (packet.getType() == Packet.LOGOFF) {
+            System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
+            this.loggedOn = false;
+          } else if (packet.getType() == Packet.DISCONNECT) {
+            System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
+            System.out.println("Disconnecting socket");
+            this.loggedOn = false;
+            this.connected = false;
           } else if (packet.getType() == Packet.REQUESTMENU) {
             System.out.println("Sending menu");
             Menu menu = Menu.getMenu();
@@ -106,15 +114,15 @@ class ClientThread implements Runnable {
             boolean decrease = (Boolean) infoArray[1];
             Inventory inventory = Inventory.getInstance();
             ComputerServer computerServer = ComputerServer.getInstance();
-            HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(dishIngredients, decrease);
-            computerServer.broadcast(Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newIngredientQuantities);
+            HashMap newIngredientQuantities = inventory.modifyIngredientRunningQuantity(dishIngredients, decrease);
+            computerServer.broadcast(Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newIngredientQuantities);
           } else if (packet.getType() == Packet.ADJUSTINDIVIDUALINGREDIENT) {
             System.out.println("Adjusting individual ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
             DishIngredient ingredient = (DishIngredient) infoArray[0];
             int quantity = (int) infoArray[1];
-            HashMap newIngredientQuantities = inventory.modifyIngredientMirrorQuantity(ingredient.getName(), quantity);
-            computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEMIRRORQUANTITYADJUSTMENT, newIngredientQuantities);
+            HashMap newIngredientQuantities = inventory.modifyIngredientRunningQuantity(ingredient.getName(), quantity);
+            computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newIngredientQuantities);
           } else if (packet.isEventType()) {
             // Just an event
             EventManager.addEvent(createEvent(packet)); // TODO: Broadcast when Inventory is changed
@@ -130,6 +138,8 @@ class ClientThread implements Runnable {
 
     System.out.println("This client thread is closing");
     try {
+      this.input.close();
+      this.output.close();
       this.socket.close();
     } catch (IOException e) {
       e.printStackTrace();
@@ -148,8 +158,8 @@ class ClientThread implements Runnable {
 
     Packet packet = new Packet(type, object);
     try {
-      this.output.writeObject(packet);
       this.output.reset();
+      this.output.writeObject(packet);
     } catch (IOException e) {
       e.printStackTrace();
     }

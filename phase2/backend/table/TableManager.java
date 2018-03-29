@@ -1,5 +1,7 @@
 package backend.table;
 
+import java.util.ArrayList;
+
 /**
  * Table manager manages all the tables.
  *
@@ -36,5 +38,13 @@ public class TableManager {
    */
   public static int getNumberOfTables() {
     return tables.length;
+  }
+
+  public static ArrayList<Boolean> getTableOccupancy() {
+    ArrayList<Boolean> tableOccupancy = new ArrayList<>();
+    for (Table table : tables) {
+      tableOccupancy.add(table.isOccupied());
+    }
+    return tableOccupancy;
   }
 }

@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static frontend.GUI.FXMain.client;
 
 /**
  * the controller for manager GUI
@@ -115,6 +118,8 @@ public class ManagerController {
    */
   @FXML
   private void logOff() throws IOException {
+    client.sendEvent(Packet.LOGOFF);
+
     FXMLLoader startLoader =
         new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
     GridPane root = startLoader.load();

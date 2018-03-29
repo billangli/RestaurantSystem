@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import frontend.client.Client;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -46,6 +47,7 @@ public class FXMain extends Application {
     primaryStage.show();
     primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
       @Override public void handle(WindowEvent t) {
+        client.sendEvent(Packet.DISCONNECT);
         Platform.exit();
         System.exit(0);
       }

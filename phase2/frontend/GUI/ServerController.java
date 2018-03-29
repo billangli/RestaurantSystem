@@ -80,11 +80,13 @@ public class ServerController implements Initializable {
   // any server.
   // TODO: In backend, this method should be called to update after each time takeSeat is called by
   // any server.
-  public void updateTableColor(int tableNumber, boolean occupied) {
-    if (occupied) {
-      rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
-    } else {
-      rectangleArrayList.get(tableNumber - 1).setFill(COLOR_EMPTY);
+  public void updateTableColor(ArrayList occupied) {
+    for (int i = 0; i < occupied.size(); i++) {
+      if ((boolean) occupied.get(i)) {
+        rectangleArrayList.get(i).setFill(COLOR_OCCUPIED);
+      } else {
+        rectangleArrayList.get(i).setFill(COLOR_EMPTY);
+      }
     }
   }
 
@@ -358,6 +360,8 @@ public class ServerController implements Initializable {
 
   @FXML
   protected void logOff() throws IOException {
+    client.sendEvent(Packet.LOGOFF);
+
     FXMLLoader startLoader =
         new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
     GridPane root = startLoader.load();

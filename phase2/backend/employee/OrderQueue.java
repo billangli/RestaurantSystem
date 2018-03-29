@@ -1,12 +1,12 @@
 package backend.employee;
 
 import backend.inventory.Dish;
+import backend.logger.RestaurantLogger;
 import backend.table.Order;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Logger;
-import backend.logger.RestaurantLogger;
 
 /**
  * An OrderQueue class.
@@ -141,18 +141,24 @@ public class OrderQueue {
           "the backend.table is empty, the dish " + dishNumber + " will not be delivered");
     } else {
       dish.delivered();
+      Order orderTarget = null;
+      outerloop:
       for (Order o : orderBeingCooked) {
         for (Dish d : o.getDishes()) {
           if (d == dish) {
-            o.remove(d);
-            break;
+            orderTarget = o;
+            break outerloop;
           }
         }
-        if (o.isEmpty()) {
-          orderBeingCooked.remove(o);
+      }
+      if (orderTarget != null) {
+        orderTarget.remove(dish);
+        if (orderTarget.isEmpty()) {
+          orderBeingCooked.remove(orderTarget);
         }
       }
     }
+
     return dish;
   }
 
