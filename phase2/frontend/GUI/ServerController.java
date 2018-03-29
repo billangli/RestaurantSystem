@@ -1,6 +1,5 @@
 package frontend.GUI;
 
-import backend.employee.ServiceEmployee;
 import backend.inventory.Dish;
 import backend.server.Packet;
 import frontend.client.Client;
@@ -61,17 +60,14 @@ public class ServerController implements Initializable {
   // cook
   public void updateTableView() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
-
     LinkedList<Dish> dishesCompleted =
-            ServiceEmployee.getOrderQueue().getDishesCompleted();
-
+        (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESCOMPLETED);
     dishes.addAll(dishesCompleted);
     finishedDishTableView.setItems(dishes);
   }
 
   public void updateTableView(LinkedList<Dish> dishesCompleted) {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
-
     dishes.addAll(dishesCompleted);
     finishedDishTableView.setItems(dishes);
   }
@@ -157,6 +153,7 @@ public class ServerController implements Initializable {
     tableView.setBackground(background);
     ArrayList colorBoolean = (ArrayList) client.sendRequest(Packet.REQUESTTABLEOCCUPANCY);
     updateTableColor(colorBoolean);
+    updateTableView();
   }
 
   @FXML

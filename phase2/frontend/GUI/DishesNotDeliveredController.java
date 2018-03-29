@@ -38,10 +38,10 @@ public class DishesNotDeliveredController {
     private ObservableList<Dish> getDishesCompleted() {
         ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-        LinkedList<Dish> dishesInProgress =
+        LinkedList<Dish> dishesCompleted =
                 (LinkedList<Dish>) client.sendRequest(Packet.REQUESTDISHESCOMPLETED);
 
-        dishes.addAll(dishesInProgress);
+        dishes.addAll(dishesCompleted);
 
         return dishes;
     }

@@ -11,30 +11,21 @@ import javafx.scene.control.Label;
 
 import static frontend.GUI.FXMain.client;
 
-/**
- * the controller for print bill GUI
- */
+/** the controller for print bill GUI */
 public class PrintBillController {
-  private int tableNumber;
+  private int tableNumber; // starts from 1
   private Table table;
   private String billInfo;
   ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-  @FXML
-  Label tableNumberLabel;
-  @FXML
-  Label billToString;
-  @FXML
-  Button oneBill, splitBill;
+  @FXML Label tableNumberLabel;
+  @FXML Label billToString;
+  @FXML Button oneBill, splitBill;
 
-  /**
-   * initialize the GUI
-   */
+  /** initialize the GUI */
   @FXML
   private void initialize() {
     tableNumberLabel.setText("Print Bill for Table: " + Integer.toString(tableNumber));
-    table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
-    dishes.addAll(table.printBill()); // get ArrayList of dishes from backend
   }
 
   @FXML
@@ -42,7 +33,8 @@ public class PrintBillController {
     if (table == null) {
       table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
     }
-//    billInfo = table.printBill(false);
+    //    billInfo = table.printBill(false);
+    //      dishes.addAll(table.printBill()); // get ArrayList of dishes from backend
     billToString.setText(billInfo);
   }
 
@@ -51,15 +43,18 @@ public class PrintBillController {
     if (table == null) {
       table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
     }
-    //billInfo = table.printBill(true);
+    // billInfo = table.printBill(true);
+    //      dishes.addAll(table.printBill()); // get ArrayList of dishes from backend
+
     billToString.setText(billInfo);
   }
 
   /**
    * set which table is looking for the bill
+   *
    * @param tableNumber the table that needs the bill
    */
-  public void setTableNumber (int tableNumber){
+  public void setTableNumber(int tableNumber) {
     this.tableNumber = tableNumber;
   }
 }
