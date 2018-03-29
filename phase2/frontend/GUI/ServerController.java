@@ -17,7 +17,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,16 +42,12 @@ public class ServerController implements Initializable {
   @FXML private HBox hBox1;
   @FXML private HBox hBox2;
   @FXML private TableView finishedDishTableView;
+  @FXML private GridPane tableView = new GridPane();
 
   private ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int selectedTableNumber;
   private int numOfTables;
   private int myId;
-
-  private Image empty =
-            new Image("table.jpg", 100, 100, false, true);
-    private Image taken =
-            new Image("meal.jpg", 100, 100, false, true);
 
   public void setMyId(int id) {
     this.myId = id;
@@ -86,24 +81,32 @@ public class ServerController implements Initializable {
   // any server.
   public void updateTableColor(int tableNumber, boolean occupied) {
     if (occupied) {
-      rectangleArrayList.get(tableNumber - 1).setFill(new ImagePattern(taken));
+      rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
     } else {
-      rectangleArrayList.get(tableNumber - 1).setFill(new ImagePattern(empty));
+      rectangleArrayList.get(tableNumber - 1).setFill(COLOR_EMPTY);
     }
   }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // set up background
+    BackgroundImage menuImage =
+        new BackgroundImage(
+            new Image("server.png", 600, 600, false, true),
+            BackgroundRepeat.REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    Background background = new Background(menuImage);
     int size = 15;
     Rectangle rec1 = new Rectangle(size, size);
     Label label1 = new Label(" : table is occupied");
     Rectangle rec2 = new Rectangle(size, size);
     Label label2 = new Label(" : table is empty");
 
-    rec1.setFill(new ImagePattern(empty));
+    rec1.setFill(COLOR_OCCUPIED);
     rec1.setStroke(Color.BLACK);
-    rec2.setFill(new ImagePattern(taken));
+    rec2.setFill(COLOR_EMPTY);
     rec2.setStroke(Color.BLACK);
 
     hBox1.getChildren().addAll(rec1, label1);
@@ -123,7 +126,7 @@ public class ServerController implements Initializable {
 
     for (int i = 0; i < numOfTables; i++) {
       Rectangle r = new Rectangle(50, 50);
-      r.setFill(new ImagePattern(empty));
+      r.setFill(COLOR_EMPTY);
       r.setStroke(Color.BLACK);
       Label l = new Label(Integer.toString(i + 1));
       rectangleArrayList.add(r);
@@ -148,6 +151,7 @@ public class ServerController implements Initializable {
 
     gridParent.getChildren().add(tableGrid);
 
+    tableView.setBackground(background);
   }
 
   @FXML

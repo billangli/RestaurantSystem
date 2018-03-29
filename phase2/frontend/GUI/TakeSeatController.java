@@ -5,9 +5,7 @@ import frontend.client.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -20,10 +18,6 @@ public class TakeSeatController {
     private int myId;
     private final Color COLOR_OCCUPIED = Color.BLUE;
     ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
-
-    private Image taken =
-            new Image("meal.jpg", 100, 100, false, true);
-
 
     private final Client client = Client.getInstance();
 
@@ -38,7 +32,7 @@ public class TakeSeatController {
     @FXML private void confirmButtonClicked() {
         if (tf.getText().length()>0) {
             // Change the color of the table into COLOR_OCCUPIED
-            rectangleArrayList.get(tableNumber - 1).setFill(new ImagePattern(taken));
+            rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
 
             ArrayList<Object> parameters = new ArrayList<>();
             parameters.add(tableNumber);
