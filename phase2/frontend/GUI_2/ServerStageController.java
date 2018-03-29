@@ -23,6 +23,9 @@ import static frontend.GUI.FXMain.client;
 import static java.lang.Math.ceil;
 import static java.lang.Math.sqrt;
 
+/**
+ * the controller for server GUI
+ */
 public class ServerStageController {
   /*final variables*/
   private final Color COLOR_OCCUPIED = Color.BLUE;
@@ -40,6 +43,10 @@ public class ServerStageController {
 
   private int numOfTables;
   /* Methods */
+
+  /**
+   * initialize the server display
+   */
   @FXML
   private void initialize() {
     int size = 15;
@@ -80,6 +87,10 @@ public class ServerStageController {
     gridParent.getChildren().add(tableGrid);
   }
 
+  /**
+   * when takeseat button is clicked
+   * change that table to occupied and change code according
+   */
   @FXML
   private void takeSeatClicked() {
     Stage window = new Stage();
@@ -99,6 +110,9 @@ public class ServerStageController {
 
   }
 
+  /**
+   * confirm your change on take seat
+   */
   @FXML
   private void confirmButtonClickedTakeSeat() {
     // TODO 1: change color of table. Data should come from backend.
@@ -108,6 +122,9 @@ public class ServerStageController {
     ((Stage) confirmButtonTakeSeat.getScene().getWindow()).close();
   }
 
+  /**
+   * confirm your change on clear table
+   */
   @FXML
   private void confirmButtonClickedClearTable() {
     // TODO 1: change color of table. Data should come from backend.
@@ -117,12 +134,19 @@ public class ServerStageController {
     ((Stage) confirmButtonClearTable.getScene().getWindow()).close();
   }
 
+  /**
+   * return to the previous state
+   */
   @FXML
   private void cancelButtonClicked() {
     // close the window
     ((Stage) cancelButton.getScene().getWindow()).close();
   }
 
+  /**
+   * clear the table that is selected
+   * nothing if no table is selected
+   */
   @FXML
   private void clearTableClicked() {
     Stage window = new Stage();

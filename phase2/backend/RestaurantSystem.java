@@ -104,16 +104,16 @@ public class  RestaurantSystem {
 
       // creating sendRequest.txt
       try {
-        File file = new File("phase2/Request.txt");
+        File file = new File("phase2/request.txt");
         /*If file gets created then the createNewFile()
          * method would return true or if the file is
          * already present it would return false
          */
         boolean fvar = file.createNewFile();
         if (fvar) {
-          logger.config("sendRequest.txt has been created successfully");
+          logger.config("request.txt has been created successfully");
         } else {
-          logger.config("sendRequest.txt already present at the specified location");
+          logger.config("request.txt already present at the specified location");
           // Clearing the file
           PrintWriter output = new PrintWriter(file);
           output.print("");

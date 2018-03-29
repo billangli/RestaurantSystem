@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * the controller for main GUI
+ */
 public class StartSceneController{
     @FXML private TextField tf;
     private Scene scene;
@@ -23,7 +26,11 @@ public class StartSceneController{
     @FXML
     GridPane tableView = new GridPane();
 
-
+    /**
+     * submit your id and confirm your identity
+     * @param event
+     * @throws IOException
+     */
     @FXML protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
         SceneFactory factory  = new SceneFactory();
         actiontarget.setText("Sign in button pressed");
@@ -36,6 +43,9 @@ public class StartSceneController{
         primaryStage.setScene(scene);
     }
 
+    /*
+    start up the program
+     */
     public void start(){
         tf.textProperty().addListener(new ChangeListener<String>() {
             @Override

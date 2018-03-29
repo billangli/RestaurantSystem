@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * the controller for menu GUI
+ */
 public class MenuController{
     @FXML
     GridPane tableView = new GridPane();
@@ -28,7 +31,6 @@ public class MenuController{
     private final Inventory inventory = Inventory.getInstance();
     private ArrayList<Dish> recipe = new ArrayList<>();
     private int tableNumber;
-    private int myId;
 
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
     private final Menu menu = Menu.getMenu();
@@ -36,19 +38,26 @@ public class MenuController{
     private final Order dishOrder = new Order();
     private final HashMap<String,Dish> order = new HashMap<>();
 
-    public void setMyId(int id) {
-        this.myId = id;
-    }
-
+    /**
+     * set up the table number for this order
+     * @param tableNumber the table that ordering
+     */
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
     }
 
+    /**
+     *  set up the stage that is display GUI
+     * @param stage the stage that is display GUI
+     */
     public void setStage(Stage stage){
         this.window = stage;
     }
 
-
+    /**
+     *  update any difference in local inventory and back end inventory
+     * @param newDisplayQuantity the quantity that changed
+     */
     public void updateMirrorQuantity(HashMap newDisplayQuantity) {
         for(Object i: newDisplayQuantity.keySet()){
             String ingredientName = (String) i;
@@ -79,8 +88,9 @@ public class MenuController{
     }
 
 
-
-
+    /**
+     * initialize the GUI
+     */
     public void initialize(){
         menu.setDishes(menuDishes);
         inventory.setStock(defaultInventory);

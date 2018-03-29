@@ -57,7 +57,8 @@ public class ServerController implements Initializable {
     menuScene = scene;
   }
 
-  //TODO: In backend, this method should be called to update after each time a dish is finished by cook
+  // TODO: In backend, this method should be called to update after each time a dish is finished by
+  // cook
   public void updateTableView() {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
@@ -68,13 +69,14 @@ public class ServerController implements Initializable {
     finishedDishTableView.setItems(dishes);
   }
 
-  //TODO: In backend, this method should be called to update after each time takeSeat is called by any server.
+  // TODO: In backend, this method should be called to update after each time takeSeat is called by
+  // any server.
   public void updateTableColor(int tableNumber, boolean occupied) {
-      if (occupied) {
-          rectangleArrayList.get(tableNumber-1).setFill(COLOR_OCCUPIED);
-      } else {
-          rectangleArrayList.get(tableNumber-1).setFill(COLOR_EMPTY);
-      }
+    if (occupied) {
+      rectangleArrayList.get(tableNumber - 1).setFill(COLOR_OCCUPIED);
+    } else {
+      rectangleArrayList.get(tableNumber - 1).setFill(COLOR_EMPTY);
+    }
   }
 
   @Override
@@ -178,7 +180,8 @@ public class ServerController implements Initializable {
   @FXML
   protected void order() {
     if (selectedTableNumber != 0
-        && rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED) {
+        && rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED
+        && finishedDishTableView.getItems().isEmpty()) {
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
       MenuController menuController = (MenuController) client.getStored("menuController");
@@ -287,7 +290,8 @@ public class ServerController implements Initializable {
 
         controller.setTableNumber(this.selectedTableNumber);
         controller.setMyId(myId);
-        controller.setText("Are you sure to clear table number " + Integer.toString(selectedTableNumber) + "?");
+        controller.setText(
+            "Are you sure to clear table number " + Integer.toString(selectedTableNumber) + "?");
         controller.rectangleArrayList = this.rectangleArrayList;
 
         window.setTitle("Clearing table");
