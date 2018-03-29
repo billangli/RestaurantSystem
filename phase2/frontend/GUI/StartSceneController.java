@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.server.Packet;
 import frontend.client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,10 +42,14 @@ public class StartSceneController {
       System.out.println(tf.getText());
       String id = tf.getText();
       int type = client.sendLogInRequest(id); //TODO what happens if it fails?
-      scene = factory.createScene(type, Integer.parseInt(id));
+      if (type == Packet.LOGINFAILED) {
+        actiontarget.setText("Log in failed");
+      } else {
+        scene = factory.createScene(type, Integer.parseInt(id));
 
-      Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      primaryStage.setScene(scene);
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        primaryStage.setScene(scene);
+      }
     } else {
       actiontarget.setText("Could not connect to ComputerServer");
     }

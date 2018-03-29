@@ -188,6 +188,7 @@ public class Client implements Runnable {
   private void confirmLogIn(int confirmation) {
     switch (confirmation) {
       case Packet.LOGINFAILED:
+        this.objectIsReady = true;
         this.loggedIn = false;
         break;
       default:
