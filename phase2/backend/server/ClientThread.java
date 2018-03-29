@@ -142,10 +142,10 @@ class ClientThread implements Runnable {
           }
         }
       } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println("Shutting down the ComputerServer");
         this.connected = false;
       } catch (Exception e) {
-        e.printStackTrace();
+        System.out.println("Socket closed");
       }
     }
 

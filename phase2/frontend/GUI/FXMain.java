@@ -4,13 +4,11 @@ import backend.server.Packet;
 import frontend.client.Client;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -46,9 +44,16 @@ public class FXMain extends Application {
     primaryStage.setScene(mainScene);
     primaryStage.show();
     primaryStage.setOnCloseRequest(t -> {
-        client.sendEvent(Packet.DISCONNECT);
-        Platform.exit();
-        System.exit(0);
+      System.out.println("~~~ Shutting down in 3 seconds ~~~");
+      try {
+        Thread.sleep(3000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+      client.sendEvent(Packet.DISCONNECT);
+      Platform.exit();
+      System.exit(0);
     });
   }
 }

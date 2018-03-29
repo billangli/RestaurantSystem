@@ -7,6 +7,7 @@ import backend.table.Order;
 import frontend.GUI.CookController;
 import frontend.GUI.MenuController;
 import frontend.GUI.ServerController;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -116,7 +117,7 @@ public class Client implements Runnable {
 
             if (otherUpdate) {
               if (packet.getType() == Packet.SERVERSHUTDOWN) {
-
+                this.shutDown();
               } else if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
                 LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) packet.getObject();
                 CookController cookController = (CookController) stored.get("cookController");
@@ -152,8 +153,8 @@ public class Client implements Runnable {
           }
         }
       } catch (IOException e) {
-        e.printStackTrace();
-        this.connected = false;
+        System.out.println("Shutting down the client");
+        this.shutDown();
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
       }
@@ -298,6 +299,31 @@ public class Client implements Runnable {
 
   public boolean isConnected() {
     return connected;
+  }
+
+  private void shutDown() {
+    System.out.println("~~~ Shutting down in 3 seconds ~~~");
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    // Closing everything when server shuts down
+    try {
+      this.input.close();
+      this.output.close();
+      this.socket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // Setting logged in and shut down to be false
+    this.connected = false;
+    this.loggedIn = false;
+
+    // Shutting down GUI
+    Platform.exit();
   }
 
   public void connectAgain() {
