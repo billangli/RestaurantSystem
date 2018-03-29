@@ -25,7 +25,7 @@ public class Client implements Runnable {
   private static final int PORT = 6000;
 
   private Socket socket;
-  private boolean connected = false;
+  private boolean connected;
   private boolean loggedIn = false;
   private boolean numberOfTablesReceived = false;
   private int employeeType;
