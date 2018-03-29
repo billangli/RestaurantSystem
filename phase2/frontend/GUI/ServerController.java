@@ -3,6 +3,7 @@ package frontend.GUI;
 import backend.inventory.Dish;
 import backend.server.Packet;
 import frontend.client.Client;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -69,7 +70,8 @@ public class ServerController implements Initializable {
   public void updateTableView(LinkedList<Dish> dishesCompleted) {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
     dishes.addAll(dishesCompleted);
-    finishedDishTableView.setItems(dishes);
+    Platform.runLater(() ->
+    finishedDishTableView.setItems(dishes));
   }
 
   // TODO: In backend, this method should be called to update after each time takeSeat is called by

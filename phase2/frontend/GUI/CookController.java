@@ -122,8 +122,8 @@ public class CookController {
     /* (cookObject).orderReceived(); */
     /* ------------------------------------------------------------------------------------------ */
 
-    updateDishesInProgressOnTableView();
-    updateOrdersInQueueOnTableView();
+//    updateDishesInProgressOnTableView();
+//    updateOrdersInQueueOnTableView();
   }
 
   @FXML
@@ -133,8 +133,8 @@ public class CookController {
     if (selectedDish != null) {
       int dishNumber = selectedDish.getDishNumber();
       client.sendEvent(Packet.DISHREADY, dishNumber);
-      updateDishesInProgressOnTableView();
-      updateOrdersInQueueOnTableView();
+//      updateDishesInProgressOnTableView();
+//      updateOrdersInQueueOnTableView();
     }
 
     /* (cookObject).dishReady(dishNumber); */
