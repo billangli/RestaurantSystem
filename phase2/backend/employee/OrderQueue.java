@@ -139,14 +139,26 @@ public class OrderQueue {
     return dish;
   }
 
+  /**
+   * Returns the linked list of Orders in the the Queue
+   * @return the Orders in the the Queue
+   */
   public LinkedList<Order> getOrdersInQueue() {
     return OrdersInQueue;
   }
 
+  /**
+   * Returns the linked list of Dishes in progress (i.e., being prepared by the cook)
+   * @return the linked list of Dishes in progress (i.e., being prepared by the cook)
+   */
   public LinkedList<Dish> getDishesInProgress() {
     return DishesInProgress;
   }
 
+  /**
+   * Returns the linked list of Dishes completed by the cook and are ready to be delivered
+   * @return the linked list of Dishes completed by the cook and are ready to be delivered
+   */
   public LinkedList<Dish> getDishesCompleted() {
     return DishesCompleted;
   }
