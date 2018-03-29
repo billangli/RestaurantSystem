@@ -179,6 +179,10 @@ public class  RestaurantSystem extends Application{
     });
   }
 
+  public static void receive(String message){
+    startController.receiveMessage(message);
+  }
+
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
     startBackEnd();
