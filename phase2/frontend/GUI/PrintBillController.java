@@ -14,8 +14,6 @@ import static frontend.GUI.FXMain.client;
 /** the controller for print bill GUI */
 public class PrintBillController {
   private int tableNumber; // starts from 1
-  private Table table;
-  private String billInfo;
   ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
   @FXML Label tableNumberLabel;
@@ -28,27 +26,6 @@ public class PrintBillController {
     tableNumberLabel.setText("Print Bill for Table: " + Integer.toString(tableNumber));
   }
 
-  @FXML
-  public void oneBillClicked() {
-    if (table == null) {
-      table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
-    }
-    //    billInfo = table.printBill(false);
-    //      dishes.addAll(table.printBill()); // get ArrayList of dishes from backend
-    billToString.setText(billInfo);
-  }
-
-  @FXML
-  public void splitBillClicked() {
-    if (table == null) {
-      table = (Table) client.sendRequest(Packet.REQUESTTABLE, tableNumber - 1);
-    }
-    // billInfo = table.printBill(true);
-    //      dishes.addAll(table.printBill()); // get ArrayList of dishes from backend
-
-    billToString.setText(billInfo);
-  }
-
   /**
    * set which table is looking for the bill
    *
@@ -56,5 +33,10 @@ public class PrintBillController {
    */
   public void setTableNumber(int tableNumber) {
     this.tableNumber = tableNumber;
+  }
+
+  public void updateDishes() {
+      //TODO: In backend, get TableManager.getTable(tableNumber-1).getAllDishes()
+
   }
 }

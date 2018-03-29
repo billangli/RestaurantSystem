@@ -177,18 +177,4 @@ public class Dish extends DishRecipe {
   public String getStatus() {
     return status;
   }
-
-  /**
-   * add tax to the dish
-   */
-  public void taxed(){
-    this.price *= 1.13;
-  }
-
-  /**
-   * add tip to the dish
-   */
-  public void tipped(){
-    this.price *= 1.15;
-  }
 }

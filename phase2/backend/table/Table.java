@@ -81,21 +81,29 @@ public class Table implements Serializable {
   }
 
   /**
-   * prints bill for this backend.table in format of Table number and all dishes with its price and
-   * the total price
+   * Returns list of all dishes in the order.
+   *
+   * @return list of all dishes in the order.
    */
   public ArrayList<Dish> printBill() {
+    // TODO: revert back. printBill is a bad name to return arrayList.
     ArrayList<Dish> dishes = new ArrayList<>();
     for (Order order : this.order) {
-      for (Dish dish : order.getDishes()) {
-        dish.taxed();
-        if (numOfCustomer >= 8) {
-          dish.tipped();
-        }
-        dishes.add(dish);
-      }
+      dishes.addAll(order.getDishes());
     }
+    return dishes;
+  }
 
+  /**
+   * Returns list of all dishes in the order.
+   *
+   * @return list of all dishes in the order.
+   */
+  public ArrayList<Dish> getAllDishes() {
+    ArrayList<Dish> dishes = new ArrayList<>();
+    for (Order order : this.order) {
+      dishes.addAll(order.getDishes());
+    }
     return dishes;
   }
 
