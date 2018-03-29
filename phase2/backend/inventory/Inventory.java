@@ -188,4 +188,8 @@ public class Inventory implements Serializable {
   public ArrayList getRequests(){
     return requested;
   }
+
+  public void removeFromRequest(String name){
+    requested.remove(name);
+  }
 }
