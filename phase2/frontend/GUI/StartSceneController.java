@@ -51,7 +51,7 @@ public class StartSceneController {
         primaryStage.setScene(scene);
       }
     } else {
-      actiontarget.setText("Could not connect to ComputerServer");
+      actiontarget.setText("Could not connect\nto ComputerServer");
     }
   }
 

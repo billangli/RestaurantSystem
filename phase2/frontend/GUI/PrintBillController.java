@@ -2,7 +2,6 @@ package frontend.GUI;
 
 import backend.inventory.Dish;
 import backend.server.Packet;
-import backend.table.Table;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,6 +36,7 @@ public class PrintBillController {
 
   public void updateDishes() {
       //TODO: In backend, get TableManager.getTable(tableNumber-1).getAllDishes()
+       client.sendRequest(Packet.REQUESTBILL, tableNumber - 1);
 
   }
 }

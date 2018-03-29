@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 public class ComputerServer implements Runnable {
   private static ComputerServer instance = new ComputerServer();
 
-  private Socket socket;
   private ServerSocket serverSocket;
   private ArrayList<ClientThread> clients;
   private ClientThread clientThread;
@@ -63,7 +62,6 @@ public class ComputerServer implements Runnable {
         System.out.println("accepted");
         ClientThread clientThread = new ClientThread(connectionSocket);
         this.clients.add(clientThread);
-
       } catch (SocketException se) {
         System.err.println("*** serverSocket has closed ***");
       } catch (IOException e) {
@@ -145,4 +143,26 @@ public class ComputerServer implements Runnable {
       }
     }
   }
+
+  /**
+   * Tell all clients that the Server is shutting down
+   */
+  public void shutDown() {
+    // Telling clientThreads to shut down
+    for (ClientThread client : clients) {
+      System.out.println("ComputerServer shutting down");
+      client.send(Packet.SERVERSHUTDOWN);
+      client.shutDown();
+    }
+
+    // Closing sockets
+    try {
+      this.serverSocket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    this.isRunning = false;
+  }
+
+  // TODO: Remove client thread
 }

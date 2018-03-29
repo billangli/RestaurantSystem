@@ -9,13 +9,11 @@ import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
 import backend.server.Packet;
 import backend.table.TableManager;
-import frontend.GUI.StartSceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -161,6 +159,25 @@ public class  RestaurantSystem extends Application{
     return Packet.LOGINFAILED;
   }
 
+  @Override
+  public void start(Stage primaryStage) throws IOException {
+    //load starter interface
+    FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/backend/Start.fxml"));
+    AnchorPane startScene = startLoader.load();
+    Scene mainScene = new Scene(startScene, 600, 600);
+
+
+
+    primaryStage.setTitle("backend");
+    primaryStage.setScene(mainScene);
+    primaryStage.show();
+    primaryStage.setOnCloseRequest(t -> {
+      ComputerServer.getInstance().shutDown();
+      Platform.exit();
+      System.exit(0);
+    });
+  }
+
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
     startBackEnd();
@@ -179,24 +196,5 @@ public class  RestaurantSystem extends Application{
 
     // Initializing Logger.
     //        Application.launch(args); TODO: What is this?
-  }
-
-  @Override
-  public void start(Stage primaryStage) throws IOException {
-    //load starter interface
-    FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/backend/Start.fxml"));
-    AnchorPane startScene = startLoader.load();
-    Scene mainScene = new Scene(startScene, 600, 600);
-
-
-
-    primaryStage.setTitle("backend");
-    primaryStage.setScene(mainScene);
-    primaryStage.show();
-    primaryStage.setOnCloseRequest(t -> {
-      // TODO: Shut down server
-      Platform.exit();
-      System.exit(0);
-    });
   }
 }

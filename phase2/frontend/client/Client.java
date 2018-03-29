@@ -115,7 +115,9 @@ public class Client implements Runnable {
             System.out.println("Received " + packet.getObject());
 
             if (otherUpdate) {
-              if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
+              if (packet.getType() == Packet.SERVERSHUTDOWN) {
+
+              } else if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
                 LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) packet.getObject();
                 CookController cookController = (CookController) stored.get("cookController");
                 cookController.updateDishesInProgressOnTableView(dishesInProgress);
@@ -141,7 +143,7 @@ public class Client implements Runnable {
               System.out.println("The object is ready");
               this.objectIsReady = true;
             }
-          } else if (Math.abs(packet.getType()) <= 11) {
+          } else if (Math.abs(packet.getType()) <= 12) { // TODO: Move to Packet
             // Receive resource protocol
             System.out.println("The object is ready");
             this.objectIsReady = true;

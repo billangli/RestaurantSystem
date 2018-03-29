@@ -116,6 +116,10 @@ class ClientThread implements Runnable {
               quantities.put(ingredientName, inventoryIngredients.get(ingredientName).getQuantity());
             }
             this.send(Packet.RECEIVEQUANTITIES, quantities);
+          } else if (packet.getType() == Packet.REQUESTBILL) {
+            int tableIndex = (int) packet.getObject();
+            System.out.println("Sending all dishes delivered to table index " + tableIndex);
+            this.send(Packet.RECEIVEBILL, TableManager.getTable(tableIndex).getAllDishes());
           } else if (packet.getType() == Packet.ADJUSTINGREDIENT) {
             System.out.println("Adjusting ingredient");
             Object[] infoArray = (Object[]) packet.getObject();
@@ -192,10 +196,31 @@ class ClientThread implements Runnable {
     }
   }
 
+  /**
+   * Create an Event to put into the system
+   *
+   * @param packet is the packet received from the Client
+   * @return the ProcessableEvent created from the information received
+   */
   private ProcessableEvent createEvent(Packet packet) {
     int methodName = packet.getType();
     ArrayList parameters = (ArrayList) packet.getObject();
     return new ProcessableEvent(this.employeeType, this.employeeID, methodName, parameters);
+  }
+
+  /**
+   * ComputerServer can call this method to shut down the client thread
+   */
+  void shutDown() {
+    try {
+      this.input.close();
+      this.output.close();
+      this.socket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    this.connected = false;
+    this.loggedOn = false;
   }
 
   /**

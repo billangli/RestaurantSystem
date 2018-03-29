@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Packet implements Serializable {
   public static final int LOGOFF = 0;
   public static final int DISCONNECT = 1000;
+  public static final int SERVERSHUTDOWN = 2000; // TODO: Need to do this
 
   // Client to Server resource requests
   public static final int LOGINREQUEST = 1;
@@ -21,6 +22,7 @@ public class Packet implements Serializable {
   public static final int REQUESTDISHESCOMPLETED = 9;
   public static final int REQUESTTABLEOCCUPANCY = 10;
   public static final int REQUESTREQUEST = 11;
+  public static final int REQUESTBILL = 12;
 
   // Server to Client receive resources
   public static final int LOGINCONFIRMATION = -1;
@@ -34,6 +36,7 @@ public class Packet implements Serializable {
   public static final int RECEIVEDISHESCOMPLETED = -9;
   public static final int RECEIVETABLEOCCUPANCY = -10;
   public static final int RECEIVEREQUEST = -11;
+  public static final int RECEIVEBILL = -12;
 
   // Adjust ingredient
   public static final int ADJUSTINGREDIENT = 30;
@@ -100,7 +103,8 @@ public class Packet implements Serializable {
             (this.type == RECEIVEORDERSINQUEUE) ||
             (this.type == RECEIVEDISHESCOMPLETED) ||
             (this.type == RECEIVERUNNINGQUANTITYADJUSTMENT) ||
-            (this.type == RECEIVETABLEOCCUPANCY);
+            (this.type == RECEIVETABLEOCCUPANCY) ||
+            (this.type == SERVERSHUTDOWN);
   }
 
   public Object getObject() {
