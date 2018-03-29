@@ -110,11 +110,7 @@ public class CookController {
     numOfOrderLabel.setText("Number of orders in queue: " + Integer.toString(numOfOrdersInQueue));
 
     if (!ordersInQueue.isEmpty()) {
-      try {
       dishes.addAll(((Order) ordersInQueue.get(0)).getDishes());
-      } catch (Exception e) {
-        System.out.println("*** Nothing is wrong ***");
-      }
     }
 
     return dishes;

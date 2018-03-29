@@ -9,11 +9,20 @@ import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
 import backend.server.Packet;
 import backend.table.TableManager;
+import frontend.GUI.StartSceneController;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.logging.Logger;
 
-public class  RestaurantSystem {
+
+public class  RestaurantSystem extends Application{
   public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   public static ComputerServer computerServer;
 
@@ -22,7 +31,7 @@ public class  RestaurantSystem {
    *
    * @throws IOException for reading files
    */
-  private static void start() throws IOException {
+  private static void startBackEnd() throws IOException {
     Inventory inventory = Inventory.getInstance();
     logger.config("------initializing restaurant system------");
 
@@ -154,11 +163,12 @@ public class  RestaurantSystem {
 
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
-    start();
+    startBackEnd();
     EventManager.setRunning(true);
     Thread eventThread = new Thread(new EventManager());
     eventThread.start();
     computerServer = ComputerServer.getInstance();
+    launch(args);
 
 //    // Test
 //    Server server = (Server) EmployeeManager.getEmployeeById(0);
@@ -169,5 +179,24 @@ public class  RestaurantSystem {
 
     // Initializing Logger.
     //        Application.launch(args); TODO: What is this?
+  }
+
+  @Override
+  public void start(Stage primaryStage) throws IOException {
+    //load starter interface
+    FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/backend/Start.fxml"));
+    AnchorPane startScene = startLoader.load();
+    Scene mainScene = new Scene(startScene, 600, 600);
+
+
+
+    primaryStage.setTitle("backend");
+    primaryStage.setScene(mainScene);
+    primaryStage.show();
+    primaryStage.setOnCloseRequest(t -> {
+      // TODO: Shut down server
+      Platform.exit();
+      System.exit(0);
+    });
   }
 }
