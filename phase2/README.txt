@@ -116,7 +116,7 @@ inventory ingredient would be, preventing creation of orders for which there are
 and decided to leave without notifying any of the restaurant employees due to overwhelming delay, or other unforeseen circumstances. We leave it up to the user of the program to ensure that the bill
 is printed before clearing the table, since so far there is no way to recall the information of the cleared table and thus it would be impossible to print bills for a table that has been cleared.
 
-3.       
+3.
 
 
 1. computerServer delivers dish before the dish is made - This exception will not occur in phase 2 because we will make the Server select the delivered dish from the frontend.GUI, which only gives valid options (i.e. cooked dishes) so that the program will not have NullPointerException

@@ -47,7 +47,7 @@ public class StartSceneController{
     start up the program
      */
     public void start(){
-        tf.textProperty().addListener(new ChangeListener<String>() {
+        tf.textProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                                 String newValue) {

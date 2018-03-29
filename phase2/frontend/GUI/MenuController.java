@@ -110,27 +110,28 @@ public class MenuController{
         for(String di: dishes.keySet()){
             Button item = new Button(di);
             item.setId(di);
-            item.setOnAction(new EventHandler<ActionEvent>() {
+            item.setOnAction(new EventHandler<>() {
                 //order a dish
                 //TODO update inventory and order updateMenu()
-                @Override public void handle(ActionEvent e) {
-                   Button ordered = new Button(di);
-                   ordered.setId(""+numoforder);
+                @Override
+                public void handle(ActionEvent e) {
+                    Button ordered = new Button(di);
+                    ordered.setId("" + numoforder);
 
-                   //set up the ingredient adjustment interface
-                   Stage st = new Stage();
-                   Dish dish = new Dish(dishes.get(di));
+                    //set up the ingredient adjustment interface
+                    Stage st = new Stage();
+                    Dish dish = new Dish(dishes.get(di));
 
-                   //pass ingredient to server
-                   HashMap<String,DishIngredient> ingredients = dish.getIngredientsRequired();
-                   ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
-                   for(String in: ingredients.keySet()){
-                       dishIngredients.add(ingredients.get(in));
-                   }
-                   client.sendAdjustIngredientRequest(dishIngredients, true);
+                    //pass ingredient to server
+                    HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
+                    ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
+                    for (String in : ingredients.keySet()) {
+                        dishIngredients.add(ingredients.get(in));
+                    }
+                    client.sendAdjustIngredientRequest(dishIngredients, true);
 
-                   order.put(""+numoforder, dish);
-                   FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
+                    order.put("" + numoforder, dish);
+                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
                     try {
                         GridPane ingredient = ingredientLoader.load();
                         IngredientController controller = ingredientLoader.getController();
@@ -143,23 +144,24 @@ public class MenuController{
                     }
 
 
-                    ordered.setOnAction(new EventHandler<ActionEvent>() {
+                    ordered.setOnAction(new EventHandler<>() {
                         //delete a dish
-                       //TODO update order and inventory updateMenu()
-                        @Override public void handle(ActionEvent e) {
+                        //TODO update order and inventory updateMenu()
+                        @Override
+                        public void handle(ActionEvent e) {
                             tableView.getChildren().remove(ordered);
                             order.remove(ordered.getId());
-                            HashMap<String,DishIngredient> ingredients = dish.getIngredientsRequired();
+                            HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
                             ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
-                            for(String in: ingredients.keySet()){
+                            for (String in : ingredients.keySet()) {
                                 dishIngredients.add(ingredients.get(in));
                             }
                             client.sendAdjustIngredientRequest(dishIngredients, false);
                         }
                     });
 
-                   numoforder++;
-                   tableView.add(ordered,2,numoforder+1);
+                    numoforder++;
+                    tableView.add(ordered, 2, numoforder + 1);
                 }
             });
 
@@ -172,12 +174,13 @@ public class MenuController{
         tableView.add(orderText,2,0);
         //submit the order
         Button submit = new Button("order");
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                for(String item: order.keySet()){
+        submit.setOnAction(new EventHandler<>() {
+            @Override
+            public void handle(ActionEvent e) {
+                for (String item : order.keySet()) {
                     Dish dish = order.get(item);
                     dishOrder.addDish(dish);
-                    Button tb = (Button) tableView.lookup("#"+item);
+                    Button tb = (Button) tableView.lookup("#" + item);
                     tableView.getChildren().remove(tb);
                 }
                 ArrayList<Object> info = new ArrayList<>();

@@ -61,7 +61,7 @@ public class ReceiveItemController {
 
       // TODO: In backend, call (employeeObj).receiveIngredient(ingredientName, quantity)
 
-      ArrayList<Object> info = new ArrayList<Object>();
+      ArrayList<Object> info = new ArrayList<>();
       info.add(ingredientName);
       info.add(quantity);
       client.sendEvent(Packet.RECEIVEINGREDIENT, info);

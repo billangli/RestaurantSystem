@@ -45,12 +45,13 @@ public class FXMain extends Application {
     primaryStage.setTitle(TITLE);
     primaryStage.setScene(mainScene);
     primaryStage.show();
-    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-      @Override public void handle(WindowEvent t) {
-        client.sendEvent(Packet.DISCONNECT);
-        Platform.exit();
-        System.exit(0);
-      }
+    primaryStage.setOnCloseRequest(new EventHandler<>() {
+        @Override
+        public void handle(WindowEvent t) {
+            client.sendEvent(Packet.DISCONNECT);
+            Platform.exit();
+            System.exit(0);
+        }
     });
   }
 }
