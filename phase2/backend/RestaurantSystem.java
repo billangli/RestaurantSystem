@@ -24,6 +24,7 @@ public class RestaurantSystem extends Application {
   public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   public static ComputerServer computerServer;
   public static StartController startController;
+  private static volatile boolean printerReady = false;
 
   /**
    * Read and parse the config files for employees, tables, menu and backend.inventory
@@ -46,7 +47,7 @@ public class RestaurantSystem extends Application {
         BufferedWriter bw;
 
         logger.config(
-            "starter.txt has been created successfully with default 10 backend.table, 1 server, 1 cook, and 1 manager");
+                "starter.txt has been created successfully with default 10 backend.table, 1 server, 1 cook, and 1 manager");
 
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
@@ -106,7 +107,7 @@ public class RestaurantSystem extends Application {
         String[] item = line.split(",");
         int threshold = Integer.parseInt(item[2]);
         InventoryIngredient inventoryIngredient =
-            new InventoryIngredient(item[0], Integer.parseInt(item[1]), threshold);
+                new InventoryIngredient(item[0], Integer.parseInt(item[1]), threshold);
         inventory.add(inventoryIngredient);
         line = fileReader.readLine();
       }
@@ -165,11 +166,10 @@ public class RestaurantSystem extends Application {
     // load starter interface
     FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/backend/Start.fxml"));
     AnchorPane startScene = startLoader.load();
-    Scene mainScene = new Scene(startScene, 600, 600);
+    Scene mainScene = new Scene(startScene, 600, 200);
 
     startController = startLoader.getController();
-
-    primaryStage.setTitle("backend");
+    primaryStage.setTitle("ComputerServer");
     primaryStage.setScene(mainScene);
     primaryStage.show();
     primaryStage.setOnCloseRequest(
@@ -178,10 +178,6 @@ public class RestaurantSystem extends Application {
           Platform.exit();
           System.exit(0);
         });
-  }
-
-  public static void receive(String message) {
-    startController.receiveMessage(message);
   }
 
   public static void main(String[] args) throws IOException {
