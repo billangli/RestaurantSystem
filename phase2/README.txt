@@ -34,7 +34,7 @@ TODO
     printbill screen:
         all dish for this table is shown on the left right.
         select the dishes and confirm. and then click pay
-        or payall to pay all the dishes
+
     manager screen:
         it has buttons for many actions:
         check inventory: show all the ingredient in inventory
