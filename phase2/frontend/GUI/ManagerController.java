@@ -70,7 +70,7 @@ public class ManagerController {
   }
 
   /**
-   * receive item and update inventory
+   * println item and update inventory
    */
   @FXML
   private void receiveItem() {
@@ -88,7 +88,7 @@ public class ManagerController {
       controller.start();
       window.showAndWait();
     } catch (IOException e) {
-      System.out.println("receive item error");
+      System.out.println("println item error");
     }
   }
 
@@ -109,7 +109,7 @@ public class ManagerController {
       window.setScene(new Scene(root, 600, 600));
       window.showAndWait();
     } catch (IOException e) {
-      System.out.println("receive item error");
+      System.out.println("println item error");
     }
   }
 

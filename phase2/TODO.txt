@@ -36,3 +36,7 @@
 - DONE ---------List of orders not delivered yet button for the manager doesn't work? Lags bugs (I had multiple othher javafx running for cook, server, etc.)
 - After submitting an order from the server UI, if you open the server again, then those same orders remain on the new window ... when you click any part of the window, it updates.
 - Cooks should be able to receive orders even if there are orders currently in progress!
+
+CRITICAL:
+- When using different ip addresses, the client cannot open the cook UI
+- If the dish is delivered before the server GUI is open, then the dish does not show on the screen.

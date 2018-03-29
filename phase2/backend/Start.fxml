@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backend.StartController">
+<?import javafx.scene.text.Text?>
+<AnchorPane prefHeight="100.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backend.StartController">
    <children>
-      <TableView fx:id="events" layoutX="76.0" layoutY="48.0" prefHeight="284.0" prefWidth="414.0">
-        <columns>
-          <TableColumn fx:id="event" prefWidth="412" text="events" />
-        </columns>
-      </TableView>
+       <Text fx:id="getOrderButton" layoutX="50.0" layoutY="29.0" text="Click x to shut down ComputerServer" />
+
    </children>
 </AnchorPane>

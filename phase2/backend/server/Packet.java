@@ -3,12 +3,22 @@ package backend.server;
 import java.io.Serializable;
 
 /**
+ * Packet.java
+ * Created by Ang Li
+ * <p>
  * Class for Packets being sent between client and server
+ * <p>
+ * A packet is a serializable item that contains a type which is a protocol for what is being sent
+ * It also contains an item which is what is being sent (e.g. a LinkedList of Orders, or null if just the protocol is needed)
+ * <p>
+ * Since packets contain arbitrary items, we decided to treat it as an Object and cast it when used
+ * We did not choose to use generics because we are calling the send method directly instead of creating a Packet and then send it
  */
 public class Packet implements Serializable {
+  // Special protocols
   public static final int LOGOFF = 0;
   public static final int DISCONNECT = 1000;
-  public static final int SERVERSHUTDOWN = 2000; // TODO: Need to do this
+  public static final int SERVERSHUTDOWN = 2000;
 
   // Client to Server resource requests
   public static final int LOGINREQUEST = 1;
@@ -24,7 +34,7 @@ public class Packet implements Serializable {
   public static final int REQUESTREQUEST = 11;
   public static final int REQUESTBILL = 12;
 
-  // Server to Client receive resources
+  // Server to Client println resources
   public static final int LOGINCONFIRMATION = -1;
   public static final int RECEIVENUMBEROFTABLES = -2;
   public static final int RECEIVEMENU = -3;
@@ -67,24 +77,25 @@ public class Packet implements Serializable {
   public static final int MANAGERTYPE = 101;
   public static final int SERVERTYPE = 102;
 
+  // Contents of this packet
   private int type;
-  private Object object;
+  private Object item;
 
   /**
    * Packet constructor
    *
-   * @param type   is the type of the object
-   * @param object is the information being sent
+   * @param type is the type of the item
+   * @param item is the information being sent
    */
-  public Packet(int type, Object object) {
+  public Packet(int type, Object item) {
     this.type = type;
-    this.object = object;
+    this.item = item;
   }
 
   /**
-   * Packet constructor without object
+   * Packet constructor without item
    *
-   * @param type   is the type of the object
+   * @param type is the type of the item
    */
   public Packet(int type) {
     this.type = type;
@@ -107,7 +118,12 @@ public class Packet implements Serializable {
             (this.type == SERVERSHUTDOWN);
   }
 
-  public Object getObject() {
-    return object;
+  /**
+   * Getter for the item in this packet
+   *
+   * @return the item in this packet
+   */
+  public Object getItem() {
+    return item;
   }
 }

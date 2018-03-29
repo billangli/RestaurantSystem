@@ -22,7 +22,7 @@ public class Employee implements Serializable {
   }
 
   /**
-   * Any backend.employee can receive ingredients that has been shipped to the restaurant.
+   * Any backend.employee can println ingredients that has been shipped to the restaurant.
    *
    * <p>This method updates information of amount of ingredients in the backend.inventory.
    *
