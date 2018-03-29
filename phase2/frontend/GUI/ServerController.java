@@ -63,7 +63,7 @@ public class ServerController implements Initializable {
     ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
     LinkedList<Dish> dishesCompleted =
-        (LinkedList<Dish>) ServiceEmployee.getOrderQueue().getDishesCompleted();
+            ServiceEmployee.getOrderQueue().getDishesCompleted();
 
     dishes.addAll(dishesCompleted);
     finishedDishTableView.setItems(dishes);
