@@ -35,13 +35,13 @@ public class MenuController{
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
     private final Menu menu = Menu.getMenu();
 
-    private final Order dishOrder = new Order();
-    private final HashMap<String,Dish> order = new HashMap<>();
     private int myId;
 
     public void setMyId(int id) {
         this.myId = id;
     }
+    private Order dishOrder;
+    private HashMap<String,Dish> order;
 
     /**
      * set up the table number for this order
@@ -100,6 +100,10 @@ public class MenuController{
         menu.setDishes(menuDishes);
         inventory.setStock(defaultInventory);
         HashMap<String,DishRecipe> dishes = menu.getDishes();
+
+        dishOrder = new Order();
+        order = new HashMap<>();
+
         //set up dishes
         int i = 0;
         for(String di: dishes.keySet()){
@@ -171,11 +175,19 @@ public class MenuController{
                 for(String item: order.keySet()){
                     Dish dish = order.get(item);
                     dishOrder.addDish(dish);
+                    Button tb = (Button) tableView.lookup("#"+item);
+                    tableView.getChildren().remove(tb);
                 }
                 ArrayList<Object> info = new ArrayList<>();
                 info.add(tableNumber);
                 info.add(dishOrder);
                 client.sendEvent(Packet.ENTERMENU, info);
+
+                numoforder = 0;
+                dishOrder = new Order();
+                order = new HashMap<>();
+
+
                 ((Stage) submit.getScene().getWindow()).close();
             }
         });

@@ -197,7 +197,6 @@ public class ServerController implements Initializable {
 
       // menuController has same id as this controller.
       menuController.setTableNumber(selectedTableNumber);
-      menuController.setMyId(myId);
 
       window.setTitle("Order Food");
       window.setScene(menuScene);
