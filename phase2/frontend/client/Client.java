@@ -41,13 +41,7 @@ public class Client implements Runnable {
 
 
   private Client() {
-    this.connected = this.connect();
-    if (this.connected) {
-      Thread t = new Thread(this);
-      t.start();
-    } else {
-      System.err.println("Could not connect to server");
-    }
+    this.connectAgain();
   }
 
   public static Client getInstance() {
@@ -297,5 +291,21 @@ public class Client implements Runnable {
 
   public Object getStored(String name) {
     return stored.get(name);
+  }
+
+  public boolean isConnected() {
+    return connected;
+  }
+
+  public void connectAgain() {
+    if (!this.connected) {
+      this.connected = this.connect();
+      if (this.connected) {
+        Thread t = new Thread(this);
+        t.start();
+      } else {
+        System.err.println("Could not connect to server");
+      }
+    }
   }
 }
