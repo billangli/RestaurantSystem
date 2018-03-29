@@ -5,6 +5,7 @@ import backend.inventory.DishIngredient;
 import backend.server.Packet;
 import backend.table.Order;
 import frontend.GUI.CookController;
+import frontend.GUI.ManagerController;
 import frontend.GUI.MenuController;
 import frontend.GUI.ServerController;
 import javafx.application.Platform;
@@ -128,8 +129,10 @@ public class Client implements Runnable {
                 cookController.updateOrdersInQueueOnTableView(ordersInQueue);
               } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
                 LinkedList<Dish> dishesCompleted = (LinkedList<Dish>) packet.getObject();
-                ServerController serverController = (ServerController) stored.get("serverController");
-                serverController.updateTableView(dishesCompleted);
+                if (this.employeeType == Packet.SERVERTYPE) {
+                  ServerController serverController = (ServerController) stored.get("serverController");
+                  serverController.updateTableView(dishesCompleted);
+                }
               } else if (packet.getType() == Packet.RECEIVERUNNINGQUANTITYADJUSTMENT) {
                 HashMap newDisplayQuantity = (HashMap) packet.getObject();
                 if (this.employeeType == Packet.SERVERTYPE) {
