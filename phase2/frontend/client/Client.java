@@ -220,6 +220,7 @@ public class Client implements Runnable {
   }
 
   public Object sendRequest(int requestType, Object message) {
+
     this.otherUpdate = false;
     this.send(requestType, message);
 

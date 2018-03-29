@@ -71,9 +71,6 @@ class ClientThread implements Runnable {
               this.employeeType = logInConfirmation;
             }
             this.send(Packet.LOGINCONFIRMATION, logInConfirmation);
-          } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
-            System.out.println("Sending number of tables");
-            this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
           } else if (packet.getType() == Packet.LOGOFF) {
             System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
             this.loggedOn = false;
@@ -82,6 +79,9 @@ class ClientThread implements Runnable {
             System.out.println("Disconnecting socket");
             this.loggedOn = false;
             this.connected = false;
+          } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
+            System.out.println("Sending number of tables");
+            this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
           } else if (packet.getType() == Packet.REQUESTMENU) {
             System.out.println("Sending menu");
             Menu menu = Menu.getMenu();
@@ -90,6 +90,9 @@ class ClientThread implements Runnable {
             System.out.println("Sending inventory");
             Inventory inventory = getInstance();
             this.send(Packet.RECEIVEINVENTORY, inventory.getIngredientsInventory());
+          } else if (packet.getType() == Packet.REQUESTTABLEOCCUPANCY) {
+            System.out.println("Sending table occupancy");
+            this.send(Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
           } else if (packet.getType() == Packet.REQUESTDISHESINPROGRESS) {
             System.out.println("Sending dishesInProgress");
             this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getDishesInProgress());
