@@ -78,10 +78,7 @@ public class CookController {
       dishes = ordersInQueue.get(0).getDishes();
     }
     numOfOrdersInQueue = ordersInQueue.size();
-    Platform.runLater(() -> {
-      numOfOrderLabel.setText("Number of orders in queue: " + Integer.toString(numOfOrdersInQueue));
-
-    });
+    Platform.runLater(() -> numOfOrderLabel.setText("Number of orders in queue: " + Integer.toString(numOfOrdersInQueue)));
 
     observableList.addAll(dishes);
     tableViewDishesInQueue.setItems(observableList);

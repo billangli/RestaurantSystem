@@ -144,20 +144,17 @@ public class MenuController{
                     }
 
 
-                    ordered.setOnAction(new EventHandler<>() {
-                        //delete a dish
-                        //TODO update order and inventory updateMenu()
-                        @Override
-                        public void handle(ActionEvent e) {
-                            tableView.getChildren().remove(ordered);
-                            order.remove(ordered.getId());
-                            HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
-                            ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
-                            for (String in : ingredients.keySet()) {
-                                dishIngredients.add(ingredients.get(in));
-                            }
-                            client.sendAdjustIngredientRequest(dishIngredients, false);
+                    //delete a dish
+//TODO update order and inventory updateMenu()
+                    ordered.setOnAction(e12 -> {
+                        tableView.getChildren().remove(ordered);
+                        order.remove(ordered.getId());
+                        HashMap<String, DishIngredient> ingredients1 = dish.getIngredientsRequired();
+                        ArrayList<DishIngredient> dishIngredients1 = new ArrayList<>();
+                        for (String in : ingredients1.keySet()) {
+                            dishIngredients1.add(ingredients1.get(in));
                         }
+                        client.sendAdjustIngredientRequest(dishIngredients1, false);
                     });
 
                     numoforder++;
@@ -174,27 +171,24 @@ public class MenuController{
         tableView.add(orderText,2,0);
         //submit the order
         Button submit = new Button("order");
-        submit.setOnAction(new EventHandler<>() {
-            @Override
-            public void handle(ActionEvent e) {
-                for (String item : order.keySet()) {
-                    Dish dish = order.get(item);
-                    dishOrder.addDish(dish);
-                    Button tb = (Button) tableView.lookup("#" + item);
-                    tableView.getChildren().remove(tb);
-                }
-                ArrayList<Object> info = new ArrayList<>();
-                info.add(tableNumber);
-                info.add(dishOrder);
-                client.sendEvent(Packet.ENTERMENU, info);
-
-                numoforder = 0;
-                dishOrder = new Order();
-                order = new HashMap<>();
-
-
-                ((Stage) submit.getScene().getWindow()).close();
+        submit.setOnAction(e -> {
+            for (String item : order.keySet()) {
+                Dish dish = order.get(item);
+                dishOrder.addDish(dish);
+                Button tb = (Button) tableView.lookup("#" + item);
+                tableView.getChildren().remove(tb);
             }
+            ArrayList<Object> info = new ArrayList<>();
+            info.add(tableNumber);
+            info.add(dishOrder);
+            client.sendEvent(Packet.ENTERMENU, info);
+
+            numoforder = 0;
+            dishOrder = new Order();
+            order = new HashMap<>();
+
+
+            ((Stage) submit.getScene().getWindow()).close();
         });
         tableView.add(submit,1,5);
 
