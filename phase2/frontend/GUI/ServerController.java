@@ -360,6 +360,8 @@ public class ServerController implements Initializable {
 
   @FXML
   protected void logOff() throws IOException {
+    client.sendEvent(Packet.LOGOFF);
+
     FXMLLoader startLoader =
         new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
     GridPane root = startLoader.load();

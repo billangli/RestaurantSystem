@@ -74,6 +74,14 @@ class ClientThread implements Runnable {
           } else if (packet.getType() == Packet.REQUESTNUMBEROFTABLES) {
             System.out.println("Sending number of tables");
             this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
+          } else if (packet.getType() == Packet.LOGOFF) {
+            System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
+            this.loggedOn = false;
+          } else if (packet.getType() == Packet.DISCONNECT) {
+            System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
+            System.out.println("Disconnecting socket");
+            this.loggedOn = false;
+            this.connected = false;
           } else if (packet.getType() == Packet.REQUESTMENU) {
             System.out.println("Sending menu");
             Menu menu = Menu.getMenu();
@@ -130,6 +138,8 @@ class ClientThread implements Runnable {
 
     System.out.println("This client thread is closing");
     try {
+      this.input.close();
+      this.output.close();
       this.socket.close();
     } catch (IOException e) {
       e.printStackTrace();
@@ -148,8 +158,8 @@ class ClientThread implements Runnable {
 
     Packet packet = new Packet(type, object);
     try {
-      this.output.writeObject(packet);
       this.output.reset();
+      this.output.writeObject(packet);
     } catch (IOException e) {
       e.printStackTrace();
     }

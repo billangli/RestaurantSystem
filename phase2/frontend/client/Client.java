@@ -74,6 +74,11 @@ public class Client implements Runnable {
   private void send(int type, Object object) {
     if (this.connected) {
       System.out.println("Sending " + type + " " + object);
+
+      if (type == Packet.DISCONNECT) {
+        this.connected = false;
+      }
+
       try {
         Packet packet = new Packet(type, object);
         this.output.writeObject(packet);
@@ -86,6 +91,11 @@ public class Client implements Runnable {
   private void send(int type) {
     if (this.connected) {
       System.out.println("Sending " + type);
+
+      if (type == Packet.DISCONNECT) {
+        this.connected = false;
+      }
+
       try {
         Packet packet = new Packet(type);
         this.output.writeObject(packet);
@@ -123,8 +133,7 @@ public class Client implements Runnable {
                 LinkedList<Dish> dishesCompleted = (LinkedList<Dish>) packet.getObject();
                 ServerController serverController = (ServerController) stored.get("serverController");
                 serverController.updateTableView(dishesCompleted);
-              }
-              if (packet.getType() == Packet.RECEIVERUNNINGQUANTITYADJUSTMENT) {
+              } else if (packet.getType() == Packet.RECEIVERUNNINGQUANTITYADJUSTMENT) {
                 HashMap newDisplayQuantity = (HashMap) packet.getObject();
                 if (this.employeeType == Packet.SERVERTYPE) {
                   MenuController menuController = (MenuController) stored.get("menuController");
@@ -152,6 +161,15 @@ public class Client implements Runnable {
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
       }
+    }
+
+    // Closing streams and socket
+    try {
+      this.input.close();
+      this.output.close();
+      this.socket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 

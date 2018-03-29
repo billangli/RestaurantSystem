@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Class for Packets being sent between client and server
  */
 public class Packet implements Serializable {
+  public static final int LOGOFF = 0;
+  public static final int DISCONNECT = 1000;
+
   // Client to Server resource requests
   public static final int LOGINREQUEST = 1;
   public static final int REQUESTNUMBEROFTABLES = 2;
