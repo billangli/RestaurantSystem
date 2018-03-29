@@ -45,7 +45,7 @@ public class SceneFactory {
             scene = new Scene(server, WIDTH, HEIGHT);
 
             //load menu interface
-            FXMLLoader menuLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/MenuFx.fxml"));
+            FXMLLoader menuLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Menu.fxml"));
             Parent menu = menuLoader.load();
             Scene menuScene = new Scene(menu, WIDTH, HEIGHT);
 

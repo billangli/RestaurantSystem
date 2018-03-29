@@ -4,10 +4,14 @@ import backend.inventory.*;
 import backend.server.Packet;
 import backend.table.Order;
 import frontend.client.Client;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -36,11 +40,22 @@ public class MenuController{
 
     private int myId;
 
+
+    @FXML
+    private TableView<Dish> menuColumn = new TableView<>();
+    @FXML
+    private TableColumn<Dish, String> menuItems;
+
+    @FXML
+    private TableView<Dish> orderColumn = new TableView<>();
+    @FXML
+    private TableColumn<Dish, String> orderItems;
+
     public void setMyId(int id) {
         this.myId = id;
     }
     private Order dishOrder;
-    private HashMap<String,Dish> order;
+    private ArrayList<Dish> order;
 
     /**
      * set up the table number for this order
@@ -69,7 +84,7 @@ public class MenuController{
             InventoryIngredient inventoryIngredient = inventory.getIngredient(ingredientName);
             inventoryIngredient.setRunningQuantity(runningQuantity);
         }
-        updateMenu();
+        updateMenuT();
     }
 
     /**
@@ -88,8 +103,97 @@ public class MenuController{
         }
         try{
             window.showAndWait();
-        }catch(IllegalStateException e) { }
+        }catch(IllegalStateException e) {
+            System.out.println("there exist a window already");
+        }
     }
+
+    public void updateMenuT(){
+        ObservableList<Dish> dishes = FXCollections.observableArrayList();
+        for(Dish dish:recipe){
+            boolean cookable = dish.ableToCook(inventory);
+
+            if(cookable){
+                dishes.add(dish);
+            }
+        }
+        menuColumn.setItems(dishes);
+    }
+
+    @FXML
+    private void getOrderButtonClicked() {
+        Dish selectedDish = menuColumn.getSelectionModel().getSelectedItem();
+        if(selectedDish != null) {
+            //set up the ingredient adjustment interface
+            Stage st = new Stage();
+            Dish dish = new Dish(selectedDish);
+
+            //pass ingredient to server
+            HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
+            ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
+            for (String in : ingredients.keySet()) {
+                dishIngredients.add(ingredients.get(in));
+            }
+            client.sendAdjustIngredientRequest(dishIngredients, true);
+
+            order.add(dish);
+            FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
+            try {
+                GridPane ingredient = ingredientLoader.load();
+                IngredientController controller = ingredientLoader.getController();
+                controller.getDish(dish);
+                Scene ingredientScene = new Scene(ingredient, 400, 400);
+                st.setScene(ingredientScene);
+                st.show();
+            } catch (IOException e1) {
+                System.out.println(ingredientLoader);
+            }
+            updateOrder();
+        }
+    }
+    @FXML
+    private void getDeleteButtonClicked() {
+        Dish selectedDish = orderColumn.getSelectionModel().getSelectedItem();
+
+        if (selectedDish != null) {
+            order.remove(selectedDish);
+            HashMap<String, DishIngredient> ingredients1 = selectedDish.getIngredientsRequired();
+            ArrayList<DishIngredient> dishIngredients1 = new ArrayList<>();
+            for (String in : ingredients1.keySet()) {
+                dishIngredients1.add(ingredients1.get(in));
+            }
+            client.sendAdjustIngredientRequest(dishIngredients1, false);
+            updateOrder();
+        }
+    }
+
+    @FXML
+    private void getSumbitButtonClicked() {
+        for (Dish dish: order) {
+                dishOrder.addDish(dish);
+            }
+            ArrayList<Object> info = new ArrayList<>();
+            info.add(tableNumber);
+            info.add(dishOrder);
+            client.sendEvent(Packet.ENTERMENU, info);
+
+            numoforder = 0;
+            dishOrder = new Order();
+            order = new ArrayList<>();
+
+
+            ((Stage) menuColumn.getScene().getWindow()).close();
+        }
+
+    private void updateOrder(){
+        ObservableList<Dish> dishes = FXCollections.observableArrayList();
+        for(Dish dish: order){
+            dishes.add(dish);
+        }
+        orderColumn.setItems(dishes);
+    }
+
+
 
 
     /**
@@ -101,114 +205,119 @@ public class MenuController{
         HashMap<String,DishRecipe> dishes = menu.getDishes();
 
         dishOrder = new Order();
-        order = new HashMap<>();
-
-        //set up dishes
-        int i = 0;
-        for(String di: dishes.keySet()){
-            Button item = new Button(di);
-            item.setId(di);
-            item.setOnAction(e12 ->{
-                //order a dish
-                //TODO update inventory and order updateMenu()
-                    Button ordered = new Button(di);
-                    ordered.setId("" + numoforder);
-
-                    //set up the ingredient adjustment interface
-                    Stage st = new Stage();
-                    Dish dish = new Dish(dishes.get(di));
-
-                    //pass ingredient to server
-                    HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
-                    ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
-                    for (String in : ingredients.keySet()) {
-                        dishIngredients.add(ingredients.get(in));
-                    }
-                    client.sendAdjustIngredientRequest(dishIngredients, true);
-
-                    order.put("" + numoforder, dish);
-                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
-                    try {
-                        GridPane ingredient = ingredientLoader.load();
-                        IngredientController controller = ingredientLoader.getController();
-                        controller.getDish(dish);
-                        Scene ingredientScene = new Scene(ingredient, 400, 400);
-                        st.setScene(ingredientScene);
-                        st.show();
-                    } catch (IOException e1) {
-                        System.out.println(ingredientLoader);
-                    }
-
-
-                    //delete a dish
-//TODO update order and inventory updateMenu()
-                    ordered.setOnAction(e13 -> {
-                        tableView.getChildren().remove(ordered);
-                        order.remove(ordered.getId());
-                        HashMap<String, DishIngredient> ingredients1 = dish.getIngredientsRequired();
-                        ArrayList<DishIngredient> dishIngredients1 = new ArrayList<>();
-                        for (String in : ingredients1.keySet()) {
-                            dishIngredients1.add(ingredients1.get(in));
-                        }
-                        client.sendAdjustIngredientRequest(dishIngredients1, false);
-                    });
-
-                    numoforder++;
-                    tableView.add(ordered, 2, numoforder + 1);
-
-            });
-
-            tableView.add(item,0,i);
-            i++;
-
-
-        }
-        Text orderText = new Text("your order");
-        tableView.add(orderText,2,0);
-        //submit the order
-        Button submit = new Button("order");
-        submit.setOnAction(e -> {
-            for (String item : order.keySet()) {
-                Dish dish = order.get(item);
-                dishOrder.addDish(dish);
-                Button tb = (Button) tableView.lookup("#" + item);
-                tableView.getChildren().remove(tb);
-            }
-            ArrayList<Object> info = new ArrayList<>();
-            info.add(tableNumber);
-            info.add(dishOrder);
-            client.sendEvent(Packet.ENTERMENU, info);
-
-            numoforder = 0;
-            dishOrder = new Order();
-            order = new HashMap<>();
-
-
-            ((Stage) submit.getScene().getWindow()).close();
-        });
-        tableView.add(submit,1,5);
-
-        //set up background
-        BackgroundImage menuImage= new BackgroundImage(new Image("menu.jpg",600,600,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        Background background= new Background(menuImage);
-        tableView.setBackground(background);
-
-
+        order = new ArrayList<>();
         for(String di: dishes.keySet()){
             recipe.add(new Dish(dishes.get(di)));
         }
-        for(Dish dish:recipe){
-            boolean cookable = dish.ableToCook(inventory);
-            Button tb = (Button) tableView.lookup("#"+dish.getName());
-            if(cookable){
-                tb.setDisable(false);
-            }
-            else{
-                tb.setDisable(true);
-            }
-        }
+        //try
+        updateMenuT();
+
+        //set up dishes
+//        int i = 0;
+//        for(String di: dishes.keySet()){
+//            Button item = new Button(di);
+//            item.setId(di);
+//            item.setOnAction(e12 ->{
+//                //order a dish
+//                //TODO update inventory and order updateMenu()
+//                    Button ordered = new Button(di);
+//                    ordered.setId("" + numoforder);
+//
+//                    //set up the ingredient adjustment interface
+//                    Stage st = new Stage();
+//                    Dish dish = new Dish(dishes.get(di));
+//
+//                    //pass ingredient to server
+//                    HashMap<String, DishIngredient> ingredients = dish.getIngredientsRequired();
+//                    ArrayList<DishIngredient> dishIngredients = new ArrayList<>();
+//                    for (String in : ingredients.keySet()) {
+//                        dishIngredients.add(ingredients.get(in));
+//                    }
+//                    client.sendAdjustIngredientRequest(dishIngredients, true);
+//
+//                    order.put("" + numoforder, dish);
+//                    FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
+//                    try {
+//                        GridPane ingredient = ingredientLoader.load();
+//                        IngredientController controller = ingredientLoader.getController();
+//                        controller.getDish(dish);
+//                        Scene ingredientScene = new Scene(ingredient, 400, 400);
+//                        st.setScene(ingredientScene);
+//                        st.show();
+//                    } catch (IOException e1) {
+//                        System.out.println(ingredientLoader);
+//                    }
+//
+//
+//                    //delete a dish
+////TODO update order and inventory updateMenu()
+//                    ordered.setOnAction(e13 -> {
+//                        tableView.getChildren().remove(ordered);
+//                        order.remove(ordered.getId());
+//                        HashMap<String, DishIngredient> ingredients1 = dish.getIngredientsRequired();
+//                        ArrayList<DishIngredient> dishIngredients1 = new ArrayList<>();
+//                        for (String in : ingredients1.keySet()) {
+//                            dishIngredients1.add(ingredients1.get(in));
+//                        }
+//                        client.sendAdjustIngredientRequest(dishIngredients1, false);
+//                    });
+//
+//                    numoforder++;
+//                    tableView.add(ordered, 2, numoforder + 1);
+//
+//            });
+//
+//            tableView.add(item,0,i);
+//            i++;
+//
+//
+//        }
+//        Text orderText = new Text("your order");
+//        tableView.add(orderText,2,0);
+//        //submit the order
+//        Button submit = new Button("order");
+//        submit.setOnAction(e -> {
+//            for (String item : order.keySet()) {
+//                Dish dish = order.get(item);
+//                dishOrder.addDish(dish);
+//                Button tb = (Button) tableView.lookup("#" + item);
+//                tableView.getChildren().remove(tb);
+//            }
+//            ArrayList<Object> info = new ArrayList<>();
+//            info.add(tableNumber);
+//            info.add(dishOrder);
+//            client.sendEvent(Packet.ENTERMENU, info);
+//
+//            numoforder = 0;
+//            dishOrder = new Order();
+//            order = new HashMap<>();
+//
+//
+//            ((Stage) submit.getScene().getWindow()).close();
+//        });
+//        tableView.add(submit,1,5);
+//
+//        //set up background
+//        BackgroundImage menuImage= new BackgroundImage(new Image("menu.jpg",600,600,false,true),
+//                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+//                BackgroundSize.DEFAULT);
+//        Background background= new Background(menuImage);
+//        tableView.setBackground(background);
+//
+//
+//        for(String di: dishes.keySet()){
+//            recipe.add(new Dish(dishes.get(di)));
+//        }
+//        for(Dish dish:recipe){
+//            boolean cookable = dish.ableToCook(inventory);
+//            Button tb = (Button) tableView.lookup("#"+dish.getName());
+//            if(cookable){
+//                tb.setDisable(false);
+//            }
+//            else{
+//                tb.setDisable(true);
+//            }
+//        }
     }
 
 

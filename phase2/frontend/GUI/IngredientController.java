@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * the controller for ingredients
@@ -59,5 +60,10 @@ public class IngredientController {
 
             i++;
         }
+    }
+
+    @FXML
+    private void done(){
+        ((Stage) tableView.getScene().getWindow()).close();
     }
 }
