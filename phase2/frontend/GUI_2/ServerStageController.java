@@ -23,8 +23,8 @@ import static frontend.GUI.FXMain.client;
 import static java.lang.Math.ceil;
 import static java.lang.Math.sqrt;
 
-/*
-the controller for server GUI
+/**
+ * the controller for server GUI
  */
 public class ServerStageController {
   /*final variables*/

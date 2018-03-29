@@ -10,8 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-/*
-the controller for ingredients
+/**
+ * the controller for ingredients
  */
 public class IngredientController {
     @FXML

@@ -10,12 +10,18 @@ import javafx.scene.text.Text;
 
 import java.util.HashMap;
 
+/**
+ * the controller for inventory display GUI
+ */
 public class InventoryDisplayController {
     @FXML private GridPane tableView;
     private Client client = Client.getInstance();
     volatile HashMap<String, InventoryIngredient> defaultInventory = (HashMap<String, InventoryIngredient>) client.sendRequest(Packet.REQUESTINVENTORY); //TODO should get menu from web ComputerServer requestMenu()
     private Inventory inventory = Inventory.getInstance();
 
+    /**
+     * initialize the GUI
+     */
     public void initialize(){
         inventory.setStock(defaultInventory);
         HashMap<String, Integer> ingredients = (HashMap<String, Integer>) client.sendRequest(Packet.REQUESTQUANTITIES);

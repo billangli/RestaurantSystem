@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/*
-the controller for main GUI
+/**
+ * the controller for main GUI
  */
 public class StartSceneController{
     @FXML private TextField tf;
