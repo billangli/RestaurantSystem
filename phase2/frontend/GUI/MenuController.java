@@ -37,6 +37,11 @@ public class MenuController{
 
     private final Order dishOrder = new Order();
     private final HashMap<String,Dish> order = new HashMap<>();
+    private int myId;
+
+    public void setMyId(int id) {
+        this.myId = id;
+    }
 
     /**
      * set up the table number for this order
