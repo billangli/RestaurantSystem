@@ -3,8 +3,6 @@ package backend.employee;
 import backend.inventory.Dish;
 import backend.logger.RestaurantLogger;
 import backend.table.Order;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -23,15 +21,12 @@ public class OrderQueue {
   // dishes that are cooked and waiting to be delivered.
   private LinkedList<Dish> DishesCompleted;
 
-  private ArrayList<Order> orderBeingCooked;
-
   private static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
 
   public OrderQueue() {
     OrdersInQueue = new LinkedList<>();
     DishesInProgress = new LinkedList<>();
     DishesCompleted = new LinkedList<>();
-    orderBeingCooked = new ArrayList<>();
   }
 
   /**
@@ -64,7 +59,6 @@ public class OrderQueue {
               + ", list of dishes: "
               + order.dishesToString());
       DishesInProgress.addAll(order.getDishes());
-      orderBeingCooked.add(order);
     }
   }
 
@@ -141,64 +135,19 @@ public class OrderQueue {
           "the backend.table is empty, the dish " + dishNumber + " will not be delivered");
     } else {
       dish.delivered();
-      Order orderTarget = null;
-      outerloop:
-      for (Order o : orderBeingCooked) {
-        for (Dish d : o.getDishes()) {
-          if (d == dish) {
-            orderTarget = o;
-            break outerloop;
-          }
-        }
-      }
-      if (orderTarget != null) {
-        orderTarget.remove(dish);
-        if (orderTarget.isEmpty()) {
-          orderBeingCooked.remove(orderTarget);
-        }
-      }
     }
-
     return dish;
   }
 
-  /**
-   * Returns linked list of orders that are in queue.
-   *
-   * @return linked list of orders that are in queue.
-   */
   public LinkedList<Order> getOrdersInQueue() {
     return OrdersInQueue;
   }
 
-  /**
-   * Returns linked list of dishes that are in progress.
-   *
-   * @return linked list of dishes that are in progress.
-   */
   public LinkedList<Dish> getDishesInProgress() {
     return DishesInProgress;
   }
 
-  /**
-   * Returns linked list of dishes that are ready to be delivered.
-   *
-   * @return linked list of dishes that are ready to be delivered.
-   */
   public LinkedList<Dish> getDishesCompleted() {
     return DishesCompleted;
-  }
-
-  /**
-   * Returns linked list of orders that are not delivered yet.
-   *
-   * @return linked list of orders that are not delivered yet.
-   */
-  public ArrayList<Order> getOrdersNotDelivered() {
-    ArrayList<Order> result = new ArrayList<>();
-    result.addAll(orderBeingCooked);
-    result.addAll(OrdersInQueue);
-
-    return result;
   }
 }
