@@ -155,6 +155,8 @@ public class ServerController implements Initializable {
     gridParent.getChildren().add(tableGrid);
 
     tableView.setBackground(background);
+    ArrayList colorBoolean = (ArrayList) client.sendRequest(Packet.REQUESTTABLEOCCUPANCY);
+    updateTableColor(colorBoolean);
   }
 
   @FXML
