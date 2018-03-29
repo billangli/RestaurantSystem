@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 
 /**
- * The class represents the menu of this restaurant. It stores all the dishes offered by the
+ * The class represents the menu of this restaurant. It stores all the DishRecipes - the dishes offered by the
  * restaurant.
  */
 public class Menu implements Serializable {
-  private static Menu instance = new Menu();
+  private static Menu menu = new Menu();
 
   private HashMap<String, DishRecipe> menuDishes = new HashMap<>();
   //    private static Inventory backend.inventory;
@@ -22,18 +22,18 @@ public class Menu implements Serializable {
 
   public void readFromFile() {
     try {
-      instance.create();
+      menu.create();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public static Menu getInstance() {
-    return instance;
+  public static Menu getMenu() {
+    return menu;
   }
 
   public Object readResolve() {
-    return getInstance();
+    return getMenu();
   }
 
   /** Creates a menu using the provided phase1/menu.txt file */
@@ -54,8 +54,13 @@ public class Menu implements Serializable {
     }
   }
 
+  /**
+   * TODO: Describe what this method does
+   *
+   * @param menuDishes TODO: Describe what
+   */
   public void setDishes(HashMap<String, DishRecipe> menuDishes) {
-    instance.menuDishes = menuDishes;
+    menu.menuDishes = menuDishes;
   }
 
   /**
@@ -64,12 +69,16 @@ public class Menu implements Serializable {
    * @param name the name of the Dish dish
    * @return the copy of the Dish dish
    */
-  public Dish makeDish(String name) {
-    DishRecipe dish = instance.menuDishes.get(name);
+  public Dish createNewDish(String name) {
+    DishRecipe dish = menu.menuDishes.get(name);
     return new Dish(dish);
   }
 
+  /**
+   * Returns the HashMap with names of the Dishes as keys and DishRecipes as values in this menu.
+   * @return the HashMap with names of the Dishes as keys and DishRecipes as values in this menu.
+   */
   public HashMap<String, DishRecipe> getDishes() {
-    return instance.menuDishes;
+    return menu.menuDishes;
   }
 }

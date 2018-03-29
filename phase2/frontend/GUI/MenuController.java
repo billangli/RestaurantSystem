@@ -31,7 +31,7 @@ public class MenuController{
     private int myId;
 
     volatile HashMap<String, DishRecipe> menuDishes = (HashMap<String, DishRecipe>) client.sendRequest(Packet.REQUESTMENU);
-    private final Menu menu = Menu.getInstance();
+    private final Menu menu = Menu.getMenu();
 
     private final Order dishOrder = new Order();
     private final HashMap<String,Dish> order = new HashMap<>();

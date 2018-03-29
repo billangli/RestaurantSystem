@@ -76,7 +76,7 @@ class ClientThread implements Runnable {
             this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
           } else if (packet.getType() == Packet.REQUESTMENU) {
             System.out.println("Sending menu");
-            Menu menu = Menu.getInstance();
+            Menu menu = Menu.getMenu();
             this.send(Packet.RECEIVEMENU, menu.getDishes());
           } else if (packet.getType() == Packet.REQUESTINVENTORY) {
             System.out.println("Sending inventory");

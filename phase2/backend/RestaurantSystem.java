@@ -127,7 +127,7 @@ public class  RestaurantSystem {
       }
     }
 
-    Menu menu = Menu.getInstance();
+    Menu menu = Menu.getMenu();
     menu.readFromFile();
     logger.config("---------initialization over---------\n\n");
   }
