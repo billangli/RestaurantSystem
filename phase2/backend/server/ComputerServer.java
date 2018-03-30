@@ -25,7 +25,7 @@ public class ComputerServer implements Runnable {
   private static ComputerServer instance = new ComputerServer();
 
   // Logger
-  static Logger logger = Logger.getLogger(ComputerServerLogger.class.getName());
+  private static Logger logger = Logger.getLogger(ComputerServerLogger.class.getName());
 
   // Client-server variables
   private ServerSocket serverSocket;
