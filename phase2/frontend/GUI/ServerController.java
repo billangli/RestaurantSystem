@@ -33,8 +33,9 @@ import static java.lang.Math.sqrt;
 public class ServerController implements Initializable {
   private Scene menuScene;
 
-  private final Color COLOR_OCCUPIED = Color.BLUE;
+  private final Color COLOR_OCCUPIED = Color.LIGHTPINK;
   private final Color COLOR_EMPTY = Color.WHITE;
+  private final Color COLOR_SELECT = Color.BLUE;
 
   private Client client = Client.getInstance();
 
@@ -110,8 +111,8 @@ public class ServerController implements Initializable {
     rec2.setFill(COLOR_EMPTY);
     rec2.setStroke(Color.BLACK);
 
-    hBox1.getChildren().addAll(rec1, label1);
-    hBox2.getChildren().addAll(rec2, label2);
+    hBox1.getChildren().addAll(rec2, label2);
+    hBox2.getChildren().addAll(rec1, label1);
     hBox1.setPadding(new Insets(10, 0, 0, 10));
     hBox2.setPadding(new Insets(10, 0, 0, 10));
 
@@ -141,7 +142,7 @@ public class ServerController implements Initializable {
               rectangle.setStrokeWidth(1);
               rectangle.setStroke(Color.BLACK);
             }
-            r.setStroke(Color.LIGHTBLUE);
+            r.setStroke(COLOR_SELECT);
             r.setStrokeWidth(3);
             selectedTableNumber = Integer.parseInt(l.getText());
           });
