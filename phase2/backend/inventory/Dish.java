@@ -125,7 +125,7 @@ public class Dish extends DishRecipe {
    */
   public String toString() {
     //    float currentCost = hasBeenDelivered ? price : 0;
-    return String.format("%-20s: $%.2f", name, price);
+    return String.format("%-20s $%.2f", name, price);
   }
 
   /** Adds the price of this Dish to the Table that ordered this Dish */

@@ -44,18 +44,18 @@ public class PrintBillController {
       String result =
           billHeader
               + billBody
-              + "SubTotal: "
+              + "SubTotal: $"
               + String.format("%.2f", totalCost)
               + "\n"
-              + "Tax: "
+              + "Tax: $"
               + String.format("%.2f", totalCost * 0.13)
               + "\n";
 
       if (numOfCustomers >= 8) {
-        result += "Gratuity: " + String.format("%.2f", totalCost * 0.15);
-        result += "\n\n" + "Total: " + String.format("%.2f", totalCost * 1.28);
+        result += "Gratuity: $" + String.format("%.2f", totalCost * 0.15);
+        result += "\n\n" + "Total: $" + String.format("%.2f", totalCost * 1.28);
       } else {
-        result += "\n" + "Total: " + String.format("%.2f", totalCost * 1.13);
+        result += "\n" + "Total: $" + String.format("%.2f", totalCost * 1.13);
       }
       billLabel.setText(result);
     }
