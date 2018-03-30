@@ -101,14 +101,44 @@ public class Packet implements Serializable {
     this.type = type;
   }
 
+  /**
+   * Getter for the type of the Packet
+   *
+   * @return the type of this Packet
+   */
   public int getType() {
     return type;
   }
 
+  /**
+   * Checks if this Packet is an event type
+   * Event type means that this Packet is an event that is supposed to be created in the backend
+   *
+   * @return true if this Packet is an event type otherwise false
+   */
   public boolean isEventType() {
     return (this.type >= 50) && (this.type < 80);
   }
 
+  /**
+   * Checks if this Packet is a receive type
+   * Receive types are used when Client is supposed to receive a resource from the client
+   *
+   * @return true if this Packet is a receive type, otherwise false
+   */
+  public boolean isReceiveType() {
+    return (this.type <= -1) && (this.type >= -12);
+  }
+
+  /**
+   * Checks if this Packet is an update type
+   * An update type is also a receive type, but this Packet can be sent to the client without the client requesting it
+   * It is used when other clients or the ComputerServer changed a variable in the backend that everyone should see
+   * For example, when one Server puts down the request for fries and potatoes run out in running quantity, all Servers
+   * should be able to see that they can't order fries anymore
+   *
+   * @return true if this Packet is an update type, false otherwise
+   */
   public boolean isUpdateType() {
     return (this.type == RECEIVEDISHESINPROGRESS) ||
             (this.type == RECEIVEORDERSINQUEUE) ||

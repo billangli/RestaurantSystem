@@ -35,7 +35,7 @@ public class SceneFactory {
             scene = new Scene(cook, WIDTH, HEIGHT);
 
             CookController paneController = cookLoader.getController();
-            client.store("cookController", paneController);
+            client.storeController("cookController", paneController);
             paneController.setMyId(id);
         }
         else if(type == Packet.SERVERTYPE){
@@ -53,14 +53,14 @@ public class SceneFactory {
             //injecting menu scene into the controller of the server scene
             ServerController paneController = serverLoader.getController();
 ///            paneController.setmyId(id); TODO: Figure out what this does
-            client.store("serverController",paneController);
+            client.storeController("serverController",paneController);
             paneController.setMenuScene(menuScene);
             paneController.setMyId(id);
 
             //injecting server scene into the controller of the menu scene
             MenuController menuPaneController = menuLoader.getController();
 
-            client.store("menuController", menuPaneController);
+            client.storeController("menuController", menuPaneController);
         }
         else if(type == Packet.MANAGERTYPE){
             //load manager interface
