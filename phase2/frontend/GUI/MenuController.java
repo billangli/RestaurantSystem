@@ -114,20 +114,25 @@ public class MenuController{
             }
             client.sendAdjustIngredientRequest(dishIngredients, true);
 
-            order.add(dish);
+
             FXMLLoader ingredientLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Ingredient.fxml"));
             try {
                 GridPane ingredient = ingredientLoader.load();
                 IngredientController controller = ingredientLoader.getController();
-                controller.getDish(dish);
+                controller.setDish(dish);
+                controller.setController(this);
                 Scene ingredientScene = new Scene(ingredient, 400, 400);
                 st.setScene(ingredientScene);
                 st.show();
             } catch (IOException e1) {
                 System.out.println(ingredientLoader);
             }
-            updateOrder();
         }
+    }
+
+    public void addDish(Dish dish){
+        order.add(dish);
+        updateOrder();
     }
     @FXML
     private void getDeleteButtonClicked() {

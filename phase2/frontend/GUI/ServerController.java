@@ -204,7 +204,7 @@ public class ServerController implements Initializable {
       instructionLabel.setText("");
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
-      MenuController menuController = (MenuController) client.getStored("menuController");
+      MenuController menuController = (MenuController) client.getController("menuController");
       menuController.setStage(window);
 
       // menuController has same id as this controller.

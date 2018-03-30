@@ -39,13 +39,22 @@ public class Client implements Runnable {
 
   // Creating the singleton instance of this class
   private static Client instance = new Client();
-  private HashMap<String, Object> stored = new HashMap<>();
 
+  // Controllers for the GUI
+  private HashMap<String, Object> controllers = new HashMap<>();
 
+  /**
+   * Singleton constructor for client, only accessible in here
+   */
   private Client() {
     this.connectAgain();
   }
 
+  /**
+   * Getter for the singleton instance of Client
+   *
+   * @return this instance of Client
+   */
   public static Client getInstance() {
     return instance;
   }
@@ -67,97 +76,87 @@ public class Client implements Runnable {
     return true;
   }
 
-  private void send(int type, Object object) {
-    if (this.connected) {
-      System.out.println("Sending " + type + " " + object);
-
-      if (type == Packet.DISCONNECT) {
-        this.connected = false;
-      }
-
-      try {
-        Packet packet = new Packet(type, object);
-        this.output.writeObject(packet);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  private void send(int type) {
-    if (this.connected) {
-      System.out.println("Sending " + type);
-
-      if (type == Packet.DISCONNECT) {
-        this.connected = false;
-      }
-
-      try {
-        Packet packet = new Packet(type);
-        this.output.writeObject(packet);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
+  /**
+   * This is run when the new thread of Client is started
+   * It is responsible for constantly listening for new updates from the ComputerServer
+   */
   @Override
   public void run() {
+    // Only listen for updates when this Client is connected to the ComputerServer
     while (this.connected) {
       try {
         this.object = this.input.readObject();
         if (object != null) {
+          // Received new object in ObjectInputStream from ComputerServer
           Packet packet = (Packet) object;
-          System.out.println("Packet type: " + packet.getType());
+//          System.out.println("Packet type: " + packet.getType());
 
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
-            // Confirm log in or not
+            // Confirm that this client has logged in successfully or not
             confirmLogIn((int) packet.getItem());
           } else if (packet.isUpdateType()) {
-            System.out.println("Received " + packet.getItem());
+            // This Packet is an update from the ComputerServer (these can be sent to Client even if not requested)
+//            System.out.println("Received " + packet.getItem());
 
             if (otherUpdate) {
-              if (packet.getType() == Packet.SERVERSHUTDOWN) {
-                this.shutDown();
-              } else if (packet.getType() == Packet.RECEIVEDISHESINPROGRESS) {
-                LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) packet.getItem();
-                CookController cookController = (CookController) stored.get("cookController");
-                cookController.updateDishesInProgressOnTableView(dishesInProgress);
-              } else if (packet.getType() == Packet.RECEIVEORDERSINQUEUE) {
-                LinkedList<Order> ordersInQueue = (LinkedList<Order>) packet.getItem();
-                CookController cookController = (CookController) stored.get("cookController");
-                cookController.updateOrdersInQueueOnTableView(ordersInQueue);
-              } else if (packet.getType() == Packet.RECEIVEDISHESCOMPLETED) {
-                LinkedList<Dish> dishesCompleted = (LinkedList<Dish>) packet.getItem();
-                if (this.employeeType == Packet.SERVERTYPE) {
-                  ServerController serverController = (ServerController) stored.get("serverController");
-                  serverController.updateTableView(dishesCompleted);
+              // This packet was not requested by the Client, so it is an update on the resources from changes made by
+              // other clients or the ComputerServer
+              switch (packet.getType()) {
+                case Packet.SERVERSHUTDOWN:
+                  // The ComputerServer is shutting down, so shut down this program too
+                  this.shutDown();
+                  break;
+                case Packet.RECEIVEDISHESINPROGRESS: {
+                  // Update to dishesInProgress
+                  LinkedList<Dish> dishesInProgress = (LinkedList<Dish>) packet.getItem();
+                  CookController cookController = (CookController) controllers.get("cookController");
+                  cookController.updateDishesInProgressOnTableView(dishesInProgress);
+                  break;
                 }
-              } else if (packet.getType() == Packet.RECEIVERUNNINGQUANTITYADJUSTMENT) {
-                HashMap newDisplayQuantity = (HashMap) packet.getItem();
-                if (this.employeeType == Packet.SERVERTYPE) {
-                  MenuController menuController = (MenuController) stored.get("menuController");
-                  menuController.updateRunningQuantity(newDisplayQuantity);
+                case Packet.RECEIVEORDERSINQUEUE: {
+                  // Update to ordersInQueue
+                  LinkedList<Order> ordersInQueue = (LinkedList<Order>) packet.getItem();
+                  CookController cookController = (CookController) controllers.get("cookController");
+                  cookController.updateOrdersInQueueOnTableView(ordersInQueue);
+                  break;
                 }
-              } else if (packet.getType() == Packet.RECEIVETABLEOCCUPANCY) {
-                ServerController serverController = (ServerController) stored.get("serverController");
-                serverController.updateTableColor((ArrayList) packet.getItem());
+                case Packet.RECEIVEDISHESCOMPLETED:
+                  // Update to dishesCompleted
+                  LinkedList<Dish> dishesCompleted = (LinkedList<Dish>) packet.getItem();
+                  if (this.employeeType == Packet.SERVERTYPE) {
+                    ServerController serverController = (ServerController) controllers.get("serverController");
+                    serverController.updateTableView(dishesCompleted);
+                  }
+                  break;
+                case Packet.RECEIVERUNNINGQUANTITYADJUSTMENT:
+                  // Update to runningQuantity
+                  HashMap newDisplayQuantity = (HashMap) packet.getItem();
+                  if (this.employeeType == Packet.SERVERTYPE) {
+                    MenuController menuController = (MenuController) controllers.get("menuController");
+                    menuController.updateRunningQuantity(newDisplayQuantity);
+                  }
+                  break;
+                case Packet.RECEIVETABLEOCCUPANCY:
+                  // Update to tableOccupancy
+                  ServerController serverController = (ServerController) controllers.get("serverController");
+                  serverController.updateTableColor((ArrayList) packet.getItem());
+                  break;
               }
             } else {
+              // This is not an update, but actually was a resource requested by this Client
               System.out.println("The object is ready");
               this.requestedPacketReceived = true;
             }
-          } else if (Math.abs(packet.getType()) <= 12) { // TODO: Move to Packet
-            // Receive resource protocol
+          } else if (packet.isReceiveType()) {
+            // This Packet was requested by the Client
             System.out.println("The object is ready");
             this.requestedPacketReceived = true;
           } else {
-            System.out.println("*** Packet type invalid ***");
+//            System.out.println("*** Packet type invalid ***");
           }
         }
       } catch (IOException e) {
         System.out.println("*** IO Exception ***");
-//        this.shutDown();
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
       }
@@ -173,7 +172,127 @@ public class Client implements Runnable {
     }
   }
 
-  // Methods for GUI to call
+  /**
+   * Receives a protocol and decides whether the client has logged on successfully (helper method for above method)
+   *
+   * @param confirmation is the protocol
+   */
+  private void confirmLogIn(int confirmation) {
+    switch (confirmation) {
+      case Packet.LOGINFAILED:
+        this.requestedPacketReceived = true;
+        this.loggedIn = false;
+        break;
+      default:
+        this.requestedPacketReceived = true;
+        this.loggedIn = true;
+        break;
+    }
+  }
+
+  /**
+   * Send a Packet with the packet type and an item to be sent
+   *
+   * @param type is the Packet type
+   * @param item is the item to be send to the ComputerServer
+   */
+  private void send(int type, Object item) {
+    // Only send when this client is connected to the ComputerServer
+    if (this.connected) {
+      System.out.println("Sending " + type + " " + item);
+
+      // Disconnect from the ComputerServer if this Packet is to send a disconnect message
+      if (type == Packet.DISCONNECT) {
+        this.connected = false;
+      }
+
+      // Sending the Packet
+      try {
+        Packet packet = new Packet(type, item);
+        this.output.writeObject(packet);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Send a Packet only containing the Packet type, which is the protocol
+   *
+   * @param type is the protocol of this message to ComputerServer
+   */
+  private void send(int type) {
+    if (this.connected) {
+      // Only send when Client is connected to ComputerServer
+//      System.out.println("Sending " + type);
+
+      // Disconnect if sending Client is disconnecting
+      if (type == Packet.DISCONNECT) {
+        this.connected = false;
+      }
+
+      try {
+        Packet packet = new Packet(type);
+        this.output.writeObject(packet);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Send a request for a resource from the ComputerServer
+   *
+   * @param requestType is the protocol for the request as defined in Packet
+   * @return the object received by this request
+   */
+  public Object sendRequest(int requestType) {
+    this.otherUpdate = false;
+    this.send(requestType);
+
+    // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request...");
+    while (!this.requestedPacketReceived) ;
+
+    // Return the employee type to the GUI
+    System.out.println("Object is ready");
+    this.requestedPacketReceived = false;
+    System.out.println("Received " + ((Packet) this.object).getItem());
+    this.otherUpdate = true;
+    return ((Packet) this.object).getItem();
+  }
+
+  /**
+   * Send a request for a resource from the ComputerServer
+   *
+   * @param requestType is the protocol for the request as defined in Packet
+   * @param item is the item sent along in the Packet
+   * @return the object that this request receives from the ComputerServer
+   */
+  public Object sendRequest(int requestType, Object item) {
+
+    this.otherUpdate = false;
+    this.send(requestType, item);
+
+    // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request" + requestType + "...");
+    while (!this.requestedPacketReceived) ;
+
+    // Return the employee type to the GUI
+    System.out.println("Object is ready");
+    this.requestedPacketReceived = false;
+    System.out.println("Received " + ((Packet) this.object).getItem());
+    this.otherUpdate = true;
+    return ((Packet) this.object).getItem();
+  }
+
+  /**
+   * Send a log in request to the ComputerServer
+   * Receives the employee type protocol if logged on successfully, Packet.LOGINFAILED otherwise
+   *
+   * @param id is the employeeID to be logged in
+   * @return   the int response from ComputerServer
+   */
   public int sendLogInRequest(String id) {
     this.send(Packet.LOGINREQUEST, Integer.parseInt(id));
 
@@ -191,52 +310,22 @@ public class Client implements Runnable {
     return employeeType;
   }
 
-  private void confirmLogIn(int confirmation) {
-    switch (confirmation) {
-      case Packet.LOGINFAILED:
-        this.requestedPacketReceived = true;
-        this.loggedIn = false;
-        break;
-      default:
-        this.requestedPacketReceived = true;
-        this.loggedIn = true;
-        break;
-    }
-  }
+  /* NOTE: sendAdjustIngredientRequest only changes runningQuantity since it is used for ingredient is adjusted
+   *       when ordering a dish, so all instances of the Server will get real-time updates
+   *       The quantity of an ingredient is only changed when events are called (e.g. receive ingredient or when
+   *       Cook finishes making a dish)
+   */
 
-  public Object sendRequest(int requestType) {
-    this.otherUpdate = false;
-    this.send(requestType);
-
-    // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to request...");
-    while (!this.requestedPacketReceived) ;
-
-    // Return the employee type to the GUI
-    System.out.println("Object is ready");
-    this.requestedPacketReceived = false;
-    System.out.println("Received " + ((Packet) this.object).getItem());
-    this.otherUpdate = true;
-    return ((Packet) this.object).getItem();
-  }
-
-  public Object sendRequest(int requestType, Object message) {
-
-    this.otherUpdate = false;
-    this.send(requestType, message);
-
-    // Waiting for Server to respond
-    System.out.println("Waiting for ComputerServer to respond to request" + requestType + "...");
-    while (!this.requestedPacketReceived) ;
-
-    // Return the employee type to the GUI
-    System.out.println("Object is ready");
-    this.requestedPacketReceived = false;
-    System.out.println("Received " + ((Packet) this.object).getItem());
-    this.otherUpdate = true;
-    return ((Packet) this.object).getItem();
-  }
-
+  /**
+   * Sends the ComputerServer an ingredient to have the running quantity adjusted
+   * This overloaded method is used for multiple ingredients are being adjusted (i.e. ordering something)
+   *
+   * It is called sendAdjustIngredientRequest because it is used only when individual ingredients are adjusted in the
+   * dish is being ordered
+   *
+   * @param dishIngredients is the ArrayList of ingredients that need to be changed (changes in quantity are all pos.)
+   * @param shouldSubtractQuantity is true if the quantity after this method is called should be lower
+   */
   public void sendAdjustIngredientRequest(ArrayList<DishIngredient> dishIngredients, boolean shouldSubtractQuantity) {
     this.otherUpdate = false;
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
@@ -251,11 +340,19 @@ public class Client implements Runnable {
     System.out.println("Received " + packet.getItem());
 
     HashMap newDisplayQuantity = (HashMap) packet.getItem();
-    MenuController menuController = (MenuController) stored.get("menuController");
+    MenuController menuController = (MenuController) controllers.get("menuController");
     menuController.updateRunningQuantity(newDisplayQuantity);
     this.otherUpdate = true;
   }
 
+  /**
+   * Sends the ComputerServer an ingredient to have the running quantity adjusted
+   * This overloaded method is used for only one ingredient is being adjusted
+   * <p>
+   *
+   * @param ingredient is the ingredient being adjusted
+   * @param quantity is the quantity being adjusted from the running quantity (changes in quantity can be negative)
+   */
   public void sendAdjustIngredientRequest(DishIngredient ingredient, int quantity) {
     this.otherUpdate = false;
     this.send(Packet.ADJUSTINDIVIDUALINGREDIENT, new Object[]{ingredient, quantity});
@@ -270,16 +367,34 @@ public class Client implements Runnable {
     System.out.println("Received " + packet.getItem());
 
     HashMap newDisplayQuantity = (HashMap) packet.getItem();
-    MenuController menuController = (MenuController) stored.get("menuController");
+    MenuController menuController = (MenuController) controllers.get("menuController");
     menuController.updateRunningQuantity(newDisplayQuantity);
     this.otherUpdate = true;
   }
 
+  /* NOTE: When sendEvent() is called, it sends an Packet with the given protocol (defined in Packet)
+   *       The ComputerServer knows who is sending the event because the employeeID is stored in ClientThread in backend
+   */
+
+  /**
+   * Send an event with the methodName to be added to the EventQueue in the backend
+   * This overloaded method is for methods that have multiple parameters
+   *
+   * @param methodName is the protocol of the method in the event
+   * @param parameters is an ArrayList of the parameters used in the method
+   */
   public void sendEvent(int methodName, ArrayList parameters) {
     Packet packet = new Packet(methodName, parameters);
     this.send(methodName, parameters);
   }
 
+  /**
+   * Send an event with the methodName to be added to the EventQueue in the backend
+   * This overloaded method is for methods that only have one parameter
+   *
+   * @param methodName is the protocol of the method in the event
+   * @param parameter  is a single parameter used in the method
+   */
   public void sendEvent(int methodName, Object parameter) {
     ArrayList<Object> parameters = new ArrayList<>();
     parameters.add(parameter);
@@ -287,24 +402,53 @@ public class Client implements Runnable {
     this.send(methodName, parameters); //TODO packet not used
   }
 
+  /**
+   * Send an event with the methodName to be added to the EventQueue in the backend
+   * This overloaded method is for events that have no parameters
+   *
+   * @param methodName is the protocol of the method in the event
+   */
   public void sendEvent(int methodName) {
     Packet packet = new Packet(methodName);
     this.send(methodName);
   }
 
-  public void store(String name, Object o) {
-    stored.put(name, o);
+  /**
+   * Store an additional controller with the given name
+   *
+   * @param name       is the name of the controller
+   * @param controller is the controller being stored
+   */
+  public void storeController(String name, Object controller) {
+    controllers.put(name, controller);
   }
 
-  public Object getStored(String name) {
-    return stored.get(name);
+  /**
+   * Getter for the GUI controller with the given name
+   *
+   * @param name is the name of the controller
+   * @return the controller
+   */
+  public Object getController(String name) {
+    return this.controllers.get(name);
   }
 
+  /**
+   * Getter to find out whether or not this Client is connected to the ComputerServer
+   *
+   * @return true if it is connected to ComputerServer, false if not
+   */
   public boolean isConnected() {
     return connected;
   }
 
+  /**
+   * Shutting the GUI and all the running threads in Client
+   * <p>
+   * This is called when Client is closing the program or when the Server is shutting down
+   */
   private void shutDown() {
+    // Give a shut down warning by freezing everything
     System.out.println("~~~ Shutting down in 3 seconds ~~~");
     try {
       Thread.sleep(3000);
@@ -329,6 +473,11 @@ public class Client implements Runnable {
     Platform.exit();
   }
 
+  /**
+   * This tries to connect the Client to ComputerServer again if the first try failed
+   * <p>
+   * Connection failures are caused by wrong port or ComputerServer is not even running
+   */
   public void connectAgain() {
     if (!this.connected) {
       this.connected = this.connect();
