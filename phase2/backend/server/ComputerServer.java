@@ -167,16 +167,7 @@ public class ComputerServer implements Runnable {
     for (ClientThread client : clients) {
       logger.info("ComputerServer shutting down");
       client.send(Packet.SERVERSHUTDOWN);
-      client.shutDown();
     }
-
-    // Closing sockets
-    try {
-      this.serverSocket.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    this.isRunning = false;
   }
 
   /**

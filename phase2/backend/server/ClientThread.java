@@ -96,9 +96,10 @@ class ClientThread implements Runnable {
                 // Client instance is disconnecting the connection, should remove this clientThread from clients in ComputerServer
 //                System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
 //                System.out.println("Disconnecting socket");
-                computerServer.removeClientThread(this.employeeID);
                 this.logOff();
+                this.shutDown();
                 this.connected = false;
+                computerServer.removeClientThread(this.employeeID);
                 break;
               case Packet.REQUESTNUMBEROFTABLES:
                 // Client is requesting the number of tables
@@ -266,7 +267,14 @@ class ClientThread implements Runnable {
   /**
    * ComputerServer can call this method to shut down the client thread
    */
-  void shutDown() {
+  private void shutDown() {
+    // Pausing a little before shutting down
+    try {
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
     try {
       this.input.close();
       this.output.close();
