@@ -49,7 +49,7 @@ public class Dish extends DishRecipe {
    * @param ingredientName the name of the DishIngredient
    * @param amount the total amount of DishIngredient allowed for this Dish
    * @return true if and only if it is possible for this Dish to permit the amount amount for the
-   * DishIngredient ingredientName
+   *     DishIngredient ingredientName
    */
   public boolean ableToAdjustIngredient(String ingredientName, int amount) {
     if (ingredientsRequired.get(ingredientName).allowed(amount)) {
@@ -64,8 +64,8 @@ public class Dish extends DishRecipe {
   }
 
   /**
-   * Adjust the DishIngredient of this Dish by this amount amount, increasing by the amount amount
-   * if amount > 0, decreasing by the amount amount if amount < 0.
+   * Adjust the DishIngredient of this Dish by this int amount, increasing by the int amount if
+   * amount is greater than 0, decreasing by the int amount if amount is less than 0.
    *
    * @param ingredientName the name of the ingredient
    * @param amount the amount is being adjusted
@@ -96,6 +96,7 @@ public class Dish extends DishRecipe {
    * Dish. In other words, this method returns true iff there is enough amount of
    * InventoryIngredients in the inventory for every DishIngredient required to cook this Dish
    *
+   * @param in The inventory of this restaurant
    * @return true iff there is enough InventoryIngredients in the inventory to cook this Dish
    */
   public boolean ableToCook(Inventory in) {

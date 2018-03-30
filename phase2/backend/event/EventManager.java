@@ -5,23 +5,24 @@ import java.util.Queue;
 
 /**
  * EventManager - This class manages all the functionality of events
- * <p>
+ *
  * <p>Created by Ang Li on Feb. 22nd, 2018
  */
 public class EventManager implements Runnable {
   private static final String FILE = "phase2/backend/event/event.txt";
   private static boolean isRunning = false;
-  private volatile static Queue<Event> eventQueue = new LinkedList<>(); // TODO: Some how get rid of volatile
+  private static volatile Queue<Event> eventQueue =
+      new LinkedList<>(); // TODO: Some how get rid of volatile
 
-//  /**
-//   * Read the specified file in this class and add the events to the eventQueue
-//   *
-//   * @throws IOException because it reads from a text file
-//   */
-//  public void readFile() throws IOException {
-//    EventReader eventReader = new EventReader(FILE);
-//    eventReader.readFile(eventQueue);
-//  }
+  //  /**
+  //   * Read the specified file in this class and add the events to the eventQueue
+  //   *
+  //   * @throws IOException because it reads from a text file
+  //   */
+  //  public void readFile() throws IOException {
+  //    EventReader eventReader = new EventReader(FILE);
+  //    eventReader.readFile(eventQueue);
+  //  }
 
   /**
    * Setter for isRunning
@@ -42,9 +43,7 @@ public class EventManager implements Runnable {
     eventQueue.add(event);
   }
 
-  /**
-   * Processes the events from eventQueue as long as if there are more events
-   */
+  /** Processes the events from eventQueue as long as if there are more events */
   @Override
   public void run() {
     while (isRunning) {

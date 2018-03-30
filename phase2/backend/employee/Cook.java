@@ -23,7 +23,11 @@ public class Cook extends ServiceEmployee {
     orderQueue.confirmFirstOrderInQueue(getId());
   }
 
-  /** Cook confirms whether the food is ready to be delivered by the server. */
+  /**
+   * Cook confirms whether the food is ready to be delivered by the server.
+   *
+   * @param dishNumber the number of dish that is cooked and ready to be delivered.
+   */
   public void dishReady(int dishNumber) {
     // the log is in orderQueue.dishCompleted() method.
     orderQueue.dishCompleted(dishNumber, getId());
