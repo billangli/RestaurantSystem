@@ -1,5 +1,6 @@
 package backend.server;
 
+import backend.employee.*;
 import backend.logger.RestaurantLogger;
 
 import java.io.IOException;
@@ -7,12 +8,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 /**
  * ComputerServer.java
  * Created by Bill Ang Li
- *
+ * <p>
  * This is the class run in the back end that is responsible for communicating with the clients
  */
 public class ComputerServer implements Runnable {
@@ -177,5 +179,55 @@ public class ComputerServer implements Runnable {
     this.isRunning = false;
   }
 
-  // TODO: Remove client thread
+  /**
+   * Check if the employee id is valid to log in
+   *
+   * @param id the id of employee
+   * @return whether the id is invalid, if invalid, return employee type
+   */
+  int logIn(int id) {
+    Employee employee = EmployeeManager.getEmployeeById(id);
+    if (employee == null || this.isAlreadyLoggedIn(id)) {
+      return Packet.LOGINFAILED;
+    } else if (employee instanceof Cook) {
+      return Packet.COOKTYPE;
+    } else if (employee instanceof Manager) {
+      return Packet.MANAGERTYPE;
+    } else if (employee instanceof Server) {
+      return Packet.SERVERTYPE;
+    }
+    return Packet.LOGINFAILED;
+  }
+
+  /**
+   * Checks if the employee is already logged in
+   *
+   * @param employeeId is the employee ID to check for
+   * @return true the employee is already logged in, false otherwise
+   */
+  private boolean isAlreadyLoggedIn(int employeeId) {
+    for (ClientThread client : clients) {
+      if (client.getEmployeeID() == employeeId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Remove the client thread for the employee from clients for the given employee
+   *
+   * @param employeeId is the identifier for the thread
+   */
+  void removeClientThread(int employeeId) {
+    if (employeeId != 1) {
+      Iterator<ClientThread> iterator = clients.iterator();
+      while (iterator.hasNext()) {
+        ClientThread client = iterator.next();
+        if (client.getEmployeeID() == employeeId) {
+          iterator.remove();
+        }
+      }
+    }
+  }
 }
