@@ -7,6 +7,7 @@ import backend.table.Order;
 import frontend.GUI.CookController;
 import frontend.GUI.MenuController;
 import frontend.GUI.ServerController;
+import frontend.GUI.StartSceneController;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -451,6 +452,8 @@ public class Client implements Runnable {
    */
   private void shutDown() {
 //    // Give a shut down warning by freezing everything
+    StartSceneController controller = (StartSceneController)controllers.get("startController");
+    controller.shut();
     System.out.println("~~~ Shutting down in 3 seconds ~~~");
     try {
       Thread.sleep(3000);

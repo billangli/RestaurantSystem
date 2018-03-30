@@ -2,6 +2,7 @@ package frontend.GUI;
 
 import backend.server.Packet;
 import frontend.client.Client;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,20 +68,29 @@ public class StartSceneController {
   }
 
   public void shut() {
-    Stage window = new Stage();
-    window.initModality(Modality.APPLICATION_MODAL);
-    try {
-      FXMLLoader numLoader =
-              new FXMLLoader(this.getClass().getResource("/frontend/GUI/ShutDown.fxml"));
-      Parent scene = numLoader.load();
-      window.setTitle("SHUT DOWN");
-      window.setScene(new Scene(scene, 200, 200));
+      try {
+          Platform.runLater(new Runnable() {
+              @Override
+              public void run() {
 
-      window.showAndWait();
-    } catch (IOException e) {
-      System.out.println("CAN NOT SHUT DOWN");
-    }
-
-
+                  Stage window = new Stage();
+                  window.initModality(Modality.APPLICATION_MODAL);
+                  FXMLLoader numLoader =
+                          new FXMLLoader(this.getClass().getResource("/frontend/GUI/ShutDown.fxml"));
+                  Parent scene = null;
+                  try {
+                      scene = numLoader.load();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+                  window.setTitle("ComputerServer is shutting down");
+                  window.setScene(new Scene(scene, 300, 100));
+                  window.show();
+              }
+// ...
+          });
+      } catch (Exception e) {
+          int i = 0;
+      }
   }
 }
