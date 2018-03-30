@@ -8,7 +8,6 @@ import backend.inventory.DishIngredient;
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
-import backend.logger.RestaurantLogger;
 import backend.table.TableManager;
 
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 import static backend.inventory.Inventory.getInstance;
 
@@ -41,9 +39,6 @@ class ClientThread implements Runnable {
   private Inventory inventory = Inventory.getInstance();
   private ComputerServer computerServer = ComputerServer.getInstance();
 
-  // Logger
-  private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
-
   /**
    * Constructor for Client Thread
    *
@@ -66,18 +61,19 @@ class ClientThread implements Runnable {
    * It is responsible for constantly listening for new input updates from the client
    */
   @Override
-  public void run() { // TODO: Need to comment
-    logger.info("Running this client thread");
+  public void run() {
+    // Only listen when this client thread is connected to the client, otherwise don't be in loop
     while (this.connected) {
       try {
         Object object = this.input.readObject();
 
         if (object != null) {
+          // Received a packet from client
           Packet packet = (Packet) object;
-          logger.info("Received packet type " + packet.getType());
+//          System.out.println("Received packet type " + packet.getType());
 
           if (packet.isEventType()) {
-            // Just an event
+            // If the packet contains information to make an event, create an event and add it to the queue
             EventManager.addEvent(createEvent(packet));
           } else {
             switch (packet.getType()) {
@@ -93,56 +89,68 @@ class ClientThread implements Runnable {
                 this.send(Packet.LOGINCONFIRMATION, logInConfirmation);
                 break;
               case Packet.LOGOFF:
-                logger.info("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
+                // Client is logging off, client can still log back on
+//                System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
                 this.loggedOn = false;
                 break;
               case Packet.DISCONNECT:
-                logger.info("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
-                logger.info("Disconnecting socket");
+                // Client instance is disconnecting the connection, should remove this clientThread from clients in ComputerServer
+//                System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
+//                System.out.println("Disconnecting socket");
                 this.loggedOn = false;
                 this.connected = false;
                 break;
               case Packet.REQUESTNUMBEROFTABLES:
-                logger.info("Sending number of tables");
+                // Client is requesting the number of tables
+//                System.out.println("Sending number of tables");
                 this.send(Packet.RECEIVENUMBEROFTABLES, TableManager.getNumberOfTables());
                 break;
               case Packet.REQUESTMENU:
-                logger.info("Sending menu");
+                // Client is requesting Menu's dishes
+//                System.out.println("Sending menu");
                 Menu menu = Menu.getMenu();
                 this.send(Packet.RECEIVEMENU, menu.getDishes());
                 break;
               case Packet.REQUESTINVENTORY: {
-                logger.info("Sending inventory");
+                // Client is requesting Inventory
+//                System.out.println("Sending inventory");
                 Inventory inventory = getInstance();
                 this.send(Packet.RECEIVEINVENTORY, inventory.getIngredientsInventory());
                 break;
               }
               case Packet.REQUESTTABLEOCCUPANCY:
-                logger.info("Sending table occupancy");
+                // Client is requesting an ArrayList<boolean> of table occupancy
+//                System.out.println("Sending table occupancy");
                 this.send(Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
                 break;
               case Packet.REQUESTREQUEST:
-                logger.info("Sending request");
+                // Client is requesting which ingredients are low in stock and need to be requested
+//                System.out.println("Sending request");
                 this.send(Packet.RECEIVEREQUEST, inventory.getRequests());
                 break;
               case Packet.REQUESTDISHESINPROGRESS:
-                logger.info("Sending dishesInProgress");
+                // Client is requesting dishesInProgress queue
+//                System.out.println("Sending dishesInProgress");
                 this.send(Packet.RECEIVEDISHESINPROGRESS, ServiceEmployee.getOrderQueue().getDishesInProgress());
                 break;
               case Packet.REQUESTORDERSINQUEUE:
-                logger.info("Sending ordersInQueue");
+                // Client is requesting ordersInQueue
+//                System.out.println("Sending ordersInQueue");
                 this.send(Packet.RECEIVEORDERSINQUEUE, ServiceEmployee.getOrderQueue().getOrdersInQueue());
                 break;
               case Packet.REQUESTTABLE:
-                logger.info("Sending table");
+                // Client is requesting the Table with the given table index
+//                System.out.println("Sending table");
                 this.send(Packet.RECEIVETABLE, TableManager.getTable((int) packet.getItem()));
                 break;
               case Packet.REQUESTDISHESCOMPLETED:
-                logger.info("Sending dishes completed");
+                // Client is requesting dishesCompleted
+//                System.out.println("Sending dishes completed");
                 this.send(Packet.RECEIVEDISHESCOMPLETED, ServiceEmployee.getOrderQueue().getDishesCompleted());
                 break;
               case Packet.REQUESTQUANTITIES:
-                logger.info("Sending ingredient quantities");
+                // Client is requesting ingredient quantities
+//                System.out.println("Sending ingredient quantities");
                 HashMap<String, InventoryIngredient> inventoryIngredients = inventory.getIngredientsInventory();
                 HashMap<String, Integer> quantities = new HashMap<>();
                 for (String ingredientName : inventoryIngredients.keySet()) {
@@ -151,12 +159,14 @@ class ClientThread implements Runnable {
                 this.send(Packet.RECEIVEQUANTITIES, quantities);
                 break;
               case Packet.REQUESTBILL:
+                // Client is requesting bill
                 int tableIndex = (int) packet.getItem();
-                logger.info("Sending all dishes delivered to table index " + tableIndex);
+//                System.out.println("Sending all dishes delivered to table index " + tableIndex);
                 this.send(Packet.RECEIVEBILL, TableManager.getTable(tableIndex).getAllDeliveredDishes()); // TODO: Changed from getDishes
                 break;
               case Packet.ADJUSTINGREDIENT: {
-                logger.info("Adjusting ingredient");
+                // Client is adjusting ingredient
+//                System.out.println("Adjusting ingredient");
                 Object[] infoArray = (Object[]) packet.getItem();
                 ArrayList<DishIngredient> dishIngredients = (ArrayList<DishIngredient>) infoArray[0];
                 boolean decrease = (Boolean) infoArray[1];
@@ -167,7 +177,8 @@ class ClientThread implements Runnable {
                 break;
               }
               case Packet.ADJUSTINDIVIDUALINGREDIENT: {
-                logger.info("Adjusting individual ingredient");
+                // Client is sending an individual ingredient to be adjusted
+//                System.out.println("Adjusting individual ingredient");
                 Object[] infoArray = (Object[]) packet.getItem();
                 DishIngredient ingredient = (DishIngredient) infoArray[0];
                 int quantity = (int) infoArray[1];
@@ -179,15 +190,15 @@ class ClientThread implements Runnable {
           }
         }
       } catch (IOException e) {
-        logger.warning("Shutting down the ComputerServer");
+//        System.out.println("Shutting down the ComputerServer");
         this.connected = false;
       } catch (Exception e) {
-        logger.info("Socket closed");
+//        System.out.println("Socket closed");
       }
     }
 
     // Closing the resources when client thread is shutting down
-    logger.info("This client thread is closing");
+//    System.out.println("This client thread is closing");
     try {
       this.input.close();
       this.output.close();
@@ -204,7 +215,7 @@ class ClientThread implements Runnable {
    * @param object is what is being sent
    */
   void send(int type, Object object) {
-    logger.info("Sending " + object.getClass() + ": \"" + object + "\" to employee type " + this.employeeType + " employee " + this.employeeID);
+//    System.out.println("Sending " + object.getClass() + ": \"" + object + "\" to employee type " + this.employeeType + " employee " + this.employeeID);
 
     Packet packet = new Packet(type, object);
     try {
@@ -221,7 +232,7 @@ class ClientThread implements Runnable {
    * @param type is the type of the message
    */
   void send(int type) {
-    logger.info("Sending " + type + " to employee type" + this.employeeType + " employee " + this.employeeID);
+//    System.out.println("Sending " + type + " to employee type" + this.employeeType + " employee " + this.employeeID);
 
     Packet packet = new Packet(type);
     try {
