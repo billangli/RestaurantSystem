@@ -1,14 +1,15 @@
 package backend;
 
-import backend.employee.*;
+import backend.employee.Cook;
+import backend.employee.EmployeeManager;
+import backend.employee.Manager;
+import backend.employee.Server;
 import backend.event.EventManager;
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
-import backend.logger.BillLogger;
 import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
-import backend.server.Packet;
 import backend.table.TableManager;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -144,36 +145,10 @@ public class RestaurantSystem extends Application {
     logger.config("---------initialization over---------\n\n");
   }
 
-  // TODO: Move this somewhere else where it makes more sense
-
-  /**
-   * check if the employee id is valid to log in
-   * @param id the id of employee
-   * @return whether the id is invalid, if invalid, return employee type
-   */
-  public static int logIn(int id) {
-    Employee employee = EmployeeManager.getEmployeeById(id);
-    if (employee == null) {
-      logger.info("Employee log in failed, employee ID: " + Integer.toString(id));
-      return Packet.LOGINFAILED;
-    } else if (employee instanceof Cook) {
-      logger.info("Cook log in successful, employee ID: " + Integer.toString(id));
-      return Packet.COOKTYPE;
-    } else if (employee instanceof Manager) {
-      logger.info("Manager log in successful, employee ID: " + Integer.toString(id));
-      return Packet.MANAGERTYPE;
-    } else if (employee instanceof Server) {
-      logger.info("Server log in successful, employee ID: " + Integer.toString(id));
-      return Packet.SERVERTYPE;
-    }
-    logger.info("Employee log in failed, employee ID: " + Integer.toString(id));
-    return Packet.LOGINFAILED;
-  }
-
   /**
    * display the GUI
    * @param primaryStage the stage that display the GUI
-   * @throws IOException
+   * @throws IOException for loading the GUI
    */
   @Override
   public void start(Stage primaryStage) throws IOException {

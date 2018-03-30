@@ -1,6 +1,5 @@
 package backend.server;
 
-import backend.RestaurantSystem;
 import backend.employee.ServiceEmployee;
 import backend.event.EventManager;
 import backend.event.ProcessableEvent;
@@ -35,7 +34,7 @@ class ClientThread implements Runnable {
   private int employeeID = -1; // Default value
   private int employeeType = -1; // Default value
 
-  // Getting the instances from singleton classses
+  // Getting the instances from singleton classes
   private Inventory inventory = Inventory.getInstance();
   private ComputerServer computerServer = ComputerServer.getInstance();
 
@@ -80,7 +79,7 @@ class ClientThread implements Runnable {
               case Packet.LOGINREQUEST:
                 // Log in sendRequest
                 int id = (Integer) packet.getItem();
-                int logInConfirmation = RestaurantSystem.logIn(id);
+                int logInConfirmation = computerServer.logIn(id);
                 if (logInConfirmation != Packet.LOGINFAILED) {
                   this.loggedOn = true;
                   this.employeeID = id;
@@ -91,13 +90,14 @@ class ClientThread implements Runnable {
               case Packet.LOGOFF:
                 // Client is logging off, client can still log back on
 //                System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
-                this.loggedOn = false;
+                this.logOff();
                 break;
               case Packet.DISCONNECT:
                 // Client instance is disconnecting the connection, should remove this clientThread from clients in ComputerServer
 //                System.out.println("Employee type " + this.getEmployeeType() + " employee " + this.getEmployeeID() + " is logging off");
 //                System.out.println("Disconnecting socket");
-                this.loggedOn = false;
+                computerServer.removeClientThread(this.employeeID);
+                this.logOff();
                 this.connected = false;
                 break;
               case Packet.REQUESTNUMBEROFTABLES:
@@ -171,7 +171,6 @@ class ClientThread implements Runnable {
                 ArrayList<DishIngredient> dishIngredients = (ArrayList<DishIngredient>) infoArray[0];
                 boolean decrease = (Boolean) infoArray[1];
                 Inventory inventory = Inventory.getInstance();
-                ComputerServer computerServer = ComputerServer.getInstance();
                 HashMap newIngredientQuantities = inventory.modifyIngredientRunningQuantity(dishIngredients, decrease);
                 computerServer.broadcast(Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newIngredientQuantities);
                 break;
@@ -256,6 +255,15 @@ class ClientThread implements Runnable {
   }
 
   /**
+   * Resetting everything to before client logged in
+   */
+  private void logOff() {
+    this.loggedOn = false;
+    this.employeeID = -1; // Default value
+    this.employeeType = -1; // Default value
+  }
+
+  /**
    * ComputerServer can call this method to shut down the client thread
    */
   void shutDown() {
@@ -267,7 +275,7 @@ class ClientThread implements Runnable {
       e.printStackTrace();
     }
     this.connected = false;
-    this.loggedOn = false;
+    this.logOff();
   }
 
   /**
