@@ -1,6 +1,6 @@
 0. Update README!
 
-1. Empty catchblock in MenuConttroller line 93 DONE!!!!!
+
 
 2. If we run javafx without the server does it throw error or crash? DONE! throws error message.. and prevents...e
 
@@ -28,15 +28,14 @@
 
 10. Do the cornercases 
 
-- DONE -------- Enter the wrong ID, the program shuts down. DONE
+
 - Each ID can used to be logged in only once at a time; if someone used to 2 to log in, then another person should not be able to log in with 2.
 - Rescaling? If it is not allowed, do not allow window size to be modified as it will hide or produce empty spaces
 - If multiple cook UIs are open, then if you press 'Confirm next order' on one cook UI, the Dishes in progress column for that UI is not updated - although all other cook UI windows do get updated.
 - Check Inventory shows memory addresses, not integers!
-- DONE ---------List of orders not delivered yet button for the manager doesn't work? Lags bugs (I had multiple othher javafx running for cook, server, etc.)
 - After submitting an order from the server UI, if you open the server again, then those same orders remain on the new window ... when you click any part of the window, it updates.
 - Cooks should be able to receive orders even if there are orders currently in progress!
 
 CRITICAL:
 - When using different ip addresses, the client cannot open the cook UI
-- If the dish is delivered before the server GUI is open, then the dish does not show on the screen.
+- If the dish is delivered before the server GUI is open, then the dish does not show on the screen. FIXED
