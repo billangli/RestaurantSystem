@@ -44,6 +44,7 @@ public class FXMain extends Application {
     startScene.setBackground(new Background(mainImage));
 
     StartSceneController paneController = startLoader.getController();
+    client.storeController("startController",paneController);
     paneController.start();
 
     primaryStage.setTitle(TITLE);

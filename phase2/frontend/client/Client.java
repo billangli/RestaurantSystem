@@ -28,13 +28,13 @@ public class Client implements Runnable {
   private static final String IP = "127.0.0.1";
   private static final int PORT = 6000;
   private Socket socket;
-  private boolean connected;
-  private boolean loggedIn = false;
+  private volatile boolean connected;
+  private volatile boolean loggedIn = false;
   private int employeeType;
   private ObjectInputStream input;
   private ObjectOutputStream output;
   private volatile boolean requestedPacketReceived = false; // The packet request has been received
-  private volatile boolean otherUpdate = false; // Some other client updated something
+  private volatile boolean otherUpdate = true; // Some other client updated something
   private volatile Object object;
 
   // Creating the singleton instance of this class
@@ -104,6 +104,7 @@ public class Client implements Runnable {
               switch (packet.getType()) {
                 case Packet.SERVERSHUTDOWN:
                   // The ComputerServer is shutting down, so shut down this program too
+                  this.send(Packet.DISCONNECT);
                   this.shutDown();
                   break;
                 case Packet.RECEIVEDISHESINPROGRESS: {
@@ -157,6 +158,7 @@ public class Client implements Runnable {
         }
       } catch (IOException e) {
         System.out.println("*** IO Exception ***");
+        this.connected = false;
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
       }
@@ -448,7 +450,7 @@ public class Client implements Runnable {
    * This is called when Client is closing the program or when the Server is shutting down
    */
   private void shutDown() {
-    // Give a shut down warning by freezing everything
+//    // Give a shut down warning by freezing everything
     System.out.println("~~~ Shutting down in 3 seconds ~~~");
     try {
       Thread.sleep(3000);
