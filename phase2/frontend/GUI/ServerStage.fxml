@@ -60,7 +60,7 @@
        </VBox>
        <VBox>
           <children>
-              <VBox fx:id="gridParent" minHeight="0.0" minWidth="0.0" prefHeight="397.0" prefWidth="405.0">
+              <VBox fx:id="gridParent" minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="405.0">
                  <children>
                      <HBox alignment="TOP_RIGHT" prefHeight="31.0" prefWidth="405.0" spacing="3.0">
                          <VBox.margin>
@@ -86,9 +86,14 @@
                      <HBox fx:id="hBox2" prefHeight="25.0" prefWidth="405.0" />
                  </children>
               </VBox>
+            <Pane prefHeight="29.0" prefWidth="405.0">
+               <children>
+                  <Label fx:id="instructionLabel" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="374.0" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </Pane>
               <Pane prefHeight="168.0" prefWidth="405.0">
                  <children>
-                     <TableView fx:id="finishedDishTableView" layoutY="-29.0" prefHeight="200.0" prefWidth="405.0">
+                     <TableView fx:id="finishedDishTableView" layoutY="-5.0" prefHeight="176.0" prefWidth="405.0">
                          <placeholder>
                              <Label text="No dishes are ready yet" />
                          </placeholder>
