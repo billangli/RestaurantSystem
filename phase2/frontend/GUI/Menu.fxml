@@ -58,7 +58,7 @@
         <AnchorPane prefHeight="84.0" prefWidth="600.0">
             <children>
                 <Label fx:id="numOfOrderLabel" layoutX="315.0" layoutY="6.0" prefHeight="17.0" prefWidth="215.0" text="number of dish: 0" />
-                <Button fx:id="getSubmitButton" layoutX="530.0" layoutY="41.0" mnemonicParsing="false" onAction="#getSumbitButtonClicked" text="Submit" />
+                <Button fx:id="getSubmitButton" layoutX="530.0" layoutY="41.0" mnemonicParsing="false" onAction="#getSubmitButtonClicked" text="Submit" />
             <Button layoutX="145.0" layoutY="29.0" mnemonicParsing="false" onAction="#getOrderButtonClicked" text="Order" />
             <Button layoutX="423.0" layoutY="28.0" mnemonicParsing="false" onAction="#getDeleteButtonClicked" text="Delete" />
             </children>

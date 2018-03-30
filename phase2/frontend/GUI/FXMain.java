@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** A main class for GUI. GUI shows up as the main method runs. */
 public class FXMain extends Application {
   Scene mainScene;
   final String TITLE = "Welcome to Four Guys restaurant system";
@@ -22,8 +23,8 @@ public class FXMain extends Application {
   public static Client client = Client.getInstance();
 
   public static void main(String[] args) {
-      BillLogger.init();
-      launch(args);
+    BillLogger.init();
+    launch(args);
   }
 
   @Override

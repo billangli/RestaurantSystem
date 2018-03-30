@@ -15,7 +15,7 @@
     <children>
       <HBox alignment="CENTER_RIGHT" spacing="3.0">
          <children>
-            <Button mnemonicParsing="false" text="Receive Item" onAction="#receiveItem"/>
+            <Button mnemonicParsing="false" onAction="#receiveItem" text="Receive Item" />
             <Button mnemonicParsing="false" onAction="#logOff" text="Sign out" />
          </children>
          <padding>
@@ -29,7 +29,7 @@
                         <Font size="20.0" />
                     </font>
                 </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next dishes to cook" textAlignment="CENTER" wrappingWidth="300.0">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next orders to cook" textAlignment="CENTER" wrappingWidth="300.0">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -40,7 +40,7 @@
             <children>
                 <TableView fx:id="tableViewDishesInProgress" prefHeight="374.0" prefWidth="300.0">
                     <placeholder>
-                        <Label text="No dishes are in progress"/>
+                        <Label text="No dishes are in progress" />
                     </placeholder>
                     <columns>
                         <TableColumn fx:id="nameColumn1" editable="false" prefWidth="175.0" sortable="false" text="Dish name">
@@ -57,7 +57,7 @@
                 </TableView>
                 <TableView fx:id="tableViewDishesInQueue" prefHeight="200.0" prefWidth="300.0">
                     <placeholder>
-                        <Label text="No dishes are in queue."/>
+                        <Label text="No dishes are in queue." />
                     </placeholder>
                     <columns>
                         <TableColumn fx:id="nameColumn2" editable="false" prefWidth="175.0" sortable="false" text="Dish name">
@@ -77,7 +77,7 @@
         <AnchorPane prefHeight="84.0" prefWidth="600.0">
             <children>
                 <Label fx:id="numOfOrderLabel" layoutX="315.0" layoutY="6.0" prefHeight="17.0" prefWidth="215.0" text="Number of orders in queue: 0" />
-                <Button fx:id="getOrderButton" layoutX="415.0" layoutY="29.0" mnemonicParsing="false" onAction="#getOrderButtonClicked" text="Confirm next order" />
+                <Button fx:id="getOrderButton" layoutX="415.0" layoutY="29.0" mnemonicParsing="false" onAction="#confirmNextOrderButtonClicked" text="Confirm next order" />
                 <Button layoutX="107.0" layoutY="29.0" mnemonicParsing="false" onAction="#finishedButtonClicked" text="Finished" />
             </children>
         </AnchorPane>

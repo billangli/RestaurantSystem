@@ -2,19 +2,14 @@ package frontend.GUI;
 
 import backend.inventory.Dish;
 import backend.inventory.Inventory;
-import backend.inventory.Menu;
 import frontend.client.Client;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * the controller for ingredients
- */
+/** The controller for Ingredient GUI */
 public class IngredientController {
     @FXML
     GridPane tableView = new GridPane();

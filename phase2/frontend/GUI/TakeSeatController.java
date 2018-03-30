@@ -20,6 +20,11 @@ public class TakeSeatController {
 
   private final Client client = Client.getInstance();
 
+  /**
+   * Set id of this employee.
+   *
+   * @param id Id of this employee.
+   */
   public void setMyId(int id) {
     this.myId = id;
   }
@@ -40,13 +45,9 @@ public class TakeSeatController {
 
       ArrayList<Object> parameters = new ArrayList<>();
       parameters.add(tableNumber);
-      parameters.add(Integer.parseInt(tf.getText())); // TODO: SHould be number of customers
-      client.sendEvent(
-          Packet.TAKESEAT,
-          parameters); // TODO: In backend, call takeSeat() method (need number of customers)
-      // (serverObj).takeSeat(TableManager.getTable(tableNumber - 1),
-      // Integer.parseInt(tf.getText()));
-      /* ------------------------------------------------------------------------------------------ */
+      parameters.add(Integer.parseInt(tf.getText())); // TODO: Should be number of customers
+      client.sendEvent(Packet.TAKESEAT, parameters);
+      // TODO: In backend, call takeSeat() method (need number of customers)
 
       // close the window
       ((Stage) confirmButton.getScene().getWindow()).close();

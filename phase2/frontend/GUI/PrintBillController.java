@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+
 import java.util.logging.Logger;
 
 /** the controller for print bill GUI */
@@ -22,8 +23,11 @@ public class PrintBillController {
   private String billHeader = "=== PRINT BILL ===\n";
   private StringBuilder billBody = new StringBuilder();
 
-  // TODO: when 'Pay bill' is clicked, the paid dishes should be removed from the table. Backend.
-
+  /**
+   * Set table number of this table that asked for bill.
+   *
+   * @param tableNumber number of the table that asked for bill.
+   */
   public void setTableNumber(int tableNumber) {
     this.tableNumber = tableNumber;
   }
@@ -70,6 +74,12 @@ public class PrintBillController {
     totalCost = 0;
   }
 
+  /**
+   * Set the table view with items in <code>observableList</code>.
+   *
+   * @param observableList the list that contains items that are going to be displayed on table
+   *     view.
+   */
   public void setTableView(ObservableList<Dish> observableList) {
     tableView.setItems(observableList);
     if (!observableList.isEmpty()) {

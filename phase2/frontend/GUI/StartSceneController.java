@@ -13,19 +13,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * the controller for main GUI
- */
+/** the controller for main GUI */
 public class StartSceneController {
-  @FXML
-  private TextField tf;
+  @FXML private TextField tf;
   private Scene scene;
   private Client client = Client.getInstance();
-  @FXML
-  private Text actiontarget;
+  @FXML private Text actiontarget;
 
-  @FXML
-  GridPane tableView = new GridPane();
+  @FXML GridPane tableView = new GridPane();
 
   /**
    * submit your id and confirm your identity
@@ -41,7 +36,7 @@ public class StartSceneController {
 
       System.out.println(tf.getText());
       String id = tf.getText();
-      int type = client.sendLogInRequest(id); //TODO what happens if it fails?
+      int type = client.sendLogInRequest(id); // TODO what happens if it fails?
       if (type == Packet.LOGINFAILED) {
         actiontarget.setText("Log in failed");
       } else {
@@ -59,12 +54,12 @@ public class StartSceneController {
   start up the program
    */
   public void start() {
-    tf.textProperty().addListener((observable, oldValue, newValue) -> {
-      if (!newValue.matches("\\d*")) {
-        tf.setText(newValue.replaceAll("[^\\d]", ""));
-      }
-    });
+    tf.textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (!newValue.matches("\\d*")) {
+                tf.setText(newValue.replaceAll("[^\\d]", ""));
+              }
+            });
   }
-
-
 }

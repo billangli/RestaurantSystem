@@ -270,7 +270,6 @@ public class ServerController implements Initializable {
         ClearTableController controller = loader.getController();
 
         controller.setTableNumber(this.selectedTableNumber);
-        controller.setMyId(myId);
         controller.setText(
             "Are you sure to clear table number " + Integer.toString(selectedTableNumber) + "?");
         controller.rectangleArrayList = this.rectangleArrayList;
@@ -309,6 +308,10 @@ public class ServerController implements Initializable {
     }
   }
 
+  /**
+   * This is called when 'Receive item' button is clicked. Allows to enter amount of received
+   * ingredients to the server.
+   */
   @FXML
   private void receiveItem() {
     Stage window = new Stage();
@@ -330,6 +333,7 @@ public class ServerController implements Initializable {
   }
 
   @FXML
+  /** Called when 'Sign out' button is clicked. Logs out and goes back to log-in window. */
   protected void logOff() throws IOException {
     client.sendEvent(Packet.LOGOFF);
 

@@ -15,22 +15,22 @@ import java.io.IOException;
 
 import static frontend.GUI.FXMain.client;
 
-/**
- * the controller for manager GUI
- */
+/** the controller for Manager GUI */
 public class ManagerController {
   @FXML GridPane tableView = new GridPane();
   @FXML Button signOut;
-
   private int myId;
 
+  /**
+   * Set the id of this employee.
+   *
+   * @param id Id of this employee.
+   */
   public void setMyId(int id) {
     myId = id;
   }
 
-  /**
-   * request the ingredient that are running low
-   */
+  /** request the ingredient that are running low */
   @FXML
   private void request() {
     Stage window = new Stage();
@@ -48,9 +48,7 @@ public class ManagerController {
     }
   }
 
-  /**
-   * display the current inventory
-   */
+  /** display the current inventory */
   @FXML
   protected void ingredientAmount() {
     // TODO inventory to string
@@ -70,7 +68,8 @@ public class ManagerController {
   }
 
   /**
-   * println item and update inventory
+   * This is called when 'Receive item' button is clicked. Allows to enter amount of received
+   * ingredients to the server.
    */
   @FXML
   private void receiveItem() {
@@ -92,9 +91,7 @@ public class ManagerController {
     }
   }
 
-  /**
-   * display the dishes that are not delivered
-   */
+  /** display the dishes that are not delivered */
   @FXML
   private void checkDishesNotDelivered() {
     Stage window = new Stage();
@@ -115,6 +112,7 @@ public class ManagerController {
 
   /**
    * log off from the current account
+   *
    * @throws IOException
    */
   @FXML

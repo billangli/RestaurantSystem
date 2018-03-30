@@ -14,9 +14,7 @@ import java.util.HashMap;
 
 import static frontend.GUI.FXMain.client;
 
-/**
- * the controller for println item GUI
- */
+/** the controller for println item GUI */
 public class ReceiveItemController {
   @FXML Button confirmButton, cancelButton;
   @FXML TextField tf;
@@ -24,13 +22,16 @@ public class ReceiveItemController {
 
   private int myId;
 
+  /**
+   * Set id of this employee.
+   *
+   * @param id Id of this employee.
+   */
   public void setMyId(int id) {
     this.myId = id;
   }
 
-  /**
-   * start the GUI after init
-   */
+  /** start the GUI after init */
   public void start() {
     tf.textProperty()
         .addListener(
@@ -41,13 +42,10 @@ public class ReceiveItemController {
             });
   }
 
-  /**
-   * initialize the GUI
-   */
+  /** initialize the GUI */
   @FXML
   private void initialize() {
     ObservableList<String> ingredientNames = FXCollections.observableArrayList();
-
 
     HashMap ingredientHashMap = (HashMap) client.sendRequest(Packet.REQUESTINVENTORY);
     /* ---------------------------------------------------------- */
@@ -56,15 +54,12 @@ public class ReceiveItemController {
       ingredientNamesArrayList.add((String) object);
     }
 
-
     ingredientNames.addAll(ingredientNamesArrayList);
-//    ingredientNames.addAll("banana", "apple"); // temporary values for testing
+    //    ingredientNames.addAll("banana", "apple"); // temporary values for testing
     choiceBox.setItems(ingredientNames);
   }
 
-  /**
-   * confirm the action, println items
-   */
+  /** confirm the action, println items */
   @FXML
   private void confirmButtonClicked() {
     if (tf.getText().length() > 0 && choiceBox.getValue() != null) {
@@ -78,17 +73,16 @@ public class ReceiveItemController {
       info.add(quantity);
       client.sendEvent(Packet.RECEIVEINGREDIENT, info);
 
-      //TODO: when this button is clicked, Manager's check inventory GUI should be updated
-        //TODO: when dishes are ordered(it's not in this controller), Manager's check inventory GUI should be updated
+      // TODO: when this button is clicked, Manager's check inventory GUI should be updated
+      // TODO: when dishes are ordered(it's not in this controller), Manager's check inventory GUI
+      // should be updated
 
       // close the window
       ((Stage) confirmButton.getScene().getWindow()).close();
     }
   }
 
-  /**
-   * cancel the current action
-   */
+  /** cancel the current action */
   @FXML
   private void cancelButtonClicked() {
     // close the window
