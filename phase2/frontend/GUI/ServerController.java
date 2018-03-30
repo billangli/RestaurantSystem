@@ -43,6 +43,7 @@ public class ServerController implements Initializable {
   @FXML private HBox hBox2;
   @FXML private TableView finishedDishTableView;
   @FXML private GridPane tableView = new GridPane();
+  @FXML private Label instructionLabel;
 
   private ArrayList<Rectangle> rectangleArrayList = new ArrayList<>();
   private int selectedTableNumber;
@@ -159,9 +160,12 @@ public class ServerController implements Initializable {
 
   @FXML
   protected void takeSeat() {
-
-    if (this.selectedTableNumber != 0
-        && rectangleArrayList.get(selectedTableNumber - 1).getFill() != COLOR_OCCUPIED) {
+    if (this.selectedTableNumber == 0) {
+      instructionLabel.setText("Select a table");
+    } else if (rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED) {
+      instructionLabel.setText("Select an empty table");
+    } else {
+      instructionLabel.setText("");
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
       try {
@@ -190,9 +194,14 @@ public class ServerController implements Initializable {
 
   @FXML
   protected void order() {
-    if (selectedTableNumber != 0
-        && rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED
-        && finishedDishTableView.getItems().isEmpty()) {
+    if (selectedTableNumber == 0) {
+      instructionLabel.setText("Select a table");
+    } else if (rectangleArrayList.get(selectedTableNumber - 1).getFill() != COLOR_OCCUPIED) {
+      instructionLabel.setText("Select an occupied table");
+    } else if (!finishedDishTableView.getItems().isEmpty()) {
+      instructionLabel.setText("Deliver dishes first");
+    } else {
+      instructionLabel.setText("");
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
       MenuController menuController = (MenuController) client.getStored("menuController");
@@ -209,8 +218,12 @@ public class ServerController implements Initializable {
 
   @FXML
   protected void bill() {
-    if (selectedTableNumber != 0
-        && rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED) {
+    if (selectedTableNumber == 0) {
+      instructionLabel.setText("Select a table");
+    } else if (rectangleArrayList.get(selectedTableNumber - 1).getFill() != COLOR_OCCUPIED) {
+      instructionLabel.setText("Select an occupied table");
+    } else {
+      instructionLabel.setText("");
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
 
@@ -221,7 +234,8 @@ public class ServerController implements Initializable {
         window.setScene(new Scene(root, 600, 600));
 
         PrintBillController controller = loader.getController();
-        controller.tableNumberLabel.setText("Print bill for table "+Integer.toString(selectedTableNumber));
+        controller.tableNumberLabel.setText(
+            "Print bill for table " + Integer.toString(selectedTableNumber));
         controller.setTableNumber(this.selectedTableNumber);
 
         ObservableList<Dish> observableList = FXCollections.observableArrayList();
@@ -239,8 +253,12 @@ public class ServerController implements Initializable {
 
   @FXML
   protected void clear() {
-    if (this.selectedTableNumber != 0
-        && rectangleArrayList.get(selectedTableNumber - 1).getFill() == COLOR_OCCUPIED) {
+    if (this.selectedTableNumber == 0) {
+      instructionLabel.setText("Select a table");
+    } else if (rectangleArrayList.get(selectedTableNumber - 1).getFill() != COLOR_OCCUPIED) {
+      instructionLabel.setText("Select an occupied table");
+    } else {
+      instructionLabel.setText("");
       Stage window = new Stage();
       window.initModality(Modality.APPLICATION_MODAL);
 
