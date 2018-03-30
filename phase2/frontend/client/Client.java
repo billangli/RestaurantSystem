@@ -156,8 +156,8 @@ public class Client implements Runnable {
           }
         }
       } catch (IOException e) {
-        System.out.println("Shutting down the client");
-        this.shutDown();
+        System.out.println("*** IO Exception ***");
+//        this.shutDown();
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
       }

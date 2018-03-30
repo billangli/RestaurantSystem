@@ -20,6 +20,9 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.logging.Logger;
 
+/**
+ * the backend server that require to be run before anything else
+ */
 public class RestaurantSystem extends Application {
   public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   public static ComputerServer computerServer;
@@ -142,6 +145,12 @@ public class RestaurantSystem extends Application {
   }
 
   // TODO: Move this somewhere else where it makes more sense
+
+  /**
+   * check if the employee id is valid to log in
+   * @param id the id of employee
+   * @return whether the id is invalid, if invalid, return employee type
+   */
   public static int logIn(int id) {
     Employee employee = EmployeeManager.getEmployeeById(id);
     if (employee == null) {
@@ -161,6 +170,11 @@ public class RestaurantSystem extends Application {
     return Packet.LOGINFAILED;
   }
 
+  /**
+   * display the GUI
+   * @param primaryStage the stage that display the GUI
+   * @throws IOException
+   */
   @Override
   public void start(Stage primaryStage) throws IOException {
     // load starter interface
