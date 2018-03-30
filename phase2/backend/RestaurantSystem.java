@@ -196,7 +196,6 @@ public class RestaurantSystem extends Application {
 
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
-    BillLogger.init();
     startBackEnd();
     EventManager.setRunning(true);
     Thread eventThread = new Thread(new EventManager());

@@ -1,5 +1,6 @@
 package frontend.GUI;
 
+import backend.logger.BillLogger;
 import backend.server.Packet;
 import frontend.client.Client;
 import javafx.application.Application;
@@ -21,39 +22,44 @@ public class FXMain extends Application {
   public static Client client = Client.getInstance();
 
   public static void main(String[] args) {
-    launch(args);
+      BillLogger.init();
+      launch(args);
   }
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    //load starter interface
-    FXMLLoader startLoader = new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
+    // load starter interface
+    FXMLLoader startLoader =
+        new FXMLLoader(this.getClass().getResource("/frontend/GUI/Start.fxml"));
     GridPane startScene = startLoader.load();
     mainScene = new Scene(startScene, WIDTH, HEIGHT);
-    BackgroundImage mainImage = new BackgroundImage(new Image("hp.jpg",
-            600, 600, false, true),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+    BackgroundImage mainImage =
+        new BackgroundImage(
+            new Image("hp.jpg", 600, 600, false, true),
+            BackgroundRepeat.REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     startScene.setBackground(new Background(mainImage));
 
     StartSceneController paneController = startLoader.getController();
     paneController.start();
 
-
     primaryStage.setTitle(TITLE);
     primaryStage.setScene(mainScene);
     primaryStage.show();
-    primaryStage.setOnCloseRequest(t -> {
-      System.out.println("~~~ Shutting down in 3 seconds ~~~");
-      try {
-        Thread.sleep(3000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+    primaryStage.setOnCloseRequest(
+        t -> {
+          System.out.println("~~~ Shutting down in 3 seconds ~~~");
+          try {
+            Thread.sleep(3000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
 
-      client.sendEvent(Packet.DISCONNECT);
-      Platform.exit();
-      System.exit(0);
-    });
+          client.sendEvent(Packet.DISCONNECT);
+          Platform.exit();
+          System.exit(0);
+        });
   }
 }
