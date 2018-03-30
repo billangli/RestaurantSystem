@@ -49,9 +49,6 @@ public class OrderQueue {
   public void confirmFirstOrderInQueue(int cookId) {
     if (OrdersInQueue.isEmpty()) {
       logger.info("There are no orders in the queue to be cooked.");
-    } else if (!DishesInProgress.isEmpty()) {
-      logger.info(
-          "There are dishes that are in progress. Those should be finished first before confirming orders.");
     } else {
       Order order = OrdersInQueue.remove();
       logger.info(
