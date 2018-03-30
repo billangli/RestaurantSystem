@@ -2,6 +2,7 @@ package frontend.GUI;
 
 import backend.inventory.Dish;
 import backend.inventory.Inventory;
+import backend.inventory.Menu;
 import frontend.client.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ public class IngredientController {
     GridPane tableView = new GridPane();
 
     private Dish dish;
+    private MenuController controller;
     private Inventory inventory = Inventory.getInstance();
     private Client client = Client.getInstance();
 
@@ -27,7 +29,7 @@ public class IngredientController {
      * generate the ingredient display for this dish
      * @param dish the dish is being used
      */
-    public void getDish(Dish dish){
+    public void setDish(Dish dish){
         this.dish = dish;
         int i = 0;
         for(String in: dish.getIngredientsRequired().keySet()){
@@ -61,9 +63,13 @@ public class IngredientController {
             i++;
         }
     }
+    public void setController(MenuController controller){
+        this.controller = controller;
+    }
 
     @FXML
     private void done(){
+        controller.addDish(dish);
         ((Stage) tableView.getScene().getWindow()).close();
     }
 }

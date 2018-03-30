@@ -28,7 +28,7 @@ public class InventoryDisplayController {
         int i = 0;
         for(String in: ingredients.keySet()){
             tableView.add(new Text(in),0,i);
-            tableView.add(new Text(""+ingredients.get(in)),1, i);
+            tableView.add(new Text(""+(int)ingredients.get(in)),1, i);
             i++;
         }
     }

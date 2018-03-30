@@ -77,6 +77,7 @@ public class Client implements Runnable {
 
       try {
         Packet packet = new Packet(type, object);
+        this.output.reset();
         this.output.writeObject(packet);
       } catch (IOException e) {
         e.printStackTrace();
@@ -94,6 +95,7 @@ public class Client implements Runnable {
 
       try {
         Packet packet = new Packet(type);
+        this.output.reset();
         this.output.writeObject(packet);
       } catch (IOException e) {
         e.printStackTrace();
