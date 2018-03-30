@@ -69,8 +69,11 @@ public class Client implements Runnable {
       this.output = new ObjectOutputStream(this.socket.getOutputStream());
       this.input = new ObjectInputStream(this.socket.getInputStream());
     } catch (IOException ioe) {
+      System.err.println("Error connecting to server");
       return false;
     }
+
+    System.out.println("Connection successful");
     return true;
   }
 
@@ -87,12 +90,14 @@ public class Client implements Runnable {
         if (object != null) {
           // Received new object in ObjectInputStream from ComputerServer
           Packet packet = (Packet) object;
+//          System.out.println("Packet type: " + packet.getType());
 
           if (packet.getType() == Packet.LOGINCONFIRMATION) {
             // Confirm that this client has logged in successfully or not
             confirmLogIn((int) packet.getItem());
           } else if (packet.isUpdateType()) {
             // This Packet is an update from the ComputerServer (these can be sent to Client even if not requested)
+//            System.out.println("Received " + packet.getItem());
 
             if (otherUpdate) {
               // This packet was not requested by the Client, so it is an update on the resources from changes made by
@@ -141,14 +146,19 @@ public class Client implements Runnable {
               }
             } else {
               // This is not an update, but actually was a resource requested by this Client
+              System.out.println("The object is ready");
               this.requestedPacketReceived = true;
             }
           } else if (packet.isReceiveType()) {
             // This Packet was requested by the Client
+            System.out.println("The object is ready");
             this.requestedPacketReceived = true;
+          } else {
+//            System.out.println("*** Packet type invalid ***");
           }
         }
       } catch (IOException e) {
+        System.out.println("*** IO Exception ***");
         this.connected = false;
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -192,6 +202,8 @@ public class Client implements Runnable {
   private void send(int type, Object item) {
     // Only send when this client is connected to the ComputerServer
     if (this.connected) {
+      System.out.println("Sending " + type + " " + item);
+
       // Disconnect from the ComputerServer if this Packet is to send a disconnect message
       if (type == Packet.DISCONNECT) {
         this.connected = false;
@@ -215,6 +227,8 @@ public class Client implements Runnable {
   private void send(int type) {
     if (this.connected) {
       // Only send when Client is connected to ComputerServer
+//      System.out.println("Sending " + type);
+
       // Disconnect if sending Client is disconnecting
       if (type == Packet.DISCONNECT) {
         this.connected = false;
@@ -240,10 +254,13 @@ public class Client implements Runnable {
     this.send(requestType);
 
     // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request...");
     while (!this.requestedPacketReceived) ;
 
     // Return the employee type to the GUI
+    System.out.println("Object is ready");
     this.requestedPacketReceived = false;
+    System.out.println("Received " + ((Packet) this.object).getItem());
     this.otherUpdate = true;
     return ((Packet) this.object).getItem();
   }
@@ -261,10 +278,13 @@ public class Client implements Runnable {
     this.send(requestType, item);
 
     // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to request" + requestType + "...");
     while (!this.requestedPacketReceived) ;
 
     // Return the employee type to the GUI
+    System.out.println("Object is ready");
     this.requestedPacketReceived = false;
+    System.out.println("Received " + ((Packet) this.object).getItem());
     this.otherUpdate = true;
     return ((Packet) this.object).getItem();
   }
@@ -280,9 +300,11 @@ public class Client implements Runnable {
     this.send(Packet.LOGINREQUEST, Integer.parseInt(id));
 
     // Waiting for Server to respond
+    System.out.println("Waiting for ComputerServer to respond to log in request...");
     while (!this.requestedPacketReceived) ;
 
     // Return the employee type to the GUI
+    System.out.println("Employee Type is ready");
     this.requestedPacketReceived = false;
     int employeeType = (int) ((Packet) this.object).getItem();
     if (employeeType != Packet.LOGINFAILED) {
@@ -312,10 +334,13 @@ public class Client implements Runnable {
     this.send(Packet.ADJUSTINGREDIENT, new Object[]{dishIngredients, shouldSubtractQuantity});
 
     // Waiting for the Server to respond
+    System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
     while (!this.requestedPacketReceived) ;
 
     this.requestedPacketReceived = false;
     Packet packet = (Packet) this.object;
+
+    System.out.println("Received " + packet.getItem());
 
     HashMap newDisplayQuantity = (HashMap) packet.getItem();
     MenuController menuController = (MenuController) controllers.get("menuController");
@@ -336,11 +361,13 @@ public class Client implements Runnable {
     this.send(Packet.ADJUSTINDIVIDUALINGREDIENT, new Object[]{ingredient, quantity});
 
     // Waiting for the Server to respond
+    System.out.println("Waiting for ComputerServer to respond to ingredient adjustment...");
     while (!this.requestedPacketReceived) ;
 
     this.requestedPacketReceived = false;
     Packet packet = (Packet) this.object;
 
+    System.out.println("Received " + packet.getItem());
 
     HashMap newDisplayQuantity = (HashMap) packet.getItem();
     MenuController menuController = (MenuController) controllers.get("menuController");
@@ -427,6 +454,7 @@ public class Client implements Runnable {
 //    // Give a shut down warning by freezing everything
     StartSceneController controller = (StartSceneController)controllers.get("startController");
     controller.shut();
+    System.out.println("~~~ Shutting down in 3 seconds ~~~");
     try {
       Thread.sleep(3000);
     } catch (InterruptedException e) {
@@ -461,6 +489,8 @@ public class Client implements Runnable {
       if (this.connected) {
         Thread t = new Thread(this);
         t.start();
+      } else {
+        System.err.println("Could not connect to server");
       }
     }
   }
