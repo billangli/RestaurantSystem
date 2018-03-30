@@ -1,6 +1,7 @@
 package backend.server;
 
 import backend.employee.*;
+import backend.logger.ComputerServerLogger;
 import backend.logger.RestaurantLogger;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class ComputerServer implements Runnable {
   private static ComputerServer instance = new ComputerServer();
 
   // Logger
-  private static Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
+  static Logger logger = Logger.getLogger(ComputerServerLogger.class.getName());
 
   // Client-server variables
   private ServerSocket serverSocket;

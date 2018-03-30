@@ -8,6 +8,7 @@ import backend.event.EventManager;
 import backend.inventory.Inventory;
 import backend.inventory.InventoryIngredient;
 import backend.inventory.Menu;
+import backend.logger.ComputerServerLogger;
 import backend.logger.RestaurantLogger;
 import backend.server.ComputerServer;
 import backend.table.TableManager;
@@ -21,9 +22,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.logging.Logger;
 
-/**
- * the backend server that require to be run before anything else
- */
+/** the backend server that require to be run before anything else */
 public class RestaurantSystem extends Application {
   public static final Logger logger = Logger.getLogger(RestaurantLogger.class.getName());
   public static ComputerServer computerServer;
@@ -51,7 +50,7 @@ public class RestaurantSystem extends Application {
         BufferedWriter bw;
 
         logger.config(
-                "starter.txt has been created successfully with default 10 backend.table, 1 server, 1 cook, and 1 manager");
+            "starter.txt has been created successfully with default 10 backend.table, 1 server, 1 cook, and 1 manager");
 
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
@@ -111,7 +110,7 @@ public class RestaurantSystem extends Application {
         String[] item = line.split(",");
         int threshold = Integer.parseInt(item[2]);
         InventoryIngredient inventoryIngredient =
-                new InventoryIngredient(item[0], Integer.parseInt(item[1]), threshold);
+            new InventoryIngredient(item[0], Integer.parseInt(item[1]), threshold);
         inventory.add(inventoryIngredient);
         line = fileReader.readLine();
       }
@@ -147,6 +146,7 @@ public class RestaurantSystem extends Application {
 
   /**
    * display the GUI
+   *
    * @param primaryStage the stage that display the GUI
    * @throws IOException for loading the GUI
    */
@@ -171,6 +171,7 @@ public class RestaurantSystem extends Application {
 
   public static void main(String[] args) throws IOException {
     RestaurantLogger.init();
+    ComputerServerLogger.init();
     startBackEnd();
     EventManager.setRunning(true);
     Thread eventThread = new Thread(new EventManager());
