@@ -33,6 +33,9 @@ public class Server extends ServiceEmployee {
    * Enters orders of customers on certain backend.table. The order is then sent to cook.
    *
    * <p>Customers should take seat before ordering food.
+   *
+   * @param table the table which made orders.
+   * @param order the orders that the customers in <code>table</code> made.
    */
   public void enterMenu(Table table, Order order) {
     // Add order to the backend.table and relate all the dish to the backend.table.
@@ -48,7 +51,11 @@ public class Server extends ServiceEmployee {
     }
   }
 
-  /** Successfully delivers dish to the backend.table. */
+  /**
+   * Successfully delivers dish to the backend.table.
+   *
+   * @param dishNumber the number of dish that is delivered successfully.
+   */
   public void deliverDishCompleted(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
     if (dish != null) {
@@ -66,7 +73,11 @@ public class Server extends ServiceEmployee {
     }
   }
 
-  /** Delivers dish to the backend.table, but the customer requests to put the dish back. */
+  /**
+   * Delivers dish to the backend.table, but the customer requests to put the dish back.
+   *
+   * @param dishNumber the number of dish that failed to be delivered.
+   */
   public void deliverDishFailed(int dishNumber) {
     Dish dish = orderQueue.dishDelivered(dishNumber);
     if (dish != null) {
@@ -88,7 +99,7 @@ public class Server extends ServiceEmployee {
    * @param table The backend.table which asked to have their bill.
    */
   public void printBill(Table table) {
-      //logger.info(table.printBill());//TODO to be fixed
+    // logger.info(table.printBill());//TODO to be fixed
   }
 
   /**

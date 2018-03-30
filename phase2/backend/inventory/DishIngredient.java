@@ -3,8 +3,6 @@ package backend.inventory;
 /**
  * The DishIngredient class represents the ingredients used in a Dish
  *
- * <p>
- *
  * <p>DishIngredient methods include checking whether a suggested quantity for the DishIngredient in
  * the Dish is acceptable as per the minimum and maximum quantity stipulated in each Dish
  */

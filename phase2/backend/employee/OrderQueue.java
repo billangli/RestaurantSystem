@@ -3,6 +3,7 @@ package backend.employee;
 import backend.inventory.Dish;
 import backend.logger.RestaurantLogger;
 import backend.table.Order;
+
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -36,8 +37,8 @@ public class OrderQueue {
    */
   public void addOrderInQueue(Order order) {
     OrdersInQueue.add(order);
-    for (Dish d: order.getDishes()) {
-        d.setStatus("In queue");
+    for (Dish d : order.getDishes()) {
+      d.setStatus("In queue");
     }
   }
 
@@ -59,8 +60,8 @@ public class OrderQueue {
               + ", list of dishes: "
               + order.dishesToString());
       DishesInProgress.addAll(order.getDishes());
-      for (Dish d: order.getDishes()) {
-          d.setStatus("In progress");
+      for (Dish d : order.getDishes()) {
+        d.setStatus("In progress");
       }
     }
   }
@@ -118,6 +119,8 @@ public class OrderQueue {
    *
    * <p>Note that the dish can also be put back by customer's request.
    *
+   * @param dishNumber number of dish that is being delivered. Note that deliver can be done either
+   *     successfully or failed.
    * @return dish that is being delivered, null if there is no dish to be delivered.
    */
   public Dish dishDelivered(int dishNumber) {
@@ -145,6 +148,7 @@ public class OrderQueue {
 
   /**
    * Returns the linked list of Orders in the the Queue
+   *
    * @return the Orders in the the Queue
    */
   public LinkedList<Order> getOrdersInQueue() {
@@ -153,6 +157,7 @@ public class OrderQueue {
 
   /**
    * Returns the linked list of Dishes in progress (i.e., being prepared by the cook)
+   *
    * @return the linked list of Dishes in progress (i.e., being prepared by the cook)
    */
   public LinkedList<Dish> getDishesInProgress() {
@@ -161,6 +166,7 @@ public class OrderQueue {
 
   /**
    * Returns the linked list of Dishes completed by the cook and are ready to be delivered
+   *
    * @return the linked list of Dishes completed by the cook and are ready to be delivered
    */
   public LinkedList<Dish> getDishesCompleted() {

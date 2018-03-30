@@ -25,8 +25,8 @@ public class StartSceneController {
   /**
    * submit your id and confirm your identity
    *
-   * @param event
-   * @throws IOException
+   * @param event The event when this method is called.
+   * @throws IOException IOException
    */
   @FXML
   protected void handleSubmitButtonAction(ActionEvent event) throws IOException {

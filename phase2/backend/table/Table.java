@@ -44,6 +44,7 @@ public class Table implements Serializable {
   /**
    * serves this backend.table
    *
+   * @param numOfCustomer number of customers sitting on this table
    * @param server the server that serving this backend.table
    */
   public void serve(Server server, int numOfCustomer) {
@@ -102,11 +103,11 @@ public class Table implements Serializable {
   public ArrayList<Dish> getAllDeliveredDishes() {
     ArrayList<Dish> dishes = new ArrayList<>();
     for (Order order : this.order) {
-        for (Dish d: order.getDishes()) {
-            if (d.hasBeenDelivered()) {
-                dishes.add(d);
-            }
+      for (Dish d : order.getDishes()) {
+        if (d.hasBeenDelivered()) {
+          dishes.add(d);
         }
+      }
     }
     return dishes;
   }

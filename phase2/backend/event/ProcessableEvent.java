@@ -16,8 +16,9 @@ import java.util.logging.Logger;
 import static backend.RestaurantSystem.computerServer;
 
 /**
- * EventProcessor - This takes and backend.event and calls the appropriate method with the parameters
- * <p>
+ * EventProcessor - This takes and backend.event and calls the appropriate method with the
+ * parameters
+ *
  * <p>Created by Ang Li on Mar. 1st, 2018
  */
 public class ProcessableEvent extends Event {
@@ -33,17 +34,15 @@ public class ProcessableEvent extends Event {
    * Constructor for ProcessableEvent
    *
    * @param employeeType is the type of employee
-   * @param employeeID   is the employee ID
-   * @param methodName   is the name of the method to call
-   * @param parameters   are parameters required by the method call
+   * @param employeeID is the employee ID
+   * @param methodName is the name of the method to call
+   * @param parameters are parameters required by the method call
    */
   public ProcessableEvent(int employeeType, int employeeID, int methodName, ArrayList parameters) {
     super(employeeType, employeeID, methodName, parameters);
   }
 
-  /**
-   * Find which type of Employee to cast this backend.employee to and call their methods
-   */
+  /** Find which type of Employee to cast this backend.employee to and call their methods */
   @Override
   void process() {
     System.out.println("An event is being processed");
@@ -56,9 +55,11 @@ public class ProcessableEvent extends Event {
         employee.receiveIngredient(ingredientName, quantity);
         System.err.println("Null Pointer Exception: Employee cannot be null");
       }
-      HashMap<String, Integer> newRunningQuantities= new HashMap<>();
-      newRunningQuantities.put(ingredientName, inventory.getIngredient(ingredientName).getRunningQuantity());
-      computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newRunningQuantities);
+      HashMap<String, Integer> newRunningQuantities = new HashMap<>();
+      newRunningQuantities.put(
+          ingredientName, inventory.getIngredient(ingredientName).getRunningQuantity());
+      computerServer.broadcast(
+          Packet.SERVERTYPE, Packet.RECEIVERUNNINGQUANTITYADJUSTMENT, newRunningQuantities);
     } else {
 
       switch (this.employeeType) {
@@ -67,7 +68,7 @@ public class ProcessableEvent extends Event {
             this.processCookEvent((Cook) employee);
           } else {
             logger.warning(
-                    "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
+                "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
           }
           break;
         case Packet.MANAGERTYPE:
@@ -75,7 +76,7 @@ public class ProcessableEvent extends Event {
             this.processManagerEvent((Manager) employee);
           } else {
             logger.warning(
-                    "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
+                "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
           }
           break;
         case Packet.SERVERTYPE:
@@ -83,7 +84,7 @@ public class ProcessableEvent extends Event {
             this.processServerEvent((Server) employee);
           } else {
             logger.warning(
-                    "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
+                "*** Employee #" + this.employeeID + " is not a " + this.employeeType + " ***");
           }
           break;
         default:
@@ -105,13 +106,16 @@ public class ProcessableEvent extends Event {
         computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEORDERSINQUEUE, ordersInQueue);
         computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESINPROGRESS, dishesInProgress);
         break;
-      case Packet.DISHREADY: {
-        int dishNumber = (int) this.parameters.get(0);
-        cook.dishReady(dishNumber);
-        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEDISHESINPROGRESS, dishesInProgress);
-        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
-        break;
-      }
+      case Packet.DISHREADY:
+        {
+          int dishNumber = (int) this.parameters.get(0);
+          cook.dishReady(dishNumber);
+          computerServer.broadcast(
+              Packet.COOKTYPE, Packet.RECEIVEDISHESINPROGRESS, dishesInProgress);
+          computerServer.broadcast(
+              Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
+          break;
+        }
       default:
         logger.warning("*** Cook has no " + this.methodName + " method ***");
         break;
@@ -141,47 +145,57 @@ public class ProcessableEvent extends Event {
    */
   private void processServerEvent(Server server) {
     switch (this.methodName) {
-      case Packet.TAKESEAT: {
-        int tableNumber = (int) this.parameters.get(0) - 1;
-        int numberOfCustomers = (int) this.parameters.get(1);
-        Table table = TableManager.getTable(tableNumber);
-        server.takeSeat(table, numberOfCustomers);
-        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
-        break;
-      }
-      case Packet.ENTERMENU: {
-        int tableNumber = (int) this.parameters.get(0) - 1;
-        Table table = TableManager.getTable(tableNumber);
-        Order order = (Order) this.parameters.get(1);
-        server.enterMenu(table, order);
-        computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEORDERSINQUEUE, ordersInQueue);
-        break;
-      }
-      case Packet.DELIVERDISHCOMPLETED: {
-        int dishNumber = (int) this.parameters.get(0);
-        server.deliverDishCompleted(dishNumber);
-        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
-        break;
-      }
-      case Packet.DELIVERDISHFAILED: {
-        int dishNumber = (int) this.parameters.get(0);
-        server.deliverDishFailed(dishNumber);
-        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
-        break;
-      }
-      case Packet.PRINTBILL: {
-        int tableNumber = (int) this.parameters.get(0) - 1;
-        Table table = TableManager.getTable(tableNumber);
-        server.printBill(table);
-        break;
-      }
-      case Packet.CLEARTABLE: {
-        int tableNumber = (int) this.parameters.get(0) - 1;
-        Table table = TableManager.getTable(tableNumber);
-        server.clearTable(table);
-        computerServer.broadcast(Packet.SERVERTYPE, Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
-        break;
-      }
+      case Packet.TAKESEAT:
+        {
+          int tableNumber = (int) this.parameters.get(0) - 1;
+          int numberOfCustomers = (int) this.parameters.get(1);
+          Table table = TableManager.getTable(tableNumber);
+          server.takeSeat(table, numberOfCustomers);
+          computerServer.broadcast(
+              Packet.SERVERTYPE, Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
+          break;
+        }
+      case Packet.ENTERMENU:
+        {
+          int tableNumber = (int) this.parameters.get(0) - 1;
+          Table table = TableManager.getTable(tableNumber);
+          Order order = (Order) this.parameters.get(1);
+          server.enterMenu(table, order);
+          computerServer.broadcast(Packet.COOKTYPE, Packet.RECEIVEORDERSINQUEUE, ordersInQueue);
+          break;
+        }
+      case Packet.DELIVERDISHCOMPLETED:
+        {
+          int dishNumber = (int) this.parameters.get(0);
+          server.deliverDishCompleted(dishNumber);
+          computerServer.broadcast(
+              Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
+          break;
+        }
+      case Packet.DELIVERDISHFAILED:
+        {
+          int dishNumber = (int) this.parameters.get(0);
+          server.deliverDishFailed(dishNumber);
+          computerServer.broadcast(
+              Packet.SERVERTYPE, Packet.RECEIVEDISHESCOMPLETED, dishesCompleted);
+          break;
+        }
+      case Packet.PRINTBILL:
+        {
+          int tableNumber = (int) this.parameters.get(0) - 1;
+          Table table = TableManager.getTable(tableNumber);
+          server.printBill(table);
+          break;
+        }
+      case Packet.CLEARTABLE:
+        {
+          int tableNumber = (int) this.parameters.get(0) - 1;
+          Table table = TableManager.getTable(tableNumber);
+          server.clearTable(table);
+          computerServer.broadcast(
+              Packet.SERVERTYPE, Packet.RECEIVETABLEOCCUPANCY, TableManager.getTableOccupancy());
+          break;
+        }
       default:
         logger.warning("*** ComputerServer has no " + this.methodName + " method ***");
         break;

@@ -21,8 +21,8 @@ public class SceneFactory {
    *
    * @param type the type of this employee
    * @param id the id of the employee
-   * @return
-   * @throws IOException
+   * @return the corresponding scene for employee
+   * @throws IOException IOException
    */
   public Scene createScene(int type, int id) throws IOException {
     Scene scene = null;
