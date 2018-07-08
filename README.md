@@ -2,7 +2,7 @@
 CSC207 Project
 
 ## Overview
-A Java program that keeps track of customer orders, inventory and human resources of a restaurant
+Restaurant System is a Java-based program that tracks customer orders, inventory, and employees for restaurants. 
 
 ## Roles
 * Bill: Networking, event handling
@@ -18,11 +18,11 @@ A Java program that keeps track of customer orders, inventory and human resource
 ### Setup
 
 ### Networking
-* This project uses the client-server model where the server keeps a master copy of the data and each client is an instance of an employee
-* The client keeps a local copy of inventory data to make sure commands are valid and requests a change in the server every time a change is made
-* The server then broadcasts the changes to all clients
-* We created a Packet object that contains an item and a protocol that represents what the message contains
-* The clients and server communicate via serialized Packets
+* Restaurant System uses a client-server model. The server stores a master copy of the data and each employee is a client.
+* The client keeps a local copy of the inventory data to ensure queries are valid. All changes in data are submitted to the server.
+* The server broadcasts the edited data to all of the clients.
+* A Packet object stores a data item and a protocol, and is used to represent a message unit. 
+* The clients and server communicate via serialized Packets.
 
 ### Design Patterns
 * Model View Controller (for the user interface)
