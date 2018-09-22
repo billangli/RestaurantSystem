@@ -7,7 +7,7 @@ Restaurant System is a Java-based program that tracks customer orders, inventory
 ## Roles
 * Bill: Networking, event handling
 * Donghee: 
-* Jerry: 
+* Jerry: Frontend GUI, Backend coding
 * Justin:
 
 ### Special Features
